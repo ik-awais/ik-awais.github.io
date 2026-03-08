@@ -1,0 +1,23 @@
+{{ define "main" }}
+
+<section class="project-detail">
+
+<h1>{{ .Title }}</h1>
+
+<div class="tags">
+{{ range .Params.tags }}
+<span>{{ . }}</span>
+{{ end }}
+</div>
+
+<div class="project-body">
+{{ .Content }}
+</div>
+
+<a class="github-btn" href="{{ .Params.github }}" target="_blank">
+View on GitHub
+</a>
+
+</section>
+
+{{ end }}

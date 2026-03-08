@@ -1,0 +1,36 @@
+{{ define "main" }}
+
+<section class="projects">
+
+<h2>AI & Software Projects</h2>
+
+<div class="project-grid">
+
+{{ range .Pages }}
+
+<div class="project-card">
+
+<h3>{{ .Title }}</h3>
+
+<p>{{ .Params.description }}</p>
+
+<div class="tags">
+{{ range .Params.tags }}
+<span>{{ . }}</span>
+{{ end }}
+</div>
+
+<div class="project-links">
+<a href="{{ .Params.github }}" target="_blank">GitHub</a>
+<a href="{{ .RelPermalink }}">Details</a>
+</div>
+
+</div>
+
+{{ end }}
+
+</div>
+
+</section>
+
+{{ end }}

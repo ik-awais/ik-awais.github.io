@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>{{ .Site.Title }}</title>
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="/">Muhammad Awais</a>
+    </div>
+    <div class="nav-right">
+      <a href="/">Home</a>
+      <a href="/projects/">Projects</a>
+      <a href="https://github.com/ik-awais" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com/in/muhammad-awais-ai-engineer/" target="_blank">LinkedIn</a>
+    </div>
+  </nav>
+
+  {{ block "main" . }}{{ end }}
+  <footer class="footer">
+    <p>© 2026 Muhammad Awais • Built with Hugo</p>
+  </footer>
+</body>
+</html>

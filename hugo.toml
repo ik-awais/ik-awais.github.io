@@ -1,0 +1,20 @@
+# hugo.toml
+
+baseURL = "/"
+languageCode = "en-us"
+title = "Muhammad Awais — AI Developer"
+
+# No external theme. All layouts are custom.
+
+[params]
+  author = "Muhammad Awais"
+  description = "AI Developer Portfolio"
+
+[build]
+  [build.buildStats]
+    enable = true
+
+[minify]
+  minifyOutput = true
+[taxonomies]
+  # Disabled — we don't use categories or tags yet
