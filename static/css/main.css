@@ -37,8 +37,8 @@
   --grid-color:    rgba(0, 100, 160, 0.045);
   --noise-opacity: 0.08;
   --shadow:        rgba(0, 0, 0, 0.1);
-  --code-bg:       #1e2433;
-  --code-text:     #a8d8ea;
+  --code-bg:       #1e1e2e;
+  --code-text:     #cdd6f4;
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -331,7 +331,7 @@ nav.scrolled {
   transition: opacity 0.3s, transform 0.3s;
   filter: grayscale(1);
 }
-[data-theme="light"] .scroll-track img { opacity: 0.6; filter: grayscale(0.3); }
+[data-theme="light"] .scroll-track img { opacity: 1; filter: grayscale(0); }
 .scroll-track img:hover { opacity: 1; transform: scale(1.15); filter: grayscale(0); }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -641,11 +641,12 @@ footer p { font-size: 11px; color: var(--muted); letter-spacing: 0.08em; }
   font-style: italic;
 }
 [data-theme="light"] .single-body blockquote {
-  background: rgba(0, 112, 168, 0.05);
-  border-left-color: var(--accent);
+  background: #eef6fb;
+  border-left-color: #0077aa;
+  border-left-width: 4px;
 }
 .single-body blockquote p { color: var(--text-secondary); margin-bottom: 0; }
-[data-theme="light"] .single-body blockquote p { color: #4b5563; }
+[data-theme="light"] .single-body blockquote p { color: #374151; }
 
 /* CODE — inline */
 .single-body code {
@@ -656,9 +657,9 @@ footer p { font-size: 11px; color: var(--muted); letter-spacing: 0.08em; }
   border-radius: 3px;
 }
 [data-theme="light"] .single-body code {
-  background: rgba(0, 112, 168, 0.08);
-  border-color: rgba(0, 112, 168, 0.2);
-  color: #005580;
+  background: #f0f0f0;
+  border-color: #d0d0d8;
+  color: #c7254e;
 }
 
 /* CODE — block */
@@ -669,9 +670,17 @@ footer p { font-size: 11px; color: var(--muted); letter-spacing: 0.08em; }
   padding: 20px 24px;
   overflow-x: auto; margin: 24px 0; line-height: 1.6;
 }
+[data-theme="light"] .single-body pre {
+  background: #1e1e2e;
+  border-color: #2a2a3e;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+}
 .single-body pre code {
   background: transparent; color: var(--code-text);
   font-size: 13px; padding: 0; border: none; border-radius: 0;
+}
+[data-theme="light"] .single-body pre code {
+  color: #cdd6f4;
 }
 
 /* TABLE */
@@ -788,4 +797,20 @@ footer p { font-size: 11px; color: var(--muted); letter-spacing: 0.08em; }
 /* Remove the outer nav wrapper Hugo adds */
 .toc-nav > nav {
   display: contents;
+}
+
+/* ── CODE BLOCK HEADER BAR (light mode) ─────────────────────── */
+[data-theme="light"] .single-body pre {
+  position: relative;
+}
+[data-theme="light"] .single-body pre::before {
+  content: '● ● ●';
+  display: block;
+  color: #4a4a6a;
+  font-size: 10px;
+  letter-spacing: 4px;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #2a2a3e;
+  opacity: 0.6;
 }
