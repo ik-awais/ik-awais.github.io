@@ -135,6 +135,10 @@
       </div>
     </div>
     <div class="contact-form reveal" style="transition-delay:0.2s">
+	<!-- HONEYPOT, to avoid invalid emails -->
+	<div class="f-honeypot" aria-hidden="true">
+    		<input type="text" id="f-honeypot" name="honeypot" tabindex="-1" autocomplete="off">
+  	</div>
       <div class="form-group">
         <label class="form-label">Name</label>
         <input type="text" id="f-name" class="form-input" placeholder="Your name" required>
