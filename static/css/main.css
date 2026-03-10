@@ -57,7 +57,7 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   CUSTOM CURSOR
+   CUSTOM CURSOR — desktop only
 ═══════════════════════════════════════════════════════════════ */
 .cursor {
   position: fixed;
@@ -81,6 +81,13 @@ body {
   transition: all 0.15s ease;
 }
 [data-theme="light"] .cursor-ring { border-color: rgba(0, 112, 168, 0.35); }
+
+/* Hide custom cursor on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .cursor, .cursor-ring { display: none !important; }
+  body { cursor: auto !important; }
+  * { cursor: auto !important; }
+}
 
 /* ═══════════════════════════════════════════════════════════════
    BACKGROUND OVERLAYS
@@ -813,4 +820,10 @@ footer p { font-size: 11px; color: var(--muted); letter-spacing: 0.08em; }
   padding-bottom: 12px;
   border-bottom: 1px solid #2a2a3e;
   opacity: 0.6;
+}
+
+/* Small phones */
+@media (max-width: 400px) {
+  .hero h1 { font-size: 36px; }
+  .nav-links a:not(.cta-btn):not(.theme-toggle) { display: none; }
 }

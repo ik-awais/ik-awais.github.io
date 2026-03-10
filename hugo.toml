@@ -11,11 +11,11 @@ title = "Muhammad Awais — AI Developer"
     unsafe = true
 
 [params]
-  author     = "Muhammad Awais"
-  email      = "mawaisqq@gmail.com"
-  github     = "https://github.com/ik-awais"
-  linkedin   = "https://www.linkedin.com/in/muhammad-awais-ai-engineer/"
-  formspreeID = ""
+  author      = "Muhammad Awais"
+  email       = "mawaisqq@gmail.com"
+  github      = "https://github.com/ik-awais"
+  linkedin    = "https://www.linkedin.com/in/muhammad-awais-ai-engineer/"
+  formspreeID = "xvzwzlre"
 
 [taxonomies]
   tag = "tags"
