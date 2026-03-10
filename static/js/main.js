@@ -82,7 +82,6 @@ if (statsBar) {
 }
 
 // ── EMAIL VALIDATION ────────────────────────────────────────────────────
-// Disposable/throwaway email domain blocklist
 const BLOCKED_DOMAINS = new Set([
   'mailinator.com','guerrillamail.com','tempmail.com','throwam.com',
   'sharklasers.com','guerrillamailblock.com','grr.la','guerrillamail.info',
@@ -92,79 +91,63 @@ const BLOCKED_DOMAINS = new Set([
   'moncourrier.fr.nf','monemail.fr.nf','monmail.fr.nf','dispostable.com',
   'mailnull.com','maildrop.cc','discard.email','spamgourmet.com',
   'spamgourmet.net','spamgourmet.org','spamspot.com','spamthis.co.uk',
-  'tempinbox.com','filzmail.com','throwam.com','getairmail.com',
-  'fakeinbox.com','mailnesia.com','mailnull.com','spamfree24.org',
-  'spamfree24.de','spamfree24.eu','spamfree24.info','spamfree24.net',
-  'spamfree.eu','spamhole.com','spaml.com','tempail.com','tempemail.net',
-  'tempr.email','tempomail.fr','temporarily.de','thanksnospam.info',
-  'throwam.com','trbvm.com','trashdevil.com','trashdevil.de',
+  'tempinbox.com','filzmail.com','getairmail.com','fakeinbox.com',
+  'mailnesia.com','spamfree24.org','spamfree24.de','spamfree24.eu',
+  'spamfree24.info','spamfree24.net','spamfree.eu','spamhole.com',
+  'spaml.com','tempail.com','tempemail.net','tempr.email','tempomail.fr',
+  'temporarily.de','thanksnospam.info','trbvm.com','trashdevil.com',
+  'trashdevil.de',
 ]);
 
 function validateEmail(email) {
-  // Must have exactly one @
   const parts = email.split('@');
-  if (parts.length !== 2) return { valid: false, reason: 'Email must contain exactly one @ symbol.' };
+  if (parts.length !== 2)
+    return { valid: false, reason: 'Email must contain exactly one @ symbol.' };
 
   const [local, domain] = parts;
 
-  // Local part checks
-  if (local.length < 1)  return { valid: false, reason: 'Email address is incomplete.' };
-  if (local.length > 64) return { valid: false, reason: 'Email local part is too long.' };
-
-  // Domain checks
-  if (!domain.includes('.')) return { valid: false, reason: 'Email domain must contain a dot (e.g. gmail.com).' };
+  if (local.length < 1)
+    return { valid: false, reason: 'Email address is incomplete.' };
+  if (local.length > 64)
+    return { valid: false, reason: 'Email local part is too long.' };
+  if (!domain.includes('.'))
+    return { valid: false, reason: 'Email domain must contain a dot (e.g. gmail.com).' };
 
   const domainParts = domain.split('.');
   const tld = domainParts[domainParts.length - 1];
 
-  if (tld.length < 2)  return { valid: false, reason: 'Email has an invalid domain extension.' };
-  if (tld.length > 12) return { valid: false, reason: 'Email has an unusually long domain extension.' };
-
-  // Each domain part must have at least 1 character
-  if (domainParts.some(p => p.length === 0)) {
+  if (tld.length < 2)
+    return { valid: false, reason: 'Email has an invalid domain extension.' };
+  if (tld.length > 12)
+    return { valid: false, reason: 'Email has an unusually long domain extension.' };
+  if (domainParts.some(p => p.length === 0))
     return { valid: false, reason: 'Email domain format is invalid.' };
-  }
-
-  // Domain must be at least 3 chars before the dot (e.g. "a.co" is suspicious, "gmail.com" is fine)
-  if (domain.length < 4) return { valid: false, reason: 'Email domain is too short to be valid.' };
-
-  // Block disposable domains
-  const domainLower = domain.toLowerCase();
-  if (BLOCKED_DOMAINS.has(domainLower)) {
+  if (domain.length < 4)
+    return { valid: false, reason: 'Email domain is too short to be valid.' };
+  if (BLOCKED_DOMAINS.has(domain.toLowerCase()))
     return { valid: false, reason: 'Disposable email addresses are not accepted.' };
-  }
 
-  // RFC-ish local part: only allow valid characters
   const localRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+$/;
-  if (!localRegex.test(local)) {
+  if (!localRegex.test(local))
     return { valid: false, reason: 'Email contains invalid characters.' };
-  }
-
-  // No consecutive dots
-  if (local.includes('..') || domain.includes('..')) {
+  if (local.includes('..') || domain.includes('..'))
     return { valid: false, reason: 'Email contains consecutive dots which is invalid.' };
-  }
-
-  // Local part cannot start or end with a dot
-  if (local.startsWith('.') || local.endsWith('.')) {
+  if (local.startsWith('.') || local.endsWith('.'))
     return { valid: false, reason: 'Email local part cannot start or end with a dot.' };
-  }
 
   return { valid: true };
 }
 
 // ── RATE LIMITING (client-side) ─────────────────────────────────────────
-// Prevent rapid repeated submissions from the same session
-const RATE_LIMIT_MS  = 60000; // 1 minute between submissions
-const MAX_ATTEMPTS   = 3;     // max 3 attempts per session
-let lastSubmitTime   = 0;
-let submitAttempts   = 0;
+const RATE_LIMIT_MS = 60000;
+const MAX_ATTEMPTS  = 3;
+let lastSubmitTime  = 0;
+let submitAttempts  = 0;
 
 function checkRateLimit() {
   const now = Date.now();
-  if (submitAttempts >= MAX_ATTEMPTS) {
+  if (submitAttempts >= MAX_ATTEMPTS)
     return { allowed: false, reason: `Maximum ${MAX_ATTEMPTS} messages per session reached. Please email me directly.` };
-  }
   if (now - lastSubmitTime < RATE_LIMIT_MS && lastSubmitTime !== 0) {
     const wait = Math.ceil((RATE_LIMIT_MS - (now - lastSubmitTime)) / 1000);
     return { allowed: false, reason: `Please wait ${wait}s before sending another message.` };
@@ -174,20 +157,18 @@ function checkRateLimit() {
 
 // ── CONTACT FORM ────────────────────────────────────────────────────────
 async function sendForm(FORMSPREE_ID) {
-  const nameEl      = document.getElementById('f-name');
-  const emailEl     = document.getElementById('f-email');
-  const messageEl   = document.getElementById('f-message');
-  const honeypotEl  = document.getElementById('f-honeypot');
-  const status      = document.getElementById('formStatus');
-  const btn         = document.getElementById('submitBtn');
+  const nameEl     = document.getElementById('f-name');
+  const emailEl    = document.getElementById('f-email');
+  const messageEl  = document.getElementById('f-message');
+  const honeypotEl = document.getElementById('f-honeypot');
+  const status     = document.getElementById('formStatus');
+  const btn        = document.getElementById('submitBtn');
 
-  // Reset
   status.className   = 'form-status';
   status.textContent = '';
 
-  // Honeypot — bots fill this, humans don't see it
+  // Honeypot — silently discard bot submissions
   if (honeypotEl && honeypotEl.value !== '') {
-    // Silently pretend success to confuse bots
     status.textContent = '✓ Message sent!';
     status.className   = 'form-status success';
     return;
@@ -197,21 +178,17 @@ async function sendForm(FORMSPREE_ID) {
   const email   = emailEl.value.trim();
   const message = messageEl.value.trim();
 
-  // Field presence
   if (!name || !email || !message) {
     status.textContent = '⚠ Please fill in all fields.';
     status.className   = 'form-status error';
     return;
   }
-
-  // Name sanity
   if (name.length < 2) {
     status.textContent = '⚠ Please enter your full name.';
     status.className   = 'form-status error';
     return;
   }
 
-  // Deep email validation
   const emailCheck = validateEmail(email);
   if (!emailCheck.valid) {
     status.textContent = `⚠ ${emailCheck.reason}`;
@@ -220,20 +197,17 @@ async function sendForm(FORMSPREE_ID) {
     return;
   }
 
-  // Message length
   if (message.length < 10) {
     status.textContent = '⚠ Message is too short. Please tell me more.';
     status.className   = 'form-status error';
     return;
   }
-
   if (message.length > 2000) {
     status.textContent = '⚠ Message is too long (max 2000 characters).';
     status.className   = 'form-status error';
     return;
   }
 
-  // Rate limit check
   const rateCheck = checkRateLimit();
   if (!rateCheck.allowed) {
     status.textContent = `⚠ ${rateCheck.reason}`;
@@ -241,47 +215,48 @@ async function sendForm(FORMSPREE_ID) {
     return;
   }
 
-  // Loading
+  if (!FORMSPREE_ID || FORMSPREE_ID === 'YOUR_FORM_ID' || FORMSPREE_ID === '') {
+    status.textContent = '✓ [Demo mode] Add Formspree ID to hugo.toml.';
+    status.className   = 'form-status success';
+    return;
+  }
+
   btn.disabled       = true;
   btn.textContent    = 'Sending...';
   status.textContent = 'Sending your message...';
   status.className   = 'form-status loading';
 
-  if (!FORMSPREE_ID || FORMSPREE_ID === 'YOUR_FORM_ID' || FORMSPREE_ID === '') {
-    setTimeout(() => {
-      status.textContent = '✓ [Demo mode] Add Formspree ID to hugo.toml to enable sending.';
-      status.className   = 'form-status success';
-      btn.disabled       = false;
-      btn.textContent    = 'Send Message →';
-    }, 800);
-    return;
-  }
-
   try {
-    const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+    // Use FormData (not JSON) so Formspree's reCAPTCHA validation works.
+    // Formspree's reCAPTCHA runs server-side when it receives multipart/form-data.
+    // JSON submissions bypass the reCAPTCHA pipeline entirely.
+    const formData = new FormData();
+    formData.append('name',    name);
+    formData.append('email',   email);
+    formData.append('message', message);
+
+    const res  = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
       method:  'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body:    JSON.stringify({ name, email, message })
+      headers: { 'Accept': 'application/json' },
+      body:    formData
     });
 
+    const data = await res.json().catch(() => ({}));
+
     if (res.ok) {
-      // Track submission
       lastSubmitTime = Date.now();
       submitAttempts++;
 
-      // Success state
-      status.textContent   = '✓ Message sent! I\'ll get back to you soon.';
+      status.textContent   = "✓ Message sent! I'll get back to you soon.";
       status.className     = 'form-status success';
       btn.textContent      = '✓ Sent';
       btn.style.background = 'var(--accent3)';
       btn.style.color      = '#fff';
 
-      // Clear fields
       nameEl.value    = '';
       emailEl.value   = '';
       messageEl.value = '';
 
-      // Reset button after 5s
       setTimeout(() => {
         btn.disabled         = false;
         btn.textContent      = 'Send Message →';
@@ -292,20 +267,22 @@ async function sendForm(FORMSPREE_ID) {
       }, 5000);
 
     } else {
-      const data = await res.json().catch(() => ({}));
-      throw new Error(data?.error || `Server responded with ${res.status}`);
+      const errMsg = data?.errors?.map(e => e.message).join(', ')
+                  || data?.error
+                  || `Error ${res.status}`;
+      throw new Error(errMsg);
     }
 
   } catch (err) {
     console.error('Form error:', err);
-    status.textContent = '✗ Failed to send. Please email me directly at mawaisqq@gmail.com';
+    status.textContent = `✗ ${err.message || 'Failed to send. Please email me directly at mawaisqq@gmail.com'}`;
     status.className   = 'form-status error';
     btn.disabled       = false;
     btn.textContent    = 'Send Message →';
   }
 }
 
-// Enter key on name/email
+// Enter key on name/email fields
 document.querySelectorAll('#f-name, #f-email').forEach(input => {
   input.addEventListener('keydown', e => {
     if (e.key === 'Enter') {
