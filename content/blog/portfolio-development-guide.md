@@ -1,6 +1,6 @@
 ---
 title: "How I Built My Portfolio Website with Hugo from Scratch"
-date: 2025-03-17
+date: 2026-03-17
 tags: ["Hugo", "Web Development", "CSS", "GitHub Pages", "CI/CD", "Portfolio"]
 summary: "A honest, detailed account of how I built my personal portfolio website from a single HTML file to a full Hugo-powered site with a blog, dark/light theme, animated UI, and automated deployment."
 draft: false

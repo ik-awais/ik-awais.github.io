@@ -1,6 +1,6 @@
 ---
 title: "Hypervisors, KVM & QEMU: A Complete Guide to Virtual Machines on Ubuntu 24.04 LTS"
-date: 2025-03-10
+date: 2025-10-10
 tags: ["KVM", "QEMU", "Virtualization", "Linux", "Windows 11", "Kali Linux", "Parrot OS", "virt-manager", "Hypervisors"]
 summary: "A deep-dive guide from theory to practice — setting up virt-manager on Ubuntu 24.04 LTS, installing Windows 11, Kali Linux, and Parrot OS as virtual machines, passing GPU drivers, defeating Secure Boot, and fixing every error along the way."
 author: "Muhammad Awais"
