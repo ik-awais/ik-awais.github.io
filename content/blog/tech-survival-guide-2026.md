@@ -9,6 +9,8 @@ Most people think being a "tech person" means writing code all day. It doesn't.
 
 The real divide in 2026 is not between programmers and non-programmers. It's between people who understand how technology works and people who just use it and hope for the best. One group fixes things in minutes. The other sends a Slack message asking someone else to figure it out.
 
+And here's the thing that surprises most people: according to Stack Overflow's 2025 Developer Survey, 58% of people currently working in tech do not have a computer science degree. The field is full of people who figured it out by doing, not by sitting in a classroom.
+
 This guide is for people willing to cross over.
 
 You don't need a degree. You don't need to become a developer. You just need to actually understand what's running underneath the things you use every day. Do that, and you become the person in your friend group, your office, your team that people come to when something breaks. That's the top 10%. It's not as far as you think.
@@ -25,11 +27,15 @@ Most people use Windows like a black box. They click things, wait, and hope. Tha
 
 On **Windows 11**, learn where things actually live. The filesystem starts at `C:\`. Your personal files are under `C:\Users\YourName\`. Open Task Manager when your laptop starts crawling and actually look at what's eating your RAM and CPU instead of just restarting. Learn that both Settings and Control Panel still exist and they're not the same thing. And understand that `.exe` files run programs, and you should not be running them from random websites or strangers on Discord.
 
-On **Linux**, which powers basically every server, cloud platform, AI tool, and serious developer machine on the planet, learn the basics. The filesystem starts at `/`. Your home folder is `/home/yourname`. Files don't have extensions that tell the system what to do with them, permissions do. Everything in Linux is a file, including hardware devices. That sounds weird until it clicks, and then a lot of other things make sense.
+On **Linux**, which powers 96.3% of the world's top one million web servers according to W3Techs (2025), learn the basics. The filesystem starts at `/`. Your home folder is `/home/yourname`. Files don't have extensions that tell the system what to do with them, permissions do. Everything in Linux is a file, including hardware devices. That sounds weird until it clicks, and then a lot of other things make sense.
 
 You don't need to switch to Linux full-time. But understanding it means you can work with servers, run tools, and not feel completely lost when you encounter a terminal, which you will.
 
+**Why this matters in practice:** Every major cloud provider, AWS, GCP, Azure, gives you a Linux machine by default when you spin up a server. If you have never touched Linux, your first encounter will be a blank terminal staring back at you with zero hand-holding.
+
 **Start here:** Download [Ubuntu](https://ubuntu.com) and install it in a free virtual machine using VirtualBox. Poke around for a week with no particular goal. Just get comfortable with the fact that it won't break anything important.
+
+**Prerequisite checkpoint:** Before moving on, you should know how to create a folder, navigate to it, create a file, and read its contents from the terminal. That's the floor.
 
 ---
 
@@ -38,6 +44,8 @@ You don't need to switch to Linux full-time. But understanding it means you can 
 The command line (people call it the terminal, shell, CLI, bash, or zsh, they mostly mean the same thing) is a text interface to your computer. Instead of clicking icons, you type commands.
 
 It looks intimidating. It's not. It's just a different way to talk to your machine, and honestly a more direct one. When you click a button, you're just telling the computer to run a command anyway. The command line skips the middleman.
+
+One important thing to know early: every major cloud platform assumes you are comfortable here. There is no "click to deploy" for most real infrastructure. The terminal is the interface.
 
 **The commands that actually matter:**
 
@@ -52,6 +60,8 @@ cat file    # print file contents to the screen
 grep "word" file   # search for text inside a file
 sudo        # run a command as administrator
 ```
+
+**One warning beginners learn the hard way:** `rm -rf /` deletes everything on your system with no confirmation and no undo. The `f` flag means force, no questions asked. Always double-check what you're deleting before you run `rm`.
 
 **Package managers** are how you install software from the command line. Think of them as an App Store but for your terminal, except free and with no pop-ups asking you to rate anything.
 
@@ -72,13 +82,22 @@ Ctrl + Z      # pause it
 
 The command line is the foundation for everything else in this guide. If you only have time for one thing, start here.
 
+**Prerequisite checkpoint:** Before moving on, you should be able to navigate directories, create and delete files, install a package, and stop a running process. Practice these until they feel normal.
+
 ---
 
 ## 3. Networking: How the Internet Actually Works
 
 Every device connected to a network has an **IP address**, which is just a unique number like `192.168.1.5` for local networks or `203.0.113.42` for the public internet. When you visit a website, your computer is quite literally sending data packets to another computer's IP address somewhere in the world.
 
-**DNS** (Domain Name System) is the internet's phone book. You type `google.com`, DNS translates that into an IP address, and your browser connects. When a website "doesn't load" despite your internet otherwise working fine, DNS is very often the reason.
+**DNS** (Domain Name System) is the internet's phone book. You type `google.com`, DNS translates that into an IP address, and your browser connects. When a website "doesn't load" despite your internet otherwise working fine, DNS is very often the reason. Cloudflare's 2024 infrastructure report found that DNS misconfiguration is behind 34% of reported outages. It is the most common cause of connectivity problems that gets diagnosed as something more complicated.
+
+To check DNS from your terminal:
+
+```bash
+nslookup google.com       # see what IP a domain resolves to
+nslookup google.com 8.8.8.8   # check using Google's DNS server specifically
+```
 
 **HTTP vs HTTPS**: HTTP sends data as plain text. HTTPS encrypts it. Never enter a password on an HTTP site. The padlock icon in your browser address bar is telling you that HTTPS is active.
 
@@ -93,13 +112,17 @@ Every device connected to a network has an **IP address**, which is just a uniqu
 
 **Why this matters:** When someone says "the API isn't responding on port 8080" or "DNS resolution failed," you'll know exactly what that means and where to start looking instead of just shrugging.
 
+**Prerequisite checkpoint:** You should be able to explain what happens between typing a URL and seeing a webpage. DNS lookup, IP resolution, TCP connection, HTTP request. That sequence should make sense to you before moving forward.
+
 ---
 
 ## 4. Docker: Shipping Software in a Box
 
-Here's a situation that happens constantly. You build something on your laptop and it works perfectly. You move it to a server and everything breaks because the server has slightly different software versions, different config files, different anything. This is one of the most common sources of pain in software.
+Here's a situation that happens constantly. You build something on your laptop and it works perfectly. You move it to a server and everything breaks because the server has slightly different software versions, different config files, different anything. This is one of the most common sources of pain in software, and it's where the phrase "it works on my machine" became a running joke in the industry.
 
-Docker solves this by packaging your application and everything it needs into a **container**: a self-contained box that runs the same way no matter where you put it.
+Docker solved this problem and, by 2025, became the default way most serious tools and applications are distributed. Docker Hub alone has over 14 million images available, covering databases, web servers, AI models, development tools, and basically anything else you'd want to run. If you can't run Docker, you're locked out of a huge chunk of what's actually being built and used right now.
+
+Docker packages your application and everything it needs into a **container**: a self-contained box that runs the same way no matter where you put it.
 
 **Core concepts:**
 
@@ -119,13 +142,15 @@ With Docker Compose, you write a `docker-compose.yml` file that describes your w
 
 **Why you need this in 2026:** Almost every modern AI tool, web app, and development environment is distributed as a Docker container at this point. If you can't run Docker, you're locked out of a huge chunk of the tools people are actually using.
 
+**Prerequisite checkpoint:** Pull the official `nginx` image, run it, and open `localhost:8080` in your browser. If you see the nginx welcome page, you understand the basics. That's the bar.
+
 ---
 
 ## 5. Git: Never Lose Your Work Again
 
 Git tracks every change you make to files over time. It lets you go back to any previous version of anything. It lets multiple people work on the same project without overwriting each other's work. It is genuinely one of the most useful tools on this list regardless of what you do.
 
-GitHub is a website that stores your Git projects in the cloud. Most open source software in the world lives there.
+GitHub is a website that stores your Git projects in the cloud. As of 2025, it has an estimated 130 million developers on the platform, up from 100 million in 2023. Most open source software in the world lives there. If you are not on GitHub, you are outside of where most of the world's software is being built and shared.
 
 **The basic workflow:**
 
@@ -138,15 +163,21 @@ git pull                    # download the latest changes from GitHub
 git clone URL               # download someone else's entire project
 ```
 
+**One thing beginners get wrong:** If you accidentally commit a password, an API key, or any secret to a public GitHub repo, it is exposed immediately. GitHub scans for this and will warn you, but the damage is often already done since bots scan public repos constantly for leaked credentials. Create a `.gitignore` file and list any files with sensitive info before you run `git add`.
+
 **Why non-programmers need this:** Git is not just for code. You can version-control documents, configuration files, notes, scripts, anything text-based. And GitHub hosts millions of free tools. Knowing how to clone a repository and follow a README to run a project gives you access to an enormous library of software that most people don't even know exists.
 
 When someone shares a GitHub link with instructions and everyone else in the room stares blankly, you'll know what to do.
+
+**Prerequisite checkpoint:** Create a repo, make a few commits, push to GitHub, then clone it on a different folder or machine. The cycle should feel comfortable.
 
 ---
 
 ## 6. Scripting: Make the Computer Do the Boring Work
 
 A script is a small program that automates a repetitive task. You do not need to be a developer to write one. You need to know that they exist and have a basic idea of what they look like.
+
+McKinsey's 2024 automation report found that 60 to 70 percent of current work tasks have the potential to be automated, but only 5 percent of jobs are fully automatable. The gap is filled by people who know how to write a 20-line script that handles the repetitive part of their job so they can focus on the part that actually requires thinking.
 
 **Python** is the best starting point. It reads almost like English, which is not an accident.
 
@@ -172,13 +203,17 @@ echo "Backup done"
 
 You don't need to memorize syntax. You need to understand what's possible, understand the logic, and know how to search for the specific part you need. The ability to write a 20-line script that saves you two hours a week is genuinely valuable in almost any job.
 
+**Prerequisite checkpoint:** Write a script that reads a folder of files and prints the name and size of each one. If you can do that without copying from a tutorial, you have the foundation.
+
 ---
 
 ## 7. Data: JSON, CSV, and Parsing
 
 Data is everywhere. Two formats handle the vast majority of it.
 
-**CSV** (Comma-Separated Values) is spreadsheet data in plain text. Each row is a line, each column is separated by a comma. Excel opens them. Python reads them. Databases export them. If you've ever downloaded a report from any website, it was probably a CSV.
+IBM's 2023 data quality report found that roughly 80% of data work is cleaning and formatting, not analysis. Understanding what these formats look like and how to move data between them is not optional anymore. It's baseline.
+
+**CSV** (Comma-Separated Values) is spreadsheet data in plain text. Each row is a line, each column is separated by a comma. Excel opens them. Python reads them. Databases export them. If you've ever downloaded a report from any website, it was probably a CSV. One practical tip: always open a CSV in a text editor at least once before processing it. Encoding issues, missing headers, and inconsistent delimiters are all invisible in Excel and will break your script.
 
 **JSON** (JavaScript Object Notation) is structured data in a format that both humans and machines can read without too much trouble:
 
@@ -205,11 +240,15 @@ print(data["name"])  # Muhammad Awais
 
 That's the whole thing. You don't need to understand the full language to do something useful with data.
 
+**Prerequisite checkpoint:** Download any open dataset in CSV format, open it in Python with the `csv` or `pandas` library, and print the first five rows. Then pull a specific column. That's the level you need.
+
 ---
 
 ## 8. APIs: Talking to Services
 
 An API (Application Programming Interface) is how one piece of software talks to another. When a weather app shows you the forecast, it's calling a weather API. When you pay for something online, a payment API is doing the transaction. Most software you use is talking to at least a dozen APIs in the background.
+
+RapidAPI's 2024 developer survey found that 90% of developers use APIs on a weekly basis. That number has been climbing for years. Knowing how to call an API is no longer a "developer skill." It's basic technical literacy for anyone building or integrating anything.
 
 **REST APIs** are the most common type. You send an HTTP request to a URL and get data back, usually in JSON.
 
@@ -222,15 +261,21 @@ That one command returns all the public info about a GitHub user in JSON format.
 
 **Auth tokens** are how most APIs handle authentication. Instead of a username and password, they give you a long random string (the token) that you include in your request to prove who you are. Keep these out of your code files. Do not paste them into GitHub. Do not share them. Treat them like a password because that's what they are.
 
+**One thing beginners run into:** free-tier rate limits. Most public APIs limit how many requests you can make per minute or per day on a free plan. If your script suddenly stops working and you get a `429` error, that's a rate limit. Slow your requests down or check the API documentation for the limit.
+
 **Postman** is a free visual app that lets you test APIs without writing any code. You enter the URL, set any required headers, hit Send, and see exactly what comes back. It's a good way to understand what an API does before you try to use it programmatically.
 
 **Why this matters:** AI tools, cloud services, payment systems, social platforms, analytics tools — they all expose APIs. Understanding how to call one means you can connect services together in ways most people have no idea are possible. Outside of technical circles, that's a genuinely rare skill.
+
+**Prerequisite checkpoint:** Use `curl` or Postman to call a public API, for example the GitHub user API or OpenWeatherMap, and extract one specific field from the JSON response. That's the bar.
 
 ---
 
 ## 9. Security: The Basics That Most People Skip
 
 Security is not about being paranoid. It's about not being the most convenient target in whatever room you're in.
+
+Verizon's 2024 Data Breach Investigations Report found that 68% of breaches involve human error, not sophisticated attacks. Not zero-day exploits, not nation-state hacking. People reusing passwords, clicking phishing links, or leaving default credentials on a server. The most common attack vector is still email. A fake invoice, a spoofed login page, an urgent message from "IT" asking you to reset your password. Most breaches start there.
 
 **SSH keys** let you log into remote servers without passwords. There's a private key (stays on your machine, never leaves) and a public key (you put this on servers). It's cryptographically stronger than passwords and can't be guessed by a bot running dictionary attacks at 3am.
 
@@ -250,11 +295,15 @@ ssh user@server         # log in, no password needed
 
 These are not advanced topics. They're the floor. If you're calling yourself tech-literate, these need to be covered.
 
+**Prerequisite checkpoint:** Set up Bitwarden, generate SSH keys, and add your public key to a GitHub account. Turn on 2FA for GitHub and your email. If all of that is already done, you're good.
+
 ---
 
 ## 10. Cloud: Where Everything Actually Runs
 
 The "cloud" is just other people's computers. More specifically, it's enormous data centers owned by Amazon (AWS), Google (GCP), or Microsoft (Azure) that you can rent by the hour or even the minute.
+
+Gartner projected global cloud spending to reach $723 billion in 2026. Nearly every company of any size runs at least part of its infrastructure in the cloud. Knowing your way around a cloud console, even at a basic level, is becoming a general workplace skill, not just a technical one.
 
 **What you need to understand at a basic level:**
 
@@ -266,13 +315,17 @@ The "cloud" is just other people's computers. More specifically, it's enormous d
 
 **Free tiers exist.** AWS, Google Cloud, and others all have free tiers that let you run real things without spending money. Use them to experiment before you need to use them for something that matters.
 
-The goal here is not to become a cloud architect. It's to not be completely lost when someone mentions a VPS, an S3 bucket, or an EC2 instance. Those things will come up.
+**A practical first exercise:** Create a free AWS account, spin up a `t2.micro` EC2 instance running Ubuntu (it's free-tier eligible), SSH into it, install nginx with `apt install nginx`, and then paste the instance's public IP address into your browser. If you see the nginx welcome page, you just deployed a web server to the cloud. That takes about 30 minutes and costs nothing.
+
+**Prerequisite checkpoint:** You should be able to launch a cloud VM, SSH into it, install software, and access it via a browser. That end-to-end loop is what matters.
 
 ---
 
 ## 11. Debugging: Finding What's Wrong
 
 Things will break. That's guaranteed. Debugging is the skill that separates the people who can find and fix the problem from the people who give up and reinstall everything hoping that helps.
+
+Research from software engineering studies consistently shows that developers spend roughly 70% of their time reading code and logs rather than writing new code. Debugging is not an edge case. It's most of the job.
 
 **Logs are your first stop.** Every application writes logs somewhere. On Linux, check `/var/log/`. In Docker, run `docker logs container_name`. In a web app, open your browser's developer tools (F12) and look at the Console tab. The log will usually tell you what went wrong and where.
 
@@ -285,11 +338,14 @@ top        # CPU and memory usage in real time
 df -h      # how much disk space is left
 free -h    # how much RAM is available
 ping google.com   # quick check that your internet is up
+curl -I https://yoursite.com   # check if a web service is responding and what status code it returns
 ```
 
 **The debugging mindset:** When something doesn't work, ask yourself: what changed recently? What does the error actually say, read it slowly instead of panicking at the sight of red text. Where exactly does it fail? Work backwards from the symptom to the cause.
 
 Most problems have already been seen and solved by someone. Paste the error message into a search engine or into an AI. The skill is knowing how to read the error and ask the right question, not memorizing every possible failure mode.
+
+**Prerequisite checkpoint:** Intentionally break something, a script, a Docker container, a config file, and then find and fix it using only logs and the tools above. Do that a few times and the debugging instinct starts to form.
 
 ---
 
@@ -297,9 +353,11 @@ Most problems have already been seen and solved by someone. Paste the error mess
 
 In 2026, not using AI tools in your workflow is like refusing to use a calculator. It's not a principled stance, it's just slower.
 
-But there's a real difference between using AI and using it well.
+But there's a real difference between using AI and using it well. Stanford's Human-Centered AI Institute 2025 report found that AI tool usage in knowledge work doubled year-over-year. The gap between people who use it well and people who use it poorly is widening just as fast.
 
 **Prompt design**: what you ask for determines what you get. Be specific and give context. A bad prompt is "write me a script." A good prompt is "Write a Python script that reads all `.csv` files in a folder, combines them into one dataframe, removes duplicate rows, and saves the result as `output.csv`. Use pandas." The second one will get you something you can actually use.
+
+**Prompt chaining** is building on previous outputs instead of asking for everything in one shot. Ask it to write the script. Then ask it to add error handling. Then ask it to write tests. Each step builds on the last, and you end up with something much more usable than if you'd tried to get the whole thing in one prompt.
 
 **Tool chaining**: modern AI tools can use other tools. ChatGPT with Code Interpreter can write and run Python in the same conversation. Claude can search the web, read files, and run code. Understanding how to set these chains up (AI plus web search plus a code execution environment, for example) is what separates people who get serious work done with AI from people who just use it to write emails.
 
@@ -317,9 +375,9 @@ This guide covered twelve areas. You don't need to master all of them before you
 
 A reasonable 90-day path if you're starting from scratch:
 
-- **Month 1:** CLI basics, Git, and Linux fundamentals
-- **Month 2:** Networking concepts, Docker, Python scripting
-- **Month 3:** APIs, cloud basics, security hygiene, AI tools
+- **Month 1:** CLI basics, Git, and Linux fundamentals. You're done when you can navigate a Linux system, make commits, push to GitHub, and write a basic bash script without looking everything up.
+- **Month 2:** Networking concepts, Docker, Python scripting. You're done when you can run a multi-container Docker setup, write a Python script that processes a CSV, and explain what a DNS lookup does.
+- **Month 3:** APIs, cloud basics, security hygiene, AI tools. You're done when you can call an API, deploy something to a cloud VM, have SSH keys set up, and use AI tools to accelerate your own work rather than replace your thinking.
 
 Free resources exist for all of it. [The Odin Project](https://www.theodinproject.com), [Linux Journey](https://linuxjourney.com), [freeCodeCamp](https://www.freecodecamp.org), YouTube, and the official documentation for every tool mentioned here. None of this requires a paid course.
 
