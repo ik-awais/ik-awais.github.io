@@ -29,7 +29,7 @@ jobs:
       - name: Build
         run: hugo --minify
         env:
-          HUGO_PARAMS_FORMSPREEEID: ${{ secrets.FORMSPREE_ID }}
+          HUGO_PARAMS_FORMSPREEID: ${{ secrets.FORMSPREE_ID }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
