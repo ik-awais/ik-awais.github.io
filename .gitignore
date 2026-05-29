@@ -1,21 +1,3 @@
-# Hugo build artifacts
 public/
 .hugo_build.lock
-resources/_gen/
-
-# Confidential/local context files
 PORTFOLIO_CONTEXT.md
-.env
-.env.*
-*.local
-
-# Editor and OS files
-.DS_Store
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# Node modules (if any)
-node_modules/
