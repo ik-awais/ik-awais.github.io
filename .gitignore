@@ -1,18 +1,3 @@
-# Hugo build output
 public/
-
-# Hugo build lock
 .hugo_build.lock
-
-# Hugo stats file
-hugo_stats.json
-
-# OS files
-.DS_Store
-
-# Editor / IDE
-.vscode/
-.idea/
-
-# Node modules (in case assets pipeline used later)
-node_modules/
+PORTFOLIO_CONTEXT.md

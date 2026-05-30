@@ -1,25 +1,26 @@
 ---
 title: "AI Research Assistant Agent"
-date: 2025-01-02
+date: 2025-01-01
+tags: ["AI Agents", "LLM", "Web Search", "Automation", "Streamlit"]
 github: "https://github.com/ik-awais/ai-research-agent"
-tags: ["AI Agents","LLM","Web Search","Automation","Streamlit"]
-description: "Autonomous AI research agent that searches the web, extracts sources, and generates structured research reports."
-featured: true
+demo: ""
+summary: "Autonomous AI research agent that searches the web, extracts sources, and generates structured research reports."
+status: "in-progress"
 ---
 
 An autonomous research agent that performs real-time web research on any topic.
 
-The system searches the internet, extracts relevant content, summarizes sources, and produces a structured research report.
+## What it does
+The system searches the internet, extracts relevant content, summarizes sources,
+and produces a structured research report.
 
-Capabilities:
-
+## Capabilities
 - Autonomous multi-step reasoning
-- Real-time web search
-- Multi-source extraction
-- AI summarization
+- Real-time web search integration
+- Multi-source extraction and deduplication
+- AI summarization with citations
 - Structured report generation
 - Export to PDF or TXT
 
-Research workflow:
-
+## Architecture
 Query → Web Search → Content Extraction → LLM Summaries → Structured Report
