@@ -837,3 +837,7 @@ footer p { font-size: 11px; color: var(--muted); letter-spacing: 0.08em; }
   z-index: -1;
   pointer-events: none;
 }
+.list-section .reveal {
+  opacity: 1;
+  transform: none;
+}
