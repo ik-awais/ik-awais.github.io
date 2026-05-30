@@ -13,6 +13,8 @@ A modern, high-performance personal portfolio and blog built from scratch with H
 - [Project Structure](#project-structure)
 - [Features](#features)
 - [Design System](#design-system)
+- [Blog](#blog)
+- [Projects](#projects)
 - [Development Journey](#development-journey)
 - [Local Development](#local-development)
 - [Deployment](#deployment)
@@ -26,6 +28,8 @@ A modern, high-performance personal portfolio and blog built from scratch with H
 
 This portfolio started as a single static HTML file and evolved into a full Hugo-based site with blog support, custom theming, animated UI elements, and production-grade form handling. The entire design, architecture, and codebase were built iteratively — solving real problems at each stage including broken contact forms, CSS conflicts, Hugo template rendering issues, and deployment pipeline configuration.
 
+It currently hosts three projects and four blog posts, with more being added regularly.
+
 ---
 
 ## Tech Stack
@@ -34,15 +38,15 @@ This portfolio started as a single static HTML file and evolved into a full Hugo
 |---|---|
 | **Static Site Generator** | [Hugo](https://gohugo.io/) v0.154.5 (extended) |
 | **Markup** | HTML5, Hugo Templating (Go templates) |
-| **Styling** | Custom CSS3 with CSS Variables (dark/light theme) |
+| **Styling** | Custom CSS3 with CSS Variables — 840 lines, no framework |
 | **Typography** | [Syne](https://fonts.google.com/specimen/Syne) (display) + [JetBrains Mono](https://fonts.google.com/specimen/JetBrains+Mono) (body/code) |
-| **JavaScript** | Vanilla JS — no frameworks, no dependencies |
+| **JavaScript** | Vanilla JS — no frameworks, no dependencies (294 lines) |
 | **Contact Form** | [Formspree](https://formspree.io/) (free tier, AJAX via FormData) |
 | **Icons** | [Devicon](https://devicon.dev/) CDN for tech stack logos |
 | **Deployment** | GitHub Pages via GitHub Actions |
 | **Version Control** | Git + GitHub |
 | **CI/CD** | GitHub Actions workflow (auto-build + deploy on push) |
-| **OS / Dev Environment** | Ubuntu 24.04 LTS, VS Code |
+| **Dev Environment** | Ubuntu 24.04 LTS, VS Code |
 
 ---
 
@@ -52,29 +56,33 @@ This portfolio started as a single static HTML file and evolved into a full Hugo
 portfolio/
 ├── .github/
 │   └── workflows/
-│       └── deploy.yml          ← GitHub Actions CI/CD pipeline
+│       └── deploy.yml                        ← GitHub Actions CI/CD pipeline
 ├── archetypes/
-│   └── default.md              ← Hugo default content template
+│   └── default.md                            ← Hugo default content template
 ├── content/
 │   ├── blog/
-│   │   └── hypervisors-kvm-qemu-complete-guide.md
+│   │   ├── hypervisors-kvm-qemu-complete-guide.md
+│   │   ├── operating-systems-explained.md
+│   │   ├── portfolio-development-guide.md
+│   │   └── tech-survival-guide-2026.md
 │   └── projects/
 │       ├── ai-research-agent.md
-│       └── document-qa-system.md
+│       ├── document-qa-system.md
+│       └── mediscan-ai.md
 ├── layouts/
 │   ├── _default/
-│   │   ├── baseof.html         ← Base template (nav, footer, head, scripts)
-│   │   ├── list.html           ← List pages (/projects/, /blog/)
-│   │   └── single.html         ← Individual post/project pages + sticky ToC
-│   └── index.html              ← Homepage template
+│   │   ├── baseof.html                       ← Base template (nav, footer, head, scripts)
+│   │   ├── list.html                         ← List pages (/projects/, /blog/)
+│   │   └── single.html                       ← Individual post/project pages + sticky ToC
+│   └── index.html                            ← Homepage template
 ├── static/
 │   ├── css/
-│   │   └── main.css            ← All styles (dark/light theme, responsive)
+│   │   └── main.css                          ← All styles (dark/light theme, responsive)
 │   ├── js/
-│   │   └── main.js             ← Cursor, animations, form handling, theme toggle
-│   ├── _headers                ← CSP security headers
+│   │   └── main.js                           ← Cursor, animations, form handling, theme toggle
+│   ├── _headers                              ← CSP security headers
 │   └── favicon.ico
-└── hugo.toml                   ← Site configuration
+└── hugo.toml                                 ← Site configuration
 ```
 
 ### Template Hierarchy
@@ -110,8 +118,8 @@ Hugo renders Markdown content files through these layout templates at build time
 ### Custom Cursor
 - Small dot follows mouse position instantly
 - Larger ring follows with spring-lag animation (`0.12` lerp factor)
-- **Magnetic hover effect** on interactive elements (buttons, links, cards)
-- **Automatically hidden on touch devices** via `(hover: none)` and `(pointer: coarse)` media queries
+- Magnetic hover effect on interactive elements (buttons, links, cards)
+- Automatically hidden on touch devices via `(hover: none)` and `(pointer: coarse)` media queries
 
 ### Blog
 - **Hugo-native Table of Contents** — auto-generated from `## h2` and `### h3` headings at build time via `{{ .TableOfContents }}`
@@ -133,10 +141,9 @@ Hugo renders Markdown content files through these layout templates at build time
 - Nav collapses appropriately per breakpoint
 
 ### Navigation
-- **Scroll-aware navbar** — background becomes solid on scroll via `scrollY > 50` detection
-- **LinkedIn button** — links to LinkedIn profile
-- **Hire Me button** — links to Upwork freelancer profile
-- **Theme toggle** integrated into nav
+- Scroll-aware navbar — background becomes solid on scroll via `scrollY > 50` detection
+- LinkedIn and Upwork (Hire Me) buttons in nav
+- Theme toggle integrated into nav
 
 ---
 
@@ -154,6 +161,8 @@ Hugo renders Markdown content files through these layout templates at build time
 | `--accent` | `#00d4ff` | `#0070a8` |
 | `--accent2` | `#7c3aed` | `#5b21b6` |
 | `--accent3` | `#06bb7a` | `#065f46` |
+
+Code blocks intentionally stay dark in both light and dark mode.
 
 ### Typography
 
@@ -175,6 +184,29 @@ Hugo renders Markdown content files through these layout templates at build time
 
 ---
 
+## Blog
+
+Four posts published, with more in progress as part of the Tech Survival Series.
+
+| Post | Description |
+|---|---|
+| [Hypervisors, KVM & QEMU Complete Guide](https://ik-awais.github.io/blog/hypervisors-kvm-qemu-complete-guide/) | Full walkthrough: KVM/QEMU theory, virt-manager setup on Ubuntu 24.04, Windows 11 VM with Secure Boot + NVIDIA fix, Kali Linux VM, Parrot OS VM, and VM management. |
+| [How I Built This Portfolio with Hugo from Scratch](https://ik-awais.github.io/blog/portfolio-development-guide/) | Honest account of building this site — from a single HTML file to a Hugo-powered portfolio with CI/CD, including every bug hit along the way. |
+| [You Don't Need to Be a Programmer to Be a Tech Person](https://ik-awais.github.io/blog/tech-survival-guide-2026/) | 12 foundational tech skills that put a non-programmer in the top 10% of their environment: CLI, networking, Docker, Git, APIs, cloud, AI tools, and more. |
+| [Operating Systems Explained for Normal People](https://ik-awais.github.io/blog/operating-systems-explained/) | Parent article of the OS sub-series. Covers Windows 11, macOS, and Linux fundamentals for non-technical readers — filesystem, shortcuts, package managers, security, and backups. |
+
+---
+
+## Projects
+
+| Project | Description | Stack |
+|---|---|---|
+| [AI Research Assistant Agent](https://github.com/ik-awais/ai-research-agent) | Autonomous agent that searches the web, extracts and deduplicates sources, and generates structured research reports with citations. | LangChain, OpenAI, Streamlit, Python |
+| [Document Q&A System](https://github.com/ik-awais/doc-qa-system) | RAG pipeline for uploading documents and asking natural language questions with source citations. | LangChain, FAISS, Streamlit, Python |
+| [MediScan AI](https://github.com/ik-awais/mediscan-ai) | End-to-end medical imaging pipeline: Vision Transformer classification, IsolationForest anomaly scoring, LLaMA 3.1 radiology report generation, served via FastAPI. | PyTorch, Hugging Face, FastAPI, OpenCV, LLaMA 3.1 |
+
+---
+
 ## Development Journey
 
 This project went through significant iteration. Key technical problems solved along the way:
@@ -183,21 +215,19 @@ This project went through significant iteration. Key technical problems solved a
 
 2. **Fixed Hugo template directory** — `layouts/default/` → `layouts/_default/` (missing underscore caused Hugo to not find any templates).
 
-3. **Resolved CSS/JS not loading** — `baseURL` in `hugo.toml` was set to a placeholder production URL, causing asset paths to resolve incorrectly in local dev. Fixed by setting `baseURL = "/"`.
+3. **Resolved CSS/JS not loading** — `baseURL` in `hugo.toml` was set to a placeholder production URL, causing asset paths to resolve incorrectly in local dev. Fixed by setting `baseURL = "/"` locally.
 
-4. **Blog content invisibility bug** — `.single-body` had the `.reveal` CSS class which sets `opacity: 0` by default. The IntersectionObserver was supposed to add `.visible` to trigger `opacity: 1`, but on blog pages the content was already in the viewport on load, so the observer sometimes missed the trigger. Fix: removed `.reveal` from `.single-body` entirely and added `opacity: 1 !important` as a hard guarantee.
+4. **Blog content invisibility bug** — `.single-body` had the `.reveal` CSS class which sets `opacity: 0` by default. The IntersectionObserver was supposed to add `.visible` to trigger `opacity: 1`, but on blog pages the content was already in the viewport on load, so the observer sometimes missed the trigger. Fix: removed `.reveal` from `.single-body` entirely and added `opacity: 1 !important`.
 
-5. **Table of Contents — JS approach failed** — initial implementation used `DOMContentLoaded` + `querySelectorAll('h2, h3')` to build the ToC dynamically. Failed because `DOMContentLoaded` had already fired by the time the inline `<script>` registered its listener (since `main.js` loads first via `baseof.html`). Solution: switched to Hugo's built-in `{{ .TableOfContents }}` which generates the ToC as HTML at build time — zero JS DOM scraping needed.
+5. **Table of Contents — JS approach failed** — initial implementation used `DOMContentLoaded` + `querySelectorAll('h2, h3')` to build the ToC dynamically. Failed because `DOMContentLoaded` had already fired by the time the inline script registered its listener. Switched to Hugo's built-in `{{ .TableOfContents }}` — generated at build time, zero JS DOM scraping needed.
 
-6. **Formspree reCAPTCHA conflict** — enabling reCAPTCHA on Formspree blocked all AJAX submissions (both `application/json` and `multipart/form-data`) on the free plan. Resolution: disabled Formspree reCAPTCHA and relied on the custom-built honeypot + email validation + rate limiting stack instead.
+6. **Formspree reCAPTCHA conflict** — enabling reCAPTCHA blocked all AJAX submissions on the free plan. Resolved by disabling Formspree reCAPTCHA and relying on the custom honeypot + email validation + rate limiting stack instead.
 
-7. **Formspree environment variable injection** — attempted to pass the Formspree ID via GitHub Secrets → `HUGO_PARAMS_FORMSPREEEID` env var at build time. Hugo's case-sensitive param mapping caused a mismatch. Since Formspree IDs are public (visible in page source HTML anyway), the ID is stored directly in `hugo.toml`.
+7. **GitHub Pages deployment branch protection** — GitHub Actions failed because the deploy branch wasn't authorized in the `github-pages` environment protection rules. Fixed in repo Settings → Environments → github-pages.
 
-8. **GitHub Pages deployment branch protection** — GitHub Actions failed to deploy because the `portfolio` branch wasn't authorized in the `github-pages` environment protection rules. Fixed by adding `portfolio` as an allowed deployment branch in repo Settings → Environments → github-pages.
+8. **Light theme readability** — initial warm off-white (`#f5f5ef`) with opacity-based text dimming looked washed out. Rebuilt to a cool grey `#f0f2f5` palette matching GitHub/VS Code light theme conventions, with explicit color values instead of opacity hacks.
 
-9. **Light theme readability** — initial light mode used `#f5f5ef` (warm off-white) with opacity-based text dimming. Text was washed out and muddy. Rebuilt to a cool grey `#f0f2f5` palette with explicit color values (no opacity hacks), matching GitHub/VS Code light theme conventions.
-
-10. **Word count displayed instead of dates** — homepage project cards used `{{ printf "%02d" .WordCount }}` which showed "70" and "69" instead of meaningful info. Replaced with `{{ .Date.Format "Jan 2006" }}`.
+9. **Word count on project cards** — cards were showing `{{ printf "%02d" .WordCount }}` which output "70" and "69". Replaced with `{{ .Date.Format "Jan 2006" }}`.
 
 ---
 
@@ -208,7 +238,7 @@ This project went through significant iteration. Key technical problems solved a
 - [Hugo Extended](https://gohugo.io/installation/) v0.100+ (v0.154.5 used in production)
 - Git
 
-### Install & Run
+### Run Locally
 
 ```bash
 git clone https://github.com/ik-awais/ik-awais.github.io.git
@@ -217,7 +247,7 @@ git checkout portfolio
 hugo server -D
 ```
 
-Site will be available at `http://localhost:1313/`
+Site available at `http://localhost:1313/`
 
 ### Build for Production
 
@@ -225,7 +255,7 @@ Site will be available at `http://localhost:1313/`
 hugo --minify
 ```
 
-Output goes to `public/` — this is what gets deployed.
+Output goes to `public/` — gitignored, built by GitHub Actions on each push.
 
 ---
 
@@ -242,11 +272,11 @@ Deployment is fully automated via GitHub Actions.
 5. Deploys to GitHub Pages
 6. Live at [https://ik-awais.github.io/](https://ik-awais.github.io/) within ~90 seconds
 
-### Configuration Required
+### One-Time Setup Required
 
-- GitHub repo **Settings → Pages → Source**: set to `GitHub Actions`
-- GitHub repo **Settings → Environments → github-pages**: add `portfolio` branch to allowed deployment branches
-- **Formspree**: sign up at [formspree.io](https://formspree.io), create a form, put the form ID in `hugo.toml` under `formspreeID`
+- Repo **Settings → Pages → Source**: set to `GitHub Actions`
+- Repo **Settings → Environments → github-pages**: add `portfolio` as an allowed deployment branch
+- **Formspree**: create a form at [formspree.io](https://formspree.io) and add the form ID to `hugo.toml` under `formspreeID`
 
 ---
 
@@ -258,46 +288,43 @@ Deployment is fully automated via GitHub Actions.
 hugo new blog/my-post-title.md
 ```
 
-Edit the file in `content/blog/`. Frontmatter template:
+Frontmatter format:
 
 ```yaml
 ---
 title: "Your Post Title"
-date: 2025-03-17
+date: 2026-01-01
 tags: ["Tag1", "Tag2", "Tag3"]
 summary: "Brief description shown on the blog list page."
 draft: false
 ---
 
-Your Markdown content here. Use ## and ### headings — they
-automatically appear in the sticky Table of Contents sidebar.
+Content here. Use ## and ### headings — they appear automatically in the sticky ToC sidebar.
 ```
 
 ### Adding a Project
 
-Create a new `.md` file in `content/projects/`:
-
 ```yaml
 ---
 title: "Project Name"
-date: 2025-01-01
+date: 2026-01-01
 tags: ["Tech1", "Tech2"]
 github: "https://github.com/ik-awais/repo-name"
-demo: "https://live-demo-url.com"
-summary: "One-line project description."
+demo: ""
+summary: "One-line description."
 status: "in-progress"
 ---
 
-Detailed project description in Markdown.
+Project description in Markdown.
 ```
 
 ### Updating Navigation Links
 
-Edit `layouts/_default/baseof.html` — the nav links, LinkedIn URL, and Upwork URL are all hardcoded there.
+Edit `layouts/_default/baseof.html` — nav links, LinkedIn URL, and Upwork URL are hardcoded there.
 
 ### Updating Site Metadata
 
-Edit `hugo.toml` — author name, email, GitHub URL, LinkedIn URL, Formspree ID, and base URL.
+Edit `hugo.toml` — author name, email, GitHub URL, LinkedIn URL, Formspree ID, base URL.
 
 ---
 
@@ -306,13 +333,13 @@ Edit `hugo.toml` — author name, email, GitHub URL, LinkedIn URL, Formspree ID,
 | Layer | Implementation |
 |---|---|
 | Email validation | RFC 5321 format, TLD check, domain segment validation |
-| Disposable email blocking | 50+ providers blacklisted (Mailinator, YOPmail, etc.) |
-| Bot honeypot | Hidden form field, invisible to humans, caught by auto-fill bots |
+| Disposable email blocking | 50+ providers blocked (Mailinator, YOPmail, etc.) |
+| Bot honeypot | Hidden form field, invisible to humans, filled by auto-fill bots |
 | Rate limiting | 3 submissions/session, 60s cooldown between sends |
 | CSP headers | `static/_headers` with Content-Security-Policy, X-Frame-Options, X-Content-Type-Options |
-| Source protection | Static site — no server, no database, no attack surface. Secured via GitHub 2FA + branch protection |
+| Source protection | Static site — no server, no database, minimal attack surface |
 
-> **Note:** GitHub Pages does not natively apply `_headers` files (that's a Netlify/Cloudflare Pages feature). The file is included for portability — if the site moves to Netlify or Cloudflare Pages, headers activate automatically.
+> **Note:** GitHub Pages does not natively apply `_headers` files (that's a Netlify/Cloudflare Pages feature). The file is included for portability — if the site moves to either platform, headers activate automatically without any changes.
 
 ---
 
@@ -320,13 +347,13 @@ Edit `hugo.toml` — author name, email, GitHub URL, LinkedIn URL, Formspree ID,
 
 | Issue | Cause | Fix |
 |---|---|---|
-| CSS/JS not loading locally | `baseURL` in `hugo.toml` set to production URL | Set `baseURL = "/"` |
-| Blog content invisible | `.reveal` class on `.single-body` sets `opacity: 0` | Remove `.reveal` from content wrapper |
-| ToC sidebar empty | JS ran before DOM ready | Use Hugo's native `{{ .TableOfContents }}` |
-| Formspree form rejected | reCAPTCHA enabled on free plan blocks AJAX | Disable reCAPTCHA on Formspree dashboard |
-| Deploy fails on GitHub Actions | Branch not allowed in environment protection rules | Add branch in Settings → Environments → github-pages |
-| Old content still showing after push | GitHub Pages cache | `git commit --allow-empty -m "force rebuild" && git push` |
-| Theme toggle not persisting | localStorage key mismatch | Check `main.js` uses `theme` as the key |
+| CSS/JS not loading locally | `baseURL` set to production URL in `hugo.toml` | Set `baseURL = "/"` for local dev |
+| Blog content invisible | `.reveal` class on `.single-body` sets `opacity: 0` | Remove `.reveal` from the content wrapper |
+| ToC sidebar empty | JS ran before DOM was ready | Use Hugo's native `{{ .TableOfContents }}` |
+| Formspree submissions rejected | reCAPTCHA enabled on free plan blocks AJAX | Disable reCAPTCHA in Formspree dashboard |
+| Deploy fails on GitHub Actions | Branch not in environment protection allowlist | Add branch in Settings → Environments → github-pages |
+| Old content showing after push | GitHub Pages cache | `git commit --allow-empty -m "force rebuild" && git push` |
+| Theme toggle not persisting | localStorage key mismatch | Confirm `main.js` uses `theme` as the storage key |
 
 ---
 
