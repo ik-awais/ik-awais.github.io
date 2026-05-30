@@ -475,7 +475,7 @@ You may use the code structure and techniques freely — please do not directly 
 | Old content showing after push | GitHub Pages cache | `git commit --allow-empty -m "force rebuild" && git push` |
 | Theme toggle not persisting | localStorage key mismatch | Confirm `main.js` uses `theme` as the storage key |
 | Layout broken after branch switch | GitHub Actions still pointing to old branch | Update `deploy.yml` trigger branch to `main` |
-| Missing files after merge | `git checkout --theirs` only resolves conflicts, skips unique files | Run `git checkout portfolio -- .` to force-sync all files |
+| Missing files after merge | `git checkout --theirs` only resolves conflicts, skips unique files | Run `git checkout <branchname>(portfolio was my case) -- .` to force-sync all files |
 
 ---
 
