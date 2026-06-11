@@ -1,23 +1,33 @@
 {{ define "main" }}
+<article class="project-detail">
+  <a href="/projects/" class="project-back">← All Projects</a>
 
-<section class="project-detail">
+  <header>
+    <h1>{{ .Title }}</h1>
+    {{ if .Params.summary }}
+    <p style="font-family:'Inter',sans-serif;font-size:16px;line-height:1.75;color:var(--text-secondary);margin:16px 0 28px;max-width:660px;">{{ .Params.summary }}</p>
+    {{ end }}
+    <div class="tags">
+      {{ range .Params.tags }}<span class="tag">{{ . }}</span>{{ end }}
+    </div>
+    {{ if .Date }}
+    <p class="single-meta" style="margin-top:20px;">{{ .Date.Format "January 2006" }}</p>
+    {{ end }}
+  </header>
 
-<h1>{{ .Title }}</h1>
+  <div class="project-body" style="margin-top:48px;padding-top:40px;border-top:1px solid var(--border);">
+    {{ .Content }}
+  </div>
 
-<div class="tags">
-{{ range .Params.tags }}
-<span>{{ . }}</span>
-{{ end }}
-</div>
-
-<div class="project-body">
-{{ .Content }}
-</div>
-
-<a class="github-btn" href="{{ .Params.github }}" target="_blank">
-View on GitHub
-</a>
-
-</section>
-
+  {{ if .Params.github }}
+  <a class="github-btn" href="{{ .Params.github }}" target="_blank" rel="noopener">
+    View on GitHub ↗
+  </a>
+  {{ end }}
+  {{ if .Params.demo }}
+  <a class="github-btn" href="{{ .Params.demo }}" target="_blank" rel="noopener" style="margin-left:12px;background:transparent;border:1px solid var(--border);color:var(--text);">
+    Live Demo ↗
+  </a>
+  {{ end }}
+</article>
 {{ end }}

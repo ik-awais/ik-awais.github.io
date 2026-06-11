@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} — {{ site.Title }}{{ end }}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
@@ -13,18 +14,21 @@
   <div class="cursor-ring" id="cursorRing"></div>
 
   <nav id="navbar">
-    <a href="/" class="nav-logo">MA<span>.</span></a>
+    <div style="display:flex;align-items:center">
+      <a href="/" class="nav-logo">MA<span class="dot">.</span></a>
+      <a href="https://aigenmat.com" target="_blank" rel="noopener" class="nav-logo-badge">· AI GenMat ↗</a>
+    </div>
     <div class="nav-links">
       <a href="/projects/">Projects</a>
       <a href="/blog/">Blog</a>
       <a href="/#contact">Contact</a>
-      <a href="{{ site.Params.github }}" target="_blank">GitHub ↗</a>
-      <a href="https://www.linkedin.com/in/muhammad-awais-ai-engineer/" target="_blank" class="cta-btn">LinkedIn</a>
-      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
-        <span class="icon-moon">☽</span>
-        <span class="icon-sun">☀</span>
+      <a href="{{ site.Params.github }}" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://www.linkedin.com/in/muhammad-awais-ai-engineer/" target="_blank" rel="noopener" class="cta-btn">LinkedIn</a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle colour theme">
+        <span class="icon-moon" aria-hidden="true">☽</span>
+        <span class="icon-sun" aria-hidden="true">☀</span>
       </button>
-      <a href="https://www.upwork.com/freelancers/~018a2d0e2f88ac4838" target="_blank" class="cta-btn">Hire Me</a>
+      <a href="https://www.upwork.com/freelancers/~018a2d0e2f88ac4838" target="_blank" rel="noopener" class="cta-btn cta-btn-primary">Hire Me</a>
     </div>
   </nav>
 
@@ -33,11 +37,12 @@
   </main>
 
   <footer>
-    <p>© {{ now.Year }} Muhammad Awais</p>
+    <p class="footer-left">© {{ now.Year }} Muhammad Awais · <a href="https://aigenmat.com" target="_blank" rel="noopener">AI GenMat ↗</a></p>
     <div class="footer-right">
-      <a href="{{ site.Params.github }}" target="_blank">GitHub</a>
-      <a href="{{ site.Params.linkedin }}" target="_blank">LinkedIn</a>
+      <a href="{{ site.Params.github }}" target="_blank" rel="noopener">GitHub</a>
+      <a href="{{ site.Params.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
       <a href="mailto:{{ site.Params.email }}">Email</a>
+      <a href="https://aigenmat.com" target="_blank" rel="noopener">aigenmat.com</a>
     </div>
   </footer>
 
