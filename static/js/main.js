@@ -276,3 +276,226 @@ document.querySelectorAll('#f-name, #f-email').forEach(input => {
     });
   });
 }());
+
+// ── PREMIUM CURSOR ──────────────────────────────────────────────────────
+(function initCursor() {
+  const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+  if (isTouch) return;
+
+  const dot   = document.getElementById('cursor');
+  const ring  = document.getElementById('cursorRing');
+  if (!dot || !ring) return;
+
+  const TRAIL_COUNT = 6;
+  const trails = [];
+  for (let i = 0; i < TRAIL_COUNT; i++) {
+    const t = document.createElement('div');
+    t.className = 'cursor-trail';
+    t.style.cssText = `opacity:${0.28 - i * 0.04};width:${5 - i * 0.5}px;height:${5 - i * 0.5}px`;
+    document.body.appendChild(t);
+    trails.push({ el: t, x: 0, y: 0 });
+  }
+
+  let mx = -100, my = -100;
+  let rx = -100, ry = -100;
+  const trailPos = Array.from({ length: TRAIL_COUNT }, () => ({ x: -100, y: -100 }));
+
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; }, { passive: true });
+
+  const lerp = (a, b, t) => a + (b - a) * t;
+
+  (function tick() {
+    dot.style.left  = mx + 'px';
+    dot.style.top   = my + 'px';
+    rx = lerp(rx, mx, 0.1);
+    ry = lerp(ry, my, 0.1);
+    ring.style.left = rx + 'px';
+    ring.style.top  = ry + 'px';
+
+    let px = mx, py = my;
+    trailPos.forEach((tp, i) => {
+      tp.x = lerp(tp.x, px, 0.35 - i * 0.04);
+      tp.y = lerp(tp.y, py, 0.35 - i * 0.04);
+      trails[i].el.style.left = tp.x + 'px';
+      trails[i].el.style.top  = tp.y + 'px';
+      px = tp.x; py = tp.y;
+    });
+    requestAnimationFrame(tick);
+  }());
+
+  const hoverTargets = 'a, button, .project-card, .identity-card, .hero-tag, .btn-primary, .btn-ghost, .cta-btn, .cta-btn-primary, .contact-link, .footer-nav-col a';
+  document.querySelectorAll(hoverTargets).forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      dot.classList.add('hovering');
+      ring.classList.add('hovering');
+    });
+    el.addEventListener('mouseleave', () => {
+      dot.classList.remove('hovering');
+      ring.classList.remove('hovering');
+    });
+  });
+
+  document.addEventListener('mousedown', () => {
+    dot.style.transform  = 'translate(-50%,-50%) scale(0.7)';
+    ring.style.transform = 'translate(-50%,-50%) scale(0.85)';
+  });
+  document.addEventListener('mouseup', () => {
+    dot.style.transform  = '';
+    ring.style.transform = '';
+  });
+}());
+
+// ── HERO CONSTELLATION CANVAS ───────────────────────────────────────────
+(function initConstellation() {
+  const canvas = document.getElementById('heroCanvas');
+  if (!canvas) return;
+  const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const ctx = canvas.getContext('2d');
+  let W, H, animId;
+  let mouse = { x: -999, y: -999 };
+
+  const COLORS = { node: 'rgba(157,111,255,', line: 'rgba(0,200,255,', pulse: 'rgba(157,111,255,' };
+  const NODE_COUNT = 52;
+  const MAX_DIST   = 130;
+  const MOUSE_RADIUS = 160;
+
+  function resize() {
+    const wrap = canvas.parentElement;
+    W = canvas.width  = wrap.offsetWidth;
+    H = canvas.height = wrap.offsetHeight;
+  }
+  resize();
+  new ResizeObserver(resize).observe(canvas.parentElement);
+
+  // Nodes
+  const nodes = Array.from({ length: NODE_COUNT }, () => ({
+    x:  Math.random() * W,
+    y:  Math.random() * H,
+    vx: (Math.random() - 0.5) * 0.35,
+    vy: (Math.random() - 0.5) * 0.35,
+    r:  Math.random() * 1.6 + 0.8,
+    pulse: Math.random() * Math.PI * 2,
+    pulseSpeed: 0.012 + Math.random() * 0.018,
+  }));
+
+  canvas.parentElement.addEventListener('mousemove', e => {
+    const rect = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+  }, { passive: true });
+  canvas.parentElement.addEventListener('mouseleave', () => { mouse.x = -999; mouse.y = -999; });
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+
+    nodes.forEach(n => {
+      // Mouse gravity
+      const dx = mouse.x - n.x;
+      const dy = mouse.y - n.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < MOUSE_RADIUS && dist > 0) {
+        const force = (1 - dist / MOUSE_RADIUS) * 0.018;
+        n.vx += dx / dist * force;
+        n.vy += dy / dist * force;
+      }
+
+      // Damping + drift
+      n.vx *= 0.985;
+      n.vy *= 0.985;
+      n.x += n.vx;
+      n.y += n.vy;
+      n.pulse += n.pulseSpeed;
+
+      // Wrap edges
+      if (n.x < -10) n.x = W + 10;
+      if (n.x > W + 10) n.x = -10;
+      if (n.y < -10) n.y = H + 10;
+      if (n.y > H + 10) n.y = -10;
+    });
+
+    // Lines
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const dx = nodes[i].x - nodes[j].x;
+        const dy = nodes[i].y - nodes[j].y;
+        const d  = Math.sqrt(dx * dx + dy * dy);
+        if (d < MAX_DIST) {
+          const alpha = (1 - d / MAX_DIST) * 0.35;
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(nodes[j].x, nodes[j].y);
+          ctx.strokeStyle = COLORS.line + alpha + ')';
+          ctx.lineWidth = 0.7;
+          ctx.stroke();
+        }
+      }
+    }
+
+    // Nodes
+    nodes.forEach(n => {
+      const glow = (Math.sin(n.pulse) * 0.5 + 0.5);
+      const alpha = 0.55 + glow * 0.45;
+      const radius = n.r + glow * 0.8;
+
+      const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, radius * 3.5);
+      grad.addColorStop(0, COLORS.node + alpha + ')');
+      grad.addColorStop(1, COLORS.node + '0)');
+
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, radius * 3.5, 0, Math.PI * 2);
+      ctx.fillStyle = grad;
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, radius, 0, Math.PI * 2);
+      ctx.fillStyle = COLORS.node + alpha + ')';
+      ctx.fill();
+    });
+
+    // Mouse node — glowing ring at cursor position
+    if (mouse.x > 0) {
+      const grad = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 40);
+      grad.addColorStop(0, 'rgba(0,200,255,0.15)');
+      grad.addColorStop(1, 'rgba(0,200,255,0)');
+      ctx.beginPath();
+      ctx.arc(mouse.x, mouse.y, 40, 0, Math.PI * 2);
+      ctx.fillStyle = grad;
+      ctx.fill();
+    }
+
+    animId = requestAnimationFrame(draw);
+  }
+
+  if (!prefersReduced) {
+    draw();
+  } else {
+    // Static render for reduced-motion
+    nodes.forEach(n => {
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+      ctx.fillStyle = COLORS.node + '0.4)';
+      ctx.fill();
+    });
+  }
+}());
+
+// ── MAGNETIC BUTTONS ────────────────────────────────────────────────────
+(function initMagnetic() {
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+  if (prefersReduced || isTouch) return;
+
+  document.querySelectorAll('.btn-primary, .btn-ghost, .cta-btn-primary').forEach(el => {
+    let r = null;
+    el.addEventListener('mouseenter', () => { r = el.getBoundingClientRect(); });
+    el.addEventListener('mousemove', e => {
+      if (!r) return;
+      const dx = (e.clientX - (r.left + r.width  / 2)) * 0.18;
+      const dy = (e.clientY - (r.top  + r.height / 2)) * 0.18;
+      el.style.transform = `translate(${dx}px,${dy}px)`;
+    });
+    el.addEventListener('mouseleave', () => { r = null; el.style.transform = ''; });
+  });
+}());

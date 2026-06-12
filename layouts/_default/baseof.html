@@ -37,12 +37,35 @@
   </main>
 
   <footer>
-    <p class="footer-left">© {{ now.Year }} Muhammad Awais · <a href="https://aigenmat.com" target="_blank" rel="noopener">AI GenMat ↗</a></p>
-    <div class="footer-right">
-      <a href="{{ site.Params.github }}" target="_blank" rel="noopener">GitHub</a>
-      <a href="{{ site.Params.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="mailto:{{ site.Params.email }}">Email</a>
-      <a href="https://aigenmat.com" target="_blank" rel="noopener">aigenmat.com</a>
+    <div class="footer-glow" aria-hidden="true"></div>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="/" class="footer-brand-logo">MA<span>.</span></a>
+        <p class="footer-brand-tagline">AI Engineer &amp; Managing Director at AI GenMat — building production AI systems, agentic pipelines, and applied LLM infrastructure.</p>
+        <a href="mailto:m.awais@aigenmat.com" class="footer-brand-email">m.awais@aigenmat.com</a>
+      </div>
+      <div class="footer-nav-group">
+        <div class="footer-nav-col">
+          <span class="footer-nav-heading">Navigation</span>
+          <a href="/projects/">Projects</a>
+          <a href="/blog/">Blog</a>
+          <a href="/#contact">Contact</a>
+        </div>
+        <div class="footer-nav-col">
+          <span class="footer-nav-heading">Connect</span>
+          <a href="{{ site.Params.github }}" target="_blank" rel="noopener">GitHub ↗</a>
+          <a href="{{ site.Params.linkedin }}" target="_blank" rel="noopener">LinkedIn ↗</a>
+          <a href="https://aigenmat.com" target="_blank" rel="noopener">AI GenMat ↗</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-left">© {{ now.Year }} Muhammad Awais · <a href="https://aigenmat.com" target="_blank" rel="noopener">AI GenMat</a></p>
+      <div class="footer-right">
+        <a href="{{ site.Params.github }}" target="_blank" rel="noopener">GitHub</a>
+        <a href="{{ site.Params.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:m.awais@aigenmat.com">m.awais@aigenmat.com</a>
+      </div>
     </div>
   </footer>
 
