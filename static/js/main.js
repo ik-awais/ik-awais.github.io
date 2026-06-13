@@ -286,63 +286,101 @@ document.querySelectorAll('#f-name, #f-email').forEach(input => {
   const ring  = document.getElementById('cursorRing');
   if (!dot || !ring) return;
 
-  const TRAIL_COUNT = 6;
-  const trails = [];
-  for (let i = 0; i < TRAIL_COUNT; i++) {
-    const t = document.createElement('div');
-    t.className = 'cursor-trail';
-    t.style.cssText = `opacity:${0.28 - i * 0.04};width:${5 - i * 0.5}px;height:${5 - i * 0.5}px`;
-    document.body.appendChild(t);
-    trails.push({ el: t, x: 0, y: 0 });
-  }
+  // Add inner white dot for depth
+  const innerDot = document.createElement('div');
+  innerDot.className = 'cursor-dot';
+  innerDot.id = 'cursorDot';
+  document.body.appendChild(innerDot);
 
-  let mx = -100, my = -100;
-  let rx = -100, ry = -100;
-  const trailPos = Array.from({ length: TRAIL_COUNT }, () => ({ x: -100, y: -100 }));
+  // Physics state
+  let mx = -200, my = -200;       // raw mouse
+  let rx = -200, ry = -200;       // ring lerp target
+  let isHovering = false;
+  let isClicking = false;
+  let isVisible  = false;
 
-  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; }, { passive: true });
+  const lerp = (a, b, n) => a + (b - a) * n;
 
-  const lerp = (a, b, t) => a + (b - a) * t;
+  // Mouse tracking
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX;
+    my = e.clientY;
+    if (!isVisible) {
+      rx = mx; ry = my;
+      isVisible = true;
+      dot.classList.remove('hidden');
+      ring.classList.remove('hidden');
+      innerDot.classList.remove('hidden');
+    }
+  }, { passive: true });
 
-  (function tick() {
-    dot.style.left  = mx + 'px';
-    dot.style.top   = my + 'px';
-    rx = lerp(rx, mx, 0.1);
-    ry = lerp(ry, my, 0.1);
-    ring.style.left = rx + 'px';
-    ring.style.top  = ry + 'px';
+  document.addEventListener('mouseleave', () => {
+    dot.classList.add('hidden');
+    ring.classList.add('hidden');
+    innerDot.classList.add('hidden');
+    isVisible = false;
+  });
 
-    let px = mx, py = my;
-    trailPos.forEach((tp, i) => {
-      tp.x = lerp(tp.x, px, 0.35 - i * 0.04);
-      tp.y = lerp(tp.y, py, 0.35 - i * 0.04);
-      trails[i].el.style.left = tp.x + 'px';
-      trails[i].el.style.top  = tp.y + 'px';
-      px = tp.x; py = tp.y;
-    });
-    requestAnimationFrame(tick);
-  }());
+  // Click states
+  document.addEventListener('mousedown', () => {
+    isClicking = true;
+    dot.classList.add('clicking');
+    ring.classList.add('clicking');
+  });
+  document.addEventListener('mouseup', () => {
+    isClicking = false;
+    dot.classList.remove('clicking');
+    ring.classList.remove('clicking');
+  });
 
-  const hoverTargets = 'a, button, .project-card, .identity-card, .hero-tag, .btn-primary, .btn-ghost, .cta-btn, .cta-btn-primary, .contact-link, .footer-nav-col a';
-  document.querySelectorAll(hoverTargets).forEach(el => {
+  // Hover targets — context-aware expansion
+  const HOVER_SELECTOR = [
+    'a', 'button', '[role="button"]',
+    '.project-card', '.identity-card',
+    '.hero-tag', '.btn-primary', '.btn-ghost',
+    '.cta-btn', '.cta-btn-primary',
+    '.contact-link', '.theme-toggle',
+    '.nav-logo', '.nav-logo-badge',
+    '.footer-brand-logo', '.footer-brand-email',
+    '.scroll-track img'
+  ].join(', ');
+
+  document.querySelectorAll(HOVER_SELECTOR).forEach(el => {
     el.addEventListener('mouseenter', () => {
+      isHovering = true;
       dot.classList.add('hovering');
       ring.classList.add('hovering');
     });
     el.addEventListener('mouseleave', () => {
+      isHovering = false;
       dot.classList.remove('hovering');
       ring.classList.remove('hovering');
     });
   });
 
-  document.addEventListener('mousedown', () => {
-    dot.style.transform  = 'translate(-50%,-50%) scale(0.7)';
-    ring.style.transform = 'translate(-50%,-50%) scale(0.85)';
-  });
-  document.addEventListener('mouseup', () => {
-    dot.style.transform  = '';
-    ring.style.transform = '';
-  });
+  // RAF loop — dot snaps, ring follows with spring physics
+  let prevRx = rx, prevRy = ry;
+
+  (function tick() {
+    // Dot snaps directly to mouse
+    dot.style.left = mx + 'px';
+    dot.style.top  = my + 'px';
+
+    // Inner dot snaps instantly (acts as precision center)
+    innerDot.style.left = mx + 'px';
+    innerDot.style.top  = my + 'px';
+
+    // Ring follows with soft spring (0.1 = smooth lag)
+    rx = lerp(rx, mx, 0.1);
+    ry = lerp(ry, my, 0.1);
+    ring.style.left = rx + 'px';
+    ring.style.top  = ry + 'px';
+
+    prevRx = rx;
+    prevRy = ry;
+
+    requestAnimationFrame(tick);
+  }());
 }());
 
 // ── HERO CONSTELLATION CANVAS ───────────────────────────────────────────

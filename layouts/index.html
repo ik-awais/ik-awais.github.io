@@ -29,7 +29,12 @@
 
 <div class="stats-bar reveal" align="center">
   <div class="identity-card"><span class="identity-label">AI Engineer</span></div>
-  <div class="identity-card"><span class="identity-label">Managing Director @ <a href="https://aigenmat.com" target="_blank" rel="noopener" style="color:var(--accent2);text-decoration:none">AI GenMat</a></span></div>
+  <div class="identity-card">
+  <span class="identity-label identity-label--stacked">
+    <span class="identity-sub">Managing Director</span>
+    <a href="https://aigenmat.com" target="_blank" rel="noopener" class="identity-company">AI GenMat</a>
+  </span>
+</div>
   <div class="identity-card"><span class="identity-label">Agentic AI</span></div>
   <div class="identity-card"><span class="identity-label">AI Research &amp; Systems</span></div>
 </div>
@@ -115,9 +120,6 @@
       <div class="contact-links">
         <a href="mailto:{{ site.Params.workEmail }}" class="contact-link">
           <div class="contact-link-icon">✉</div>{{ site.Params.workEmail }}
-        </a>
-        <a href="mailto:{{ site.Params.email }}" class="contact-link">
-          <div class="contact-link-icon">✉</div>{{ site.Params.email }}
         </a>
         <a href="{{ site.Params.github }}" target="_blank" rel="noopener noreferrer" class="contact-link">
           <div class="contact-link-icon">⌥</div>github.com/ik-awais
