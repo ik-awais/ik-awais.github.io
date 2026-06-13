@@ -282,122 +282,127 @@ document.querySelectorAll('#f-name, #f-email').forEach(input => {
   const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
   if (isTouch) return;
 
-  const dot   = document.getElementById('cursor');
-  const ring  = document.getElementById('cursorRing');
+  const dot  = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
   if (!dot || !ring) return;
 
-  // Add inner white dot for depth
-  const innerDot = document.createElement('div');
-  innerDot.className = 'cursor-dot';
-  innerDot.id = 'cursorDot';
-  document.body.appendChild(innerDot);
+  // Context label inside ring
+  const label = document.createElement('span');
+  label.className = 'cursor-label';
+  ring.appendChild(label);
 
-  // Physics state
-  let mx = -200, my = -200;       // raw mouse
-  let rx = -200, ry = -200;       // ring lerp target
-  let isHovering = false;
-  let isClicking = false;
-  let isVisible  = false;
-
+  let mx = -200, my = -200;
+  let rx = -200, ry = -200;
+  let isVisible = false;
   const lerp = (a, b, n) => a + (b - a) * n;
 
-  // Mouse tracking
   document.addEventListener('mousemove', e => {
-    mx = e.clientX;
-    my = e.clientY;
+    mx = e.clientX; my = e.clientY;
     if (!isVisible) {
-      rx = mx; ry = my;
-      isVisible = true;
+      rx = mx; ry = my; isVisible = true;
       dot.classList.remove('hidden');
       ring.classList.remove('hidden');
-      innerDot.classList.remove('hidden');
     }
   }, { passive: true });
 
   document.addEventListener('mouseleave', () => {
     dot.classList.add('hidden');
     ring.classList.add('hidden');
-    innerDot.classList.add('hidden');
     isVisible = false;
   });
 
-  // Click states
-  document.addEventListener('mousedown', () => {
-    isClicking = true;
-    dot.classList.add('clicking');
-    ring.classList.add('clicking');
-  });
-  document.addEventListener('mouseup', () => {
-    isClicking = false;
-    dot.classList.remove('clicking');
-    ring.classList.remove('clicking');
-  });
+  document.addEventListener('mousedown', () => { dot.classList.add('clicking'); ring.classList.add('clicking'); });
+  document.addEventListener('mouseup',   () => { dot.classList.remove('clicking'); ring.classList.remove('clicking'); });
 
-  // Hover targets — context-aware expansion
-  const HOVER_SELECTOR = [
-    'a', 'button', '[role="button"]',
-    '.project-card', '.identity-card',
-    '.hero-tag', '.btn-primary', '.btn-ghost',
-    '.cta-btn', '.cta-btn-primary',
-    '.contact-link', '.theme-toggle',
-    '.nav-logo', '.nav-logo-badge',
-    '.footer-brand-logo', '.footer-brand-email',
-    '.scroll-track img'
-  ].join(', ');
+  // Context-aware labels
+  const LABEL_MAP = [
+    { selector: '.project-card',           text: 'View'    },
+    { selector: '.project-links a',        text: 'Open'    },
+    { selector: 'a[href*="/blog/"]',        text: 'Read'    },
+    { selector: '.single-body a',          text: 'Open'    },
+    { selector: '.btn-primary',            text: null       },
+    { selector: '.btn-ghost',              text: null       },
+    { selector: '.cta-btn-primary',        text: 'Hire'    },
+    { selector: '.github-btn',             text: 'GitHub'  },
+  ];
 
-  document.querySelectorAll(HOVER_SELECTOR).forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      isHovering = true;
-      dot.classList.add('hovering');
+  // Hover — plain expand (no label)
+  const PLAIN_HOVER = 'a, button, .identity-card, .hero-tag, .cta-btn, .nav-links a, .nav-logo, .nav-logo-badge, .theme-toggle, .contact-link, .footer-nav-col a, .footer-brand-logo, .footer-brand-email, .footer-right a, .scroll-track img, .project-back';
+
+  function setLabel(text) {
+    if (text) {
+      label.textContent = text;
+      ring.classList.add('hovering', 'has-label');
+    } else {
+      label.textContent = '';
       ring.classList.add('hovering');
-    });
-    el.addEventListener('mouseleave', () => {
-      isHovering = false;
-      dot.classList.remove('hovering');
-      ring.classList.remove('hovering');
+      ring.classList.remove('has-label');
+    }
+    dot.classList.add('hovering');
+  }
+
+  function clearLabel() {
+    label.textContent = '';
+    ring.classList.remove('hovering', 'has-label');
+    dot.classList.remove('hovering');
+  }
+
+  LABEL_MAP.forEach(({ selector, text }) => {
+    document.querySelectorAll(selector).forEach(el => {
+      el.addEventListener('mouseenter', () => setLabel(text));
+      el.addEventListener('mouseleave', clearLabel);
     });
   });
 
-  // RAF loop — dot snaps, ring follows with spring physics
-  let prevRx = rx, prevRy = ry;
+  document.querySelectorAll(PLAIN_HOVER).forEach(el => {
+    el.addEventListener('mouseenter', () => { dot.classList.add('hovering'); ring.classList.add('hovering'); });
+    el.addEventListener('mouseleave', () => { dot.classList.remove('hovering'); ring.classList.remove('hovering'); });
+  });
 
+  // RAF loop
   (function tick() {
-    // Dot snaps directly to mouse
-    dot.style.left = mx + 'px';
-    dot.style.top  = my + 'px';
-
-    // Inner dot snaps instantly (acts as precision center)
-    innerDot.style.left = mx + 'px';
-    innerDot.style.top  = my + 'px';
-
-    // Ring follows with soft spring (0.1 = smooth lag)
+    dot.style.left  = mx + 'px';
+    dot.style.top   = my + 'px';
     rx = lerp(rx, mx, 0.1);
     ry = lerp(ry, my, 0.1);
     ring.style.left = rx + 'px';
     ring.style.top  = ry + 'px';
-
-    prevRx = rx;
-    prevRy = ry;
-
     requestAnimationFrame(tick);
   }());
 }());
+
 
 // ── HERO CONSTELLATION CANVAS ───────────────────────────────────────────
 (function initConstellation() {
   const canvas = document.getElementById('heroCanvas');
   if (!canvas) return;
-  const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const ctx = canvas.getContext('2d');
-  let W, H, animId;
+  let W, H;
   let mouse = { x: -999, y: -999 };
 
-  const COLORS = { node: 'rgba(157,111,255,', line: 'rgba(0,200,255,', pulse: 'rgba(157,111,255,' };
-  const NODE_COUNT = 52;
-  const MAX_DIST   = 130;
-  const MOUSE_RADIUS = 160;
+  // Theme-aware colors — recomputed on every theme change
+  function getColors() {
+    const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
+    return isDark ? {
+      node: [157, 111, 255],  nodeAlpha: 0.55,
+      line: [0, 200, 255],    lineAlpha: 0.22,
+      glow: [157, 111, 255],  glowAlpha: 0.08,
+    } : {
+      node: [90, 80, 140],    nodeAlpha: 0.18,
+      line: [80, 90, 160],    lineAlpha: 0.07,
+      glow: [100, 80, 180],   glowAlpha: 0.03,
+    };
+  }
+
+  let COLORS = getColors();
+  new MutationObserver(() => { COLORS = getColors(); })
+    .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+  const NODE_COUNT  = 34;
+  const MAX_DIST    = 115;
+  const MOUSE_R     = 140;
 
   function resize() {
     const wrap = canvas.parentElement;
@@ -407,15 +412,14 @@ document.querySelectorAll('#f-name, #f-email').forEach(input => {
   resize();
   new ResizeObserver(resize).observe(canvas.parentElement);
 
-  // Nodes
   const nodes = Array.from({ length: NODE_COUNT }, () => ({
     x:  Math.random() * W,
     y:  Math.random() * H,
-    vx: (Math.random() - 0.5) * 0.35,
-    vy: (Math.random() - 0.5) * 0.35,
-    r:  Math.random() * 1.6 + 0.8,
-    pulse: Math.random() * Math.PI * 2,
-    pulseSpeed: 0.012 + Math.random() * 0.018,
+    vx: (Math.random() - 0.5) * 0.22,
+    vy: (Math.random() - 0.5) * 0.22,
+    r:  Math.random() * 1.2 + 0.7,
+    pulse:      Math.random() * Math.PI * 2,
+    pulseSpeed: 0.008 + Math.random() * 0.012,
   }));
 
   canvas.parentElement.addEventListener('mousemove', e => {
@@ -425,99 +429,82 @@ document.querySelectorAll('#f-name, #f-email').forEach(input => {
   }, { passive: true });
   canvas.parentElement.addEventListener('mouseleave', () => { mouse.x = -999; mouse.y = -999; });
 
+  const rgb = (c, a) => `rgba(${c[0]},${c[1]},${c[2]},${a})`;
+
   function draw() {
     ctx.clearRect(0, 0, W, H);
 
     nodes.forEach(n => {
-      // Mouse gravity
-      const dx = mouse.x - n.x;
-      const dy = mouse.y - n.y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < MOUSE_RADIUS && dist > 0) {
-        const force = (1 - dist / MOUSE_RADIUS) * 0.018;
-        n.vx += dx / dist * force;
-        n.vy += dy / dist * force;
+      const dx = mouse.x - n.x, dy = mouse.y - n.y;
+      const d  = Math.sqrt(dx * dx + dy * dy);
+      if (d < MOUSE_R && d > 0) {
+        const f = (1 - d / MOUSE_R) * 0.014;
+        n.vx += dx / d * f;
+        n.vy += dy / d * f;
       }
-
-      // Damping + drift
-      n.vx *= 0.985;
-      n.vy *= 0.985;
-      n.x += n.vx;
-      n.y += n.vy;
+      n.vx *= 0.988; n.vy *= 0.988;
+      n.x += n.vx;   n.y += n.vy;
       n.pulse += n.pulseSpeed;
-
-      // Wrap edges
-      if (n.x < -10) n.x = W + 10;
-      if (n.x > W + 10) n.x = -10;
-      if (n.y < -10) n.y = H + 10;
-      if (n.y > H + 10) n.y = -10;
+      if (n.x < -8) n.x = W + 8;
+      if (n.x > W + 8) n.x = -8;
+      if (n.y < -8) n.y = H + 8;
+      if (n.y > H + 8) n.y = -8;
     });
 
-    // Lines
+    // Draw lines first (below nodes)
+    ctx.lineWidth = 0.6;
     for (let i = 0; i < nodes.length; i++) {
       for (let j = i + 1; j < nodes.length; j++) {
         const dx = nodes[i].x - nodes[j].x;
         const dy = nodes[i].y - nodes[j].y;
         const d  = Math.sqrt(dx * dx + dy * dy);
         if (d < MAX_DIST) {
-          const alpha = (1 - d / MAX_DIST) * 0.35;
+          const a = (1 - d / MAX_DIST) * COLORS.lineAlpha;
+          ctx.strokeStyle = rgb(COLORS.line, a);
           ctx.beginPath();
           ctx.moveTo(nodes[i].x, nodes[i].y);
           ctx.lineTo(nodes[j].x, nodes[j].y);
-          ctx.strokeStyle = COLORS.line + alpha + ')';
-          ctx.lineWidth = 0.7;
           ctx.stroke();
         }
       }
     }
 
-    // Nodes
+    // Draw nodes — flat fill only, no per-node gradient
     nodes.forEach(n => {
-      const glow = (Math.sin(n.pulse) * 0.5 + 0.5);
-      const alpha = 0.55 + glow * 0.45;
-      const radius = n.r + glow * 0.8;
-
-      const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, radius * 3.5);
-      grad.addColorStop(0, COLORS.node + alpha + ')');
-      grad.addColorStop(1, COLORS.node + '0)');
-
+      const glow = Math.sin(n.pulse) * 0.5 + 0.5;
+      const a    = COLORS.nodeAlpha * (0.7 + glow * 0.3);
       ctx.beginPath();
-      ctx.arc(n.x, n.y, radius * 3.5, 0, Math.PI * 2);
-      ctx.fillStyle = grad;
-      ctx.fill();
-
-      ctx.beginPath();
-      ctx.arc(n.x, n.y, radius, 0, Math.PI * 2);
-      ctx.fillStyle = COLORS.node + alpha + ')';
+      ctx.arc(n.x, n.y, n.r + glow * 0.6, 0, Math.PI * 2);
+      ctx.fillStyle = rgb(COLORS.node, a);
       ctx.fill();
     });
 
-    // Mouse node — glowing ring at cursor position
-    if (mouse.x > 0) {
-      const grad = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 40);
-      grad.addColorStop(0, 'rgba(0,200,255,0.15)');
-      grad.addColorStop(1, 'rgba(0,200,255,0)');
+    // Single ambient glow at mouse — one gradient object
+    if (mouse.x > 0 && mouse.x < W) {
+      const g = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 50);
+      g.addColorStop(0, rgb(COLORS.glow, COLORS.glowAlpha * 2));
+      g.addColorStop(1, rgb(COLORS.glow, 0));
       ctx.beginPath();
-      ctx.arc(mouse.x, mouse.y, 40, 0, Math.PI * 2);
-      ctx.fillStyle = grad;
+      ctx.arc(mouse.x, mouse.y, 50, 0, Math.PI * 2);
+      ctx.fillStyle = g;
       ctx.fill();
     }
 
-    animId = requestAnimationFrame(draw);
+    requestAnimationFrame(draw);
   }
 
-  if (!prefersReduced) {
-    draw();
-  } else {
-    // Static render for reduced-motion
+  if (prefersReduced) {
     nodes.forEach(n => {
       ctx.beginPath();
       ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-      ctx.fillStyle = COLORS.node + '0.4)';
+      ctx.fillStyle = rgb(COLORS.node, COLORS.nodeAlpha * 0.6);
       ctx.fill();
     });
+  } else {
+    draw();
   }
 }());
+
 
 // ── MAGNETIC BUTTONS ────────────────────────────────────────────────────
 (function initMagnetic() {
