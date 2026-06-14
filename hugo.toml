@@ -1,6 +1,6 @@
 baseURL = "https://ik-awais.github.io/"
 languageCode = "en-us"
-title = "Muhammad Awais — AI Developer"
+title = "MA-Portfolio"
 
 [markup]
   [markup.tableOfContents]

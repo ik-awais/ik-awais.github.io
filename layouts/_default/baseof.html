@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} — {{ site.Title }}{{ end }}</title>
+  <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} | MA-Portfolio{{ end }}</title>
+  <meta name="description" content="Muhammad Awais, AI Engineer and Managing Director at AI GenMat. Agentic AI, LLM, RAG Systems, NLP, Computer Vision.">
+  <meta name="keywords" content="Muhammad Awais, AI Engineer, AI GenMat, Agentic AI, LLM, RAG, NLP, Computer Vision, AI consultant">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -15,14 +17,14 @@
 
   <nav id="navbar">
     <div style="display:flex;align-items:center">
-      <a href="/" class="nav-logo" style = "font-size: 16px;">MA<span class="dot">.</span></a>
-      <a href="https://aigenmat.com" target="_blank" rel="noopener" class="nav-logo-badge" style = "font-size: 16px;">AI GenMat ↗</a>
+      <a href="/" class="nav-logo">MA<span class="dot">.</span></a>
+      <a href="https://aigenmat.com" target="_blank" rel="noopener" class="nav-logo-badge">AI GenMat</a>
     </div>
     <div class="nav-links">
       <a href="/projects/">Projects</a>
       <a href="/blog/">Blog</a>
       <a href="/#contact">Contact</a>
-      <a href="{{ site.Params.github }}" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="{{ site.Params.github }}" target="_blank" rel="noopener">GitHub</a>
       <a href="https://www.linkedin.com/in/muhammad-awais-ai-engineer/" target="_blank" rel="noopener" class="cta-btn">LinkedIn</a>
       <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle colour theme">
         <span class="icon-moon" aria-hidden="true">☽</span>
@@ -41,7 +43,7 @@
     <div class="footer-inner">
       <div class="footer-brand">
         <a href="/" class="footer-brand-logo">MA<span>.</span></a>
-        <p class="footer-brand-tagline">AI Engineer &amp; Managing Director at AI GenMat — building production AI systems, agentic pipelines, and applied LLM infrastructure.</p>
+        <p class="footer-brand-tagline">AI Engineer and Managing Director at AI GenMat, building production AI systems, agentic pipelines, and applied LLM infrastructure.</p>
         <a href="mailto:m.awais@aigenmat.com" class="footer-brand-email">m.awais@aigenmat.com</a>
       </div>
       <div class="footer-nav-group">
@@ -53,14 +55,14 @@
         </div>
         <div class="footer-nav-col">
           <span class="footer-nav-heading">Connect</span>
-          <a href="{{ site.Params.github }}" target="_blank" rel="noopener">GitHub ↗</a>
-          <a href="{{ site.Params.linkedin }}" target="_blank" rel="noopener">LinkedIn ↗</a>
-          <a href="https://aigenmat.com" target="_blank" rel="noopener">AI GenMat ↗</a>
+          <a href="{{ site.Params.github }}" target="_blank" rel="noopener">GitHub</a>
+          <a href="{{ site.Params.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://aigenmat.com" target="_blank" rel="noopener">AI GenMat</a>
         </div>
       </div>
     </div>
     <div class="footer-bottom">
-      <p class="footer-left">© {{ now.Year }} Muhammad Awais · <a href="https://aigenmat.com" target="_blank" rel="noopener">AI GenMat</a></p>
+      <p class="footer-left">2026 Muhammad Awais, <a href="https://aigenmat.com" target="_blank" rel="noopener">AI GenMat</a></p>
       <div class="footer-right">
         <a href="{{ site.Params.github }}" target="_blank" rel="noopener">GitHub</a>
         <a href="{{ site.Params.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>

@@ -286,20 +286,15 @@ document.querySelectorAll('#f-name, #f-email').forEach(input => {
   const ring = document.getElementById('cursorRing');
   if (!dot || !ring) return;
 
-  // Context label inside ring
-  const label = document.createElement('span');
-  label.className = 'cursor-label';
-  ring.appendChild(label);
-
   let mx = -200, my = -200;
   let rx = -200, ry = -200;
-  let isVisible = false;
+  let visible = false;
   const lerp = (a, b, n) => a + (b - a) * n;
 
   document.addEventListener('mousemove', e => {
     mx = e.clientX; my = e.clientY;
-    if (!isVisible) {
-      rx = mx; ry = my; isVisible = true;
+    if (!visible) {
+      rx = mx; ry = my; visible = true;
       dot.classList.remove('hidden');
       ring.classList.remove('hidden');
     }
@@ -308,58 +303,30 @@ document.querySelectorAll('#f-name, #f-email').forEach(input => {
   document.addEventListener('mouseleave', () => {
     dot.classList.add('hidden');
     ring.classList.add('hidden');
-    isVisible = false;
+    visible = false;
   });
 
-  document.addEventListener('mousedown', () => { dot.classList.add('clicking'); ring.classList.add('clicking'); });
-  document.addEventListener('mouseup',   () => { dot.classList.remove('clicking'); ring.classList.remove('clicking'); });
+  document.addEventListener('mousedown', () => {
+    dot.classList.add('clicking');
+    ring.classList.add('clicking');
+  });
+  document.addEventListener('mouseup', () => {
+    dot.classList.remove('clicking');
+    ring.classList.remove('clicking');
+  });
 
-  // Context-aware labels
-  const LABEL_MAP = [
-    { selector: '.project-card',           text: 'View'    },
-    { selector: '.project-links a',        text: 'Open'    },
-    { selector: 'a[href*="/blog/"]',        text: 'Read'    },
-    { selector: '.single-body a',          text: 'Open'    },
-    { selector: '.btn-primary',            text: null       },
-    { selector: '.btn-ghost',              text: null       },
-    { selector: '.cta-btn-primary',        text: 'Hire'    },
-    { selector: '.github-btn',             text: 'GitHub'  },
-  ];
-
-  // Hover — plain expand (no label)
-  const PLAIN_HOVER = 'a, button, .identity-card, .hero-tag, .cta-btn, .nav-links a, .nav-logo, .nav-logo-badge, .theme-toggle, .contact-link, .footer-nav-col a, .footer-brand-logo, .footer-brand-email, .footer-right a, .scroll-track img, .project-back';
-
-  function setLabel(text) {
-    if (text) {
-      label.textContent = text;
-      ring.classList.add('hovering', 'has-label');
-    } else {
-      label.textContent = '';
+  const HOVER = 'a, button, .project-card, .identity-card, .hero-tag, .scroll-track img, [role="button"]';
+  document.querySelectorAll(HOVER).forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      dot.classList.add('hovering');
       ring.classList.add('hovering');
-      ring.classList.remove('has-label');
-    }
-    dot.classList.add('hovering');
-  }
-
-  function clearLabel() {
-    label.textContent = '';
-    ring.classList.remove('hovering', 'has-label');
-    dot.classList.remove('hovering');
-  }
-
-  LABEL_MAP.forEach(({ selector, text }) => {
-    document.querySelectorAll(selector).forEach(el => {
-      el.addEventListener('mouseenter', () => setLabel(text));
-      el.addEventListener('mouseleave', clearLabel);
+    });
+    el.addEventListener('mouseleave', () => {
+      dot.classList.remove('hovering');
+      ring.classList.remove('hovering');
     });
   });
 
-  document.querySelectorAll(PLAIN_HOVER).forEach(el => {
-    el.addEventListener('mouseenter', () => { dot.classList.add('hovering'); ring.classList.add('hovering'); });
-    el.addEventListener('mouseleave', () => { dot.classList.remove('hovering'); ring.classList.remove('hovering'); });
-  });
-
-  // RAF loop
   (function tick() {
     dot.style.left  = mx + 'px';
     dot.style.top   = my + 'px';
@@ -370,6 +337,7 @@ document.querySelectorAll('#f-name, #f-email').forEach(input => {
     requestAnimationFrame(tick);
   }());
 }());
+
 
 
 // ── HERO CONSTELLATION CANVAS ───────────────────────────────────────────
