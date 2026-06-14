@@ -279,19 +279,29 @@ document.querySelectorAll('#f-name, #f-email').forEach(input => {
 
 // ── PREMIUM CURSOR ──────────────────────────────────────────────────────
 (function initCursor() {
-  const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+  var isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
   if (isTouch) return;
 
-  const dot  = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
+  var dot  = document.getElementById('cursor');
+  var ring = document.getElementById('cursorRing');
   if (!dot || !ring) return;
 
-  let mx = -200, my = -200;
-  let rx = -200, ry = -200;
-  let visible = false;
-  const lerp = (a, b, n) => a + (b - a) * n;
+  dot.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 26" fill="none"><polygon points="1,1 1,21 6,16 10,24 13,23 9,15 16,15" fill="#0a0a1a" stroke="#00C8FF" stroke-width="1.5" stroke-linejoin="round"/></svg>';
 
-  document.addEventListener('mousemove', e => {
+  var mx = -200, my = -200;
+  var rx = -200, ry = -200;
+  var visible = false;
+
+  function lerp(a, b, n) { return a + (b - a) * n; }
+
+  if (document.readyState !== 'complete') {
+    ring.classList.add('loading');
+    window.addEventListener('load', function() {
+      ring.classList.remove('loading');
+    }, { once: true });
+  }
+
+  document.addEventListener('mousemove', function(e) {
     mx = e.clientX; my = e.clientY;
     if (!visible) {
       rx = mx; ry = my; visible = true;
@@ -300,36 +310,35 @@ document.querySelectorAll('#f-name, #f-email').forEach(input => {
     }
   }, { passive: true });
 
-  document.addEventListener('mouseleave', () => {
+  document.addEventListener('mouseleave', function() {
     dot.classList.add('hidden');
     ring.classList.add('hidden');
     visible = false;
   });
 
-  document.addEventListener('mousedown', () => {
+  document.addEventListener('mousedown', function() {
     dot.classList.add('clicking');
     ring.classList.add('clicking');
   });
-  document.addEventListener('mouseup', () => {
+  document.addEventListener('mouseup', function() {
     dot.classList.remove('clicking');
     ring.classList.remove('clicking');
   });
 
-  const HOVER = 'a, button, .project-card, .identity-card, .hero-tag, .scroll-track img, [role="button"]';
-  document.querySelectorAll(HOVER).forEach(el => {
-    el.addEventListener('mouseenter', () => {
+  var HOVER = 'a, button, .project-card, .identity-card, .hero-tag, .scroll-track img, [role="button"], input, textarea, select, label';
+  document.querySelectorAll(HOVER).forEach(function(el) {
+    el.addEventListener('mouseenter', function() {
       dot.classList.add('hovering');
       ring.classList.add('hovering');
     });
-    el.addEventListener('mouseleave', () => {
+    el.addEventListener('mouseleave', function() {
       dot.classList.remove('hovering');
       ring.classList.remove('hovering');
     });
   });
 
   (function tick() {
-    dot.style.left  = mx + 'px';
-    dot.style.top   = my + 'px';
+    dot.style.transform = 'translate(' + (mx - 1) + 'px,' + (my - 1) + 'px)';
     rx = lerp(rx, mx, 0.1);
     ry = lerp(ry, my, 0.1);
     ring.style.left = rx + 'px';
@@ -337,6 +346,7 @@ document.querySelectorAll('#f-name, #f-email').forEach(input => {
     requestAnimationFrame(tick);
   }());
 }());
+
 
 
 
@@ -369,7 +379,7 @@ document.querySelectorAll('#f-name, #f-email').forEach(input => {
     .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
   const NODE_COUNT  = 34;
-  const MAX_DIST    = 115;
+  const MAX_DIST    = 175;
   const MOUSE_R     = 140;
 
   function resize() {
@@ -385,7 +395,7 @@ document.querySelectorAll('#f-name, #f-email').forEach(input => {
     y:  Math.random() * H,
     vx: (Math.random() - 0.5) * 0.22,
     vy: (Math.random() - 0.5) * 0.22,
-    r:  Math.random() * 1.2 + 0.7,
+    r:  Math.random() * 3.6 + 2.1,
     pulse:      Math.random() * Math.PI * 2,
     pulseSpeed: 0.008 + Math.random() * 0.012,
   }));
@@ -420,7 +430,7 @@ document.querySelectorAll('#f-name, #f-email').forEach(input => {
     });
 
     // Draw lines first (below nodes)
-    ctx.lineWidth = 0.6;
+    ctx.lineWidth = 1.0;
     for (let i = 0; i < nodes.length; i++) {
       for (let j = i + 1; j < nodes.length; j++) {
         const dx = nodes[i].x - nodes[j].x;
@@ -442,18 +452,18 @@ document.querySelectorAll('#f-name, #f-email').forEach(input => {
       const glow = Math.sin(n.pulse) * 0.5 + 0.5;
       const a    = COLORS.nodeAlpha * (0.7 + glow * 0.3);
       ctx.beginPath();
-      ctx.arc(n.x, n.y, n.r + glow * 0.6, 0, Math.PI * 2);
+      ctx.arc(n.x, n.y, n.r + glow * 1.8, 0, Math.PI * 2);
       ctx.fillStyle = rgb(COLORS.node, a);
       ctx.fill();
     });
 
     // Single ambient glow at mouse — one gradient object
     if (mouse.x > 0 && mouse.x < W) {
-      const g = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 50);
+      const g = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 80);
       g.addColorStop(0, rgb(COLORS.glow, COLORS.glowAlpha * 2));
       g.addColorStop(1, rgb(COLORS.glow, 0));
       ctx.beginPath();
-      ctx.arc(mouse.x, mouse.y, 50, 0, Math.PI * 2);
+      ctx.arc(mouse.x, mouse.y, 80, 0, Math.PI * 2);
       ctx.fillStyle = g;
       ctx.fill();
     }
