@@ -237,21 +237,31 @@ nav.scrolled {
 .nav-links a:not(.cta-btn):not(.cta-btn-primary):hover::after {
   width: 100%;
 }
-.nav-logo-badge {
+/* Use a combined selector to increase specificity and beat overriding styles */
+a.nav-logo-badge {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 16px;
+  font-size: 13px !important; /* Forces it to 13px if another library/style is fighting it */
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent); /* Base Cyan color */
   text-decoration: none;
   margin-left: 12px;
   line-height: 1;
-  transition: opacity 0.2s;
-  opacity: 0.8;
+  transition: color 0.3s ease, opacity 0.3s ease; /* Smoothly animate color and opacity */
+  opacity: 0.85; /* Slightly cleaner base visibility */
 }
-.nav-logo-badge:hover { opacity: 1; }
-.nav-links a:hover { color: var(--text); }
+
+/* Hover state changes BOTH opacity AND color */
+a.nav-logo-badge:hover {
+  opacity: 1;
+  color: #9B59FF; /* Explicitly forces it to your vibrant Purple/Violet on hover */
+}
+
+/* Prevents other nav link hover styles from interfering with the badge */
+.nav-links a.nav-logo-badge:hover {
+  color: #9B59FF !important;
+}
 
 .nav-links .cta-btn {
   color: var(--accent);
