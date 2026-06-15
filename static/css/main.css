@@ -237,30 +237,28 @@ nav.scrolled {
 .nav-links a:not(.cta-btn):not(.cta-btn-primary):hover::after {
   width: 100%;
 }
-/* Use a combined selector to increase specificity and beat overriding styles */
+/* Target the badge precisely to lock its natural state */
 a.nav-logo-badge {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 13px !important; /* Forces it to 13px if another library/style is fighting it */
+  font-size: 13px !important; /* Locks the size perfectly */
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--accent); /* Base Cyan color */
+  
+  /* Natural State: Vibrant Cyan Blue */
+  color: #00d4ff !important; 
+  opacity: 1 !important; /* Removes the transparent "dull" effect entirely */
+  
   text-decoration: none;
   margin-left: 12px;
   line-height: 1;
-  transition: color 0.3s ease, opacity 0.3s ease; /* Smoothly animate color and opacity */
-  opacity: 0.85; /* Slightly cleaner base visibility */
+  transition: color 0.25s ease; /* Smoothly transitions only the color channel */
 }
 
-/* Hover state changes BOTH opacity AND color */
-a.nav-logo-badge:hover {
-  opacity: 1;
-  color: #9B59FF; /* Explicitly forces it to your vibrant Purple/Violet on hover */
-}
-
-/* Prevents other nav link hover styles from interfering with the badge */
+/* Hover State: Smoothly transitions to Violet */
+a.nav-logo-badge:hover,
 .nav-links a.nav-logo-badge:hover {
-  color: #9B59FF !important;
+  color: #9B59FF !important; /* Your exact portfolio violet/purple */
 }
 
 .nav-links .cta-btn {
