@@ -83,15 +83,15 @@ a, button, [role="button"], input, textarea, select, label,
   pointer-events: none;
   z-index: 9999;
   top: 0; left: 0;
-  width: 15px;
-  height: 18px;
+  width: 24px;
+  height: 28px;
   opacity: 1;
   transition: opacity 0.15s ease;
   will-change: transform;
 }
 .cursor svg {
-  width: 15px;
-  height: 18px;
+  width: 24px;
+  height: 28px;
   display: block;
 }
 .cursor.loading {
@@ -239,7 +239,7 @@ nav.scrolled {
 }
 .nav-logo-badge {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;

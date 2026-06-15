@@ -287,7 +287,26 @@ document.querySelectorAll('#f-name, #f-email').forEach(input => {
   if (!dot) return;
 
   // Inject GTA arrow
-  dot.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 18" fill="none"><polygon points="1,1 1,15 4.5,11.5 7,17 9,16 6.5,10.5 11,10.5" fill="#0d0d0d" stroke="#ffffff" stroke-width="1.2" stroke-linejoin="round"/></svg>';
+  // Theme-aware NeXTSTEP sweeping pointer
+  function getCursorSVG() {
+    var isDark = document.documentElement.getAttribute('data-theme') !== 'light';
+    return isDark
+      ? '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 28" fill="none"><path d="M2,2 L2,21 L6,16.5 L9,24.5 L11.5,23.5 L8.5,15.5 L16.5,15.5 Z" fill="#0a0014" stroke="#00d4ff" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/></svg>'
+      : '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 28" fill="none"><path d="M2,2 L2,21 L6,16.5 L9,24.5 L11.5,23.5 L8.5,15.5 L16.5,15.5 Z" fill="#1a0033" stroke="#f0f0f0" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/></svg>';
+  }
+  function getDefaultStroke() {
+    return document.documentElement.getAttribute('data-theme') !== 'light'
+      ? '#00d4ff' : '#f0f0f0';
+  }
+  function getHoverStroke() {
+    return document.documentElement.getAttribute('data-theme') !== 'light'
+      ? '#9D6FFF' : '#7c3aed';
+  }
+  dot.innerHTML = getCursorSVG();
+  // Re-render on theme switch
+  new MutationObserver(function() {
+    dot.innerHTML = getCursorSVG();
+  }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
   // Create hourglass loading element
   var hg = document.createElement('div');
@@ -309,7 +328,7 @@ document.querySelectorAll('#f-name, #f-email').forEach(input => {
   window.addEventListener('load', function() { setLoading(false); }, { once: true });
 
   function positionAt(x, y) {
-    dot.style.transform = 'translate(' + (x - 1) + 'px,' + (y - 1) + 'px)';
+    dot.style.transform = 'translate(' + x + 'px,' + y + 'px)';
     hg.style.transform  = 'translate(' + (x - 9) + 'px,' + (y - 9) + 'px)';
     if (ring) { ring.style.left = x + 'px'; ring.style.top = y + 'px'; }
   }
@@ -334,18 +353,18 @@ document.querySelectorAll('#f-name, #f-email').forEach(input => {
   var HOVER = 'a, button, .project-card, .identity-card, .hero-tag, .scroll-track img, [role="button"], input, textarea, select, label';
   document.querySelectorAll(HOVER).forEach(function(el) {
     el.addEventListener('mouseenter', function() {
-      dot.querySelector('polygon').setAttribute('stroke', '#9D6FFF');
+      var p=dot.querySelector('path');if(p)p.setAttribute('stroke',getHoverStroke());
     });
     el.addEventListener('mouseleave', function() {
-      dot.querySelector('polygon').setAttribute('stroke', '#ffffff');
+      var p=dot.querySelector('path');if(p)p.setAttribute('stroke',getDefaultStroke());
     });
   });
 
   document.addEventListener('mousedown', function() {
-    dot.querySelector('polygon').setAttribute('stroke', '#00C8FF');
+    var p=dot.querySelector('path');if(p)p.setAttribute('stroke','#00C8FF');
   });
   document.addEventListener('mouseup', function() {
-    dot.querySelector('polygon').setAttribute('stroke', '#ffffff');
+    var p=dot.querySelector('path');if(p)p.setAttribute('stroke',getDefaultStroke());
   });
 }());
 
