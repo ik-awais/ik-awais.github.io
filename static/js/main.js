@@ -284,71 +284,70 @@ document.querySelectorAll('#f-name, #f-email').forEach(input => {
 
   var dot  = document.getElementById('cursor');
   var ring = document.getElementById('cursorRing');
-  if (!dot || !ring) return;
+  if (!dot) return;
 
-  dot.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 26" fill="none"><polygon points="1,1 1,21 6,16 10,24 13,23 9,15 16,15" fill="#0a0a1a" stroke="#00C8FF" stroke-width="1.5" stroke-linejoin="round"/></svg>';
+  // Inject GTA arrow
+  dot.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 18" fill="none"><polygon points="1,1 1,15 4.5,11.5 7,17 9,16 6.5,10.5 11,10.5" fill="#0d0d0d" stroke="#ffffff" stroke-width="1.2" stroke-linejoin="round"/></svg>';
+
+  // Create hourglass loading element
+  var hg = document.createElement('div');
+  hg.className = 'cursor-loading';
+  hg.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" fill="none"><path d="M3 2h12M3 16h12M4 2c0 4 5 6 5 7s-5 3-5 7M14 2c0 4-5 6-5 7s5 3 5 7" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/><path d="M5.5 4.5h7M5.5 13.5h7" stroke="#9D6FFF" stroke-width="1" stroke-linecap="round"/></svg>';
+  document.body.appendChild(hg);
 
   var mx = -200, my = -200;
-  var rx = -200, ry = -200;
   var visible = false;
 
-  function lerp(a, b, n) { return a + (b - a) * n; }
+  // Loading state
+  var isLoading = document.readyState !== 'complete';
+  function setLoading(on) {
+    isLoading = on;
+    dot.classList.toggle('loading', on);
+    hg.classList.toggle('active', on);
+  }
+  if (isLoading) setLoading(true);
+  window.addEventListener('load', function() { setLoading(false); }, { once: true });
 
-  if (document.readyState !== 'complete') {
-    ring.classList.add('loading');
-    window.addEventListener('load', function() {
-      ring.classList.remove('loading');
-    }, { once: true });
+  function positionAt(x, y) {
+    dot.style.transform = 'translate(' + (x - 1) + 'px,' + (y - 1) + 'px)';
+    hg.style.transform  = 'translate(' + (x - 9) + 'px,' + (y - 9) + 'px)';
+    if (ring) { ring.style.left = x + 'px'; ring.style.top = y + 'px'; }
   }
 
   document.addEventListener('mousemove', function(e) {
     mx = e.clientX; my = e.clientY;
+    positionAt(mx, my);
     if (!visible) {
-      rx = mx; ry = my; visible = true;
+      visible = true;
       dot.classList.remove('hidden');
-      ring.classList.remove('hidden');
+      hg.style.opacity = '';
     }
   }, { passive: true });
 
   document.addEventListener('mouseleave', function() {
     dot.classList.add('hidden');
-    ring.classList.add('hidden');
+    hg.style.opacity = '0';
     visible = false;
   });
 
-  document.addEventListener('mousedown', function() {
-    dot.classList.add('clicking');
-    ring.classList.add('clicking');
-  });
-  document.addEventListener('mouseup', function() {
-    dot.classList.remove('clicking');
-    ring.classList.remove('clicking');
-  });
-
+  // Hover feedback — accent-color the arrow stroke on hover
   var HOVER = 'a, button, .project-card, .identity-card, .hero-tag, .scroll-track img, [role="button"], input, textarea, select, label';
   document.querySelectorAll(HOVER).forEach(function(el) {
     el.addEventListener('mouseenter', function() {
-      dot.classList.add('hovering');
-      ring.classList.add('hovering');
+      dot.querySelector('polygon').setAttribute('stroke', '#9D6FFF');
     });
     el.addEventListener('mouseleave', function() {
-      dot.classList.remove('hovering');
-      ring.classList.remove('hovering');
+      dot.querySelector('polygon').setAttribute('stroke', '#ffffff');
     });
   });
 
-  (function tick() {
-    dot.style.transform = 'translate(' + (mx - 1) + 'px,' + (my - 1) + 'px)';
-    rx = lerp(rx, mx, 0.1);
-    ry = lerp(ry, my, 0.1);
-    ring.style.left = rx + 'px';
-    ring.style.top  = ry + 'px';
-    requestAnimationFrame(tick);
-  }());
+  document.addEventListener('mousedown', function() {
+    dot.querySelector('polygon').setAttribute('stroke', '#00C8FF');
+  });
+  document.addEventListener('mouseup', function() {
+    dot.querySelector('polygon').setAttribute('stroke', '#ffffff');
+  });
 }());
-
-
-
 
 // ── HERO CONSTELLATION CANVAS ───────────────────────────────────────────
 (function initConstellation() {
@@ -379,7 +378,7 @@ document.querySelectorAll('#f-name, #f-email').forEach(input => {
     .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
   const NODE_COUNT  = 34;
-  const MAX_DIST    = 175;
+  const MAX_DIST    = 150;
   const MOUSE_R     = 140;
 
   function resize() {
@@ -395,7 +394,7 @@ document.querySelectorAll('#f-name, #f-email').forEach(input => {
     y:  Math.random() * H,
     vx: (Math.random() - 0.5) * 0.22,
     vy: (Math.random() - 0.5) * 0.22,
-    r:  Math.random() * 3.6 + 2.1,
+    r:  Math.random() * 2.7 + 1.6,
     pulse:      Math.random() * Math.PI * 2,
     pulseSpeed: 0.008 + Math.random() * 0.012,
   }));
@@ -452,7 +451,7 @@ document.querySelectorAll('#f-name, #f-email').forEach(input => {
       const glow = Math.sin(n.pulse) * 0.5 + 0.5;
       const a    = COLORS.nodeAlpha * (0.7 + glow * 0.3);
       ctx.beginPath();
-      ctx.arc(n.x, n.y, n.r + glow * 1.8, 0, Math.PI * 2);
+      ctx.arc(n.x, n.y, n.r + glow * 1.3, 0, Math.PI * 2);
       ctx.fillStyle = rgb(COLORS.node, a);
       ctx.fill();
     });
