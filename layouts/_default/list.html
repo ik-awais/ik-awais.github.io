@@ -6,16 +6,19 @@
   <div class="project-grid">
     {{ range .Pages }}
     <div class="project-card reveal">
-      <p class="project-num">{{ .Date.Format "Jan 2006" }}</p>
-      <h3>{{ .Title }}</h3>
-      <p>{{ .Params.summary | default .Summary }}</p>
-      {{ with .Params.tags }}
-      <div class="tags">{{ range . }}<span class="tag">{{ . }}</span>{{ end }}</div>
-      {{ end }}
-      <div class="project-links">
-        {{ if .Params.github }}<a href="{{ .Params.github }}" target="_blank">GitHub ↗</a>{{ end }}
-        {{ if .Params.demo }}<a href="{{ .Params.demo }}" target="_blank">Live Demo ↗</a>{{ end }}
-        <a href="{{ .RelPermalink }}">Read More →</a>
+      {{ partial "card-thumb.html" . }}
+      <div class="project-card-body">
+        <p class="project-num">{{ .Date.Format "Jan 2006" }}</p>
+        <h3>{{ .Title }}</h3>
+        <p>{{ .Params.summary | default .Summary }}</p>
+        {{ with .Params.tags }}
+        <div class="tags">{{ range . }}<span class="tag">{{ . }}</span>{{ end }}</div>
+        {{ end }}
+        <div class="project-links">
+          {{ if .Params.github }}<a href="{{ .Params.github }}" target="_blank">GitHub ↗</a>{{ end }}
+          {{ if .Params.demo }}<a href="{{ .Params.demo }}" target="_blank">Live Demo ↗</a>{{ end }}
+          <a href="{{ .RelPermalink }}">Read More →</a>
+        </div>
       </div>
     </div>
     {{ end }}

@@ -4,6 +4,7 @@
   <article class="single-section">
 
     <div class="single-header reveal">
+      {{ partial "card-thumb.html" . }}
       <h1>{{ .Title }}</h1>
       <p class="single-meta">{{ .Date.Format "January 2, 2006" }}</p>
       {{ with .Params.tags }}
@@ -42,32 +43,24 @@
 </div>
 
 <script>
-// Active ToC highlight on scroll using Hugo's native ToC links
 (function() {
   var tocNav  = document.getElementById('tocNav');
   if (!tocNav) return;
-
   var body     = document.querySelector('.single-body');
   if (!body) return;
-
   var headings = Array.from(body.querySelectorAll('h2, h3'));
   if (!headings.length) return;
-
   var links    = Array.from(tocNav.querySelectorAll('a'));
-
   function setActive() {
     var scrollY = window.scrollY + 130;
     var active  = headings[0];
-    headings.forEach(function(h) {
-      if (h.offsetTop <= scrollY) active = h;
-    });
+    headings.forEach(function(h) { if (h.offsetTop <= scrollY) active = h; });
     links.forEach(function(l) { l.classList.remove('active'); });
     if (active && active.id) {
       var al = tocNav.querySelector('a[href="#' + active.id + '"]');
       if (al) al.classList.add('active');
     }
   }
-
   window.addEventListener('scroll', setActive, { passive: true });
   setActive();
 })();

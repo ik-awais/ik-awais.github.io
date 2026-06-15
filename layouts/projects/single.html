@@ -5,6 +5,7 @@
 
     <div class="single-header reveal">
       <a href="/projects/" class="project-back">← All Projects</a>
+      {{ partial "card-thumb.html" . }}
       <h1>{{ .Title }}</h1>
       {{ if .Date }}
       <p class="single-meta">{{ .Date.Format "January 2006" }}</p>

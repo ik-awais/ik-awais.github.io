@@ -1,0 +1,35 @@
+{{- /*
+  Partial: card-thumb.html
+
+  Priority order:
+    1. .Params.thumbnail  — any path under /static/ e.g. /images/my-cover.jpg
+    2. .Params.image      — alias, same behaviour
+    3. Generated gradient — derived from title length + tag count, zero extra files
+
+  To add a real thumbnail to any post, add to its frontmatter:
+    thumbnail: /images/your-image.jpg
+*/ -}}
+
+{{- $img := "" -}}
+{{- with .Params.thumbnail -}}{{- $img = . -}}{{- end -}}
+{{- if not $img -}}{{- with .Params.image -}}{{- $img = . -}}{{- end -}}{{- end -}}
+
+{{- if $img -}}
+<div class="card-thumb card-thumb--image">
+  <img src="{{ $img }}" alt="{{ .Title }}" loading="lazy" decoding="async">
+</div>
+{{- else -}}
+  {{- /* Deterministic palette index: title char count mod 6 gives 0-5 */ -}}
+  {{- $palette := mod (len .Title) 6 -}}
+  {{- $icon := "AI" -}}
+  {{- with .Params.tags -}}
+    {{- $first := index . 0 -}}
+    {{- if gt (len $first) 1 -}}
+      {{- $icon = $first | upper | truncate 2 "" -}}
+    {{- end -}}
+  {{- end -}}
+<div class="card-thumb card-thumb--gradient card-thumb--p{{ $palette }}" aria-hidden="true">
+  <div class="card-thumb-noise"></div>
+  <span class="card-thumb-icon">{{ $icon }}</span>
+</div>
+{{- end -}}
