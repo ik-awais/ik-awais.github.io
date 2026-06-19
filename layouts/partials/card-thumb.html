@@ -22,7 +22,8 @@
   {{- /* Deterministic palette index: title char count mod 6 gives 0-5 */ -}}
   {{- $palette := mod (len .Title) 6 -}}
   {{- /* Deterministic glyph index: tag count + title-length mod 8 */ -}}
-  {{- $tagCount := len .Params.tags -}}
+  {{- $tagCount := 0 -}}
+  {{- with .Params.tags -}}{{- $tagCount = len . -}}{{- end -}}
   {{- $glyphIdx := mod (add (len .Title) $tagCount) 8 -}}
 <div class="card-thumb card-thumb--gradient card-thumb--p{{ $palette }}" aria-hidden="true">
   <div class="card-thumb-noise"></div>
