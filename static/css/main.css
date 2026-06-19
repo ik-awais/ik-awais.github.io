@@ -704,10 +704,11 @@ footer {
 .footer-brand-email {
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px; letter-spacing: 0.08em;
-  color: var(--accent); text-decoration: none;
-  margin-top: 4px; transition: opacity 0.2s; display: inline-block;
+  color: #00d4ff !important; text-decoration: none;
+  margin-top: 4px; transition: color 0.25s; display: inline-block;
+  opacity: 1 !important;
 }
-.footer-brand-email:hover { opacity: 0.75; }
+.footer-brand-email:hover { color: #9B59FF !important; }
 .footer-nav-group { display: flex; gap: 48px; }
 .footer-nav-col { display: flex; flex-direction: column; gap: 12px; }
 .footer-nav-heading {
@@ -739,12 +740,14 @@ footer p,
 .footer-right { display: flex; gap: 20px; align-items: center; }
 .footer-right a {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 10px; color: #7E87A7;
-  text-decoration: none; letter-spacing: 0.06em; transition: color 0.2s;
+  font-size: 10px; color: #00d4ff !important;
+  text-decoration: none; letter-spacing: 0.06em; transition: color 0.25s;
+  opacity: 1 !important;
 }
-.footer-right a:hover { color: #F5F7FF; }
+.footer-right a:hover { color: #9B59FF !important; }
 [data-theme="light"] footer p { color: #B8C1D9; }
-[data-theme="light"] .footer-right a { color: #B8C1D9; }
+[data-theme="light"] .footer-right a { color: #00d4ff !important; }
+[data-theme="light"] .footer-right a:hover { color: #7c3aed !important; }
 .footer-glow {
   position: absolute;
   bottom: -60px; left: 50%; transform: translateX(-50%);
@@ -1512,16 +1515,25 @@ button:focus-visible,
   pointer-events: none;
 }
 
-/* Icon label */
+/* Icon label — SVG geometric glyph */
 .card-thumb-icon {
   position: relative;
   z-index: 1;
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
-  font-size: 13px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  opacity: 0.55;
+  width: 52px;
+  height: 52px;
+  opacity: 0.65;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s, transform 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+.card-thumb-icon svg {
+  width: 100%;
+  height: 100%;
+}
+.project-card:hover .card-thumb-icon {
+  opacity: 0.9;
+  transform: scale(1.08) rotate(6deg);
 }
 
 /* Palette 0 — violet to deep blue */
@@ -1585,9 +1597,9 @@ button:focus-visible,
   height: 260px;
 }
 .single-header .card-thumb-icon {
-  font-size: 18px;
-  opacity: 0.35;
-  letter-spacing: 0.22em;
+  width: 72px;
+  height: 72px;
+  opacity: 0.4;
 }
 
 /* ── Responsive ── */

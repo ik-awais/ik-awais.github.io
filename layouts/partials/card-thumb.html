@@ -4,7 +4,7 @@
   Priority order:
     1. .Params.thumbnail  — any path under /static/ e.g. /images/my-cover.jpg
     2. .Params.image      — alias, same behaviour
-    3. Generated gradient — derived from title length + tag count, zero extra files
+    3. Generated gradient — deterministic palette + random SVG geometric glyph
 
   To add a real thumbnail to any post, add to its frontmatter:
     thumbnail: /images/your-image.jpg
@@ -21,15 +21,29 @@
 {{- else -}}
   {{- /* Deterministic palette index: title char count mod 6 gives 0-5 */ -}}
   {{- $palette := mod (len .Title) 6 -}}
-  {{- $icon := "AI" -}}
-  {{- with .Params.tags -}}
-    {{- $first := index . 0 -}}
-    {{- if gt (len $first) 1 -}}
-      {{- $icon = $first | upper | truncate 2 "" -}}
-    {{- end -}}
-  {{- end -}}
+  {{- /* Deterministic glyph index: tag count + title-length mod 8 */ -}}
+  {{- $tagCount := len .Params.tags -}}
+  {{- $glyphIdx := mod (add (len .Title) $tagCount) 8 -}}
 <div class="card-thumb card-thumb--gradient card-thumb--p{{ $palette }}" aria-hidden="true">
   <div class="card-thumb-noise"></div>
-  <span class="card-thumb-icon">{{ $icon }}</span>
+  <div class="card-thumb-icon">
+    {{- if eq $glyphIdx 0 -}}
+    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><polygon points="24,4 44,36 4,36" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><line x1="24" y1="4" x2="24" y2="36" stroke="currentColor" stroke-width="1.5" opacity="0.5"/><line x1="4" y1="36" x2="44" y2="36" stroke="currentColor" stroke-width="1.5" opacity="0.5"/></svg>
+    {{- else if eq $glyphIdx 1 -}}
+    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="18" stroke="currentColor" stroke-width="2.5"/><circle cx="24" cy="24" r="8" stroke="currentColor" stroke-width="1.5" opacity="0.5"/><line x1="24" y1="6" x2="24" y2="42" stroke="currentColor" stroke-width="1.2" opacity="0.4"/><line x1="6" y1="24" x2="42" y2="24" stroke="currentColor" stroke-width="1.2" opacity="0.4"/></svg>
+    {{- else if eq $glyphIdx 2 -}}
+    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="8" y="8" width="32" height="32" rx="2" stroke="currentColor" stroke-width="2.5"/><rect x="16" y="16" width="16" height="16" rx="1" stroke="currentColor" stroke-width="1.5" opacity="0.5"/><line x1="8" y1="8" x2="40" y2="40" stroke="currentColor" stroke-width="1.2" opacity="0.35"/><line x1="40" y1="8" x2="8" y2="40" stroke="currentColor" stroke-width="1.2" opacity="0.35"/></svg>
+    {{- else if eq $glyphIdx 3 -}}
+    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><polygon points="24,4 44,14 44,34 24,44 4,34 4,14" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><polygon points="24,14 34,19 34,29 24,34 14,29 14,19" stroke="currentColor" stroke-width="1.5" opacity="0.5" stroke-linejoin="round"/></svg>
+    {{- else if eq $glyphIdx 4 -}}
+    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 24 L24 8 L40 24 L24 40 Z" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><path d="M16 24 L24 16 L32 24 L24 32 Z" stroke="currentColor" stroke-width="1.5" opacity="0.5" stroke-linejoin="round"/><circle cx="24" cy="24" r="3" fill="currentColor" opacity="0.6"/></svg>
+    {{- else if eq $glyphIdx 5 -}}
+    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="24" y1="4" x2="24" y2="44" stroke="currentColor" stroke-width="2.5"/><line x1="4" y1="24" x2="44" y2="24" stroke="currentColor" stroke-width="2.5"/><line x1="10" y1="10" x2="38" y2="38" stroke="currentColor" stroke-width="1.8" opacity="0.5"/><line x1="38" y1="10" x2="10" y2="38" stroke="currentColor" stroke-width="1.8" opacity="0.5"/><circle cx="24" cy="24" r="5" stroke="currentColor" stroke-width="1.5" opacity="0.6"/></svg>
+    {{- else if eq $glyphIdx 6 -}}
+    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M24 6 L42 18 L42 30 L24 42 L6 30 L6 18 Z" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><line x1="24" y1="6" x2="24" y2="42" stroke="currentColor" stroke-width="1.2" opacity="0.4"/><line x1="6" y1="18" x2="42" y2="30" stroke="currentColor" stroke-width="1.2" opacity="0.4"/><line x1="6" y1="30" x2="42" y2="18" stroke="currentColor" stroke-width="1.2" opacity="0.4"/></svg>
+    {{- else -}}
+    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="18" stroke="currentColor" stroke-width="2.5"/><polygon points="24,12 32,28 16,28" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" opacity="0.7"/><circle cx="24" cy="24" r="4" fill="currentColor" opacity="0.5"/></svg>
+    {{- end -}}
+  </div>
 </div>
 {{- end -}}

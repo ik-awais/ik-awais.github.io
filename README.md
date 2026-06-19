@@ -9,7 +9,7 @@
 
 <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=15&duration=2800&pause=900&color=9d6fff&center=true&vCenter=true&width=720&height=36&lines=AI+Engineer+%7C+Managing+Director+%40+AI+GenMat;BS+Artificial+Intelligence+%E2%80%94+FAST-NUCES+Peshawar;Hugo+%7C+GitHub+Pages+%7C+Zero+Frameworks;Push+to+main+%E2%86%92+Live+in+~90+seconds" alt="Roles" />
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=400&size=13&duration=3200&pause=1200&color=00C8FF&center=true&vCenter=true&width=720&height=30&lines=840+lines+of+hand-written+CSS+%7C+No+framework;294+lines+of+vanilla+JS+%7C+No+dependencies;3+AI%2FML+Projects+%7C+4+Blog+Posts+%7C+CI%2FCD+in+~90s;ik-awais.github.io+%7C+Agentic+AI+%7C+RAG+%7C+LLM" alt="Stack Ticker" />
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=400&size=13&duration=3200&pause=1200&color=00C8FF&center=true&vCenter=true&width=720&height=30&lines=1600%2B+lines+of+hand-written+CSS+%7C+No+framework;520%2B+lines+of+vanilla+JS+%7C+No+dependencies;4+AI%2FML+Projects+%7C+4+Blog+Posts+%7C+CI%2FCD+in+~90s;ik-awais.github.io+%7C+Agentic+AI+%7C+RAG+%7C+LLM" alt="Stack Ticker" />
 
 <br/>
 
@@ -50,8 +50,8 @@ portfolio:
   deploy:     GitHub Pages via GitHub Actions
   branch:     main
   build_time: ~90 seconds
-  css:        840 lines — zero framework
-  js:         294 lines — vanilla, zero dependencies
+  css:        1600+ lines — zero framework
+  js:         520+ lines — vanilla, zero dependencies
 
 specialization:
   - Agentic AI & Multi-Agent Systems
@@ -59,7 +59,7 @@ specialization:
   - NLP & Computer Vision
   - GenAI Automation & AI Infrastructure
 
-projects:     3 AI/ML projects
+projects:     4 AI/ML projects
 blog_posts:   4 (Tech Survival Series)
 
 contact:
@@ -124,6 +124,7 @@ contact:
 
 | Project | Description | Stack |
 |:--------|:------------|:------|
+| [**LectureLens**](https://github.com/ik-awais/lecturelens) | Full RAG lecture Q&A system — Flask backend, ChromaDB vector store, BAAI/bge embeddings, SQLite FTS5, dark-themed Chat UI + admin dashboard | `Flask` `ChromaDB` `HuggingFace` `SQLite` `Python` |
 | [**AI Research Assistant Agent**](https://github.com/ik-awais/ai-research-agent) | Autonomous agentic system that searches the web, deduplicates sources, and generates structured research reports with citations | `LangChain` `OpenAI` `Streamlit` `Python` |
 | [**Document Q&A System**](https://github.com/ik-awais/doc-qa-system) | RAG pipeline for uploading documents and asking natural language questions with source citations | `LangChain` `FAISS` `Streamlit` `Python` |
 | [**MediScan AI**](https://github.com/ik-awais/mediscan-ai) | End-to-end medical imaging pipeline — ViT classification, IsolationForest anomaly scoring, LLaMA 3.1 radiology report generation | `PyTorch` `HuggingFace` `FastAPI` `OpenCV` `LLaMA 3.1` |
@@ -205,7 +206,7 @@ portfolio/
 ├── .github/workflows/deploy.yml     <- GitHub Actions CI/CD (triggers on main)
 ├── content/
 │   ├── blog/                        <- 4 published posts (Tech Survival Series)
-│   └── projects/                    <- 3 AI/ML project pages
+│   └── projects/                    <- 4 AI/ML project pages (incl. LectureLens)
 ├── layouts/
 │   ├── _default/
 │   │   ├── baseof.html              <- Base template (nav, footer, head, scripts)
@@ -213,8 +214,8 @@ portfolio/
 │   │   └── single.html             <- Post/project pages + sticky ToC
 │   └── index.html                  <- Homepage template
 ├── static/
-│   ├── css/main.css                 <- 840 lines — dark/light theme, responsive
-│   ├── js/main.js                   <- 294 lines — cursor, animations, form, theme
+│   ├── css/main.css                 <- 1600+ lines — dark/light theme, responsive
+│   ├── js/main.js                   <- 520+ lines — cursor, animations, form, theme
 │   └── _headers                    <- CSP security headers (Netlify/Cloudflare ready)
 └── hugo.toml                        <- Site configuration
 ```
@@ -286,6 +287,11 @@ Deploy -> https://ik-awais.github.io  (~90 seconds total)
 | 8 | GH Pages deploy failing | Deploy branch not in github-pages environment allowlist |
 | 9 | Light theme washed out | #f5f5ef -> #f0f2f5 (GitHub/VS Code cool grey convention) |
 | 10 | Wrong data on project cards | .WordCount -> .Date.Format "Jan 2006" |
+| 11 | Footer icon links dull/white | Added explicit `color:#00d4ff !important` + purple hover to `.footer-right a` |
+| 12 | Work email dull purple in footer | Set `.footer-brand-email` to `#00d4ff` natural, purple on hover |
+| 13 | Card-thumb showing 2-letter text icon | Replaced with 8 deterministic SVG geometric glyphs (title+tag hash) |
+| 14 | Homepage cards missing thumbnail | Added `card-thumb.html` partial to `index.html` project grid |
+| 15 | Constellation nodes too large/slow | Reduced radius by 2px, increased count 34→55, boosted velocity 0.22→0.38 |
 
 </div>
 

@@ -396,7 +396,7 @@ document.querySelectorAll('#f-name, #f-email').forEach(input => {
   new MutationObserver(() => { COLORS = getColors(); })
     .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
-  const NODE_COUNT  = 34;
+  const NODE_COUNT  = 55;
   const MAX_DIST    = 150;
   const MOUSE_R     = 140;
 
@@ -411,11 +411,11 @@ document.querySelectorAll('#f-name, #f-email').forEach(input => {
   const nodes = Array.from({ length: NODE_COUNT }, () => ({
     x:  Math.random() * W,
     y:  Math.random() * H,
-    vx: (Math.random() - 0.5) * 0.22,
-    vy: (Math.random() - 0.5) * 0.22,
-    r:  Math.random() * 2.7 + 1.6,
+    vx: (Math.random() - 0.5) * 0.38,
+    vy: (Math.random() - 0.5) * 0.38,
+    r:  Math.random() * 1.5 + 0.6,
     pulse:      Math.random() * Math.PI * 2,
-    pulseSpeed: 0.008 + Math.random() * 0.012,
+    pulseSpeed: 0.01 + Math.random() * 0.018,
   }));
 
   canvas.parentElement.addEventListener('mousemove', e => {
