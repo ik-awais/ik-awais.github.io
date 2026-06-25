@@ -413,7 +413,7 @@ document.querySelectorAll('#f-name, #f-email').forEach(input => {
     y:  Math.random() * H,
     vx: (Math.random() - 0.5) * 0.38,
     vy: (Math.random() - 0.5) * 0.38,
-    r:  Math.random() * 1.5 + 0.6,
+    r:  Math.random() * 1.8 + 1.0,
     pulse:      Math.random() * Math.PI * 2,
     pulseSpeed: 0.01 + Math.random() * 0.018,
   }));
@@ -439,6 +439,13 @@ document.querySelectorAll('#f-name, #f-email').forEach(input => {
         n.vy += dy / d * f;
       }
       n.vx *= 0.988; n.vy *= 0.988;
+      // Keep nodes always moving — enforce minimum speed
+      const spd = Math.sqrt(n.vx * n.vx + n.vy * n.vy);
+      if (spd < 0.18) {
+        const boost = (0.18 - spd) * 0.06;
+        n.vx += (Math.random() - 0.5) * boost;
+        n.vy += (Math.random() - 0.5) * boost;
+      }
       n.x += n.vx;   n.y += n.vy;
       n.pulse += n.pulseSpeed;
       if (n.x < -8) n.x = W + 8;
