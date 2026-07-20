@@ -277,97 +277,6 @@ document.querySelectorAll('#f-name, #f-email').forEach(input => {
   });
 }());
 
-// ── PREMIUM CURSOR ──────────────────────────────────────────────────────
-(function initCursor() {
-  var isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
-  if (isTouch) return;
-
-  var dot  = document.getElementById('cursor');
-  var ring = document.getElementById('cursorRing');
-  if (!dot) return;
-
-  // Inject GTA arrow
-  // Theme-aware NeXTSTEP sweeping pointer
-  function getCursorSVG() {
-    var isDark = document.documentElement.getAttribute('data-theme') !== 'light';
-    return isDark
-      ? '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 28" fill="none"><path d="M2,2 L2,21 L6,16.5 L9,24.5 L11.5,23.5 L8.5,15.5 L16.5,15.5 Z" fill="#0a0014" stroke="#00d4ff" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/></svg>'
-      : '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 28" fill="none"><path d="M2,2 L2,21 L6,16.5 L9,24.5 L11.5,23.5 L8.5,15.5 L16.5,15.5 Z" fill="#1a0033" stroke="#f0f0f0" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/></svg>';
-  }
-  function getDefaultStroke() {
-    return document.documentElement.getAttribute('data-theme') !== 'light'
-      ? '#00d4ff' : '#f0f0f0';
-  }
-  function getHoverStroke() {
-    return document.documentElement.getAttribute('data-theme') !== 'light'
-      ? '#9D6FFF' : '#7c3aed';
-  }
-  dot.innerHTML = getCursorSVG();
-  // Re-render on theme switch
-  new MutationObserver(function() {
-    dot.innerHTML = getCursorSVG();
-  }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-
-  // Create hourglass loading element
-  var hg = document.createElement('div');
-  hg.className = 'cursor-loading';
-  hg.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" fill="none"><path d="M3 2h12M3 16h12M4 2c0 4 5 6 5 7s-5 3-5 7M14 2c0 4-5 6-5 7s5 3 5 7" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/><path d="M5.5 4.5h7M5.5 13.5h7" stroke="#9D6FFF" stroke-width="1" stroke-linecap="round"/></svg>';
-  document.body.appendChild(hg);
-
-  var mx = -200, my = -200;
-  var visible = false;
-
-  // Loading state
-  var isLoading = document.readyState !== 'complete';
-  function setLoading(on) {
-    isLoading = on;
-    dot.classList.toggle('loading', on);
-    hg.classList.toggle('active', on);
-  }
-  if (isLoading) setLoading(true);
-  window.addEventListener('load', function() { setLoading(false); }, { once: true });
-
-  function positionAt(x, y) {
-    dot.style.transform = 'translate(' + x + 'px,' + y + 'px)';
-    hg.style.transform  = 'translate(' + (x - 9) + 'px,' + (y - 9) + 'px)';
-    if (ring) { ring.style.left = x + 'px'; ring.style.top = y + 'px'; }
-  }
-
-  document.addEventListener('mousemove', function(e) {
-    mx = e.clientX; my = e.clientY;
-    positionAt(mx, my);
-    if (!visible) {
-      visible = true;
-      dot.classList.remove('hidden');
-      hg.style.opacity = '';
-    }
-  }, { passive: true });
-
-  document.addEventListener('mouseleave', function() {
-    dot.classList.add('hidden');
-    hg.style.opacity = '0';
-    visible = false;
-  });
-
-  // Hover feedback — accent-color the arrow stroke on hover
-  var HOVER = 'a, button, .project-card, .identity-card, .hero-tag, .scroll-track img, [role="button"], input, textarea, select, label';
-  document.querySelectorAll(HOVER).forEach(function(el) {
-    el.addEventListener('mouseenter', function() {
-      var p=dot.querySelector('path');if(p)p.setAttribute('stroke',getHoverStroke());
-    });
-    el.addEventListener('mouseleave', function() {
-      var p=dot.querySelector('path');if(p)p.setAttribute('stroke',getDefaultStroke());
-    });
-  });
-
-  document.addEventListener('mousedown', function() {
-    var p=dot.querySelector('path');if(p)p.setAttribute('stroke','#00C8FF');
-  });
-  document.addEventListener('mouseup', function() {
-    var p=dot.querySelector('path');if(p)p.setAttribute('stroke',getDefaultStroke());
-  });
-}());
-
 // ── HERO CONSTELLATION CANVAS ───────────────────────────────────────────
 (function initConstellation() {
   const canvas = document.getElementById('heroCanvas');
@@ -507,7 +416,6 @@ document.querySelectorAll('#f-name, #f-email').forEach(input => {
     draw();
   }
 }());
-
 
 // ── MAGNETIC BUTTONS ────────────────────────────────────────────────────
 (function initMagnetic() {
