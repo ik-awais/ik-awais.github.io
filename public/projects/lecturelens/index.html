@@ -1,0 +1,663 @@
+<!doctype html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LectureLens: AI-Powered Study Assistant with RAG &amp; Hybrid Search | MA-Portfolio</title>
+  <meta name="description" content="Muhammad Awais, AI Engineer and Managing Director at AI GenMat. Agentic AI, LLM, RAG Systems, NLP, Computer Vision.">
+  <meta name="keywords" content="Muhammad Awais, AI Engineer, AI GenMat, Agentic AI, LLM, RAG, NLP, Computer Vision, AI consultant">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <nav id="navbar">
+    <div style="display:flex;align-items:center">
+      <a href="/" class="nav-logo">MA<span class="dot">.</span></a>
+      <a href="https://aigenmat.com" target="_blank" rel="noopener" class="nav-logo-badge">AI GenMat</a>
+    </div>
+    <div class="nav-links">
+      <a href="/projects/">Projects</a>
+      <a href="/blog/">Blog</a>
+      <a href="/#contact">Contact</a>
+      <a href="https://github.com/ik-awais" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/muhammad-awais-ai-engineer/" target="_blank" rel="noopener" class="cta-btn">LinkedIn</a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle colour theme">
+        <span class="icon-moon" aria-hidden="true">☽</span>
+        <span class="icon-sun" aria-hidden="true">☀</span>
+      </button>
+      <a href="https://www.upwork.com/freelancers/~018a2d0e2f88ac4838" target="_blank" rel="noopener" class="cta-btn cta-btn-primary">Hire Me</a>
+    </div>
+  </nav>
+
+  <main>
+    
+<div class="single-wrapper">
+
+  <article class="single-section">
+
+    <div class="single-header reveal">
+      <a href="/projects/" class="project-back">← All Projects</a>
+      <div class="card-thumb card-thumb--gradient card-thumb--p4" aria-hidden="true">
+  <div class="card-thumb-noise"></div>
+  <div class="card-thumb-icon"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 24 L24 8 L40 24 L24 40 Z" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><path d="M16 24 L24 16 L32 24 L24 32 Z" stroke="currentColor" stroke-width="1.5" opacity="0.5" stroke-linejoin="round"/><circle cx="24" cy="24" r="3" fill="currentColor" opacity="0.6"/></svg></div>
+</div>
+      <h1>LectureLens: AI-Powered Study Assistant with RAG &amp; Hybrid Search</h1>
+      
+      <p class="single-meta">June 2026</p>
+      
+      
+      <div class="tags" style="margin-top:20px">
+        <span class="tag">RAG</span><span class="tag">LLM</span><span class="tag">Flask</span><span class="tag">Python</span><span class="tag">ChromaDB</span><span class="tag">Hybrid Search</span><span class="tag">NVIDIA API</span><span class="tag">Sentence Transformers</span><span class="tag">SQLite</span><span class="tag">NLP</span><span class="tag">Vector Database</span><span class="tag">AI Study Assistant</span>
+      </div>
+      
+      
+      <div style="margin-top:28px;display:flex;gap:16px;flex-wrap:wrap">
+        <a href="https://github.com/ik-awais/Python_Projects/tree/main/PAI/LectureLens" target="_blank" rel="noopener" class="btn-primary">View on GitHub</a>
+        
+      </div>
+      
+    </div>
+
+    <div class="single-body">
+      <blockquote>
+<p><strong>Upload your lecture slides and notes, then chat with them.</strong> LectureLens turns static academic documents into an interactive, citation-aware study assistant powered by a large language model.</p>
+</blockquote>
+<hr>
+<h2 id="what-is-lecturelens">What Is LectureLens?</h2>
+<p>LectureLens is a full-stack Retrieval-Augmented Generation (RAG) application built for students and researchers. Instead of keyword-searching through PDFs or scrubbing through lecture slides, you upload your course material once and ask questions in plain English, receiving precise, grounded answers backed by page-level citations from your own documents.</p>
+<p>The system is built on a production-quality Flask backend with non-blocking background indexing, a ChromaDB vector store organised by academic subject, a SQLite FTS5 full-text search engine for keyword recall, and NVIDIA&rsquo;s hosted LLaMA 3.3 70B Instruct as the reasoning layer. Every answer is grounded in your uploaded material: the LLM is explicitly instructed to say &ldquo;I don&rsquo;t have enough information&rdquo; rather than hallucinate.</p>
+<hr>
+<h2 id="key-features">Key Features</h2>
+<ul>
+<li><strong>Multi-format document ingestion</strong>: PDFs (PyMuPDF), DOCX (python-docx), and PPTX (python-pptx) are all parsed into a unified page-level structure</li>
+<li><strong>Hybrid search (vector + keyword)</strong>: dense vector similarity (70 % weight, ChromaDB) is fused with SQLite FTS5 keyword search (30 % weight), giving higher recall than either method alone</li>
+<li><strong>Per-subject ChromaDB collections</strong>: each subject (e.g. <code>lecturelens_machine_learning</code>) gets its own HNSW collection, keeping retrieval focused and enabling cross-subject search when needed</li>
+<li><strong>Page-level citations</strong>: every answer includes <code>{filename, page}</code> pairs so students can verify sources instantly</li>
+<li><strong>Non-blocking background indexing</strong>: uploads return <code>202 Accepted</code> immediately; a <code>ThreadPoolExecutor</code>-backed <code>IndexingQueue</code> handles the full parse → chunk → embed → store pipeline asynchronously</li>
+<li><strong>Auto-ingestion folder watcher</strong>: a <code>FolderWatcher</code> daemon thread scans <code>uploads/&lt;subject&gt;/</code> on a configurable interval and automatically queues any new files it finds</li>
+<li><strong>SHA-256 duplicate detection</strong>: the file hash is computed before any expensive parsing; identical documents are rejected gracefully</li>
+<li><strong>Session-aware chat history</strong>: every Q&amp;A exchange is persisted in SQLite under a UUID session ID, enabling multi-turn history retrieval</li>
+<li><strong>Transactional deletes</strong>: document removal cascades through ChromaDB, FTS5, and SQLite atomically; any failure at a step returns a 500 before the next layer is touched</li>
+<li><strong>Admin dashboard</strong>: a password-protected <code>/admin</code> panel (authenticated via <code>X-Admin-Password</code> header) offers document listing, per-subject stats, vector counts, reindex triggers, and live system health monitoring</li>
+<li><strong>Lazy-loaded embedding model</strong>: <code>BAAI/bge-small-en-v1.5</code> (384-dimensional, 33 M parameters) is loaded once on first use and LRU-cached per text string, making repeated queries very fast</li>
+</ul>
+<hr>
+<h2 id="system-architecture">System Architecture</h2>
+<pre tabindex="0"><code>┌─────────────────────────────────────────────────────────────────┐
+│                    Flask Application (app.py)                    │
+│                  Application Factory Pattern                     │
+│                                                                  │
+│  ┌──────────────┐   ┌──────────────┐   ┌──────────────────────┐ │
+│  │ POST /upload │   │ POST /chat   │   │ /admin/*             │ │
+│  │ upload_bp    │   │ chat_bp      │   │ admin_bp             │ │
+│  └──────┬───────┘   └──────┬───────┘   └──────────────────────┘ │
+│         │                  │                                     │
+│         ▼                  ▼                                     │
+│  ┌──────────────┐   ┌──────────────────────────────────────┐    │
+│  │ Indexing     │   │          RAG Pipeline                 │    │
+│  │ Queue        │   │                                       │    │
+│  │ (Thread      │   │  1. hybrid_search(question, subject)  │    │
+│  │  Pool, N     │   │  2. _build_context(chunks)            │    │
+│  │  workers)    │   │  3. NVIDIAClient.generate(prompt)     │    │
+│  └──────┬───────┘   │  4. _extract_citations(chunks)        │    │
+│         │           └──────────────┬───────────────────────┘    │
+│         ▼                          │                             │
+│  ┌──────────────┐          ┌───────▼──────────────────────┐    │
+│  │ Indexing     │          │      Search Service           │    │
+│  │ Service      │          │                               │    │
+│  │              │          │  vector_results (ChromaDB)    │    │
+│  │ 1. SHA-256   │          │    score = 1/(1+distance)     │    │
+│  │ 2. parse()   │          │  × 0.7 weight                 │    │
+│  │ 3. chunk()   │          │                               │    │
+│  │ 4. FTS insert│          │  keyword_results (FTS5)       │    │
+│  │ 5. embed()   │          │    score = 1/(1+rank)         │    │
+│  │ 6. chroma    │          │  × 0.3 weight                 │    │
+│  │    .add()    │          │                               │    │
+│  │ 7. status=ok │          │  merged by chunk_id, top-k    │    │
+│  └──────┬───────┘          └───────┬──────────────────────┘    │
+└─────────┼──────────────────────────┼────────────────────────────┘
+          │                          │
+   ┌──────▼──────────┐    ┌──────────▼──────────────────┐
+   │  ChromaDB       │    │  SQLite (WAL mode)           │
+   │  Vector Store   │◄───│                              │
+   │                 │    │  documents  (status, hash)   │
+   │  lecturelens_   │    │  conversations (session Q&amp;A) │
+   │  &lt;subject&gt;      │    │  sessions   (UUID → created) │
+   │  collections    │    │  subjects   (name registry)  │
+   │  (HNSW cosine)  │    │  chunks_fts (FTS5 virtual)   │
+   └─────────────────┘    └──────────────────────────────┘
+          │
+   ┌──────▼──────────────────────┐
+   │  NVIDIA API                 │
+   │  meta/llama-3.3-70b-instruct│
+   │  temperature=0.2            │
+   │  max_tokens=500             │
+   └─────────────────────────────┘
+</code></pre><hr>
+<h2 id="how-it-works-step-by-step">How It Works: Step by Step</h2>
+<h3 id="step-1-upload--validation">Step 1: Upload &amp; Validation</h3>
+<p><code>POST /upload</code> receives a file and a subject label. The route validates:</p>
+<ul>
+<li>Extension is in <code>('.pdf', '.docx', '.pptx')</code></li>
+<li>File size is within <code>MAX_FILE_SIZE_MB</code> (default 2 GB for bulk academic uploads)</li>
+</ul>
+<p>The file is saved with a <code>{uuid4_hex}_{secure_filename}</code> name to prevent path traversal, then an <code>indexing_task</code> closure is enqueued. The endpoint returns <code>202 Accepted</code> immediately, so the caller is never blocked by embedding time.</p>
+<h3 id="step-2-background-indexing-pipeline">Step 2: Background Indexing Pipeline</h3>
+<p>The <code>IndexingQueue</code> (a <code>ThreadPoolExecutor</code> with configurable <code>INDEXING_WORKERS</code>, default 4) picks up the task and runs <code>IndexingService.index_document()</code>:</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Step</th>
+          <th style="text-align: left">Action</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">1</td>
+          <td style="text-align: left">Compute SHA-256 hash → reject if duplicate already in DB</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2</td>
+          <td style="text-align: left">Parse document: PDF page-by-page via PyMuPDF; DOCX paragraphs joined as one page; PPTX slide-by-slide, skipping empty slides</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">3</td>
+          <td style="text-align: left">Create SQLite record with <code>status='processing'</code> and a fresh UUID as <code>document_id</code></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">4</td>
+          <td style="text-align: left">Chunk text with <code>ChunkingService</code> (500-char window, 100-char overlap, sentence-boundary-aware snapping within ±200 chars)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">5</td>
+          <td style="text-align: left">Insert raw chunk text into the FTS5 virtual table <code>chunks_fts</code> for keyword indexing</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">6</td>
+          <td style="text-align: left">Batch-embed all chunks with <code>BAAI/bge-small-en-v1.5</code> → 384-dimensional float vectors</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">7</td>
+          <td style="text-align: left">Enrich each chunk dict with <code>document_id</code> and <code>filename</code> metadata</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">8</td>
+          <td style="text-align: left">Store in the subject&rsquo;s ChromaDB collection (created on demand with <code>hnsw:space=cosine</code>)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">9</td>
+          <td style="text-align: left">Update SQLite status to <code>'completed'</code>; on any exception, set <code>'failed'</code> and re-raise</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="step-3-hybrid-search">Step 3: Hybrid Search</h3>
+<p>When <code>POST /chat</code> receives a question, <code>SearchService.hybrid_search()</code> runs two parallel searches:</p>
+<p><strong>Vector search</strong>: the question is embedded with the same <code>BAAI/bge-small-en-v1.5</code> model (LRU-cached), then queried against the relevant ChromaDB collection (subject-specific) or all <code>lecturelens_*</code> collections (cross-subject). Raw cosine distances are normalised:</p>
+<pre tabindex="0"><code>vector_score = 1.0 / (1.0 + distance)
+</code></pre><p><strong>Keyword search</strong>: the question is sanitised (punctuation stripped, double-quoted chars escaped) and run through FTS5 MATCH. SQLite&rsquo;s internal <code>rank</code> scores are normalised:</p>
+<pre tabindex="0"><code>keyword_score = 1.0 / (1.0 + rank)
+</code></pre><p>Results are merged by <code>chunk_id</code>. Chunks appearing in only one search get a zero score for the other. The final score is:</p>
+<pre tabindex="0"><code>combined_score = 0.7 × vector_score + 0.3 × keyword_score
+</code></pre><p>Top-k chunks by combined score are returned as the retrieval context.</p>
+<h3 id="step-4-rag-answer-generation">Step 4: RAG Answer Generation</h3>
+<p><code>RAGPipeline.answer()</code> takes the retrieved chunks and:</p>
+<ol>
+<li>Builds a context string with <code>[Source: {filename}, Page {page_num}]</code> headers above each chunk&rsquo;s text</li>
+<li>Constructs a system prompt: <em>&ldquo;Use only the provided context. If the answer is not in the context, say &lsquo;I don&rsquo;t have enough information about that.&rsquo;&rdquo;</em></li>
+<li>Calls <code>NVIDIAClient.generate()</code> → <code>meta/llama-3.3-70b-instruct</code> at <code>temperature=0.2</code> for factual, low-variance answers; falls back to concatenated raw chunks if the API call fails</li>
+<li>Extracts a deduplicated <code>[{filename, page}, ...]</code> citation list from the chunks used</li>
+<li>Returns <code>{answer, citations, retrieved_chunks}</code> as JSON</li>
+</ol>
+<h3 id="step-5-chat-history--sessions">Step 5: Chat History &amp; Sessions</h3>
+<p>The first chat call for a user creates a session UUID via <code>SessionRepository</code>. Every Q&amp;A pair is stored in the <code>conversations</code> table. <code>GET /chat/history?session_id=&lt;uuid&gt;</code> returns the last 50 exchanges, enabling review and multi-turn context replay.</p>
+<hr>
+<h2 id="project-structure">Project Structure</h2>
+<pre tabindex="0"><code>LectureLens/
+│
+├── app.py                          # Flask application factory
+├── config.py                       # Frozen dataclass - validates all env vars at startup
+├── requirements.txt                # Pinned production dependencies
+│
+├── routes/
+│   ├── upload_routes.py            # POST /upload → validate, save, enqueue
+│   ├── chat_routes.py              # POST /chat, GET /chat/history
+│   ├── search_routes.py            # Search-only endpoint (no LLM)
+│   ├── subjects_routes.py          # Subject CRUD
+│   └── admin_routes.py             # /admin/* - stats, docs, health, reindex, delete
+│
+├── services/
+│   ├── indexing_service.py         # Full pipeline orchestrator (parse→chunk→embed→store)
+│   ├── document_parser.py          # Unified PDF / DOCX / PPTX parser
+│   ├── chunking_service.py         # Sentence-boundary-aware sliding-window chunker
+│   ├── embedding_service.py        # BAAI/bge-small-en-v1.5 with lazy load &amp; LRU cache
+│   ├── vector_store.py             # ChromaDB wrapper - per-subject collections, HNSW cosine
+│   ├── search_service.py           # Hybrid search - weighted vector + FTS5 merge
+│   ├── rag_pipeline.py             # Retrieve → prompt → NVIDIA LLM → citations
+│   └── llm_client.py               # NVIDIA API client - LLaMA 3.3 70B Instruct
+│
+├── models/
+│   ├── database.py                 # SQLite singleton - WAL mode, context-manager connections
+│   ├── document_repository.py      # CRUD for documents table
+│   ├── fts_repository.py           # FTS5 virtual table - insert, keyword_search, delete
+│   ├── conversation_repository.py  # Q&amp;A history per session
+│   ├── session_repository.py       # Session UUID management
+│   └── subject_repository.py       # Subject registry with default seeding
+│
+├── task_queue/
+│   ├── indexing_queue.py           # ThreadPoolExecutor-backed global queue
+│   └── folder_watcher.py           # Daemon thread - auto-ingests files dropped in uploads/
+│
+└── utils/
+    ├── hashing.py                  # SHA-256 streaming hash for duplicate detection
+    ├── validators.py               # Extension and size guards
+    └── logger.py                   # Structured rotating file + console logging
+</code></pre><hr>
+<h2 id="tech-stack">Tech Stack</h2>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Layer</th>
+          <th style="text-align: left">Technology</th>
+          <th style="text-align: left">Role</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">Web framework</td>
+          <td style="text-align: left">Flask 3.0</td>
+          <td style="text-align: left">REST API, blueprint routing, app factory</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">LLM</td>
+          <td style="text-align: left">NVIDIA API (LLaMA 3.3 70B Instruct)</td>
+          <td style="text-align: left">Answer generation, <code>temperature=0.2</code></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Embeddings</td>
+          <td style="text-align: left"><code>BAAI/bge-small-en-v1.5</code> (sentence-transformers)</td>
+          <td style="text-align: left">384-dim dense vectors, LRU-cached</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Vector store</td>
+          <td style="text-align: left">ChromaDB 0.4 (persistent, HNSW cosine)</td>
+          <td style="text-align: left">Semantic similarity retrieval</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Keyword search</td>
+          <td style="text-align: left">SQLite FTS5 virtual table</td>
+          <td style="text-align: left">Exact / partial keyword recall</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Relational DB</td>
+          <td style="text-align: left">SQLite with WAL mode</td>
+          <td style="text-align: left">Documents, sessions, conversations, subjects</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">PDF parsing</td>
+          <td style="text-align: left">PyMuPDF (<code>fitz</code>)</td>
+          <td style="text-align: left">Page-level text extraction</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">DOCX parsing</td>
+          <td style="text-align: left"><code>python-docx</code></td>
+          <td style="text-align: left">Paragraph-level text extraction</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">PPTX parsing</td>
+          <td style="text-align: left"><code>python-pptx</code></td>
+          <td style="text-align: left">Slide-level text extraction</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Background jobs</td>
+          <td style="text-align: left"><code>concurrent.futures.ThreadPoolExecutor</code></td>
+          <td style="text-align: left">Non-blocking indexing</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Config</td>
+          <td style="text-align: left"><code>python-dotenv</code> + frozen <code>@dataclass</code></td>
+          <td style="text-align: left">Validated env-var config at startup</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Deep learning</td>
+          <td style="text-align: left">PyTorch 2.2 (CPU)</td>
+          <td style="text-align: left">Embedding model runtime</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h2 id="configuration-reference">Configuration Reference</h2>
+<p>All settings come from a <code>.env</code> file and are validated inside the frozen <code>Config.from_env()</code> classmethod at startup; missing required keys raise <code>ValueError</code> before the app even binds to a port.</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Variable</th>
+          <th style="text-align: left">Default</th>
+          <th style="text-align: left">Purpose</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>NVIDIA_API_KEY</code></td>
+          <td style="text-align: left"><code>None</code></td>
+          <td style="text-align: left"><strong>Required.</strong> NVIDIA hosted inference auth</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>FLASK_SECRET_KEY</code></td>
+          <td style="text-align: left"><code>None</code></td>
+          <td style="text-align: left"><strong>Required.</strong> Flask session signing</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>ADMIN_PASSWORD</code></td>
+          <td style="text-align: left"><code>None</code></td>
+          <td style="text-align: left"><strong>Required.</strong> Protects all <code>/admin/*</code> routes</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>GEMINI_API_KEY</code></td>
+          <td style="text-align: left"><code>None</code></td>
+          <td style="text-align: left">Optional fallback LLM</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>CHROMA_PATH</code></td>
+          <td style="text-align: left"><code>./database/chroma</code></td>
+          <td style="text-align: left">ChromaDB persistent storage</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>DATABASE_PATH</code></td>
+          <td style="text-align: left"><code>./database/metadata.db</code></td>
+          <td style="text-align: left">SQLite file path</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>UPLOAD_FOLDER</code></td>
+          <td style="text-align: left"><code>./uploads</code></td>
+          <td style="text-align: left">Temporary file landing zone</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>CHUNK_SIZE</code></td>
+          <td style="text-align: left"><code>500</code></td>
+          <td style="text-align: left">Characters per chunk</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>OVERLAP</code></td>
+          <td style="text-align: left"><code>100</code></td>
+          <td style="text-align: left">Character overlap between chunks</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>BATCH_SIZE</code></td>
+          <td style="text-align: left"><code>32</code></td>
+          <td style="text-align: left">Embedding batch size</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>INDEXING_WORKERS</code></td>
+          <td style="text-align: left"><code>4</code></td>
+          <td style="text-align: left">Thread pool size</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>MAX_FILE_SIZE_MB</code></td>
+          <td style="text-align: left"><code>2048</code></td>
+          <td style="text-align: left">Upload size guard</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>WATCH_FOLDER_ENABLED</code></td>
+          <td style="text-align: left"><code>True</code></td>
+          <td style="text-align: left">Enable auto-ingestion watcher</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>WATCH_FOLDER_INTERVAL_SECONDS</code></td>
+          <td style="text-align: left"><code>30</code></td>
+          <td style="text-align: left">Watcher scan interval</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h2 id="api-reference">API Reference</h2>
+<h3 id="upload-a-document">Upload a Document</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-http" data-lang="http"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">POST /upload
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">Content-Type: multipart/form-data
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">file=&lt;binary&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">subject=&lt;string&gt;        # e.g. &#34;Machine Learning&#34;
+</span></span></span></code></pre></div><p>Returns <code>202 Accepted</code> immediately; indexing runs in the background.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;message&#34;</span>: <span style="color:#e6db74">&#34;Document upload accepted, indexing in background&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;original_filename&#34;</span>: <span style="color:#e6db74">&#34;week3_lecture.pdf&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;subject&#34;</span>: <span style="color:#e6db74">&#34;Machine Learning&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="chat-rag">Chat (RAG)</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-http" data-lang="http"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">POST /chat
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">Content-Type: application/json
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">{
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">  &#34;question&#34;: &#34;What is gradient descent?&#34;,
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">  &#34;subject&#34;: &#34;Machine Learning&#34;,
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">  &#34;top_k&#34;: 5,
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">  &#34;session_id&#34;: &#34;&lt;optional-uuid&gt;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">}
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;answer&#34;</span>: <span style="color:#e6db74">&#34;Gradient descent is an optimisation algorithm that iteratively adjusts model parameters in the direction of steepest loss reduction...&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;citations&#34;</span>: [
+</span></span><span style="display:flex;"><span>    { <span style="color:#f92672">&#34;filename&#34;</span>: <span style="color:#e6db74">&#34;week3_lecture.pdf&#34;</span>, <span style="color:#f92672">&#34;page&#34;</span>: <span style="color:#ae81ff">12</span> },
+</span></span><span style="display:flex;"><span>    { <span style="color:#f92672">&#34;filename&#34;</span>: <span style="color:#e6db74">&#34;week3_lecture.pdf&#34;</span>, <span style="color:#f92672">&#34;page&#34;</span>: <span style="color:#ae81ff">14</span> }
+</span></span><span style="display:flex;"><span>  ],
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;session_id&#34;</span>: <span style="color:#e6db74">&#34;a1b2c3d4-...&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;retrieved_chunks&#34;</span>: [<span style="color:#960050;background-color:#1e0010">...</span>]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="chat-history">Chat History</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-http" data-lang="http"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">GET /chat/history?session_id=&lt;uuid&gt;
+</span></span></span></code></pre></div><p>Returns last 50 Q&amp;A pairs for the session.</p>
+<h3 id="admin-system-stats">Admin: System Stats</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-http" data-lang="http"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">GET /admin/stats
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">X-Admin-Password: &lt;password&gt;
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;total_documents&#34;</span>: <span style="color:#ae81ff">42</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;total_subjects&#34;</span>: <span style="color:#ae81ff">6</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;total_vectors&#34;</span>: <span style="color:#ae81ff">18340</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;completed_documents&#34;</span>: <span style="color:#ae81ff">40</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;failed_documents&#34;</span>: <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;pending_documents&#34;</span>: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="admin-system-health">Admin: System Health</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-http" data-lang="http"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">GET /admin/health
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">X-Admin-Password: &lt;password&gt;
+</span></span></span></code></pre></div><p>Returns queue worker status, ChromaDB health, and SQLite health.</p>
+<h3 id="admin-delete-document-transactional">Admin: Delete Document (Transactional)</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-http" data-lang="http"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">DELETE /admin/documents/&lt;document_id&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">X-Admin-Password: &lt;password&gt;
+</span></span></span></code></pre></div><p>Cascades: ChromaDB vectors → FTS5 entries → SQLite row. Any failure stops the cascade and returns <code>500</code>.</p>
+<hr>
+<h2 id="getting-started">Getting Started</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 1. Clone the repository</span>
+</span></span><span style="display:flex;"><span>git clone https://github.com/ik-awais/Python_Projects.git
+</span></span><span style="display:flex;"><span>cd Python_Projects/PAI/LectureLens
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. Create and activate a virtual environment</span>
+</span></span><span style="display:flex;"><span>python -m venv venv
+</span></span><span style="display:flex;"><span>source venv/bin/activate        <span style="color:#75715e"># Windows: venv\Scripts\activate</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3. Install dependencies</span>
+</span></span><span style="display:flex;"><span>pip install -r requirements.txt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 4. Configure environment variables</span>
+</span></span><span style="display:flex;"><span>cp .env.example .env
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Edit .env - set NVIDIA_API_KEY, FLASK_SECRET_KEY, ADMIN_PASSWORD</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 5. Run the application</span>
+</span></span><span style="display:flex;"><span>python app.py
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># API available at http://localhost:5000</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Admin dashboard at http://localhost:5000/admin</span>
+</span></span></code></pre></div><hr>
+<h2 id="design-decisions--engineering-notes">Design Decisions &amp; Engineering Notes</h2>
+<p><strong>Why hybrid search instead of pure vector search?</strong>
+Vector similarity excels at semantic matching (&ldquo;gradient descent&rdquo; ↔ &ldquo;optimisation algorithm&rdquo;) but can miss exact keyword hits like formula names, acronyms, or proper nouns. FTS5 catches these exactly. The 70/30 weighted merge gives the best of both: semantic breadth plus lexical precision.</p>
+<p><strong>Why per-subject ChromaDB collections?</strong>
+Namespacing by subject means a query about &ldquo;neural networks&rdquo; inside the Machine Learning collection won&rsquo;t surface irrelevant chunks from a History or Law collection. It also makes deletion transactional per-subject: dropping a subject clears its entire ChromaDB collection in one call, rather than hunting by metadata filter.</p>
+<p><strong>Why SQLite FTS5 rather than Elasticsearch or a dedicated search engine?</strong>
+Zero additional infrastructure. Python ships with <code>sqlite3</code>; FTS5 is built in. WAL mode (<code>PRAGMA journal_mode=WAL</code>) handles concurrent Flask workers reading/writing without table-level locking. For a single-server academic deployment this is more than sufficient, and the entire database is a single portable file.</p>
+<p><strong>Why non-blocking upload with <code>ThreadPoolExecutor</code>?</strong>
+Embedding a 200-slide PPTX through a transformer model can take 20-60 seconds. Blocking the HTTP response that long would break mobile clients and timeout proxies. The <code>202 Accepted</code> pattern and background queue keep the API responsive regardless of document size or backlog.</p>
+<p><strong>Why <code>BAAI/bge-small-en-v1.5</code>?</strong>
+At 33 M parameters it produces 384-dimensional embeddings that run fast on CPU and score well on MTEB retrieval benchmarks. Academic texts, dense with technical vocabulary and structured arguments, benefit from its BERT-style pretraining on diverse corpora, and the small model size means the embedding step is not the bottleneck even on modest hardware.</p>
+<p><strong>Why a frozen <code>Config</code> dataclass?</strong>
+An immutable config object loaded once at startup prevents accidental mutation across request handlers. The <code>from_env()</code> classmethod validates every required key before <code>create_app()</code> returns, so misconfiguration fails loudly at boot rather than silently at the first API call.</p>
+<hr>
+<h2 id="what-i-learned">What I Learned</h2>
+<p>Building LectureLens end-to-end sharpened skills across the full production AI stack:</p>
+<ul>
+<li><strong>RAG pipeline design</strong>: retrieval quality is the ceiling on answer quality; I iterated on chunk size, overlap, and the vector/keyword weight ratio to improve both precision and recall</li>
+<li><strong>Hybrid search implementation</strong>: designing and calibrating the score normalisation (<code>1/(1+x)</code>) so that vector distances and FTS5 <code>rank</code> values are comparable before weighting</li>
+<li><strong>Concurrent document processing in Flask</strong>: safely passing database repositories and vector store references into background threads without leaking Flask&rsquo;s request context</li>
+<li><strong>ChromaDB collection management</strong>: HNSW index configuration, lazy client initialisation, and implementing transactional cascade deletes across a multi-store architecture</li>
+<li><strong>Production Flask patterns</strong>: application factory, blueprint separation, dependency injection via <code>app.config</code>, and graceful shutdown via <code>atexit.register</code></li>
+<li><strong>Operational observability</strong>: building a health endpoint that reports queue worker status, ChromaDB availability, and SQLite connectivity in a single call</li>
+</ul>
+<hr>
+<h2 id="related-projects">Related Projects</h2>
+<p>If you found LectureLens interesting, here are the other projects in my portfolio:</p>
+<h3 id="ai-research-assistant-agent"><a href="https://ik-awais.github.io/projects/ai-research-agent/">AI Research Assistant Agent</a></h3>
+<p>An autonomous agentic system that searches the live web, extracts multi-source content, and generates structured, cited research reports with PDF and TXT export, built with Groq LLM and the Tavily Search API.
+→ <a href="https://github.com/ik-awais/ai-research-agent">GitHub</a> · <a href="https://ik-awais.github.io/projects/ai-research-agent/">Read More</a></p>
+<h3 id="document-qa-system"><a href="https://ik-awais.github.io/projects/document-qa-system/">Document Q&amp;A System</a></h3>
+<p>A production-ready RAG system for uploading PDF, DOCX, and TXT documents and asking natural-language questions with source citations and conversational follow-up memory, built with LangChain, FAISS, and Streamlit.
+→ <a href="https://github.com/ik-awais/doc-qa-system">GitHub</a> · <a href="https://ik-awais.github.io/projects/document-qa-system/">Read More</a></p>
+<h3 id="mediscan-ai-medical-image--report-assistant"><a href="https://ik-awais.github.io/projects/mediscan-ai/">MediScan AI: Medical Image &amp; Report Assistant</a></h3>
+<p>An end-to-end medical imaging pipeline that classifies chest X-rays with a fine-tuned Vision Transformer, scores anomalies with IsolationForest, and generates structured radiology reports using LLaMA 3.1 70B, served through a single FastAPI endpoint.
+→ <a href="https://github.com/ik-awais/mediscan-ai">GitHub</a> · <a href="https://ik-awais.github.io/projects/mediscan-ai/">Read More</a></p>
+<hr>
+<h2 id="related-blog-posts">Related Blog Posts</h2>
+<h3 id="you-don"><a href="https://ik-awais.github.io/blog/tech-survival-guide-2026/">You Don&rsquo;t Need to Be a Programmer to Be a Tech Person</a></h3>
+<p>The real tech skills that put you in the top 10% of your environment, including how tools like Python, Git, and AI APIs fit into day-to-day technical work.</p>
+<h3 id="how-i-built-my-portfolio-website-with-hugo-from-scratch"><a href="https://ik-awais.github.io/blog/portfolio-development-guide/">How I Built My Portfolio Website with Hugo from Scratch</a></h3>
+<p>A detailed account of building a personal portfolio with Hugo, GitHub Pages, and automated CI/CD, the same site this project is hosted on.</p>
+<hr>
+<p><a href="https://ik-awais.github.io/projects/">← Back to All Projects</a> · <a href="https://github.com/ik-awais/Python_Projects/tree/main/PAI/LectureLens">GitHub</a> · <a href="https://ik-awais.github.io/#contact">Contact</a></p>
+
+    </div>
+
+    <div class="single-back">
+      <a href="/projects/" class="btn-ghost">← Back to Projects</a>
+    </div>
+
+  </article>
+
+  
+  <aside class="toc-sidebar" id="tocSidebar">
+    <div class="toc-inner">
+      <div class="toc-nav" id="tocNav">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#what-is-lecturelens">What Is LectureLens?</a></li>
+    <li><a href="#key-features">Key Features</a></li>
+    <li><a href="#system-architecture">System Architecture</a></li>
+    <li><a href="#how-it-works-step-by-step">How It Works: Step by Step</a>
+      <ul>
+        <li><a href="#step-1-upload--validation">Step 1: Upload &amp; Validation</a></li>
+        <li><a href="#step-2-background-indexing-pipeline">Step 2: Background Indexing Pipeline</a></li>
+        <li><a href="#step-3-hybrid-search">Step 3: Hybrid Search</a></li>
+        <li><a href="#step-4-rag-answer-generation">Step 4: RAG Answer Generation</a></li>
+        <li><a href="#step-5-chat-history--sessions">Step 5: Chat History &amp; Sessions</a></li>
+      </ul>
+    </li>
+    <li><a href="#project-structure">Project Structure</a></li>
+    <li><a href="#tech-stack">Tech Stack</a></li>
+    <li><a href="#configuration-reference">Configuration Reference</a></li>
+    <li><a href="#api-reference">API Reference</a>
+      <ul>
+        <li><a href="#upload-a-document">Upload a Document</a></li>
+        <li><a href="#chat-rag">Chat (RAG)</a></li>
+        <li><a href="#chat-history">Chat History</a></li>
+        <li><a href="#admin-system-stats">Admin: System Stats</a></li>
+        <li><a href="#admin-system-health">Admin: System Health</a></li>
+        <li><a href="#admin-delete-document-transactional">Admin: Delete Document (Transactional)</a></li>
+      </ul>
+    </li>
+    <li><a href="#getting-started">Getting Started</a></li>
+    <li><a href="#design-decisions--engineering-notes">Design Decisions &amp; Engineering Notes</a></li>
+    <li><a href="#what-i-learned">What I Learned</a></li>
+    <li><a href="#related-projects">Related Projects</a>
+      <ul>
+        <li><a href="#ai-research-assistant-agent">AI Research Assistant Agent</a></li>
+        <li><a href="#document-qa-system">Document Q&amp;A System</a></li>
+        <li><a href="#mediscan-ai-medical-image--report-assistant">MediScan AI: Medical Image &amp; Report Assistant</a></li>
+      </ul>
+    </li>
+    <li><a href="#related-blog-posts">Related Blog Posts</a>
+      <ul>
+        <li><a href="#you-don">You Don’t Need to Be a Programmer to Be a Tech Person</a></li>
+        <li><a href="#how-i-built-my-portfolio-website-with-hugo-from-scratch">How I Built My Portfolio Website with Hugo from Scratch</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+    </div>
+  </aside>
+  
+
+</div>
+
+<script>
+(function() {
+  var tocNav  = document.getElementById('tocNav');
+  if (!tocNav) return;
+  var body     = document.querySelector('.single-body');
+  if (!body) return;
+  var headings = Array.from(body.querySelectorAll('h2, h3'));
+  if (!headings.length) return;
+  var links    = Array.from(tocNav.querySelectorAll('a'));
+  function setActive() {
+    var scrollY = window.scrollY + 130;
+    var active  = headings[0];
+    headings.forEach(function(h) { if (h.offsetTop <= scrollY) active = h; });
+    links.forEach(function(l) { l.classList.remove('active'); });
+    if (active && active.id) {
+      var al = tocNav.querySelector('a[href="#' + active.id + '"]');
+      if (al) al.classList.add('active');
+    }
+  }
+  window.addEventListener('scroll', setActive, { passive: true });
+  setActive();
+})();
+</script>
+
+  </main>
+
+  <footer>
+    <div class="footer-glow" aria-hidden="true"></div>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="/" class="footer-brand-logo">MA<span>.</span></a>
+        <p class="footer-brand-tagline">AI Engineer and Managing Director at AI GenMat, building production AI systems, agentic pipelines, and applied LLM infrastructure.</p>
+        <a href="mailto:m.awais@aigenmat.com" class="footer-brand-email">m.awais@aigenmat.com</a>
+      </div>
+      <div class="footer-nav-group">
+        <div class="footer-nav-col">
+          <span class="footer-nav-heading">Navigation</span>
+          <a href="/projects/">Projects</a>
+          <a href="/blog/">Blog</a>
+          <a href="/#contact">Contact</a>
+        </div>
+        <div class="footer-nav-col">
+          <span class="footer-nav-heading">Connect</span>
+          <a href="https://github.com/ik-awais" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://www.linkedin.com/in/muhammad-awais-ai-engineer/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://aigenmat.com" target="_blank" rel="noopener">AI GenMat</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-left">2026 Muhammad Awais, <a href="https://aigenmat.com" target="_blank" rel="noopener">AI GenMat</a></p>
+      <div class="footer-right">
+        <a href="https://github.com/ik-awais" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/muhammad-awais-ai-engineer/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:m.awais@aigenmat.com">m.awais@aigenmat.com</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

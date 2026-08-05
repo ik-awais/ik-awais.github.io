@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Virt-Manager on MA-Portfolio</title>
+    <link>http://localhost:1313/tags/virt-manager/</link>
+    <description>Recent content in Virt-Manager on MA-Portfolio</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 10 Oct 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/virt-manager/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hypervisors, KVM &amp; QEMU: A Complete Guide to Virtual Machines on Ubuntu 24.04 LTS</title>
+      <link>http://localhost:1313/blog/hypervisors-kvm-qemu-complete-guide/</link>
+      <pubDate>Fri, 10 Oct 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/hypervisors-kvm-qemu-complete-guide/</guid>
+      <description>A deep-dive guide from theory to practice — setting up virt-manager on Ubuntu 24.04 LTS, installing Windows 11, Kali Linux, and Parrot OS as virtual machines, passing GPU drivers, defeating Secure Boot, and fixing every error along the way.</description>
+    </item>
+  </channel>
+</rss>

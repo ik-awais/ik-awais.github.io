@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://cdn.jsdelivr.net https://upload.wikimedia.org; connect-src 'self' https://formspree.io;">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} | MA-Portfolio{{ end }}</title>
+  {{ $metaDescription := .Params.description | default .Params.summary | default site.Params.defaultDescription }}
+  <meta name="description" content="{{ $metaDescription | plainify }}">
+  <meta name="keywords" content="Muhammad Awais, AI Engineer, AI GenMat, Agentic AI, LLM, RAG, NLP, Computer Vision, AI consultant">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  {{ $css := resources.Get "css/main.css" | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <nav id="navbar">
+    <div style="display:flex;align-items:center">
+      <a href="/" class="nav-logo">MA<span class="dot">.</span></a>
+      <a href="https://aigenmat.com" target="_blank" rel="noopener" class="nav-logo-badge">AI GenMat</a>
+    </div>
+    <div class="nav-links">
+      <a href="/projects/">Projects</a>
+      <a href="/blog/">Blog</a>
+      <a href="/#contact">Contact</a>
+      <a href="{{ site.Params.github }}" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/muhammad-awais-ai-engineer/" target="_blank" rel="noopener" class="cta-btn">LinkedIn</a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle colour theme">
+        <span class="icon-moon" aria-hidden="true">☽</span>
+        <span class="icon-sun" aria-hidden="true">☀</span>
+      </button>
+      <a href="https://www.upwork.com/freelancers/~018a2d0e2f88ac4838" target="_blank" rel="noopener" class="cta-btn cta-btn-primary">Hire Me</a>
+    </div>
+  </nav>
+
+  <main id="main-content" tabindex="-1">
+    {{ block "main" . }}{{ end }}
+  </main>
+
+  <footer>
+    <div class="footer-glow" aria-hidden="true"></div>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="/" class="footer-brand-logo">MA<span>.</span></a>
+        <p class="footer-brand-tagline">AI Engineer and Managing Director at AI GenMat, building production AI systems, agentic pipelines, and applied LLM infrastructure.</p>
+        <a href="mailto:m.awais@aigenmat.com" class="footer-brand-email">m.awais@aigenmat.com</a>
+      </div>
+      <div class="footer-nav-group">
+        <div class="footer-nav-col">
+          <span class="footer-nav-heading">Navigation</span>
+          <a href="/projects/">Projects</a>
+          <a href="/blog/">Blog</a>
+          <a href="/#contact">Contact</a>
+        </div>
+        <div class="footer-nav-col">
+          <span class="footer-nav-heading">Connect</span>
+          <a href="{{ site.Params.github }}" target="_blank" rel="noopener">GitHub</a>
+          <a href="{{ site.Params.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://aigenmat.com" target="_blank" rel="noopener">AI GenMat</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-left">2026 Muhammad Awais, <a href="https://aigenmat.com" target="_blank" rel="noopener">AI GenMat</a></p>
+      <div class="footer-right">
+        <a href="{{ site.Params.github }}" target="_blank" rel="noopener">GitHub</a>
+        <a href="{{ site.Params.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:m.awais@aigenmat.com">m.awais@aigenmat.com</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

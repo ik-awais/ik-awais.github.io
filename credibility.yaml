@@ -1,0 +1,14 @@
+# Manually-authored credibility figures (e.g. "5 Years Experience", "20 Clients Served").
+# Intentionally empty: no verified figures exist yet anywhere in the approved
+# documentation, and none may be fabricated or estimated (Implementation
+# Constitution §4 / DSS asset governance).
+#
+# Add entries here once real, verifiable figures are available. Each entry:
+#   - value: "5"          # the number, as a string (keeps formatting like "5-10" possible)
+#   - suffix: "+"          # optional, e.g. "+" — only include if literally true, not for effect
+#   - label: "Years Experience"
+#
+# The Homepage template also renders two figures automatically, computed
+# directly from live content (current Project and Blog Post counts) —
+# those need no entry here and update themselves as content is added.
+figures: []

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MacOS on MA-Portfolio</title>
+    <link>http://localhost:1313/tags/macos/</link>
+    <description>Recent content in MacOS on MA-Portfolio</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 01 May 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/macos/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Operating Systems Explained for Normal People</title>
+      <link>http://localhost:1313/blog/operating-systems-explained/</link>
+      <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/operating-systems-explained/</guid>
+      <description>What an operating system actually is, why it matters, and how to use Windows, macOS, and Linux like someone who knows what they&amp;rsquo;re doing — no programming required.</description>
+    </item>
+  </channel>
+</rss>

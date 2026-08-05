@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LLaMA on MA-Portfolio</title>
+    <link>http://localhost:1313/tags/llama/</link>
+    <description>Recent content in LLaMA on MA-Portfolio</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 21 Jun 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/llama/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MediScan AI: Medical Image &amp; Report Assistant</title>
+      <link>http://localhost:1313/projects/mediscan-ai/</link>
+      <pubDate>Sun, 01 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/mediscan-ai/</guid>
+      <description>End-to-end medical imaging pipeline: OpenCV preprocessing → ViT classification → ResNet-18 + IsolationForest anomaly scoring → LLaMA 3.1 70B report generation, served as a FastAPI REST endpoint.</description>
+    </item>
+  </channel>
+</rss>

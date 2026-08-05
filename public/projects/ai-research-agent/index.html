@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Research Assistant Agent | MA-Portfolio</title>
+  <meta name="description" content="Muhammad Awais, AI Engineer and Managing Director at AI GenMat. Agentic AI, LLM, RAG Systems, NLP, Computer Vision.">
+  <meta name="keywords" content="Muhammad Awais, AI Engineer, AI GenMat, Agentic AI, LLM, RAG, NLP, Computer Vision, AI consultant">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <nav id="navbar">
+    <div style="display:flex;align-items:center">
+      <a href="/" class="nav-logo">MA<span class="dot">.</span></a>
+      <a href="https://aigenmat.com" target="_blank" rel="noopener" class="nav-logo-badge">AI GenMat</a>
+    </div>
+    <div class="nav-links">
+      <a href="/projects/">Projects</a>
+      <a href="/blog/">Blog</a>
+      <a href="/#contact">Contact</a>
+      <a href="https://github.com/ik-awais" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/muhammad-awais-ai-engineer/" target="_blank" rel="noopener" class="cta-btn">LinkedIn</a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle colour theme">
+        <span class="icon-moon" aria-hidden="true">☽</span>
+        <span class="icon-sun" aria-hidden="true">☀</span>
+      </button>
+      <a href="https://www.upwork.com/freelancers/~018a2d0e2f88ac4838" target="_blank" rel="noopener" class="cta-btn cta-btn-primary">Hire Me</a>
+    </div>
+  </nav>
+
+  <main>
+    
+<div class="single-wrapper">
+
+  <article class="single-section">
+
+    <div class="single-header reveal">
+      <a href="/projects/" class="project-back">← All Projects</a>
+      <div class="card-thumb card-thumb--gradient card-thumb--p3" aria-hidden="true">
+  <div class="card-thumb-noise"></div>
+  <div class="card-thumb-icon"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="24" y1="4" x2="24" y2="44" stroke="currentColor" stroke-width="2.5"/><line x1="4" y1="24" x2="44" y2="24" stroke="currentColor" stroke-width="2.5"/><line x1="10" y1="10" x2="38" y2="38" stroke="currentColor" stroke-width="1.8" opacity="0.5"/><line x1="38" y1="10" x2="10" y2="38" stroke="currentColor" stroke-width="1.8" opacity="0.5"/><circle cx="24" cy="24" r="5" stroke="currentColor" stroke-width="1.5" opacity="0.6"/></svg></div>
+</div>
+      <h1>AI Research Assistant Agent</h1>
+      
+      <p class="single-meta">January 2025</p>
+      
+      
+      <div class="tags" style="margin-top:20px">
+        <span class="tag">AI Agents</span><span class="tag">LLM</span><span class="tag">Web Search</span><span class="tag">Automation</span><span class="tag">Streamlit</span><span class="tag">Groq</span><span class="tag">Tavily</span><span class="tag">Python</span><span class="tag">RAG</span><span class="tag">NLP</span>
+      </div>
+      
+      
+      <div style="margin-top:28px;display:flex;gap:16px;flex-wrap:wrap">
+        <a href="https://github.com/ik-awais/ai-research-agent" target="_blank" rel="noopener" class="btn-primary">View on GitHub</a>
+        
+      </div>
+      
+    </div>
+
+    <div class="single-body">
+      <p>An autonomous AI agent that researches any topic by searching the live web, extracting content from multiple sources, and generating a fully structured, cited research report, all powered by <strong>Groq LLM</strong> (<code>llama-3.3-70b-versatile</code>) and the <strong>Tavily Search API</strong>.</p>
+<h2 id="what-it-does">What It Does</h2>
+<p>Given any research topic, the agent autonomously plans a search strategy, queries the web in real time, scrapes and de-duplicates content from multiple sources, summarizes each source with an LLM, and assembles everything into a structured Markdown report with an introduction, key findings, analysis, and conclusion, complete with inline citations traceable back to the original URLs.</p>
+<p>The agent thinks iteratively: after each round of search results, it evaluates whether the gathered information is sufficient or whether follow-up searches are needed. This loop continues autonomously until the agent is confident enough to produce the final report.</p>
+<h2 id="key-features">Key Features</h2>
+<ul>
+<li><strong>Real-time web search</strong> via Tavily API: fetches fresh, live results rather than relying on a static knowledge base</li>
+<li><strong>Multi-source content extraction</strong> using BeautifulSoup4: scrapes and cleans article text from each result URL</li>
+<li><strong>Source de-duplication</strong>: consolidates overlapping results to avoid redundant content in the final report</li>
+<li><strong>AI summarization per source</strong> using Groq LLM (<code>llama-3.3-70b-versatile</code>): each source is independently summarized before synthesis</li>
+<li><strong>Iterative autonomous reasoning</strong>: agent decides whether to run follow-up searches based on coverage gaps</li>
+<li><strong>Structured Markdown report</strong> with clearly defined sections: Introduction, Key Findings, Analysis, Conclusion</li>
+<li><strong>Full source citation</strong>: every factual claim is attributed to a specific URL</li>
+<li><strong>Export to TXT or PDF</strong> via <code>fpdf2</code>: download the final report in either format</li>
+<li><strong>Live agent thinking UI</strong>: Streamlit interface shows the agent&rsquo;s reasoning steps in real time as it works</li>
+</ul>
+<h2 id="architecture--data-flow">Architecture &amp; Data Flow</h2>
+<pre tabindex="0"><code>User Query
+    │
+    ▼
+[ Tavily Web Search ]
+    │  (real-time results + URLs)
+    ▼
+[ BeautifulSoup4 Content Extraction ]
+    │  (raw HTML → clean article text)
+    ▼
+[ De-duplication &amp; Relevance Filtering ]
+    │
+    ▼
+[ Groq LLM - Per-Source Summarization ]
+    │  (llama-3.3-70b-versatile)
+    ▼
+[ Agent Reasoning Loop ]
+    │  (sufficient coverage? → if not, run follow-up search)
+    ▼
+[ Report Generator - Structured Markdown ]
+    │  (Introduction / Key Findings / Analysis / Conclusion)
+    ▼
+[ Export: TXT or PDF ]
+</code></pre><p>Each module is isolated in its own file, making the codebase straightforward to extend with new search providers, LLM backends, or export formats.</p>
+<h2 id="tech-stack">Tech Stack</h2>
+<table>
+  <thead>
+      <tr>
+          <th>Layer</th>
+          <th>Technology</th>
+          <th>Purpose</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Language</td>
+          <td>Python 3.x</td>
+          <td>Core agent logic, no heavyweight frameworks</td>
+      </tr>
+      <tr>
+          <td>LLM</td>
+          <td>Groq API (<code>llama-3.3-70b-versatile</code>)</td>
+          <td>Fast inference for per-source summarization and report synthesis</td>
+      </tr>
+      <tr>
+          <td>Web Search</td>
+          <td>Tavily API</td>
+          <td>Real-time web search with clean structured results</td>
+      </tr>
+      <tr>
+          <td>HTML Parsing</td>
+          <td>BeautifulSoup4</td>
+          <td>Extraction of article content from raw web pages</td>
+      </tr>
+      <tr>
+          <td>UI</td>
+          <td>Streamlit 1.50</td>
+          <td>Interactive front-end with live agent thinking display</td>
+      </tr>
+      <tr>
+          <td>PDF Export</td>
+          <td>fpdf2</td>
+          <td>Programmatic PDF generation from the final Markdown report</td>
+      </tr>
+      <tr>
+          <td>Config</td>
+          <td>python-dotenv</td>
+          <td>Secure API key management via <code>.env</code> file</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="project-structure">Project Structure</h2>
+<pre tabindex="0"><code>ai-research-agent/
+│
+├── .env                     # API keys (not committed)
+├── requirements.txt         # Pinned dependencies
+├── app.py                   # Streamlit UI - entry point
+│
+├── agent/
+│   ├── research_agent.py    # Core agent loop &amp; reasoning logic
+│   ├── tools.py             # Tavily web search + BeautifulSoup extraction
+│   ├── summarizer.py        # Groq LLM summarization per source
+│   └── report_generator.py  # Assembles structured Markdown report
+│
+└── utils/
+    └── export.py            # PDF and TXT export utilities
+</code></pre><h2 id="setup--installation">Setup &amp; Installation</h2>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>Python 3.9 or higher</li>
+<li>A free <a href="https://console.groq.com">Groq API key</a></li>
+<li>A free <a href="https://app.tavily.com">Tavily API key</a></li>
+</ul>
+<h3 id="steps">Steps</h3>
+<p><strong>1. Clone the repository</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git clone https://github.com/ik-awais/ai-research-agent.git
+</span></span><span style="display:flex;"><span>cd ai-research-agent
+</span></span></code></pre></div><p><strong>2. Create and activate a virtual environment</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python -m venv venv
+</span></span><span style="display:flex;"><span>source venv/bin/activate        <span style="color:#75715e"># macOS / Linux</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># venv\Scripts\activate         # Windows</span>
+</span></span></code></pre></div><p><strong>3. Install dependencies</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pip install -r requirements.txt
+</span></span></code></pre></div><p><strong>4. Configure API keys</strong></p>
+<p>Create a <code>.env</code> file in the project root:</p>
+<pre tabindex="0"><code>GROQ_API_KEY=your_groq_api_key_here
+TAVILY_API_KEY=your_tavily_api_key_here
+</code></pre><p><strong>5. Run the app</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>streamlit run app.py
+</span></span></code></pre></div><p>Open <code>http://localhost:8501</code> in your browser. Enter any research topic and watch the agent work through its reasoning in real time.</p>
+<h2 id="dependencies-pinned">Dependencies (Pinned)</h2>
+<p>The full <code>requirements.txt</code> pins every transitive dependency for reproducible builds. Key direct dependencies include:</p>
+<pre tabindex="0"><code>groq==1.0.0
+tavily-python==0.7.21
+beautifulsoup4==4.14.3
+streamlit==1.50.0
+fpdf2==2.8.4
+python-dotenv==1.2.1
+requests==2.32.5
+</code></pre><h2 id="sample-output">Sample Output</h2>
+<p>The agent has been tested on topics including &ldquo;Impact of AI on Healthcare in 2025&rdquo; and &ldquo;Impact of AI on Finance.&rdquo; Sample output <code>.txt</code> and <code>.pdf</code> report files are included in the repository root for reference.</p>
+<p>A generated report follows this structure:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span># Research Report: [Topic]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## Introduction
+</span></span></span><span style="display:flex;"><span>[Overview of the topic and research scope]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## Key Findings
+</span></span></span><span style="display:flex;"><span>[Bullet-point findings with source citations]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## Analysis
+</span></span></span><span style="display:flex;"><span>[Synthesized insights across sources]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## Conclusion
+</span></span></span><span style="display:flex;"><span>[Summary and implications]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## Sources
+</span></span></span><span style="display:flex;"><span>[1] https://...
+</span></span><span style="display:flex;"><span>[2] https://...
+</span></span></code></pre></div><h2 id="design-decisions">Design Decisions</h2>
+<p><strong>No agent framework</strong>: The agent loop is implemented in pure Python without LangChain, LlamaIndex, or CrewAI. This keeps the code transparent and easy to audit, which matters when building research tools that need to be trustworthy.</p>
+<p><strong>Groq for speed</strong>: Groq&rsquo;s hardware inference delivers very low latency on <code>llama-3.3-70b-versatile</code>, which matters here because the agent calls the LLM once per source URL. A slow provider would make multi-source research impractical.</p>
+<p><strong>Tavily over raw search</strong>: Tavily returns clean, structured search results with content snippets, reducing the need for aggressive scraping and lowering the rate of extraction failures compared to scraping search engine result pages directly.</p>
+<p><strong>Per-source summarization before synthesis</strong>: Rather than dumping all raw content into a single prompt, each source is summarized independently first. This respects context window limits and keeps individual source contributions traceable in the final report.</p>
+<h2 id="status">Status</h2>
+<p>This project is actively in development. Planned improvements include streaming output support, configurable search depth, multi-language report generation, and a richer UI with source previews.</p>
+<hr>
+<h2 id="related-projects">Related Projects</h2>
+<p>If you found this project interesting, you might also like:</p>
+<h3 id="document-qa-system"><a href="https://ik-awais.github.io/projects/document-qa-system/">Document Q&amp;A System</a></h3>
+<p>A production-ready RAG system for uploading documents (PDF, DOCX, etc.) and asking natural language questions with source citations, built with LangChain, FAISS, and Streamlit.
+→ <a href="https://github.com/ik-awais/doc-qa-system">GitHub</a> · <a href="https://ik-awais.github.io/projects/document-qa-system/">Read More</a></p>
+<h3 id="mediscan-ai-medical-image--report-assistant"><a href="https://ik-awais.github.io/projects/mediscan-ai/">MediScan AI: Medical Image &amp; Report Assistant</a></h3>
+<p>End-to-end pipeline that classifies medical scans with a fine-tuned Vision Transformer, scores anomalies with IsolationForest, and generates structured radiology reports using LLaMA 3.1, served via FastAPI.
+→ <a href="https://github.com/ik-awais/mediscan-ai">GitHub</a> · <a href="https://ik-awais.github.io/projects/mediscan-ai/">Read More</a></p>
+<h3 id="lecturelens-ai-powered-study-assistant-with-rag--hybrid-search"><a href="https://ik-awais.github.io/projects/lecturelens/">LectureLens: AI-Powered Study Assistant with RAG &amp; Hybrid Search</a></h3>
+<p>A production-grade Flask application that ingests PDF, DOCX, and PPTX lecture materials, indexes them with ChromaDB vector embeddings and SQLite FTS5, then answers natural-language questions via a RAG pipeline powered by NVIDIA&rsquo;s LLaMA 3.3 70B.
+→ <a href="https://github.com/ik-awais/Python_Projects/tree/main/PAI/LectureLens">GitHub</a> · <a href="https://ik-awais.github.io/projects/lecturelens/">Read More</a></p>
+<hr>
+<h2 id="related-blog-posts">Related Blog Posts</h2>
+<h3 id="you-don"><a href="https://ik-awais.github.io/blog/tech-survival-guide-2026/">You Don&rsquo;t Need to Be a Programmer to Be a Tech Person</a></h3>
+<p>The real tech skills that put you in the top 10% of your environment, including how tools like Python, Git, and AI APIs fit into day-to-day technical work.</p>
+<h3 id="how-i-built-my-portfolio-website-with-hugo-from-scratch"><a href="https://ik-awais.github.io/blog/portfolio-development-guide/">How I Built My Portfolio Website with Hugo from Scratch</a></h3>
+<p>A detailed account of building a personal portfolio with Hugo, GitHub Pages, and automated CI/CD, the same site this project is hosted on.</p>
+<hr>
+<p><a href="https://ik-awais.github.io/projects/">← Back to All Projects</a> · <a href="https://github.com/ik-awais/ai-research-agent">GitHub</a> · <a href="https://ik-awais.github.io/#contact">Contact</a></p>
+
+    </div>
+
+    <div class="single-back">
+      <a href="/projects/" class="btn-ghost">← Back to Projects</a>
+    </div>
+
+  </article>
+
+  
+  <aside class="toc-sidebar" id="tocSidebar">
+    <div class="toc-inner">
+      <div class="toc-nav" id="tocNav">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#what-it-does">What It Does</a></li>
+    <li><a href="#key-features">Key Features</a></li>
+    <li><a href="#architecture--data-flow">Architecture &amp; Data Flow</a></li>
+    <li><a href="#tech-stack">Tech Stack</a></li>
+    <li><a href="#project-structure">Project Structure</a></li>
+    <li><a href="#setup--installation">Setup &amp; Installation</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#steps">Steps</a></li>
+      </ul>
+    </li>
+    <li><a href="#dependencies-pinned">Dependencies (Pinned)</a></li>
+    <li><a href="#sample-output">Sample Output</a></li>
+    <li><a href="#design-decisions">Design Decisions</a></li>
+    <li><a href="#status">Status</a></li>
+    <li><a href="#related-projects">Related Projects</a>
+      <ul>
+        <li><a href="#document-qa-system">Document Q&amp;A System</a></li>
+        <li><a href="#mediscan-ai-medical-image--report-assistant">MediScan AI: Medical Image &amp; Report Assistant</a></li>
+        <li><a href="#lecturelens-ai-powered-study-assistant-with-rag--hybrid-search">LectureLens: AI-Powered Study Assistant with RAG &amp; Hybrid Search</a></li>
+      </ul>
+    </li>
+    <li><a href="#related-blog-posts">Related Blog Posts</a>
+      <ul>
+        <li><a href="#you-don">You Don’t Need to Be a Programmer to Be a Tech Person</a></li>
+        <li><a href="#how-i-built-my-portfolio-website-with-hugo-from-scratch">How I Built My Portfolio Website with Hugo from Scratch</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+    </div>
+  </aside>
+  
+
+</div>
+
+<script>
+(function() {
+  var tocNav  = document.getElementById('tocNav');
+  if (!tocNav) return;
+  var body     = document.querySelector('.single-body');
+  if (!body) return;
+  var headings = Array.from(body.querySelectorAll('h2, h3'));
+  if (!headings.length) return;
+  var links    = Array.from(tocNav.querySelectorAll('a'));
+  function setActive() {
+    var scrollY = window.scrollY + 130;
+    var active  = headings[0];
+    headings.forEach(function(h) { if (h.offsetTop <= scrollY) active = h; });
+    links.forEach(function(l) { l.classList.remove('active'); });
+    if (active && active.id) {
+      var al = tocNav.querySelector('a[href="#' + active.id + '"]');
+      if (al) al.classList.add('active');
+    }
+  }
+  window.addEventListener('scroll', setActive, { passive: true });
+  setActive();
+})();
+</script>
+
+  </main>
+
+  <footer>
+    <div class="footer-glow" aria-hidden="true"></div>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="/" class="footer-brand-logo">MA<span>.</span></a>
+        <p class="footer-brand-tagline">AI Engineer and Managing Director at AI GenMat, building production AI systems, agentic pipelines, and applied LLM infrastructure.</p>
+        <a href="mailto:m.awais@aigenmat.com" class="footer-brand-email">m.awais@aigenmat.com</a>
+      </div>
+      <div class="footer-nav-group">
+        <div class="footer-nav-col">
+          <span class="footer-nav-heading">Navigation</span>
+          <a href="/projects/">Projects</a>
+          <a href="/blog/">Blog</a>
+          <a href="/#contact">Contact</a>
+        </div>
+        <div class="footer-nav-col">
+          <span class="footer-nav-heading">Connect</span>
+          <a href="https://github.com/ik-awais" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://www.linkedin.com/in/muhammad-awais-ai-engineer/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://aigenmat.com" target="_blank" rel="noopener">AI GenMat</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-left">2026 Muhammad Awais, <a href="https://aigenmat.com" target="_blank" rel="noopener">AI GenMat</a></p>
+      <div class="footer-right">
+        <a href="https://github.com/ik-awais" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/muhammad-awais-ai-engineer/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:m.awais@aigenmat.com">m.awais@aigenmat.com</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

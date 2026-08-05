@@ -1,0 +1,11 @@
+# "Current Status" badges shown on the Homepage. Same grounded content that
+# was already live (role, company affiliation, specialty areas) — restructured
+# to a data-driven list so future badges can be added without touching the template.
+badges:
+  - text: "AI Engineer"
+  - stacked: true
+    sub: "Managing Director"
+    company: "AI GenMat"
+    companyURL: "https://aigenmat.com"
+  - text: "Agentic AI"
+  - text: "AI Research & Systems"

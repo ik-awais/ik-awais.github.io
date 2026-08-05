@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Portfolio on MA-Portfolio</title>
+    <link>http://localhost:1313/tags/portfolio/</link>
+    <description>Recent content in Portfolio on MA-Portfolio</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 17 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/portfolio/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How I Built My Portfolio Website with Hugo from Scratch</title>
+      <link>http://localhost:1313/blog/portfolio-development-guide/</link>
+      <pubDate>Tue, 17 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/portfolio-development-guide/</guid>
+      <description>A honest, detailed account of how I built my personal portfolio website from a single HTML file to a full Hugo-powered site with a blog, dark/light theme, animated UI, and automated deployment.</description>
+    </item>
+  </channel>
+</rss>

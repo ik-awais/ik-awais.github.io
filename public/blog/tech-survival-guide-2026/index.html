@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>You Don&#39;t Need to Be a Programmer to Be a Tech Person | MA-Portfolio</title>
+  <meta name="description" content="Muhammad Awais, AI Engineer and Managing Director at AI GenMat. Agentic AI, LLM, RAG Systems, NLP, Computer Vision.">
+  <meta name="keywords" content="Muhammad Awais, AI Engineer, AI GenMat, Agentic AI, LLM, RAG, NLP, Computer Vision, AI consultant">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <nav id="navbar">
+    <div style="display:flex;align-items:center">
+      <a href="/" class="nav-logo">MA<span class="dot">.</span></a>
+      <a href="https://aigenmat.com" target="_blank" rel="noopener" class="nav-logo-badge">AI GenMat</a>
+    </div>
+    <div class="nav-links">
+      <a href="/projects/">Projects</a>
+      <a href="/blog/">Blog</a>
+      <a href="/#contact">Contact</a>
+      <a href="https://github.com/ik-awais" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/muhammad-awais-ai-engineer/" target="_blank" rel="noopener" class="cta-btn">LinkedIn</a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle colour theme">
+        <span class="icon-moon" aria-hidden="true">☽</span>
+        <span class="icon-sun" aria-hidden="true">☀</span>
+      </button>
+      <a href="https://www.upwork.com/freelancers/~018a2d0e2f88ac4838" target="_blank" rel="noopener" class="cta-btn cta-btn-primary">Hire Me</a>
+    </div>
+  </nav>
+
+  <main>
+    
+<div class="single-wrapper">
+
+  <article class="single-section">
+
+    <div class="single-header reveal">
+      <div class="card-thumb card-thumb--gradient card-thumb--p5" aria-hidden="true">
+  <div class="card-thumb-noise"></div>
+  <div class="card-thumb-icon"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="18" stroke="currentColor" stroke-width="2.5"/><polygon points="24,12 32,28 16,28" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" opacity="0.7"/><circle cx="24" cy="24" r="4" fill="currentColor" opacity="0.5"/></svg></div>
+</div>
+      <h1>You Don&#39;t Need to Be a Programmer to Be a Tech Person</h1>
+      <p class="single-meta">April 12, 2026</p>
+      
+      <div class="tags" style="margin-top:20px">
+        <span class="tag">Linux</span><span class="tag">CLI</span><span class="tag">Networking</span><span class="tag">Docker</span><span class="tag">Git</span><span class="tag">Python</span><span class="tag">Security</span><span class="tag">Cloud</span><span class="tag">AI</span><span class="tag">Career</span>
+      </div>
+      
+      
+    </div>
+
+    <div class="single-body">
+      <p>Most people think being a &ldquo;tech person&rdquo; means writing code all day. It doesn&rsquo;t.</p>
+<p>The real divide in 2026 is not between programmers and non-programmers. It&rsquo;s between people who understand how technology works and people who just use it and hope for the best. One group fixes things in minutes. The other sends a Slack message asking someone else to figure it out.</p>
+<p>And here&rsquo;s the thing that surprises most people: according to Stack Overflow&rsquo;s 2025 Developer Survey, 58% of people currently working in tech do not have a computer science degree. The field is full of people who figured it out by doing, not by sitting in a classroom.</p>
+<p>This guide is for people willing to cross over.</p>
+<p>You don&rsquo;t need a degree. You don&rsquo;t need to become a developer. You just need to actually understand what&rsquo;s running underneath the things you use every day. Do that, and you become the person in your friend group, your office, your team that people come to when something breaks. That&rsquo;s the top 10%. It&rsquo;s not as far as you think.</p>
+<hr>
+<h2 id="1-know-your-operating-system">1. Know Your Operating System</h2>
+<p>An operating system is the software that runs your computer before anything else does. Windows, macOS, Linux are all operating systems. You already use one of them. The question is whether you understand it.</p>
+<p>Most people use Windows like a black box. They click things, wait, and hope. That&rsquo;s not enough anymore.</p>
+<p><strong>What you actually need to know:</strong></p>
+<p>On <strong>Windows 11</strong>, learn where things actually live. The filesystem starts at <code>C:\</code>. Your personal files are under <code>C:\Users\YourName\</code>. Open Task Manager when your laptop starts crawling and actually look at what&rsquo;s eating your RAM and CPU instead of just restarting. Learn that both Settings and Control Panel still exist and they&rsquo;re not the same thing. And understand that <code>.exe</code> files run programs, and you should not be running them from random websites or strangers on Discord.</p>
+<p>On <strong>Linux</strong>, which powers 96.3% of the world&rsquo;s top one million web servers according to W3Techs (2025), learn the basics. The filesystem starts at <code>/</code>. Your home folder is <code>/home/yourname</code>. Files don&rsquo;t have extensions that tell the system what to do with them, permissions do. Everything in Linux is a file, including hardware devices. That sounds weird until it clicks, and then a lot of other things make sense.</p>
+<p>You don&rsquo;t need to switch to Linux full-time. But understanding it means you can work with servers, run tools, and not feel completely lost when you encounter a terminal, which you will.</p>
+<p><strong>Why this matters in practice:</strong> Every major cloud provider, AWS, GCP, Azure, gives you a Linux machine by default when you spin up a server. If you have never touched Linux, your first encounter will be a blank terminal staring back at you with zero hand-holding.</p>
+<p><strong>Start here:</strong> Download <a href="https://ubuntu.com">Ubuntu</a> and install it in a free virtual machine using VirtualBox. Poke around for a week with no particular goal. Just get comfortable with the fact that it won&rsquo;t break anything important.</p>
+<p><strong>Prerequisite checkpoint:</strong> Before moving on, you should know how to create a folder, navigate to it, create a file, and read its contents from the terminal. That&rsquo;s the floor.</p>
+<hr>
+<h2 id="2-the-command-line-is-not-scary">2. The Command Line Is Not Scary</h2>
+<p>The command line (people call it the terminal, shell, CLI, bash, or zsh, they mostly mean the same thing) is a text interface to your computer. Instead of clicking icons, you type commands.</p>
+<p>It looks intimidating. It&rsquo;s not. It&rsquo;s just a different way to talk to your machine, and honestly a more direct one. When you click a button, you&rsquo;re just telling the computer to run a command anyway. The command line skips the middleman.</p>
+<p>One important thing to know early: every major cloud platform assumes you are comfortable here. There is no &ldquo;click to deploy&rdquo; for most real infrastructure. The terminal is the interface.</p>
+<p><strong>The commands that actually matter:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ls          <span style="color:#75715e"># list files in the current folder</span>
+</span></span><span style="display:flex;"><span>cd folder   <span style="color:#75715e"># move into a folder</span>
+</span></span><span style="display:flex;"><span>pwd         <span style="color:#75715e"># show where you currently are</span>
+</span></span><span style="display:flex;"><span>cp a b      <span style="color:#75715e"># copy file a to location b</span>
+</span></span><span style="display:flex;"><span>mv a b      <span style="color:#75715e"># move or rename a file</span>
+</span></span><span style="display:flex;"><span>rm file     <span style="color:#75715e"># delete a file (no recycle bin, so be careful)</span>
+</span></span><span style="display:flex;"><span>cat file    <span style="color:#75715e"># print file contents to the screen</span>
+</span></span><span style="display:flex;"><span>grep <span style="color:#e6db74">&#34;word&#34;</span> file   <span style="color:#75715e"># search for text inside a file</span>
+</span></span><span style="display:flex;"><span>sudo        <span style="color:#75715e"># run a command as administrator</span>
+</span></span></code></pre></div><p><strong>One warning beginners learn the hard way:</strong> <code>rm -rf /</code> deletes everything on your system with no confirmation and no undo. The <code>f</code> flag means force, no questions asked. Always double-check what you&rsquo;re deleting before you run <code>rm</code>.</p>
+<p><strong>Package managers</strong> are how you install software from the command line. Think of them as an App Store but for your terminal, except free and with no pop-ups asking you to rate anything.</p>
+<ul>
+<li>On Ubuntu or Debian Linux: <code>apt install programname</code></li>
+<li>For Python tools: <code>pip install toolname</code></li>
+<li>For JavaScript tools: <code>npm install toolname</code></li>
+</ul>
+<p>No hunting download pages. No clicking through five installer screens asking if you want McAfee. One line and you&rsquo;re done.</p>
+<p><strong>Process control</strong>, meaning knowing what&rsquo;s running and stopping it when needed:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ps aux        <span style="color:#75715e"># list all running processes</span>
+</span></span><span style="display:flex;"><span>kill <span style="color:#ae81ff">1234</span>     <span style="color:#75715e"># stop a process by its ID number</span>
+</span></span><span style="display:flex;"><span>Ctrl + C      <span style="color:#75715e"># stop whatever is running right now</span>
+</span></span><span style="display:flex;"><span>Ctrl + Z      <span style="color:#75715e"># pause it</span>
+</span></span></code></pre></div><p>The command line is the foundation for everything else in this guide. If you only have time for one thing, start here.</p>
+<p><strong>Prerequisite checkpoint:</strong> Before moving on, you should be able to navigate directories, create and delete files, install a package, and stop a running process. Practice these until they feel normal.</p>
+<hr>
+<h2 id="3-networking-how-the-internet-actually-works">3. Networking: How the Internet Actually Works</h2>
+<p>Every device connected to a network has an <strong>IP address</strong>, which is just a unique number like <code>192.168.1.5</code> for local networks or <code>203.0.113.42</code> for the public internet. When you visit a website, your computer is quite literally sending data packets to another computer&rsquo;s IP address somewhere in the world.</p>
+<p><strong>DNS</strong> (Domain Name System) is the internet&rsquo;s phone book. You type <code>google.com</code>, DNS translates that into an IP address, and your browser connects. When a website &ldquo;doesn&rsquo;t load&rdquo; despite your internet otherwise working fine, DNS is very often the reason. Cloudflare&rsquo;s 2024 infrastructure report found that DNS misconfiguration is behind 34% of reported outages. It is the most common cause of connectivity problems that gets diagnosed as something more complicated.</p>
+<p>To check DNS from your terminal:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nslookup google.com       <span style="color:#75715e"># see what IP a domain resolves to</span>
+</span></span><span style="display:flex;"><span>nslookup google.com 8.8.8.8   <span style="color:#75715e"># check using Google&#39;s DNS server specifically</span>
+</span></span></code></pre></div><p><strong>HTTP vs HTTPS</strong>: HTTP sends data as plain text. HTTPS encrypts it. Never enter a password on an HTTP site. The padlock icon in your browser address bar is telling you that HTTPS is active.</p>
+<p><strong>Ports</strong> are like apartment numbers in a building. The IP address is the building, and the port is the specific door. Some common ones you&rsquo;ll see:</p>
+<ul>
+<li>Port 80: HTTP</li>
+<li>Port 443: HTTPS</li>
+<li>Port 22: SSH, which is how you log into remote servers</li>
+<li>Port 3306: MySQL database</li>
+</ul>
+<p><strong>Firewalls</strong> decide which ports to allow or block. When something can&rsquo;t connect and there&rsquo;s no obvious reason, a firewall rule is usually the first thing to check.</p>
+<p><strong>Why this matters:</strong> When someone says &ldquo;the API isn&rsquo;t responding on port 8080&rdquo; or &ldquo;DNS resolution failed,&rdquo; you&rsquo;ll know exactly what that means and where to start looking instead of just shrugging.</p>
+<p><strong>Prerequisite checkpoint:</strong> You should be able to explain what happens between typing a URL and seeing a webpage. DNS lookup, IP resolution, TCP connection, HTTP request. That sequence should make sense to you before moving forward.</p>
+<hr>
+<h2 id="4-docker-shipping-software-in-a-box">4. Docker: Shipping Software in a Box</h2>
+<p>Here&rsquo;s a situation that happens constantly. You build something on your laptop and it works perfectly. You move it to a server and everything breaks because the server has slightly different software versions, different config files, different anything. This is one of the most common sources of pain in software, and it&rsquo;s where the phrase &ldquo;it works on my machine&rdquo; became a running joke in the industry.</p>
+<p>Docker solved this problem and, by 2025, became the default way most serious tools and applications are distributed. Docker Hub alone has over 14 million images available, covering databases, web servers, AI models, development tools, and basically anything else you&rsquo;d want to run. If you can&rsquo;t run Docker, you&rsquo;re locked out of a huge chunk of what&rsquo;s actually being built and used right now.</p>
+<p>Docker packages your application and everything it needs into a <strong>container</strong>: a self-contained box that runs the same way no matter where you put it.</p>
+<p><strong>Core concepts:</strong></p>
+<ul>
+<li><strong>Image</strong> is the blueprint, downloaded from Docker Hub. Think of it like a recipe.</li>
+<li><strong>Container</strong> is a running instance of an image. The cooked meal from that recipe.</li>
+<li><strong>Volume</strong> is a folder that keeps your data even after the container stops.</li>
+<li><strong>Docker Compose</strong> lets you run multiple containers together with a single command.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker pull nginx              <span style="color:#75715e"># download the nginx web server image</span>
+</span></span><span style="display:flex;"><span>docker run -p 8080:80 nginx    <span style="color:#75715e"># run it and expose it on port 8080</span>
+</span></span><span style="display:flex;"><span>docker ps                      <span style="color:#75715e"># see what containers are currently running</span>
+</span></span><span style="display:flex;"><span>docker stop container_id       <span style="color:#75715e"># stop one</span>
+</span></span></code></pre></div><p>With Docker Compose, you write a <code>docker-compose.yml</code> file that describes your whole setup (database, web server, app, whatever you need), and then run <code>docker compose up</code>. Everything starts together, configured correctly, every time.</p>
+<p><strong>Why you need this in 2026:</strong> Almost every modern AI tool, web app, and development environment is distributed as a Docker container at this point. If you can&rsquo;t run Docker, you&rsquo;re locked out of a huge chunk of the tools people are actually using.</p>
+<p><strong>Prerequisite checkpoint:</strong> Pull the official <code>nginx</code> image, run it, and open <code>localhost:8080</code> in your browser. If you see the nginx welcome page, you understand the basics. That&rsquo;s the bar.</p>
+<hr>
+<h2 id="5-git-never-lose-your-work-again">5. Git: Never Lose Your Work Again</h2>
+<p>Git tracks every change you make to files over time. It lets you go back to any previous version of anything. It lets multiple people work on the same project without overwriting each other&rsquo;s work. It is genuinely one of the most useful tools on this list regardless of what you do.</p>
+<p>GitHub is a website that stores your Git projects in the cloud. As of 2025, it has an estimated 130 million developers on the platform, up from 100 million in 2023. Most open source software in the world lives there. If you are not on GitHub, you are outside of where most of the world&rsquo;s software is being built and shared.</p>
+<p><strong>The basic workflow:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git init                    <span style="color:#75715e"># start tracking a folder</span>
+</span></span><span style="display:flex;"><span>git add .                   <span style="color:#75715e"># stage all your changes</span>
+</span></span><span style="display:flex;"><span>git commit -m <span style="color:#e6db74">&#34;what I did&#34;</span>  <span style="color:#75715e"># save a snapshot with a note</span>
+</span></span><span style="display:flex;"><span>git push                    <span style="color:#75715e"># upload to GitHub</span>
+</span></span><span style="display:flex;"><span>git pull                    <span style="color:#75715e"># download the latest changes from GitHub</span>
+</span></span><span style="display:flex;"><span>git clone URL               <span style="color:#75715e"># download someone else&#39;s entire project</span>
+</span></span></code></pre></div><p><strong>One thing beginners get wrong:</strong> If you accidentally commit a password, an API key, or any secret to a public GitHub repo, it is exposed immediately. GitHub scans for this and will warn you, but the damage is often already done since bots scan public repos constantly for leaked credentials. Create a <code>.gitignore</code> file and list any files with sensitive info before you run <code>git add</code>.</p>
+<p><strong>Why non-programmers need this:</strong> Git is not just for code. You can version-control documents, configuration files, notes, scripts, anything text-based. And GitHub hosts millions of free tools. Knowing how to clone a repository and follow a README to run a project gives you access to an enormous library of software that most people don&rsquo;t even know exists.</p>
+<p>When someone shares a GitHub link with instructions and everyone else in the room stares blankly, you&rsquo;ll know what to do.</p>
+<p><strong>Prerequisite checkpoint:</strong> Create a repo, make a few commits, push to GitHub, then clone it on a different folder or machine. The cycle should feel comfortable.</p>
+<hr>
+<h2 id="6-scripting-make-the-computer-do-the-boring-work">6. Scripting: Make the Computer Do the Boring Work</h2>
+<p>A script is a small program that automates a repetitive task. You do not need to be a developer to write one. You need to know that they exist and have a basic idea of what they look like.</p>
+<p>McKinsey&rsquo;s 2024 automation report found that 60 to 70 percent of current work tasks have the potential to be automated, but only 5 percent of jobs are fully automatable. The gap is filled by people who know how to write a 20-line script that handles the repetitive part of their job so they can focus on the part that actually requires thinking.</p>
+<p><strong>Python</strong> is the best starting point. It reads almost like English, which is not an accident.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Rename 100 files in a folder automatically</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> filename <span style="color:#f92672">in</span> os<span style="color:#f92672">.</span>listdir(<span style="color:#e6db74">&#34;photos&#34;</span>):
+</span></span><span style="display:flex;"><span>    new_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;trip_&#34;</span> <span style="color:#f92672">+</span> filename
+</span></span><span style="display:flex;"><span>    os<span style="color:#f92672">.</span>rename(<span style="color:#e6db74">&#34;photos/&#34;</span> <span style="color:#f92672">+</span> filename, <span style="color:#e6db74">&#34;photos/&#34;</span> <span style="color:#f92672">+</span> new_name)
+</span></span></code></pre></div><p>That&rsquo;s it. That renames every file in a folder in about four lines. Writing that by hand would take a while if you had 500 files.</p>
+<p><strong>Bash scripting</strong> is writing commands the same way you&rsquo;d type them in the terminal, but saved to a file so they run together in sequence.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"># Back up a folder every day</span>
+</span></span><span style="display:flex;"><span>cp -r ~/Documents ~/Backup/Documents_<span style="color:#66d9ef">$(</span>date +%Y-%m-%d<span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Backup done&#34;</span>
+</span></span></code></pre></div><p>You don&rsquo;t need to memorize syntax. You need to understand what&rsquo;s possible, understand the logic, and know how to search for the specific part you need. The ability to write a 20-line script that saves you two hours a week is genuinely valuable in almost any job.</p>
+<p><strong>Prerequisite checkpoint:</strong> Write a script that reads a folder of files and prints the name and size of each one. If you can do that without copying from a tutorial, you have the foundation.</p>
+<hr>
+<h2 id="7-data-json-csv-and-parsing">7. Data: JSON, CSV, and Parsing</h2>
+<p>Data is everywhere. Two formats handle the vast majority of it.</p>
+<p>IBM&rsquo;s 2023 data quality report found that roughly 80% of data work is cleaning and formatting, not analysis. Understanding what these formats look like and how to move data between them is not optional anymore. It&rsquo;s baseline.</p>
+<p><strong>CSV</strong> (Comma-Separated Values) is spreadsheet data in plain text. Each row is a line, each column is separated by a comma. Excel opens them. Python reads them. Databases export them. If you&rsquo;ve ever downloaded a report from any website, it was probably a CSV. One practical tip: always open a CSV in a text editor at least once before processing it. Encoding issues, missing headers, and inconsistent delimiters are all invisible in Excel and will break your script.</p>
+<p><strong>JSON</strong> (JavaScript Object Notation) is structured data in a format that both humans and machines can read without too much trouble:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Muhammad Awais&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;role&#34;</span>: <span style="color:#e6db74">&#34;AI Engineer&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;skills&#34;</span>: [<span style="color:#e6db74">&#34;Python&#34;</span>, <span style="color:#e6db74">&#34;Docker&#34;</span>, <span style="color:#e6db74">&#34;LangChain&#34;</span>]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>APIs, config files, databases, web responses — JSON is everywhere. Being able to look at a JSON response and understand its structure is a baseline skill in 2026, not an advanced one.</p>
+<p><strong>Parsing</strong> just means reading this data and pulling out what you need. In Python:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> json
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#34;data.json&#34;</span>) <span style="color:#66d9ef">as</span> f:
+</span></span><span style="display:flex;"><span>    data <span style="color:#f92672">=</span> json<span style="color:#f92672">.</span>load(f)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(data[<span style="color:#e6db74">&#34;name&#34;</span>])  <span style="color:#75715e"># Muhammad Awais</span>
+</span></span></code></pre></div><p>That&rsquo;s the whole thing. You don&rsquo;t need to understand the full language to do something useful with data.</p>
+<p><strong>Prerequisite checkpoint:</strong> Download any open dataset in CSV format, open it in Python with the <code>csv</code> or <code>pandas</code> library, and print the first five rows. Then pull a specific column. That&rsquo;s the level you need.</p>
+<hr>
+<h2 id="8-apis-talking-to-services">8. APIs: Talking to Services</h2>
+<p>An API (Application Programming Interface) is how one piece of software talks to another. When a weather app shows you the forecast, it&rsquo;s calling a weather API. When you pay for something online, a payment API is doing the transaction. Most software you use is talking to at least a dozen APIs in the background.</p>
+<p>RapidAPI&rsquo;s 2024 developer survey found that 90% of developers use APIs on a weekly basis. That number has been climbing for years. Knowing how to call an API is no longer a &ldquo;developer skill.&rdquo; It&rsquo;s basic technical literacy for anyone building or integrating anything.</p>
+<p><strong>REST APIs</strong> are the most common type. You send an HTTP request to a URL and get data back, usually in JSON.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Using curl to call the GitHub API from your terminal</span>
+</span></span><span style="display:flex;"><span>curl https://api.github.com/users/ik-awais
+</span></span></code></pre></div><p>That one command returns all the public info about a GitHub user in JSON format. No browser required.</p>
+<p><strong>Auth tokens</strong> are how most APIs handle authentication. Instead of a username and password, they give you a long random string (the token) that you include in your request to prove who you are. Keep these out of your code files. Do not paste them into GitHub. Do not share them. Treat them like a password because that&rsquo;s what they are.</p>
+<p><strong>One thing beginners run into:</strong> free-tier rate limits. Most public APIs limit how many requests you can make per minute or per day on a free plan. If your script suddenly stops working and you get a <code>429</code> error, that&rsquo;s a rate limit. Slow your requests down or check the API documentation for the limit.</p>
+<p><strong>Postman</strong> is a free visual app that lets you test APIs without writing any code. You enter the URL, set any required headers, hit Send, and see exactly what comes back. It&rsquo;s a good way to understand what an API does before you try to use it programmatically.</p>
+<p><strong>Why this matters:</strong> AI tools, cloud services, payment systems, social platforms, analytics tools — they all expose APIs. Understanding how to call one means you can connect services together in ways most people have no idea are possible. Outside of technical circles, that&rsquo;s a genuinely rare skill.</p>
+<p><strong>Prerequisite checkpoint:</strong> Use <code>curl</code> or Postman to call a public API, for example the GitHub user API or OpenWeatherMap, and extract one specific field from the JSON response. That&rsquo;s the bar.</p>
+<hr>
+<h2 id="9-security-the-basics-that-most-people-skip">9. Security: The Basics That Most People Skip</h2>
+<p>Security is not about being paranoid. It&rsquo;s about not being the most convenient target in whatever room you&rsquo;re in.</p>
+<p>Verizon&rsquo;s 2024 Data Breach Investigations Report found that 68% of breaches involve human error, not sophisticated attacks. Not zero-day exploits, not nation-state hacking. People reusing passwords, clicking phishing links, or leaving default credentials on a server. The most common attack vector is still email. A fake invoice, a spoofed login page, an urgent message from &ldquo;IT&rdquo; asking you to reset your password. Most breaches start there.</p>
+<p><strong>SSH keys</strong> let you log into remote servers without passwords. There&rsquo;s a private key (stays on your machine, never leaves) and a public key (you put this on servers). It&rsquo;s cryptographically stronger than passwords and can&rsquo;t be guessed by a bot running dictionary attacks at 3am.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh-keygen              <span style="color:#75715e"># generate your key pair</span>
+</span></span><span style="display:flex;"><span>ssh-copy-id user@server <span style="color:#75715e"># put your public key on a server</span>
+</span></span><span style="display:flex;"><span>ssh user@server         <span style="color:#75715e"># log in, no password needed</span>
+</span></span></code></pre></div><p><strong>File permissions</strong> on Linux control who can read, write, or run a file. <code>chmod 600 file</code> means only your account can read or write it. Getting this wrong is how sensitive files get exposed by accident.</p>
+<p><strong>Updates</strong> are the single most effective security practice that exists. Most successful attacks exploit vulnerabilities that already have patches. The patch was released, people didn&rsquo;t update, attackers knew this. Update your OS and software.</p>
+<p><strong>Backups</strong> follow the 3-2-1 rule: 3 copies of your data, on 2 different types of storage, with 1 copy offsite (a cloud service counts). If you have one copy of something important, you effectively don&rsquo;t have it.</p>
+<p><strong>Password hygiene</strong>: use a password manager. Bitwarden is free, open source, and works everywhere. Use a unique password for every account. Turn on two-factor authentication wherever it&rsquo;s offered, especially email, GitHub, and anything financial.</p>
+<p>These are not advanced topics. They&rsquo;re the floor. If you&rsquo;re calling yourself tech-literate, these need to be covered.</p>
+<p><strong>Prerequisite checkpoint:</strong> Set up Bitwarden, generate SSH keys, and add your public key to a GitHub account. Turn on 2FA for GitHub and your email. If all of that is already done, you&rsquo;re good.</p>
+<hr>
+<h2 id="10-cloud-where-everything-actually-runs">10. Cloud: Where Everything Actually Runs</h2>
+<p>The &ldquo;cloud&rdquo; is just other people&rsquo;s computers. More specifically, it&rsquo;s enormous data centers owned by Amazon (AWS), Google (GCP), or Microsoft (Azure) that you can rent by the hour or even the minute.</p>
+<p>Gartner projected global cloud spending to reach $723 billion in 2026. Nearly every company of any size runs at least part of its infrastructure in the cloud. Knowing your way around a cloud console, even at a basic level, is becoming a general workplace skill, not just a technical one.</p>
+<p><strong>What you need to understand at a basic level:</strong></p>
+<p><strong>Virtual Machines</strong> are computers running inside other computers. You rent one, get an IP address, SSH into it, and it&rsquo;s yours to do whatever you want. AWS calls these EC2 instances. You can run a Linux server for a few dollars a month. A lot of what powers the internet is exactly this, just at much larger scale.</p>
+<p><strong>Storage</strong> — cloud storage like AWS S3 lets you store files and serve them publicly. This is how images, videos, and most static websites are hosted at any real scale.</p>
+<p><strong>Deploy</strong> means putting your application on a server and making it accessible. At the basics level this means: SSH into your VM, install the dependencies your app needs, run it, and configure it to restart automatically if it crashes.</p>
+<p><strong>Free tiers exist.</strong> AWS, Google Cloud, and others all have free tiers that let you run real things without spending money. Use them to experiment before you need to use them for something that matters.</p>
+<p><strong>A practical first exercise:</strong> Create a free AWS account, spin up a <code>t2.micro</code> EC2 instance running Ubuntu (it&rsquo;s free-tier eligible), SSH into it, install nginx with <code>apt install nginx</code>, and then paste the instance&rsquo;s public IP address into your browser. If you see the nginx welcome page, you just deployed a web server to the cloud. That takes about 30 minutes and costs nothing.</p>
+<p><strong>Prerequisite checkpoint:</strong> You should be able to launch a cloud VM, SSH into it, install software, and access it via a browser. That end-to-end loop is what matters.</p>
+<hr>
+<h2 id="11-debugging-finding-whats-wrong">11. Debugging: Finding What&rsquo;s Wrong</h2>
+<p>Things will break. That&rsquo;s guaranteed. Debugging is the skill that separates the people who can find and fix the problem from the people who give up and reinstall everything hoping that helps.</p>
+<p>Research from software engineering studies consistently shows that developers spend roughly 70% of their time reading code and logs rather than writing new code. Debugging is not an edge case. It&rsquo;s most of the job.</p>
+<p><strong>Logs are your first stop.</strong> Every application writes logs somewhere. On Linux, check <code>/var/log/</code>. In Docker, run <code>docker logs container_name</code>. In a web app, open your browser&rsquo;s developer tools (F12) and look at the Console tab. The log will usually tell you what went wrong and where.</p>
+<p><strong>Stack traces</strong> look scary but they have a structure. Read from the bottom up. The bottom line tells you what actually broke. The lines above it tell you how the code got there. Start at the bottom.</p>
+<p><strong>Basic system monitoring:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>top        <span style="color:#75715e"># CPU and memory usage in real time</span>
+</span></span><span style="display:flex;"><span>df -h      <span style="color:#75715e"># how much disk space is left</span>
+</span></span><span style="display:flex;"><span>free -h    <span style="color:#75715e"># how much RAM is available</span>
+</span></span><span style="display:flex;"><span>ping google.com   <span style="color:#75715e"># quick check that your internet is up</span>
+</span></span><span style="display:flex;"><span>curl -I https://yoursite.com   <span style="color:#75715e"># check if a web service is responding and what status code it returns</span>
+</span></span></code></pre></div><p><strong>The debugging mindset:</strong> When something doesn&rsquo;t work, ask yourself: what changed recently? What does the error actually say, read it slowly instead of panicking at the sight of red text. Where exactly does it fail? Work backwards from the symptom to the cause.</p>
+<p>Most problems have already been seen and solved by someone. Paste the error message into a search engine or into an AI. The skill is knowing how to read the error and ask the right question, not memorizing every possible failure mode.</p>
+<p><strong>Prerequisite checkpoint:</strong> Intentionally break something, a script, a Docker container, a config file, and then find and fix it using only logs and the tools above. Do that a few times and the debugging instinct starts to form.</p>
+<hr>
+<h2 id="12-ai-using-it-like-a-pro-not-like-a-tourist">12. AI: Using It Like a Pro, Not Like a Tourist</h2>
+<p>In 2026, not using AI tools in your workflow is like refusing to use a calculator. It&rsquo;s not a principled stance, it&rsquo;s just slower.</p>
+<p>But there&rsquo;s a real difference between using AI and using it well. Stanford&rsquo;s Human-Centered AI Institute 2025 report found that AI tool usage in knowledge work doubled year-over-year. The gap between people who use it well and people who use it poorly is widening just as fast.</p>
+<p><strong>Prompt design</strong>: what you ask for determines what you get. Be specific and give context. A bad prompt is &ldquo;write me a script.&rdquo; A good prompt is &ldquo;Write a Python script that reads all <code>.csv</code> files in a folder, combines them into one dataframe, removes duplicate rows, and saves the result as <code>output.csv</code>. Use pandas.&rdquo; The second one will get you something you can actually use.</p>
+<p><strong>Prompt chaining</strong> is building on previous outputs instead of asking for everything in one shot. Ask it to write the script. Then ask it to add error handling. Then ask it to write tests. Each step builds on the last, and you end up with something much more usable than if you&rsquo;d tried to get the whole thing in one prompt.</p>
+<p><strong>Tool chaining</strong>: modern AI tools can use other tools. ChatGPT with Code Interpreter can write and run Python in the same conversation. Claude can search the web, read files, and run code. Understanding how to set these chains up (AI plus web search plus a code execution environment, for example) is what separates people who get serious work done with AI from people who just use it to write emails.</p>
+<p><strong>Validating outputs</strong>: AI makes mistakes and doesn&rsquo;t always know it&rsquo;s making them. It sounds confident regardless. Never blindly copy AI output for anything that actually matters. Check facts. Test code before running it in production. Ask it to explain its reasoning and see if the explanation holds up. Ask it what could be wrong with its own answer.</p>
+<p><strong>What AI makes easy in 2026:</strong> Writing scripts you couldn&rsquo;t write yourself, debugging errors you don&rsquo;t recognize, summarizing long documents in seconds, drafting first versions of almost anything, and explaining technical concepts in plain language.</p>
+<p>Use it as a force multiplier. The people who understand the fundamentals in this guide will use AI dramatically more effectively than people who don&rsquo;t, because they&rsquo;ll know when the output is correct and when something is off.</p>
+<hr>
+<h2 id="where-to-go-from-here">Where to Go From Here</h2>
+<p>This guide covered twelve areas. You don&rsquo;t need to master all of them before you can call yourself a tech person. You need a working understanding of each, and real depth in two or three of the ones most relevant to what you do.</p>
+<p>A reasonable 90-day path if you&rsquo;re starting from scratch:</p>
+<ul>
+<li><strong>Month 1:</strong> CLI basics, Git, and Linux fundamentals. You&rsquo;re done when you can navigate a Linux system, make commits, push to GitHub, and write a basic bash script without looking everything up.</li>
+<li><strong>Month 2:</strong> Networking concepts, Docker, Python scripting. You&rsquo;re done when you can run a multi-container Docker setup, write a Python script that processes a CSV, and explain what a DNS lookup does.</li>
+<li><strong>Month 3:</strong> APIs, cloud basics, security hygiene, AI tools. You&rsquo;re done when you can call an API, deploy something to a cloud VM, have SSH keys set up, and use AI tools to accelerate your own work rather than replace your thinking.</li>
+</ul>
+<p>Free resources exist for all of it. <a href="https://www.theodinproject.com">The Odin Project</a>, <a href="https://linuxjourney.com">Linux Journey</a>, <a href="https://www.freecodecamp.org">freeCodeCamp</a>, YouTube, and the official documentation for every tool mentioned here. None of this requires a paid course.</p>
+<p>The bar for being in the top 10% in most environments is genuinely not that high. Most people use technology their whole lives without understanding any of it. You now know what the map looks like.</p>
+<p>Go start somewhere.</p>
+<hr>
+<h2 id="related-reading">Related Reading</h2>
+<p>If you want to go deeper on specific topics from this guide, these two posts cover real hands-on projects built on exactly these fundamentals.</p>
+<p><strong><a href="/blog/hypervisors-kvm-qemu-complete-guide">Hypervisors, KVM &amp; QEMU: A Complete Guide to Virtual Machines on Ubuntu 24.04 LTS</a></strong>
+This is what the Linux and virtualization sections of this guide look like in practice. A full walkthrough of setting up KVM/QEMU on Ubuntu 24.04, installing Windows 11, Kali Linux, and Parrot OS as VMs, and solving the Secure Boot + NVIDIA driver problem that most guides do not mention at all.</p>
+<p><strong><a href="/blog/portfolio-development-guide">How I Built My Portfolio Website with Hugo from Scratch</a></strong>
+What Git, CI/CD, and the command line actually look like when you put them together to ship something. This covers the full process of going from a single HTML file to a Hugo-powered portfolio with automated deployment via GitHub Actions, including every technical problem that came up along the way.</p>
+
+    </div>
+
+    <div class="single-back">
+      <a href="/blog/" class="btn-ghost">← Back to Blog</a>
+    </div>
+
+  </article>
+
+  
+  <aside class="toc-sidebar" id="tocSidebar">
+    <div class="toc-inner">
+      <div class="toc-nav" id="tocNav">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-know-your-operating-system">1. Know Your Operating System</a></li>
+    <li><a href="#2-the-command-line-is-not-scary">2. The Command Line Is Not Scary</a></li>
+    <li><a href="#3-networking-how-the-internet-actually-works">3. Networking: How the Internet Actually Works</a></li>
+    <li><a href="#4-docker-shipping-software-in-a-box">4. Docker: Shipping Software in a Box</a></li>
+    <li><a href="#5-git-never-lose-your-work-again">5. Git: Never Lose Your Work Again</a></li>
+    <li><a href="#6-scripting-make-the-computer-do-the-boring-work">6. Scripting: Make the Computer Do the Boring Work</a></li>
+    <li><a href="#7-data-json-csv-and-parsing">7. Data: JSON, CSV, and Parsing</a></li>
+    <li><a href="#8-apis-talking-to-services">8. APIs: Talking to Services</a></li>
+    <li><a href="#9-security-the-basics-that-most-people-skip">9. Security: The Basics That Most People Skip</a></li>
+    <li><a href="#10-cloud-where-everything-actually-runs">10. Cloud: Where Everything Actually Runs</a></li>
+    <li><a href="#11-debugging-finding-whats-wrong">11. Debugging: Finding What&rsquo;s Wrong</a></li>
+    <li><a href="#12-ai-using-it-like-a-pro-not-like-a-tourist">12. AI: Using It Like a Pro, Not Like a Tourist</a></li>
+    <li><a href="#where-to-go-from-here">Where to Go From Here</a></li>
+    <li><a href="#related-reading">Related Reading</a></li>
+  </ul>
+</nav>
+      </div>
+    </div>
+  </aside>
+  
+
+</div>
+
+<script>
+(function() {
+  var tocNav  = document.getElementById('tocNav');
+  if (!tocNav) return;
+  var body     = document.querySelector('.single-body');
+  if (!body) return;
+  var headings = Array.from(body.querySelectorAll('h2, h3'));
+  if (!headings.length) return;
+  var links    = Array.from(tocNav.querySelectorAll('a'));
+  function setActive() {
+    var scrollY = window.scrollY + 130;
+    var active  = headings[0];
+    headings.forEach(function(h) { if (h.offsetTop <= scrollY) active = h; });
+    links.forEach(function(l) { l.classList.remove('active'); });
+    if (active && active.id) {
+      var al = tocNav.querySelector('a[href="#' + active.id + '"]');
+      if (al) al.classList.add('active');
+    }
+  }
+  window.addEventListener('scroll', setActive, { passive: true });
+  setActive();
+})();
+</script>
+
+  </main>
+
+  <footer>
+    <div class="footer-glow" aria-hidden="true"></div>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="/" class="footer-brand-logo">MA<span>.</span></a>
+        <p class="footer-brand-tagline">AI Engineer and Managing Director at AI GenMat, building production AI systems, agentic pipelines, and applied LLM infrastructure.</p>
+        <a href="mailto:m.awais@aigenmat.com" class="footer-brand-email">m.awais@aigenmat.com</a>
+      </div>
+      <div class="footer-nav-group">
+        <div class="footer-nav-col">
+          <span class="footer-nav-heading">Navigation</span>
+          <a href="/projects/">Projects</a>
+          <a href="/blog/">Blog</a>
+          <a href="/#contact">Contact</a>
+        </div>
+        <div class="footer-nav-col">
+          <span class="footer-nav-heading">Connect</span>
+          <a href="https://github.com/ik-awais" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://www.linkedin.com/in/muhammad-awais-ai-engineer/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://aigenmat.com" target="_blank" rel="noopener">AI GenMat</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-left">2026 Muhammad Awais, <a href="https://aigenmat.com" target="_blank" rel="noopener">AI GenMat</a></p>
+      <div class="footer-right">
+        <a href="https://github.com/ik-awais" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/muhammad-awais-ai-engineer/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:m.awais@aigenmat.com">m.awais@aigenmat.com</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

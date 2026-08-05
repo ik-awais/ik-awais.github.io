@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tavily on MA-Portfolio</title>
+    <link>http://localhost:1313/tags/tavily/</link>
+    <description>Recent content in Tavily on MA-Portfolio</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 21 Jun 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/tavily/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AI Research Assistant Agent</title>
+      <link>http://localhost:1313/projects/ai-research-agent/</link>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/ai-research-agent/</guid>
+      <description>Autonomous AI research agent built with Python, Groq LLM, and Tavily Search API, searches the web, extracts multi-source content, and generates structured, cited research reports with PDF/TXT export.</description>
+    </item>
+  </channel>
+</rss>

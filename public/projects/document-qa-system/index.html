@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document Q&amp;A System | MA-Portfolio</title>
+  <meta name="description" content="Muhammad Awais, AI Engineer and Managing Director at AI GenMat. Agentic AI, LLM, RAG Systems, NLP, Computer Vision.">
+  <meta name="keywords" content="Muhammad Awais, AI Engineer, AI GenMat, Agentic AI, LLM, RAG, NLP, Computer Vision, AI consultant">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <nav id="navbar">
+    <div style="display:flex;align-items:center">
+      <a href="/" class="nav-logo">MA<span class="dot">.</span></a>
+      <a href="https://aigenmat.com" target="_blank" rel="noopener" class="nav-logo-badge">AI GenMat</a>
+    </div>
+    <div class="nav-links">
+      <a href="/projects/">Projects</a>
+      <a href="/blog/">Blog</a>
+      <a href="/#contact">Contact</a>
+      <a href="https://github.com/ik-awais" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/muhammad-awais-ai-engineer/" target="_blank" rel="noopener" class="cta-btn">LinkedIn</a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle colour theme">
+        <span class="icon-moon" aria-hidden="true">☽</span>
+        <span class="icon-sun" aria-hidden="true">☀</span>
+      </button>
+      <a href="https://www.upwork.com/freelancers/~018a2d0e2f88ac4838" target="_blank" rel="noopener" class="cta-btn cta-btn-primary">Hire Me</a>
+    </div>
+  </nav>
+
+  <main>
+    
+<div class="single-wrapper">
+
+  <article class="single-section">
+
+    <div class="single-header reveal">
+      <a href="/projects/" class="project-back">← All Projects</a>
+      <div class="card-thumb card-thumb--gradient card-thumb--p1" aria-hidden="true">
+  <div class="card-thumb-noise"></div>
+  <div class="card-thumb-icon"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="24" y1="4" x2="24" y2="44" stroke="currentColor" stroke-width="2.5"/><line x1="4" y1="24" x2="44" y2="24" stroke="currentColor" stroke-width="2.5"/><line x1="10" y1="10" x2="38" y2="38" stroke="currentColor" stroke-width="1.8" opacity="0.5"/><line x1="38" y1="10" x2="10" y2="38" stroke="currentColor" stroke-width="1.8" opacity="0.5"/><circle cx="24" cy="24" r="5" stroke="currentColor" stroke-width="1.5" opacity="0.6"/></svg></div>
+</div>
+      <h1>Document Q&amp;A System</h1>
+      
+      <p class="single-meta">February 2025</p>
+      
+      
+      <div class="tags" style="margin-top:20px">
+        <span class="tag">LangChain</span><span class="tag">FAISS</span><span class="tag">Streamlit</span><span class="tag">LLM</span><span class="tag">NLP</span><span class="tag">RAG</span><span class="tag">Python</span><span class="tag">Groq</span><span class="tag">Vector Search</span><span class="tag">Conversational AI</span>
+      </div>
+      
+      
+      <div style="margin-top:28px;display:flex;gap:16px;flex-wrap:wrap">
+        <a href="https://github.com/ik-awais/doc-qa-system" target="_blank" rel="noopener" class="btn-primary">View on GitHub</a>
+        
+      </div>
+      
+    </div>
+
+    <div class="single-body">
+      <p>A production-ready Retrieval-Augmented Generation (RAG) system that lets you upload documents and interrogate them in plain language. Upload a PDF, DOCX, or TXT file, ask any question, and get accurate, context-aware answers with citations pointing to the exact source chunk, all powered by <strong>LangChain 0.3.25</strong>, <strong>FAISS</strong>, and <strong>Groq LLM</strong> (<code>Llama 3.3 70B</code>).</p>
+<p>Built without agent overhead: the system uses LangChain Chains directly, keeping the architecture simple, fast, and predictable.</p>
+<h2 id="what-it-does">What It Does</h2>
+<p>The system operates in two distinct phases. During ingestion, an uploaded document is parsed, split into overlapping chunks, embedded locally using HuggingFace&rsquo;s <code>all-MiniLM-L6-v2</code> model, and stored in an in-memory FAISS index. During query, the user&rsquo;s question is embedded with the same model, and a similarity search retrieves the top-k most relevant chunks. Those chunks are passed to the LLM alongside the conversation history, which produces a grounded answer with traceable source references.</p>
+<p>Conversational memory (<code>ConversationBufferWindowMemory</code>) feeds previous Q&amp;A turns back into the LLM context, so pronouns and follow-up references (&ldquo;what did it say about…&rdquo;, &ldquo;and the second point?&rdquo;) resolve correctly without the user repeating context.</p>
+<h2 id="key-features">Key Features</h2>
+<ul>
+<li><strong>Multi-format document support</strong>: ingests PDF (via PyPDF), DOCX (via python-docx), and plain TXT files</li>
+<li><strong>Semantic search</strong>: retrieves answers by conceptual meaning, not keyword overlap, using FAISS cosine similarity over dense embeddings</li>
+<li><strong>Conversational memory</strong>: <code>ConversationBufferWindowMemory</code> preserves chat history so follow-up questions work naturally</li>
+<li><strong>Source citations</strong>: every answer surfaces the exact document chunk(s) that grounded it, with a &ldquo;View Sources&rdquo; toggle in the UI</li>
+<li><strong>Multi-document support</strong>: upload multiple files and query across all of them in a single session</li>
+<li><strong>One-click document summarization</strong>: map-reduce summarization pipeline condenses any document to a readable overview</li>
+<li><strong>Switchable LLM models</strong>: choose between Llama 3.3 70B (highest quality), Llama 3.1 8B (faster), or Mixtral 8x7B from the sidebar without restarting</li>
+<li><strong>Chat history UI</strong>: full conversation thread displayed in a clean Streamlit chat interface</li>
+<li><strong>Local embeddings</strong>: <code>sentence-transformers/all-MiniLM-L6-v2</code> runs locally, so documents never leave your machine for embedding</li>
+</ul>
+<h2 id="architecture--data-flow">Architecture &amp; Data Flow</h2>
+<p>The system runs two phases for every interaction:</p>
+<pre tabindex="0"><code>── PHASE 1: INGESTION (on file upload) ──────────────────────────────────
+
+  Document (PDF / DOCX / TXT)
+      │
+      ▼
+  [ Parse Text ]
+  PyPDF / python-docx / TextLoader
+      │
+      ▼
+  [ Chunk Text ]
+  RecursiveCharacterTextSplitter
+  chunk_size=1000, chunk_overlap=200
+      │
+      ▼
+  [ Generate Embeddings ]
+  HuggingFace all-MiniLM-L6-v2 (local)
+      │
+      ▼
+  [ FAISS Vector Index ]
+  Stored in memory for the session
+
+── PHASE 2: QUERY (on each question) ────────────────────────────────────
+
+  User Question
+      │
+      ▼
+  [ Embed Question ]
+  same all-MiniLM-L6-v2 model
+      │
+      ▼
+  [ FAISS Similarity Search ]
+  Top k=4 chunks retrieved
+      │
+      ▼
+  [ LangChain ConversationalRetrievalChain ]
+  Chunks + Conversation History → Groq LLM
+      │
+      ▼
+  Answer + Source Citations
+</code></pre><h2 id="tech-stack">Tech Stack</h2>
+<table>
+  <thead>
+      <tr>
+          <th>Component</th>
+          <th>Technology</th>
+          <th>Version</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>RAG Framework</td>
+          <td>LangChain</td>
+          <td>0.3.25</td>
+      </tr>
+      <tr>
+          <td>LLM Provider</td>
+          <td>Groq (via langchain-groq)</td>
+          <td>0.3.2</td>
+      </tr>
+      <tr>
+          <td>LLM Model</td>
+          <td>Llama 3.3 70B / Llama 3.1 8B / Mixtral 8x7B</td>
+          <td>N/A</td>
+      </tr>
+      <tr>
+          <td>Embeddings</td>
+          <td>HuggingFace all-MiniLM-L6-v2</td>
+          <td>sentence-transformers 3.4.1</td>
+      </tr>
+      <tr>
+          <td>Vector Store</td>
+          <td>FAISS (CPU)</td>
+          <td>1.10.0</td>
+      </tr>
+      <tr>
+          <td>UI</td>
+          <td>Streamlit</td>
+          <td>1.45.1</td>
+      </tr>
+      <tr>
+          <td>PDF Loader</td>
+          <td>PyPDF</td>
+          <td>5.4.0</td>
+      </tr>
+      <tr>
+          <td>DOCX Loader</td>
+          <td>python-docx</td>
+          <td>1.1.2</td>
+      </tr>
+      <tr>
+          <td>Memory</td>
+          <td>ConversationBufferWindowMemory</td>
+          <td>(LangChain built-in)</td>
+      </tr>
+      <tr>
+          <td>Summarization</td>
+          <td>Map-Reduce Chain</td>
+          <td>(LangChain built-in)</td>
+      </tr>
+      <tr>
+          <td>Token Counting</td>
+          <td>tiktoken</td>
+          <td>0.9.0</td>
+      </tr>
+      <tr>
+          <td>Config</td>
+          <td>python-dotenv</td>
+          <td>1.1.0</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="project-structure">Project Structure</h2>
+<pre tabindex="0"><code>doc_qa_system/
+│
+├── app.py                        # Streamlit entry point &amp; UI logic
+├── .env                          # API keys (not committed)
+├── .env.example                  # Environment variable template
+├── requirements.txt              # 13 pinned dependencies
+├── README.md                     # Project documentation
+│
+├── core/
+│   ├── document_processor.py     # Document loading, parsing &amp; chunking
+│   ├── vector_store.py           # FAISS index creation &amp; similarity search
+│   ├── qa_chain.py               # LangChain ConversationalRetrievalChain
+│   └── summarizer.py             # Map-reduce summarization pipeline
+│
+└── utils/
+    └── helpers.py                # Configuration loading &amp; shared utilities
+</code></pre><h2 id="setup--installation">Setup &amp; Installation</h2>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>Python 3.9 or higher</li>
+<li>A free <a href="https://console.groq.com">Groq API key</a>, no credit card required</li>
+</ul>
+<h3 id="steps">Steps</h3>
+<p><strong>1. Clone the repository</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git clone https://github.com/ik-awais/doc-qa-system.git
+</span></span><span style="display:flex;"><span>cd doc-qa-system
+</span></span></code></pre></div><p><strong>2. Create and activate a virtual environment</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 -m venv .venv
+</span></span><span style="display:flex;"><span>source .venv/bin/activate        <span style="color:#75715e"># macOS / Linux</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># .venv\Scripts\activate         # Windows</span>
+</span></span></code></pre></div><p><strong>3. Install dependencies</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pip install -r requirements.txt
+</span></span></code></pre></div><p><strong>4. Configure your API key</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cp .env.example .env
+</span></span></code></pre></div><p>Open <code>.env</code> and add your key:</p>
+<pre tabindex="0"><code>GROQ_API_KEY=your_groq_api_key_here
+</code></pre><p><strong>5. Run the application</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>streamlit run app.py
+</span></span></code></pre></div><p>The app opens automatically at <code>http://localhost:8501</code>.</p>
+<h2 id="how-to-use">How to Use</h2>
+<p>Once the app is running, the workflow is straightforward:</p>
+<ol>
+<li><strong>Upload a document</strong> via the sidebar: PDF, DOCX, or TXT are all accepted</li>
+<li><strong>Ask a question</strong> in the chat input: the system retrieves relevant chunks and generates an answer</li>
+<li><strong>View citations</strong> by clicking &ldquo;View Sources&rdquo; under any response</li>
+<li><strong>Ask follow-ups</strong> naturally: the memory window preserves context so &ldquo;what did it say about X?&rdquo; resolves correctly</li>
+<li><strong>Summarize</strong> the full document with the &ldquo;Generate Summary&rdquo; button</li>
+<li><strong>Add more documents</strong>: upload additional files to query across the combined set</li>
+<li><strong>Clear chat</strong> to start a new conversation without removing the loaded documents</li>
+<li><strong>Reset all</strong> to wipe documents, index, and history and start completely fresh</li>
+</ol>
+<h2 id="configuration">Configuration</h2>
+<h3 id="llm-model-selection">LLM Model Selection</h3>
+<p>Switch models in the sidebar at any time without restarting:</p>
+<ul>
+<li><strong>Llama 3.3 70B</strong>: highest answer quality, recommended for most use cases</li>
+<li><strong>Llama 3.1 8B</strong>: faster responses, suitable for simpler documents or latency-sensitive workflows</li>
+<li><strong>Mixtral 8x7B</strong>: mixture-of-experts alternative with different strengths</li>
+</ul>
+<h3 id="chunking-parameters">Chunking Parameters</h3>
+<p>Adjust in <code>core/document_processor.py</code> to tune retrieval precision vs. context coverage:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>chunk_size<span style="color:#f92672">=</span><span style="color:#ae81ff">1000</span>      <span style="color:#75715e"># Characters per chunk - larger = more context per chunk</span>
+</span></span><span style="display:flex;"><span>chunk_overlap<span style="color:#f92672">=</span><span style="color:#ae81ff">200</span>    <span style="color:#75715e"># Characters shared between adjacent chunks - prevents answer splits at boundaries</span>
+</span></span></code></pre></div><h3 id="retrieval-settings">Retrieval Settings</h3>
+<p>Adjust in <code>core/qa_chain.py</code> to control how many source chunks are surfaced per query:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>search_kwargs<span style="color:#f92672">=</span>{<span style="color:#e6db74">&#34;k&#34;</span>: <span style="color:#ae81ff">4</span>}    <span style="color:#75715e"># Number of chunks retrieved per query</span>
+</span></span></code></pre></div><p>Increasing <code>k</code> improves recall at the cost of longer LLM context; decreasing it keeps answers tighter.</p>
+<h2 id="dependencies-pinned">Dependencies (Pinned)</h2>
+<p>All 13 dependencies are fully pinned in <code>requirements.txt</code> for reproducible installs:</p>
+<pre tabindex="0"><code>langchain==0.3.25
+langchain-community==0.3.24
+langchain-groq==0.3.2
+langchain-huggingface==0.1.2
+langchain-openai==0.3.16
+faiss-cpu==1.10.0
+streamlit==1.45.1
+sentence-transformers==3.4.1
+pypdf==5.4.0
+python-docx==1.1.2
+tiktoken==0.9.0
+python-dotenv==1.1.0
+openai==1.82.0
+</code></pre><h2 id="design-decisions">Design Decisions</h2>
+<p><strong>Chains, not agents</strong>: The system deliberately avoids LangChain agents. A <code>ConversationalRetrievalChain</code> is deterministic, predictable, and faster than an agent loop. For document Q&amp;A there is no need for dynamic tool selection; the retrieve-then-generate pattern is sufficient and easier to debug.</p>
+<p><strong>Local embeddings</strong>: Using <code>sentence-transformers/all-MiniLM-L6-v2</code> locally rather than an API-hosted embedding model means documents are never sent to a third party for embedding. Only the retrieved chunks and question are sent to Groq for generation. This makes the system practical for internal or sensitive documents.</p>
+<p><strong>Chunk overlap</strong>: The 200-character overlap between chunks prevents answers from being cut off at chunk boundaries, which is a common failure mode in naive RAG implementations where the key sentence happens to straddle a split point.</p>
+<p><strong>Map-reduce summarization</strong>: Rather than truncating long documents to fit in a single context window, the summarizer uses a map-reduce approach: each chunk is summarized independently, then the summaries are combined in a reduce step. This scales to documents of arbitrary length.</p>
+<p><strong>Environment variable template</strong>: Shipping a <code>.env.example</code> file (rather than documentation alone) makes onboarding faster and reduces the chance of misconfiguration, since developers can see exactly which variable names are expected.</p>
+<h2 id="license">License</h2>
+<p>This project is open source under the <a href="https://github.com/ik-awais/doc-qa-system/blob/main/LICENSE">MIT License</a>.</p>
+<hr>
+<h2 id="related-projects">Related Projects</h2>
+<h3 id="ai-research-assistant-agent"><a href="https://ik-awais.github.io/projects/ai-research-agent/">AI Research Assistant Agent</a></h3>
+<p>An autonomous agentic system that searches the live web, extracts multi-source content, and generates structured research reports, using the same Groq LLM backend but with Tavily web search instead of a document index.
+→ <a href="https://github.com/ik-awais/ai-research-agent">GitHub</a> · <a href="https://ik-awais.github.io/projects/ai-research-agent/">Read More</a></p>
+<h3 id="lecturelens-ai-powered-study-assistant-with-rag--hybrid-search"><a href="https://ik-awais.github.io/projects/lecturelens/">LectureLens: AI-Powered Study Assistant with RAG &amp; Hybrid Search</a></h3>
+<p>A production-grade Flask application that ingests PDF, DOCX, and PPTX lecture materials, indexes them with ChromaDB vector embeddings and SQLite FTS5 full-text search, then answers questions via a RAG pipeline powered by NVIDIA&rsquo;s LLaMA 3.3 70B, with page-level source citations.
+→ <a href="https://github.com/ik-awais/Python_Projects/tree/main/PAI/LectureLens">GitHub</a> · <a href="https://ik-awais.github.io/projects/lecturelens/">Read More</a></p>
+<h3 id="mediscan-ai-medical-image--report-assistant"><a href="https://ik-awais.github.io/projects/mediscan-ai/">MediScan AI: Medical Image &amp; Report Assistant</a></h3>
+<p>End-to-end pipeline that classifies medical scans with a fine-tuned Vision Transformer, scores anomalies with IsolationForest, and generates structured radiology reports using LLaMA 3.1, served via FastAPI.
+→ <a href="https://github.com/ik-awais/mediscan-ai">GitHub</a> · <a href="https://ik-awais.github.io/projects/mediscan-ai/">Read More</a></p>
+<hr>
+<h2 id="related-blog-posts">Related Blog Posts</h2>
+<h3 id="you-don"><a href="https://ik-awais.github.io/blog/tech-survival-guide-2026/">You Don&rsquo;t Need to Be a Programmer to Be a Tech Person</a></h3>
+<p>The practical tech skills, including Python, APIs, and AI tooling, that set you apart without a CS degree.</p>
+<h3 id="how-i-built-my-portfolio-website-with-hugo-from-scratch"><a href="https://ik-awais.github.io/blog/portfolio-development-guide/">How I Built My Portfolio Website with Hugo from Scratch</a></h3>
+<p>A detailed walkthrough of building this portfolio site with Hugo, GitHub Pages, and automated CI/CD, the infrastructure that hosts this project page.</p>
+<hr>
+<p><a href="https://ik-awais.github.io/projects/">← Back to All Projects</a> · <a href="https://github.com/ik-awais/doc-qa-system">GitHub</a> · <a href="https://ik-awais.github.io/#contact">Contact</a></p>
+
+    </div>
+
+    <div class="single-back">
+      <a href="/projects/" class="btn-ghost">← Back to Projects</a>
+    </div>
+
+  </article>
+
+  
+  <aside class="toc-sidebar" id="tocSidebar">
+    <div class="toc-inner">
+      <div class="toc-nav" id="tocNav">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#what-it-does">What It Does</a></li>
+    <li><a href="#key-features">Key Features</a></li>
+    <li><a href="#architecture--data-flow">Architecture &amp; Data Flow</a></li>
+    <li><a href="#tech-stack">Tech Stack</a></li>
+    <li><a href="#project-structure">Project Structure</a></li>
+    <li><a href="#setup--installation">Setup &amp; Installation</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#steps">Steps</a></li>
+      </ul>
+    </li>
+    <li><a href="#how-to-use">How to Use</a></li>
+    <li><a href="#configuration">Configuration</a>
+      <ul>
+        <li><a href="#llm-model-selection">LLM Model Selection</a></li>
+        <li><a href="#chunking-parameters">Chunking Parameters</a></li>
+        <li><a href="#retrieval-settings">Retrieval Settings</a></li>
+      </ul>
+    </li>
+    <li><a href="#dependencies-pinned">Dependencies (Pinned)</a></li>
+    <li><a href="#design-decisions">Design Decisions</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#related-projects">Related Projects</a>
+      <ul>
+        <li><a href="#ai-research-assistant-agent">AI Research Assistant Agent</a></li>
+        <li><a href="#lecturelens-ai-powered-study-assistant-with-rag--hybrid-search">LectureLens: AI-Powered Study Assistant with RAG &amp; Hybrid Search</a></li>
+        <li><a href="#mediscan-ai-medical-image--report-assistant">MediScan AI: Medical Image &amp; Report Assistant</a></li>
+      </ul>
+    </li>
+    <li><a href="#related-blog-posts">Related Blog Posts</a>
+      <ul>
+        <li><a href="#you-don">You Don’t Need to Be a Programmer to Be a Tech Person</a></li>
+        <li><a href="#how-i-built-my-portfolio-website-with-hugo-from-scratch">How I Built My Portfolio Website with Hugo from Scratch</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+    </div>
+  </aside>
+  
+
+</div>
+
+<script>
+(function() {
+  var tocNav  = document.getElementById('tocNav');
+  if (!tocNav) return;
+  var body     = document.querySelector('.single-body');
+  if (!body) return;
+  var headings = Array.from(body.querySelectorAll('h2, h3'));
+  if (!headings.length) return;
+  var links    = Array.from(tocNav.querySelectorAll('a'));
+  function setActive() {
+    var scrollY = window.scrollY + 130;
+    var active  = headings[0];
+    headings.forEach(function(h) { if (h.offsetTop <= scrollY) active = h; });
+    links.forEach(function(l) { l.classList.remove('active'); });
+    if (active && active.id) {
+      var al = tocNav.querySelector('a[href="#' + active.id + '"]');
+      if (al) al.classList.add('active');
+    }
+  }
+  window.addEventListener('scroll', setActive, { passive: true });
+  setActive();
+})();
+</script>
+
+  </main>
+
+  <footer>
+    <div class="footer-glow" aria-hidden="true"></div>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="/" class="footer-brand-logo">MA<span>.</span></a>
+        <p class="footer-brand-tagline">AI Engineer and Managing Director at AI GenMat, building production AI systems, agentic pipelines, and applied LLM infrastructure.</p>
+        <a href="mailto:m.awais@aigenmat.com" class="footer-brand-email">m.awais@aigenmat.com</a>
+      </div>
+      <div class="footer-nav-group">
+        <div class="footer-nav-col">
+          <span class="footer-nav-heading">Navigation</span>
+          <a href="/projects/">Projects</a>
+          <a href="/blog/">Blog</a>
+          <a href="/#contact">Contact</a>
+        </div>
+        <div class="footer-nav-col">
+          <span class="footer-nav-heading">Connect</span>
+          <a href="https://github.com/ik-awais" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://www.linkedin.com/in/muhammad-awais-ai-engineer/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://aigenmat.com" target="_blank" rel="noopener">AI GenMat</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-left">2026 Muhammad Awais, <a href="https://aigenmat.com" target="_blank" rel="noopener">AI GenMat</a></p>
+      <div class="footer-right">
+        <a href="https://github.com/ik-awais" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/muhammad-awais-ai-engineer/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:m.awais@aigenmat.com">m.awais@aigenmat.com</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

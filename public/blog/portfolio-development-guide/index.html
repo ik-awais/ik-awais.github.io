@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How I Built My Portfolio Website with Hugo from Scratch | MA-Portfolio</title>
+  <meta name="description" content="Muhammad Awais, AI Engineer and Managing Director at AI GenMat. Agentic AI, LLM, RAG Systems, NLP, Computer Vision.">
+  <meta name="keywords" content="Muhammad Awais, AI Engineer, AI GenMat, Agentic AI, LLM, RAG, NLP, Computer Vision, AI consultant">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <nav id="navbar">
+    <div style="display:flex;align-items:center">
+      <a href="/" class="nav-logo">MA<span class="dot">.</span></a>
+      <a href="https://aigenmat.com" target="_blank" rel="noopener" class="nav-logo-badge">AI GenMat</a>
+    </div>
+    <div class="nav-links">
+      <a href="/projects/">Projects</a>
+      <a href="/blog/">Blog</a>
+      <a href="/#contact">Contact</a>
+      <a href="https://github.com/ik-awais" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/muhammad-awais-ai-engineer/" target="_blank" rel="noopener" class="cta-btn">LinkedIn</a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle colour theme">
+        <span class="icon-moon" aria-hidden="true">☽</span>
+        <span class="icon-sun" aria-hidden="true">☀</span>
+      </button>
+      <a href="https://www.upwork.com/freelancers/~018a2d0e2f88ac4838" target="_blank" rel="noopener" class="cta-btn cta-btn-primary">Hire Me</a>
+    </div>
+  </nav>
+
+  <main>
+    
+<div class="single-wrapper">
+
+  <article class="single-section">
+
+    <div class="single-header reveal">
+      <div class="card-thumb card-thumb--gradient card-thumb--p1" aria-hidden="true">
+  <div class="card-thumb-noise"></div>
+  <div class="card-thumb-icon"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="24" y1="4" x2="24" y2="44" stroke="currentColor" stroke-width="2.5"/><line x1="4" y1="24" x2="44" y2="24" stroke="currentColor" stroke-width="2.5"/><line x1="10" y1="10" x2="38" y2="38" stroke="currentColor" stroke-width="1.8" opacity="0.5"/><line x1="38" y1="10" x2="10" y2="38" stroke="currentColor" stroke-width="1.8" opacity="0.5"/><circle cx="24" cy="24" r="5" stroke="currentColor" stroke-width="1.5" opacity="0.6"/></svg></div>
+</div>
+      <h1>How I Built My Portfolio Website with Hugo from Scratch</h1>
+      <p class="single-meta">March 17, 2026</p>
+      
+      <div class="tags" style="margin-top:20px">
+        <span class="tag">Hugo</span><span class="tag">Web Development</span><span class="tag">CSS</span><span class="tag">GitHub Pages</span><span class="tag">CI/CD</span><span class="tag">Portfolio</span>
+      </div>
+      
+      
+    </div>
+
+    <div class="single-body">
+      <p>I want to be upfront about something before we get started. When I first decided to build my portfolio website, I had no idea it would turn into the project it eventually became. What started as a single HTML file sitting in a folder on my laptop turned into a weeks-long process of building, breaking, fixing, and rebuilding. This post is the story of that entire journey, written honestly so that if you are going through something similar, you actually understand what happened and why.</p>
+<h2 id="where-it-all-started">Where It All Started</h2>
+<p>Every developer reaches a point where they need a portfolio. For me that moment came when I realized I had been working on AI projects for a while and had absolutely nothing online to show for it. No personal site, no blog, nothing. So I did what most people do in that situation. I opened a text editor and started writing a single HTML file.</p>
+<p>That file had everything crammed into it. The styles were written directly in a <code>&lt;style&gt;</code> tag at the top of the page, the JavaScript was at the bottom in a <code>&lt;script&gt;</code> tag, and the content was all hardcoded HTML in the middle. It worked. It looked decent. But it had one big problem that I did not fully appreciate at the time.</p>
+<p>I wanted to write blog posts.</p>
+<p>The moment you want to add a blog to a static HTML website, you realize that hardcoded HTML is not going to cut it. Adding a new blog post would mean copying an entire HTML file, editing the content inside it, and manually updating an index page to link to it. That is not how anyone should spend their time.</p>
+<h2 id="why-i-chose-hugo">Why I Chose Hugo</h2>
+<p>I looked at several options. There are plenty of static site generators out there and a few JavaScript-heavy frameworks that could technically do what I needed. I landed on Hugo for a few specific reasons.</p>
+<p>First, Hugo is built in Go and it is genuinely fast. When you run <code>hugo server</code>, it rebuilds your entire site in milliseconds. When you are actively developing and refreshing the browser constantly, this matters more than you would think.</p>
+<p>Second, Hugo uses plain Markdown files for content. That means every blog post I write is just a <code>.md</code> file sitting in a folder. No database, no CMS, no account to log into. Just files. I can open any post in a text editor, change a line, and push it to GitHub.</p>
+<p>Third, Hugo has a clean concept called content sections. You define a <code>content/blog/</code> folder and a <code>content/projects/</code> folder and Hugo automatically knows how to list and render everything inside them. Adding a new blog post is as simple as dropping a new Markdown file into the right folder.</p>
+<p>The trade-off with Hugo is that the learning curve around templates can be confusing at first. Hugo uses Go templates which have their own syntax, and when something goes wrong, the error messages are not always the most helpful. I learned this pretty quickly.</p>
+<h2 id="setting-up-the-project">Setting Up the Project</h2>
+<p>After installing Hugo, I created a fresh project and started building out the folder structure. Hugo generates a skeleton for you when you run <code>hugo new site portfolio</code> but most of that skeleton is empty directories waiting to be filled.</p>
+<p>The structure I ended up with was straightforward. The <code>content</code> folder holds all the Markdown files for blog posts and projects. The <code>layouts</code> folder holds the HTML templates that Hugo uses to render those Markdown files into actual pages. The <code>static</code> folder holds CSS, JavaScript, and any other files that should be served as-is without Hugo touching them.</p>
+<p>The key insight with Hugo is the separation between content and presentation. Your blog post is just words in a Markdown file. Hugo&rsquo;s job is to take those words and wrap them in the right HTML template to produce a finished page. Once you internalize that separation, everything else starts to make sense.</p>
+<h2 id="the-first-problem-i-hit">The First Problem I Hit</h2>
+<p>About twenty minutes after I got the project set up, I ran <code>hugo server</code> and opened the browser. The HTML structure was there but the page looked completely broken. No styles. No fonts. Just unstyled text on a white background.</p>
+<p>My first instinct was that something was wrong with the CSS file itself. I checked the file. The CSS was fine. I checked the link tag in the HTML template. It looked correct. I spent a while going back and forth before I finally realized what was happening.</p>
+<p>In <code>hugo.toml</code>, the main configuration file, there is a setting called <code>baseURL</code>. I had set it to my intended production URL, something like <code>https://ik-awais.github.io/</code>. Hugo uses that value to construct all the paths to your static files. When you are running the site locally on <code>localhost:1313</code>, those paths point to the wrong place entirely, so the browser cannot find the CSS file.</p>
+<p>The fix was simple. Change <code>baseURL</code> to just <code>/</code> during development. That one character was the cause of probably an hour of confusion.</p>
+<h2 id="building-the-design">Building the Design</h2>
+<p>Once the basic plumbing was working, I focused on the design. I wanted something that felt modern and distinctive rather than the typical developer portfolio look. Most portfolios I had seen used either a very minimal white design or a generic dark theme with blue accents. I wanted something with more personality.</p>
+<p>I decided on a very dark background, almost black with a slight purple tint, and used a combination of cyan and purple as the accent colors. The typography choice was important to me as well. I picked Syne for headings because it has a bold, geometric quality that reads as technical without being cold. For body text and code, I used JetBrains Mono, which is a font designed specifically for developers. Using a monospace font as the body font is unconventional but I think it gives the site a cohesive identity.</p>
+<p>The hero section went through several iterations. I eventually landed on animated orbital rings — CSS circles that rotate around a center point using keyframe animations. It is a simple effect visually but it gives the hero section some life without being distracting.</p>
+<p>For the scrolling tech stack section, I used two rows of technology icons that scroll infinitely in opposite directions. This is done entirely in CSS using <code>@keyframes</code> with <code>translateX</code>. The icons come from a CDN called Devicon which hosts color SVGs of virtually every programming language and framework.</p>
+<h2 id="dark-and-light-mode">Dark and Light Mode</h2>
+<p>Adding a light mode was one of the better decisions I made during this project. The approach I took was CSS custom properties, also known as CSS variables. You define all your colors as variables at the root level of your stylesheet and then when the user toggles the theme, you swap those variables. No duplicate stylesheets, no JavaScript injecting inline styles. Just one clean swap.</p>
+<p>The challenge was making the light mode actually look good and not just be a washed-out version of the dark mode. My first attempt at a light theme looked terrible. I was using a warm off-white background and the text colors were based on opacity modifiers stacked on top of each other. Everything looked muddy.</p>
+<p>The version that actually worked took inspiration from GitHub and VS Code. A cool grey background at <code>#f0f2f5</code>, near-black text at <code>#111827</code>, and explicit color values for every element rather than opacity tricks. Code blocks stayed dark even in light mode, which was an intentional design decision. Reading code on a dark background is genuinely easier and it creates a nice contrast on the page.</p>
+<p>The theme preference is saved to localStorage so returning visitors see the same theme they left with.</p>
+<h2 id="the-blog-and-table-of-contents">The Blog and Table of Contents</h2>
+<p>Building the blog section was where I ran into the most interesting technical problems.</p>
+<p>The first issue was getting blog content to actually render visibly on the page. I had a CSS class called <code>.reveal</code> that I was using throughout the site for scroll-triggered animations. The way it works is that elements start with <code>opacity: 0</code> and when they scroll into the viewport, a JavaScript observer adds a class that transitions them to <code>opacity: 1</code>. I had applied this class to the blog content wrapper as well.</p>
+<p>On most sections of the page this works fine because the elements are below the fold when the page loads, so the observer triggers correctly as you scroll down. On a blog post page though, the main content is at the top of the page and is already in the viewport the moment the page loads. The observer sometimes missed this and the content stayed invisible. The fix was to simply not apply the reveal animation to the main blog content. It should always be visible immediately.</p>
+<p>The second problem was the table of contents. I wanted a sticky sidebar on the right side of every blog post that shows all the headings and lets readers jump to any section. My first approach was to write JavaScript that reads the headings in the page and builds a navigation list dynamically. This seemed reasonable.</p>
+<p>It did not work.</p>
+<p>The problem was timing. The JavaScript in <code>main.js</code> loads and runs before the inline script that was building the table of contents. By the time my table of contents script tried to register a <code>DOMContentLoaded</code> listener, that event had already fired. The script ran, found no headings, and produced an empty navigation.</p>
+<p>I tried several workarounds before I found the right solution. Hugo has a built-in feature called <code>.TableOfContents</code>. When you use it in a template, Hugo reads your Markdown headings at build time and generates the entire table of contents as HTML before the page is ever served to a browser. No JavaScript, no timing issues, no DOM querying. The table of contents is just there in the HTML, ready to go.</p>
+<p>This was a good reminder that the best solution is often the one that does not rely on client-side JavaScript to do something that can be done at build time.</p>
+<h2 id="the-contact-form">The Contact Form</h2>
+<p>A portfolio without a contact form is just a display case. I wanted people to actually be able to reach me.</p>
+<p>I used Formspree for the backend. Formspree gives you an endpoint URL that you POST form data to and they handle delivering it to your email. For a static site with no backend server, this is the cleanest option available.</p>
+<p>The first version of the form used <code>fetch()</code> with JSON as the content type. This worked until I tried to enable reCAPTCHA on my Formspree account to filter out spam. Formspree&rsquo;s reCAPTCHA integration only works with HTML form submissions using <code>multipart/form-data</code>. JSON submissions get rejected. I eventually disabled the reCAPTCHA entirely and relied on client-side protection instead.</p>
+<p>The client-side protection I built has three layers. First, deep email validation that goes beyond checking for an at-sign. It checks that the domain looks real, that the TLD is between two and twelve characters, that there are no consecutive dots, and it maintains a blocklist of over fifty known disposable email services like Mailinator and Guerrilla Mail. Second, a honeypot field. This is a form input that is completely hidden from real users using CSS but is present in the HTML. Bots that automatically fill in every field on a page will fill in the honeypot, and when the JavaScript sees that field has a value, it discards the submission silently. Third, rate limiting. A user can submit a maximum of three times per session with at least sixty seconds between each submission.</p>
+<p>This combination is more effective than reCAPTCHA for my purposes because it creates no friction for legitimate users while still blocking the vast majority of automated spam.</p>
+<h2 id="deploying-with-github-actions">Deploying with GitHub Actions</h2>
+<p>Once the site was working locally, I needed to get it onto the internet. I chose GitHub Pages because my repository is already hosted on GitHub and the integration is straightforward.</p>
+<p>The way GitHub Pages works with Hugo is that you push your source code and a GitHub Actions workflow automatically builds the site and deploys the output. You never manually touch the <code>public</code> directory or commit build artifacts. The source code and the deployed output are completely separated.</p>
+<p>The workflow file lives at <code>.github/workflows/deploy.yml</code>. When you push to the <code>portfolio</code> branch, the workflow spins up an Ubuntu machine, installs the correct version of Hugo, runs <code>hugo --minify</code> to build the site, and then deploys the output to GitHub Pages. The whole process takes about ninety seconds.</p>
+<p>There was one non-obvious configuration step that caught me off guard. GitHub Pages has environment protection rules that restrict which branches are allowed to trigger deployments. By default only the main branch is allowed. Since my working branch is named <code>portfolio</code>, the first deployment attempt failed with a message saying the branch was not authorized. The fix was to go into the repository settings, find the github-pages environment, and explicitly add <code>portfolio</code> as an allowed deployment branch.</p>
+<h2 id="what-i-learned">What I Learned</h2>
+<p>This project taught me a few things I will carry into future web projects.</p>
+<p>Separating content from presentation is genuinely valuable. Because all my blog posts and project pages are Markdown files, I can add new content without touching any HTML or CSS. I can also completely redesign the visual appearance of the site without touching a single piece of content. Those two concerns being separate is exactly how it should be.</p>
+<p>Build-time solutions are better than runtime solutions when you have the choice. Every time I tried to solve a problem with client-side JavaScript, I eventually found a cleaner solution that ran at build time. Hugo&rsquo;s table of contents is a good example. Solving it in the browser created timing problems and complexity. Solving it during the build process eliminated both.</p>
+<p>CSS variables make theming much simpler. Before this project I had never built a complete dark and light theme. I expected it to be significantly more work than it was. Because I defined the entire color palette as CSS variables from the beginning, switching themes is a single class change on the body element.</p>
+<p>Testing locally before pushing is obvious advice but it saved me many times. The GitHub Actions deployment takes ninety seconds per push. If you push a broken version, you wait ninety seconds to find out it is broken, fix it locally, and wait another ninety seconds. Running <code>hugo server -D</code> locally before every push kept that feedback loop tight.</p>
+<h2 id="where-things-stand-now">Where Things Stand Now</h2>
+<p>The site is live, the blog is active, and the deployment pipeline works reliably. Every time I push to the <code>portfolio</code> branch, the site updates automatically within a couple of minutes. Adding a new blog post is as simple as running <code>hugo new blog/post-title.md</code>, writing in Markdown, and pushing to GitHub.</p>
+<p>The codebase is clean and understandable. There are no build tools beyond Hugo itself, no npm dependencies, no webpack configuration. Just HTML templates, a CSS file, a JavaScript file, and Markdown content. A year from now I will be able to open this project and understand exactly how every part of it works.</p>
+<p>If you are thinking about building your own portfolio and are unsure whether to use Hugo or some other tool, my honest answer is that Hugo is worth the initial learning curve if you plan to have a blog. The content management experience once everything is set up is genuinely pleasant. If you just want a single page with no blog, a well-written HTML file is probably all you need.</p>
+<p>The source code for this site is available on my GitHub if you want to see how anything specific is implemented.</p>
+<hr>
+<h2 id="related-reading">Related Reading</h2>
+<p>These two posts cover topics that connect directly to what was built here.</p>
+<p><strong><a href="/blog/tech-survival-guide-2026">You Don&rsquo;t Need to Be a Programmer to Be a Tech Person</a></strong>
+The broader technical foundation behind things like Git, CI/CD, and the command line that this portfolio build relied on. If any part of the deployment workflow felt unfamiliar, this guide breaks down all twelve fundamentals from scratch, no degree required.</p>
+<p><strong><a href="/blog/hypervisors-kvm-qemu-complete-guide">Hypervisors, KVM &amp; QEMU: A Complete Guide to Virtual Machines on Ubuntu 24.04 LTS</a></strong>
+After getting the portfolio running, this was the next big technical project I documented. A full guide to setting up KVM/QEMU on Ubuntu, installing Windows 11, Kali Linux, and Parrot OS as VMs, and solving the Secure Boot + NVIDIA driver problem that most guides skip entirely.</p>
+
+    </div>
+
+    <div class="single-back">
+      <a href="/blog/" class="btn-ghost">← Back to Blog</a>
+    </div>
+
+  </article>
+
+  
+  <aside class="toc-sidebar" id="tocSidebar">
+    <div class="toc-inner">
+      <div class="toc-nav" id="tocNav">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#where-it-all-started">Where It All Started</a></li>
+    <li><a href="#why-i-chose-hugo">Why I Chose Hugo</a></li>
+    <li><a href="#setting-up-the-project">Setting Up the Project</a></li>
+    <li><a href="#the-first-problem-i-hit">The First Problem I Hit</a></li>
+    <li><a href="#building-the-design">Building the Design</a></li>
+    <li><a href="#dark-and-light-mode">Dark and Light Mode</a></li>
+    <li><a href="#the-blog-and-table-of-contents">The Blog and Table of Contents</a></li>
+    <li><a href="#the-contact-form">The Contact Form</a></li>
+    <li><a href="#deploying-with-github-actions">Deploying with GitHub Actions</a></li>
+    <li><a href="#what-i-learned">What I Learned</a></li>
+    <li><a href="#where-things-stand-now">Where Things Stand Now</a></li>
+    <li><a href="#related-reading">Related Reading</a></li>
+  </ul>
+</nav>
+      </div>
+    </div>
+  </aside>
+  
+
+</div>
+
+<script>
+(function() {
+  var tocNav  = document.getElementById('tocNav');
+  if (!tocNav) return;
+  var body     = document.querySelector('.single-body');
+  if (!body) return;
+  var headings = Array.from(body.querySelectorAll('h2, h3'));
+  if (!headings.length) return;
+  var links    = Array.from(tocNav.querySelectorAll('a'));
+  function setActive() {
+    var scrollY = window.scrollY + 130;
+    var active  = headings[0];
+    headings.forEach(function(h) { if (h.offsetTop <= scrollY) active = h; });
+    links.forEach(function(l) { l.classList.remove('active'); });
+    if (active && active.id) {
+      var al = tocNav.querySelector('a[href="#' + active.id + '"]');
+      if (al) al.classList.add('active');
+    }
+  }
+  window.addEventListener('scroll', setActive, { passive: true });
+  setActive();
+})();
+</script>
+
+  </main>
+
+  <footer>
+    <div class="footer-glow" aria-hidden="true"></div>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="/" class="footer-brand-logo">MA<span>.</span></a>
+        <p class="footer-brand-tagline">AI Engineer and Managing Director at AI GenMat, building production AI systems, agentic pipelines, and applied LLM infrastructure.</p>
+        <a href="mailto:m.awais@aigenmat.com" class="footer-brand-email">m.awais@aigenmat.com</a>
+      </div>
+      <div class="footer-nav-group">
+        <div class="footer-nav-col">
+          <span class="footer-nav-heading">Navigation</span>
+          <a href="/projects/">Projects</a>
+          <a href="/blog/">Blog</a>
+          <a href="/#contact">Contact</a>
+        </div>
+        <div class="footer-nav-col">
+          <span class="footer-nav-heading">Connect</span>
+          <a href="https://github.com/ik-awais" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://www.linkedin.com/in/muhammad-awais-ai-engineer/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://aigenmat.com" target="_blank" rel="noopener">AI GenMat</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-left">2026 Muhammad Awais, <a href="https://aigenmat.com" target="_blank" rel="noopener">AI GenMat</a></p>
+      <div class="footer-right">
+        <a href="https://github.com/ik-awais" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/muhammad-awais-ai-engineer/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:m.awais@aigenmat.com">m.awais@aigenmat.com</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

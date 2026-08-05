@@ -1,0 +1,185 @@
+{{ define "main" }}
+<section class="hero">
+  <div class="hero-content">
+    <p class="hero-label">AI Engineer, Managing Director @ <a href="https://aigenmat.com" target="_blank" rel="noopener noreferrer">AI GenMat ↗</a></p>
+    <h1>Muhammad<br><span class="line-accent">Awais</span></h1>
+    <p class="hero-sub">
+      Designing and shipping production AI systems: agentic workflows, RAG pipelines, and applied LLM infrastructure.
+    </p>
+    <div class="hero-tags">
+      <span class="hero-tag">Gen AI</span>
+      <span class="hero-tag">Agentic AI</span>
+      <span class="hero-tag">RAG</span>
+      <span class="hero-tag">LLM</span>
+      <span class="hero-tag">NLP</span>
+      <span class="hero-tag">Computer Vision</span>
+      <span class="hero-tag">Multi-Agent</span>
+    </div>
+    <div class="hero-cta">
+      <a href="/projects/" class="btn-primary">View Projects</a>
+      <a href="/contact/" class="btn-ghost">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-canvas-wrap" aria-hidden="true">
+    <canvas id="heroCanvas"></canvas>
+  </div>
+  <div class="hero-orb" aria-hidden="true"></div>
+</section>
+
+{{/* ── CREDIBILITY FIGURES ─────────────────────────────────────────────
+     Architecture only: two figures are computed live from real content
+     (zero fabrication); any further figures come only from data/credibility.yaml,
+     which is intentionally empty until real, verified numbers exist.
+     Each figure hides individually if unavailable; the whole section hides
+     if no figures resolve at all. No counter animation in this batch. */}}
+{{ $figures := slice }}
+{{ $projectCount := len (where site.RegularPages "Section" "projects") }}
+{{ if gt $projectCount 0 }}
+  {{ $figures = $figures | append (dict "value" $projectCount "label" "Projects") }}
+{{ end }}
+{{ $blogCount := len (where site.RegularPages "Section" "blog") }}
+{{ if gt $blogCount 0 }}
+  {{ $figures = $figures | append (dict "value" $blogCount "label" "Blog Posts") }}
+{{ end }}
+{{ range site.Data.credibility.figures }}
+  {{ $figures = $figures | append . }}
+{{ end }}
+{{ if gt (len $figures) 0 }}
+<section class="credibility-section" aria-label="Credibility figures">
+  <div class="credibility-grid">
+    {{ range $figures }}
+    <div class="credibility-item reveal">
+      <span class="credibility-number">{{ .value }}{{ with .suffix }}{{ . }}{{ end }}</span>
+      <span class="credibility-label">{{ .label }}</span>
+    </div>
+    {{ end }}
+  </div>
+</section>
+{{ end }}
+
+{{/* ── CURRENT STATUS ───────────────────────────────────────────────── */}}
+{{ $badges := site.Data.status.badges }}
+{{ if gt (len $badges) 0 }}
+<section class="stats-bar reveal" aria-label="Current status">
+  {{ range $badges }}
+  <div class="identity-card">
+    {{ if .stacked }}
+    <span class="identity-label identity-label--stacked">
+      <span class="identity-sub">{{ .sub }}</span>
+      <a href="{{ .companyURL }}" target="_blank" rel="noopener" class="identity-company">{{ .company }}</a>
+    </span>
+    {{ else }}
+    <span class="identity-label">{{ .text }}</span>
+    {{ end }}
+  </div>
+  {{ end }}
+</section>
+{{ end }}
+
+{{/* ── ABOUT PREVIEW ────────────────────────────────────────────────── */}}
+<section class="list-section">
+  <div class="list-header reveal">
+    <h2 class="section-title">About <span class="accent">Me.</span></h2>
+    <p class="contact-desc">Designing and shipping production AI systems: agentic workflows, RAG pipelines, and applied LLM infrastructure.</p>
+    <a href="/about/" class="btn-ghost">Read More →</a>
+  </div>
+</section>
+
+{{/* ── TECHNOLOGY STACK (unchanged, relocated only) ────────────────────── */}}
+<section class="tech-section">
+  <div class="scroll-row">
+    <div class="scroll-track">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="128" height="128" title="Python" alt="Python">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" width="128" height="128" title="TensorFlow" alt="TensorFlow">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" width="128" height="128" title="PyTorch" alt="PyTorch">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg" width="128" height="128" title="OpenCV" alt="OpenCV">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" width="128" height="128" title="Pandas" alt="Pandas">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="128" height="128" title="JavaScript" alt="JavaScript">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" width="128" height="128" title="C" alt="C">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" width="128" height="128" title="C++" alt="C++">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="128" height="128" alt="">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" width="128" height="128" alt="">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" width="128" height="128" alt="">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg" width="128" height="128" alt="">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" width="128" height="128" alt="">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="128" height="128" alt="">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" width="128" height="128" alt="">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" width="128" height="128" alt="">
+    </div>
+  </div>
+  <div class="scroll-row reverse">
+    <div class="scroll-track">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" width="128" height="128" title="Docker" alt="Docker">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="128" height="128" title="React" alt="React">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" width="128" height="128" title="Django" alt="Django">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg" width="128" height="128" title="Flask" alt="Flask">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" width="128" height="128" title="MongoDB" alt="MongoDB">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" width="128" height="128" title="MySQL" alt="MySQL">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" width="128" height="128" title="Git" alt="Git">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" width="128" height="128" title="Linux" alt="Linux">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" width="512" height="307" title="AWS" alt="AWS">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" width="128" height="128" title="Azure" alt="Azure">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" width="128" height="128" alt="">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="128" height="128" alt="">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" width="128" height="128" alt="">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg" width="128" height="128" alt="">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" width="128" height="128" alt="">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" width="128" height="128" alt="">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" width="128" height="128" alt="">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" width="128" height="128" alt="">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" width="512" height="307" alt="">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" width="128" height="128" alt="">
+    </div>
+  </div>
+</section>
+
+{{/* ── PROJECTS WORTH A LOOK ────────────────────────────────────────────
+     Featured-only, Hugo-native filter + manual owner-controlled ordering
+     via Params.featured / Params.featuredOrder (not Hugo's built-in weight).
+     No project currently has Params.featured set — that selection is the
+     owner's decision — so this section correctly renders nothing until it is. */}}
+{{ $projects := where site.RegularPages "Section" "projects" }}
+{{ $featured := sort (where $projects "Params.featured" true) "Params.featuredOrder" "asc" }}
+{{ if gt (len $featured) 0 }}
+<section class="projects-section" id="projects">
+  <div class="section-header reveal">
+    <div>
+      <h2 class="section-title">Projects Worth a <span class="accent">Look</span></h2>
+    </div>
+    <a href="/projects/" class="btn-ghost" style="white-space:nowrap">All Projects →</a>
+  </div>
+  <div class="project-grid">
+    {{ range $featured }}
+    <div class="project-card reveal">
+      {{ partial "card-thumb.html" . }}
+      <div class="project-card-body">
+      <p class="project-num">{{ .Date.Format "Jan 2006" }}</p>
+      <h3>{{ .Title }}</h3>
+      <p>{{ .Params.summary }}</p>
+      <div class="tags">
+        {{ range .Params.tags }}<span class="tag">{{ . }}</span>{{ end }}
+      </div>
+      <div class="project-links">
+        {{ if .Params.github }}<a href="{{ .Params.github }}" target="_blank" rel="noopener noreferrer">GitHub ↗</a>{{ end }}
+        {{ if .Params.demo }}<a href="{{ .Params.demo }}" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>{{ end }}
+        <a href="{{ .RelPermalink }}">Details →</a>
+      </div>
+      </div>
+    </div>
+    {{ end }}
+  </div>
+</section>
+{{ end }}
+
+{{/* ── FINAL CTA ─────────────────────────────────────────────────────── */}}
+<section class="list-section">
+  <div class="list-header reveal">
+    <h2 class="section-title">Let's Get in <span class="accent">Touch.</span></h2>
+    <p class="contact-desc">Open to collaborations, AI consulting, freelance projects, or full-time roles. If you have an interesting problem, I'd love to hear about it.</p>
+    <div style="display:flex;gap:16px;flex-wrap:wrap">
+      <a href="/contact/" class="btn-primary">Hire Me</a>
+      <a href="/contact/" class="btn-ghost">Book a Call</a>
+    </div>
+  </div>
+</section>
+{{ end }}

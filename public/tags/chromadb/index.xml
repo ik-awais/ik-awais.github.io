@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ChromaDB on MA-Portfolio</title>
+    <link>http://localhost:1313/tags/chromadb/</link>
+    <description>Recent content in ChromaDB on MA-Portfolio</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 21 Jun 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/chromadb/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LectureLens: AI-Powered Study Assistant with RAG &amp; Hybrid Search</title>
+      <link>http://localhost:1313/projects/lecturelens/</link>
+      <pubDate>Mon, 15 Jun 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/lecturelens/</guid>
+      <description>A production-grade Flask application that ingests PDF, DOCX, and PPTX lecture materials, indexes them with ChromaDB vector embeddings and SQLite FTS5 full-text search, then answers natural-language questions via a RAG pipeline powered by NVIDIA&amp;rsquo;s LLaMA 3.3 70B, complete with page-level source citations.</description>
+    </item>
+  </channel>
+</rss>

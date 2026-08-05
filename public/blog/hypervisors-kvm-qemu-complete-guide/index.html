@@ -1,0 +1,691 @@
+<!doctype html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hypervisors, KVM &amp; QEMU: A Complete Guide to Virtual Machines on Ubuntu 24.04 LTS | MA-Portfolio</title>
+  <meta name="description" content="Muhammad Awais, AI Engineer and Managing Director at AI GenMat. Agentic AI, LLM, RAG Systems, NLP, Computer Vision.">
+  <meta name="keywords" content="Muhammad Awais, AI Engineer, AI GenMat, Agentic AI, LLM, RAG, NLP, Computer Vision, AI consultant">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <nav id="navbar">
+    <div style="display:flex;align-items:center">
+      <a href="/" class="nav-logo">MA<span class="dot">.</span></a>
+      <a href="https://aigenmat.com" target="_blank" rel="noopener" class="nav-logo-badge">AI GenMat</a>
+    </div>
+    <div class="nav-links">
+      <a href="/projects/">Projects</a>
+      <a href="/blog/">Blog</a>
+      <a href="/#contact">Contact</a>
+      <a href="https://github.com/ik-awais" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/muhammad-awais-ai-engineer/" target="_blank" rel="noopener" class="cta-btn">LinkedIn</a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle colour theme">
+        <span class="icon-moon" aria-hidden="true">☽</span>
+        <span class="icon-sun" aria-hidden="true">☀</span>
+      </button>
+      <a href="https://www.upwork.com/freelancers/~018a2d0e2f88ac4838" target="_blank" rel="noopener" class="cta-btn cta-btn-primary">Hire Me</a>
+    </div>
+  </nav>
+
+  <main>
+    
+<div class="single-wrapper">
+
+  <article class="single-section">
+
+    <div class="single-header reveal">
+      <div class="card-thumb card-thumb--gradient card-thumb--p3" aria-hidden="true">
+  <div class="card-thumb-noise"></div>
+  <div class="card-thumb-icon"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="8" y="8" width="32" height="32" rx="2" stroke="currentColor" stroke-width="2.5"/><rect x="16" y="16" width="16" height="16" rx="1" stroke="currentColor" stroke-width="1.5" opacity="0.5"/><line x1="8" y1="8" x2="40" y2="40" stroke="currentColor" stroke-width="1.2" opacity="0.35"/><line x1="40" y1="8" x2="8" y2="40" stroke="currentColor" stroke-width="1.2" opacity="0.35"/></svg></div>
+</div>
+      <h1>Hypervisors, KVM &amp; QEMU: A Complete Guide to Virtual Machines on Ubuntu 24.04 LTS</h1>
+      <p class="single-meta">October 10, 2025</p>
+      
+      <div class="tags" style="margin-top:20px">
+        <span class="tag">KVM</span><span class="tag">QEMU</span><span class="tag">Virtualization</span><span class="tag">Linux</span><span class="tag">Windows 11</span><span class="tag">Kali Linux</span><span class="tag">Parrot OS</span><span class="tag">virt-manager</span><span class="tag">Hypervisors</span>
+      </div>
+      
+      
+    </div>
+
+    <div class="single-body">
+      <blockquote>
+<p><strong>A note from me:</strong> I have been running KVM/QEMU on my Ubuntu machine for 4 to 5 months now. Most guides I found were either incomplete, outdated, or skipped the hard parts entirely, like where to actually find the latest VirtIO drivers, or what to do when Windows 11 refuses to install because of Secure Boot. This guide covers all of it. Everything here is from real experience.</p>
+</blockquote>
+<hr>
+<h2 id="part-i--theory-understanding-virtualization--hypervisors">Part I — Theory: Understanding Virtualization &amp; Hypervisors</h2>
+<p>Before touching the terminal, you need to understand what you are actually building. Skipping theory is the reason most people get completely lost when things break.</p>
+<h3 id="what-is-a-hypervisor">What Is a Hypervisor?</h3>
+<p>A <strong>hypervisor</strong> is software that creates and manages virtual machines (VMs). It sits between the physical hardware and the guest operating systems, dividing hardware resources — CPU cores, RAM, storage, network — among multiple isolated environments at the same time.</p>
+<p>Think of it this way: your physical machine is a building. The hypervisor is the landlord. Each VM is a tenant with its own locked apartment. They share the same building infrastructure (power, plumbing) but cannot get into each other&rsquo;s space.</p>
+<h3 id="type-1-vs-type-2-hypervisors">Type 1 vs Type 2 Hypervisors</h3>
+<p>There are two architectural categories.</p>
+<p><strong>Type 1 — Bare Metal Hypervisors</strong>
+These run directly on the hardware with no host OS underneath. They are faster, more efficient, and used in production servers and cloud infrastructure.</p>
+<p>Examples: VMware ESXi, Microsoft Hyper-V (server), Xen, KVM (technically hybrid).</p>
+<p><strong>Type 2 — Hosted Hypervisors</strong>
+These run as an application on top of an existing host operating system. Easier to set up, slightly more overhead, and fine for desktop use.</p>
+<p>Examples: VirtualBox, VMware Workstation, QEMU (without KVM).</p>
+<h3 id="where-does-kvm-fit">Where Does KVM Fit?</h3>
+<p><strong>KVM (Kernel-based Virtual Machine)</strong> is a Linux kernel module that turns the Linux kernel itself into a Type 1 hypervisor. Once KVM is loaded, the Linux kernel can manage guest VMs with near-native CPU performance by running them in hardware-accelerated isolated mode.</p>
+<p>KVM is not a full virtualization stack on its own. It is a kernel module that exposes hardware virtualization extensions (Intel VT-x or AMD-V) to userspace.</p>
+<h3 id="what-is-qemu">What Is QEMU?</h3>
+<p><strong>QEMU (Quick Emulator)</strong> is a full machine emulator and virtualizer. On its own, QEMU emulates an entire CPU in software, which is accurate but slow. When paired with KVM, QEMU hands off CPU execution to the real hardware via KVM and only handles device emulation (disk controllers, network cards, USB, display output).</p>
+<p>The combination <strong>KVM + QEMU</strong> gives you:</p>
+<ul>
+<li>Near-native CPU speed (via hardware virtualization)</li>
+<li>Full device emulation (disks, NICs, USB, GPU passthrough)</li>
+<li>Support for any guest OS that runs on x86_64</li>
+</ul>
+<h3 id="what-is-libvirt">What Is libvirt?</h3>
+<p><strong>libvirt</strong> is a management API and daemon that sits on top of QEMU/KVM. Instead of writing long QEMU command-line flags every time you want to start a VM, libvirt lets you define VMs as XML configurations and manage them through a stable API.</p>
+<p><code>virt-manager</code> is the graphical front-end for libvirt. It gives you a GUI to create, configure, start, stop, snapshot, and clone VMs without touching the terminal at all.</p>
+<h3 id="what-is-virtio">What Is VirtIO?</h3>
+<p><strong>VirtIO</strong> is a paravirtualization standard. Instead of emulating slow, legacy hardware (like an old IDE disk controller), VirtIO presents the guest OS with a purpose-built virtual device that communicates directly with the hypervisor through an efficient shared-memory channel.</p>
+<p>VirtIO drivers make your VM&rsquo;s storage, network, memory ballooning, and display dramatically faster. On Linux guests they are built into the kernel already. On Windows guests, you have to install them manually, which is exactly why the VirtIO driver ISO exists.</p>
+<p><strong>Without VirtIO drivers on a Windows VM:</strong></p>
+<ul>
+<li>Disk I/O is 3 to 10x slower</li>
+<li>Network may not work at all</li>
+<li>Display is limited to VGA (800x600)</li>
+</ul>
+<h3 id="what-is-secure-boot">What Is Secure Boot?</h3>
+<p><strong>Secure Boot</strong> is a UEFI firmware feature that verifies the cryptographic signature of every bootloader and kernel before executing it. Its purpose is to prevent malicious software from loading before the OS does.</p>
+<p>The problem in a VM context: when you install custom or unsigned drivers (like NVIDIA drivers transferred from the host), Secure Boot can reject them. This is a real obstruction. I ran into it myself during my Windows 11 VM setup, and the solution I found is documented in detail in the Windows 11 section below.</p>
+<hr>
+<h2 id="part-ii--setting-up-the-host-ubuntu-2404-lts">Part II — Setting Up the Host (Ubuntu 24.04 LTS)</h2>
+<h3 id="step-1-verify-hardware-virtualization-support">Step 1: Verify Hardware Virtualization Support</h3>
+<p>Before installing anything, confirm your CPU actually supports hardware virtualization:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>egrep -c <span style="color:#e6db74">&#39;(vmx|svm)&#39;</span> /proc/cpuinfo
+</span></span></code></pre></div><p>Any number greater than <code>0</code> means you are good. <code>vmx</code> is Intel VT-x, <code>svm</code> is AMD-V.</p>
+<p>Also check that virtualization is <strong>enabled in BIOS/UEFI</strong>. If the above returns <code>0</code>, reboot into BIOS, find the CPU configuration section, and enable &ldquo;Intel Virtualization Technology&rdquo; or &ldquo;AMD-V / SVM Mode&rdquo;.</p>
+<h3 id="step-2-install-kvm-qemu-libvirt-and-virt-manager">Step 2: Install KVM, QEMU, libvirt and virt-manager</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt update <span style="color:#f92672">&amp;&amp;</span> sudo apt upgrade -y
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sudo apt install -y <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  qemu-kvm <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  libvirt-daemon-system <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  libvirt-clients <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  bridge-utils <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  virt-manager <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  ovmf <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  virtinst <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  cpu-checker
+</span></span></code></pre></div><p><strong>What each package does:</strong></p>
+<ul>
+<li><code>qemu-kvm</code> — the QEMU hypervisor with KVM acceleration</li>
+<li><code>libvirt-daemon-system</code> — the libvirt daemon (runs as a background service)</li>
+<li><code>libvirt-clients</code> — command-line tools (<code>virsh</code>)</li>
+<li><code>bridge-utils</code> — network bridge utilities for VM networking</li>
+<li><code>virt-manager</code> — the graphical VM manager</li>
+<li><code>ovmf</code> — UEFI firmware for VMs (required for Windows 11 and Secure Boot)</li>
+<li><code>virtinst</code> — <code>virt-install</code> CLI tool</li>
+<li><code>cpu-checker</code> — includes <code>kvm-ok</code> diagnostic tool</li>
+</ul>
+<h3 id="step-3-verify-kvm-is-working">Step 3: Verify KVM is Working</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kvm-ok
+</span></span></code></pre></div><p>Expected output:</p>
+<pre tabindex="0"><code>INFO: /dev/kvm exists
+KVM acceleration can be used
+</code></pre><p>If you see an error here, go back and enable virtualization in BIOS.</p>
+<h3 id="step-4-add-your-user-to-required-groups">Step 4: Add Your User to Required Groups</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo usermod -aG libvirt $USER
+</span></span><span style="display:flex;"><span>sudo usermod -aG kvm $USER
+</span></span></code></pre></div><p><strong>Log out and log back in</strong> for group membership to take effect. Without this, virt-manager will fail to connect to the hypervisor daemon or will require <code>sudo</code> every time you use it.</p>
+<p>Verify:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>groups $USER
+</span></span></code></pre></div><p>You should see <code>libvirt</code> and <code>kvm</code> in the output.</p>
+<h3 id="step-5-enable-and-start-libvirt">Step 5: Enable and Start libvirt</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo systemctl enable --now libvirtd
+</span></span><span style="display:flex;"><span>sudo systemctl status libvirtd
+</span></span></code></pre></div><p>The status should show <code>active (running)</code>.</p>
+<h3 id="step-6-set-up-the-default-network">Step 6: Set Up the Default Network</h3>
+<p>libvirt creates a default NAT network (<code>virbr0</code>) for VMs. Enable it:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo virsh net-start default
+</span></span><span style="display:flex;"><span>sudo virsh net-autostart default
+</span></span></code></pre></div><p>Verify:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>virsh net-list --all
+</span></span></code></pre></div><p>You should see <code>default</code> with state <code>active</code> and autostart <code>yes</code>.</p>
+<h3 id="step-7-launch-virt-manager">Step 7: Launch virt-manager</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>virt-manager
+</span></span></code></pre></div><p>Or find it in your application menu under &ldquo;Virtual Machine Manager&rdquo;. You should see the QEMU/KVM connection listed. If it shows disconnected, double-click it to connect.</p>
+<hr>
+<h2 id="part-iii--kali-linux-vm-primary-walkthrough">Part III — Kali Linux VM (Primary Walkthrough)</h2>
+<p>We will install Kali Linux first because it is the simplest case. No Secure Boot complications, VirtIO works out of the box, and it is a good way to get familiar with the virt-manager workflow before you tackle Windows 11.</p>
+<h3 id="download-kali-linux-iso">Download Kali Linux ISO</h3>
+<p><strong>Official site:</strong> <a href="https://www.kali.org/get-kali/#kali-installer-images">https://www.kali.org/get-kali/#kali-installer-images</a></p>
+<p><strong>Direct download (Installer, 64-bit):</strong></p>
+<pre tabindex="0"><code>https://cdimage.kali.org/current/kali-linux-2024.4-installer-amd64.iso
+</code></pre><p>Choose the <strong>Installer</strong> image, not the Live image, for a proper installation. Verify the SHA256 checksum from the official site after downloading.</p>
+<h3 id="creating-the-kali-linux-vm">Creating the Kali Linux VM</h3>
+<p><strong>1. Open virt-manager</strong> and click &ldquo;Create a new virtual machine&rdquo; (the monitor icon with a plus sign).</p>
+<p><strong>2. Choose installation media:</strong> Select &ldquo;Local install media (ISO image or CDROM)&rdquo; and click Forward.</p>
+<p><strong>3. Browse to your ISO:</strong> Click &ldquo;Browse&rdquo; then &ldquo;Browse Local&rdquo; and navigate to your downloaded Kali ISO. virt-manager should auto-detect it as &ldquo;Debian&rdquo; — that is correct, Kali is Debian-based.</p>
+<p><strong>4. Set RAM and CPU:</strong></p>
+<ul>
+<li>RAM: minimum 2048 MB, recommended <strong>4096 MB</strong></li>
+<li>CPUs: minimum 2, recommended <strong>4</strong></li>
+</ul>
+<p><strong>5. Set disk size:</strong> 40 GB minimum, <strong>60 GB recommended</strong>. Leave &ldquo;Enable storage for this virtual machine&rdquo; checked. The default qcow2 format is correct, it is thin-provisioned so it only uses actual space, not the full 60 GB upfront.</p>
+<p><strong>6. Name and final review:</strong> Name it <code>kali-linux</code>. Before clicking Finish, <strong>check &ldquo;Customize configuration before install&rdquo;</strong>.</p>
+<h3 id="critical-configuration-before-starting">Critical Configuration Before Starting</h3>
+<p>In the customization screen:</p>
+<p><strong>Overview tab:</strong></p>
+<ul>
+<li>Firmware: <code>BIOS</code> (Kali does not need UEFI, simpler is better here)</li>
+<li>Chipset: <code>Q35</code> (modern PCIe chipset, better performance)</li>
+</ul>
+<p><strong>CPUs tab:</strong></p>
+<ul>
+<li>Check &ldquo;Copy host CPU configuration&rdquo; — this passes through your real CPU flags, giving better performance and enabling features the guest can use</li>
+</ul>
+<p><strong>Disk (VirtIO Disk 1):</strong></p>
+<ul>
+<li>Disk bus: change from <code>IDE</code> or <code>SATA</code> to <strong><code>VirtIO</code></strong></li>
+<li>Cache mode: <code>writeback</code> (faster, safe for a VM)</li>
+</ul>
+<p><strong>NIC:</strong></p>
+<ul>
+<li>Device model: change to <strong><code>virtio</code></strong></li>
+</ul>
+<p><strong>Display:</strong></p>
+<ul>
+<li>Type: <code>Spice</code> (better than VNC for Linux guests — clipboard sharing, better resolution)</li>
+<li>Video model: <code>virtio</code> (QXL also works, but VirtIO is preferred on an Ubuntu host)</li>
+</ul>
+<p>Click <strong>&ldquo;Begin Installation&rdquo;</strong>.</p>
+<h3 id="installing-kali-linux">Installing Kali Linux</h3>
+<p>The standard Debian installer will load. Follow these steps:</p>
+<ol>
+<li>Select <strong>&ldquo;Graphical Install&rdquo;</strong></li>
+<li>Choose language, location, keyboard layout</li>
+<li>Set hostname (e.g. <code>kali-vm</code>), leave domain blank</li>
+<li>Set root password and create a user account</li>
+<li><strong>Partition disks:</strong> Choose &ldquo;Guided — use entire disk&rdquo; then select the VirtIO disk (it will appear as <code>/dev/vda</code>) then &ldquo;All files in one partition&rdquo; then Finish and confirm write to disk</li>
+<li>Wait for base system installation</li>
+<li><strong>Software selection:</strong> Keep &ldquo;Kali desktop environment&rdquo; and &ldquo;standard system utilities&rdquo; checked. Add any additional tools you want.</li>
+<li>Install GRUB to <code>/dev/vda</code></li>
+<li>Complete installation and reboot</li>
+</ol>
+<h3 id="post-install-guest-tools">Post-Install: Guest Tools</h3>
+<p>After booting into Kali, install the QEMU guest agent for better integration:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt update
+</span></span><span style="display:flex;"><span>sudo apt install -y qemu-guest-agent spice-vdagent
+</span></span><span style="display:flex;"><span>sudo systemctl enable --now qemu-guest-agent
+</span></span></code></pre></div><p><code>spice-vdagent</code> enables clipboard sharing between host and guest and dynamic display resolution when you resize the window.</p>
+<h3 id="common-kali-vm-errors">Common Kali VM Errors</h3>
+<p><strong>&ldquo;No bootable device&rdquo; after install:</strong>
+The GRUB bootloader may have been installed to the wrong location. Go to VM settings, Boot Options, and make sure the VirtIO disk is at the top of the boot order.</p>
+<p><strong>Display stuck at low resolution:</strong>
+Install <code>spice-vdagent</code> (shown above) and log out then back in. If you are using VNC instead of SPICE, switch to SPICE in VM settings for a noticeably better experience.</p>
+<p><strong>Slow disk I/O:</strong>
+Make sure the disk bus is set to VirtIO, not IDE or SATA. You can change this in VM settings under storage even after installation, but you may need to reinstall if the kernel module is missing.</p>
+<p><strong>Network not detected:</strong>
+Make sure the NIC model is set to <code>virtio</code>. Check with <code>ip a</code> inside the guest and look for <code>enp1s0</code> or something similar. If it is missing, run <code>sudo dhclient enp1s0</code>.</p>
+<hr>
+<h2 id="part-iv--windows-11-vm-advanced">Part IV — Windows 11 VM (Advanced)</h2>
+<p>Windows 11 is the most complex guest to set up in KVM. It requires UEFI, TPM emulation, and VirtIO drivers loaded during installation. This section documents every step in detail, including the Secure Boot + NVIDIA driver problem I personally ran into and solved.</p>
+<h3 id="required-files">Required Files</h3>
+<p>You need two ISOs. I am providing direct links because finding the correct VirtIO ISO, especially a recent version, is genuinely difficult. I wasted hours on it.</p>
+<p><strong>Windows 11 ISO:</strong></p>
+<ul>
+<li>Official download page: <a href="https://www.microsoft.com/software-download/windows11">https://www.microsoft.com/software-download/windows11</a></li>
+<li>Choose &ldquo;Download Windows 11 Disk Image (ISO) for x64 devices&rdquo;</li>
+<li>Select your language and generate a download link (valid for 24 hours)</li>
+</ul>
+<p><strong>VirtIO Drivers ISO</strong> (critical for Windows on KVM):</p>
+<ul>
+<li>Official Fedora project page: <a href="https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/">https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/</a></li>
+<li><strong>Direct download link:</strong></li>
+</ul>
+<pre tabindex="0"><code>https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso
+</code></pre><blockquote>
+<p>I am including this direct link specifically because when I was setting up my Windows 11 VM, I spent a frustrating amount of time trying to find the latest stable VirtIO ISO. The Fedora project hosts it but the path is not at all obvious from search results. Bookmark that URL.</p>
+</blockquote>
+<h3 id="creating-the-windows-11-vm">Creating the Windows 11 VM</h3>
+<p><strong>1. New VM</strong> then &ldquo;Local install media&rdquo; then browse to your Windows 11 ISO. virt-manager may not auto-detect it — manually select &ldquo;Microsoft Windows 11&rdquo; or &ldquo;Windows 11&rdquo; if available, otherwise &ldquo;Generic&rdquo; works fine.</p>
+<p><strong>2. RAM and CPU:</strong></p>
+<ul>
+<li>RAM: <strong>8192 MB minimum</strong> (Windows 11 is memory-hungry)</li>
+<li>CPUs: <strong>4 minimum</strong>, 8 recommended</li>
+</ul>
+<p><strong>3. Disk:</strong> 80 GB minimum, <strong>120 GB recommended</strong>.</p>
+<p><strong>4. Name:</strong> <code>windows-11</code> — check &ldquo;Customize configuration before install&rdquo;.</p>
+<h3 id="windows-11-vm-configuration-critical">Windows 11 VM Configuration (Critical)</h3>
+<p><strong>Overview:</strong></p>
+<ul>
+<li>Firmware: <strong><code>UEFI x86_64: /usr/share/OVMF/OVMF_CODE_4M.secboot.fd</code></strong> — This is the Secure Boot capable UEFI firmware. Windows 11 requires UEFI.</li>
+<li>Chipset: <code>Q35</code></li>
+</ul>
+<p><strong>CPUs:</strong></p>
+<ul>
+<li>Check &ldquo;Copy host CPU configuration&rdquo;</li>
+<li>Under Topology, manually set: Sockets=1, Cores=4, Threads=2 (adjust to your actual hardware)</li>
+</ul>
+<p><strong>Add TPM (required for Windows 11):</strong>
+Click &ldquo;Add Hardware&rdquo; then TPM then Model: <code>TIS</code>, Version: <code>2.0</code>, Backend: <code>Emulated</code>. Windows 11 checks for TPM 2.0 at install time and will refuse to proceed without it.</p>
+<p><strong>Disk:</strong></p>
+<ul>
+<li>Bus: <strong>VirtIO</strong></li>
+<li>Cache: <code>writeback</code></li>
+</ul>
+<p><strong>Add second CDROM for VirtIO drivers:</strong>
+Click &ldquo;Add Hardware&rdquo; then Storage then Device type: <code>CDROM device</code> then browse to your <code>virtio-win.iso</code>. This second CDROM is how Windows will see the VirtIO drivers during installation.</p>
+<p><strong>NIC:</strong> Model: <code>virtio</code></p>
+<p><strong>Video:</strong> Model: <code>virtio</code> or <code>QXL</code></p>
+<h3 id="installing-windows-11">Installing Windows 11</h3>
+<ol>
+<li>
+<p>Start the VM. Press any key to boot from DVD when prompted — you only have a few seconds.</p>
+</li>
+<li>
+<p>Select language, time, keyboard, then &ldquo;Install now&rdquo;.</p>
+</li>
+<li>
+<p><strong>&ldquo;Where do you want to install Windows?&rdquo;</strong> — You will see <strong>no disks</strong>. This is expected. The VirtIO disk controller requires a driver that Windows does not have by default.</p>
+<p>Click <strong>&ldquo;Load driver&rdquo;</strong> then Browse then navigate to the VirtIO CDROM then <code>viostor</code> then <code>w11</code> then <code>amd64</code> then OK. Select &ldquo;Red Hat VirtIO SCSI controller&rdquo; then Next.</p>
+<p>The disk will now appear. Select it and continue.</p>
+</li>
+<li>
+<p>Let installation proceed. Windows will reboot several times. The VM will automatically boot from disk after the first reboot, not the ISO again.</p>
+</li>
+<li>
+<p>Go through OOBE (Out of Box Experience): region, keyboard, network.</p>
+<p><strong>Tip for skipping Microsoft account:</strong> At the network screen, if you want a local account only, press <code>Shift + F10</code> to open Command Prompt, type <code>OOBE\BYPASSNRO</code> and press Enter. The VM will reboot and give you an &ldquo;I don&rsquo;t have internet&rdquo; option.</p>
+</li>
+<li>
+<p>Complete setup and boot into desktop.</p>
+</li>
+</ol>
+<h3 id="installing-virtio-drivers-in-windows">Installing VirtIO Drivers in Windows</h3>
+<p>Once at the Windows desktop, open File Explorer and navigate to the VirtIO CDROM drive.</p>
+<p>Run <code>virtio-win-gt-x64.msi</code> — this installs all VirtIO drivers at once:</p>
+<ul>
+<li>VirtIO SCSI (disk performance)</li>
+<li>VirtIO Network (network)</li>
+<li>VirtIO Balloon (memory management)</li>
+<li>VirtIO Serial</li>
+<li>VirtIO RNG (random number generator)</li>
+<li>QXL display driver (if using QXL video)</li>
+</ul>
+<p>After that, run <code>virtio-win-guest-tools.exe</code> for the guest agent.</p>
+<p>Reboot the VM. You should now have full network access and noticeably better disk performance.</p>
+<h3 id="the-secure-boot--nvidia-driver-problem-real-experience">The Secure Boot + NVIDIA Driver Problem (Real Experience)</h3>
+<p>After getting Windows 11 running, I wanted to pass my NVIDIA GPU drivers from the Ubuntu host into the Windows VM — not full GPU passthrough, but simply getting the drivers installed so the guest had proper GPU support.</p>
+<p>The problem: <strong>Windows 11 requires Secure Boot to be enabled</strong>. With Secure Boot on, unsigned or externally-sourced drivers get rejected. NVIDIA drivers transferred from Linux are not signed with a key that Windows trusts in this context.</p>
+<p>Disabling Secure Boot in the VM firmware settings would cause Windows 11 to detect the change and either refuse to boot or enter a recovery loop, because Windows 11 validates the Secure Boot state at boot time.</p>
+<p><strong>The solution I found:</strong></p>
+<p>Windows stores Secure Boot state in a specific registry location and in the NVRAM variables. There is a way to make Windows <em>believe</em> Secure Boot is enabled while the firmware actually has it disabled.</p>
+<p>Inside the Windows VM, open Command Prompt as Administrator and run:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>bcdedit /set {current} nointegritychecks on
+</span></span><span style="display:flex;"><span>bcdedit /set {current} testsigning on
+</span></span></code></pre></div><p>Then, in the VM firmware (OVMF), disable Secure Boot:</p>
+<ol>
+<li>Shut down the VM</li>
+<li>In virt-manager, go to VM details then Overview then change firmware to the non-secboot OVMF variant: <code>/usr/share/OVMF/OVMF_CODE_4M.fd</code></li>
+<li>Start the VM</li>
+</ol>
+<p>With <code>testsigning</code> mode on and Secure Boot disabled in firmware, Windows boots and accepts unsigned drivers. Transfer your NVIDIA drivers and install them normally.</p>
+<p><strong>The registry approach (deeper fix):</strong></p>
+<p>If the above is not enough and Windows is checking the UEFI Secure Boot variable directly:</p>
+<ol>
+<li>Open <code>regedit</code> as Administrator</li>
+<li>Navigate to:
+<pre tabindex="0"><code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecureBoot\State
+</code></pre></li>
+<li>The value <code>UEFISecureBootEnabled</code> will be <code>0</code> (off). You can set it to <code>1</code> to make software-level checks believe Secure Boot is on, while the firmware actually has it off.</li>
+</ol>
+<blockquote>
+<p><strong>Important:</strong> This is not a security bypass for production use. This is a VM environment where you control both host and guest. This technique is specifically for getting drivers installed that would otherwise be blocked. I used this exact approach to successfully transfer and install NVIDIA drivers into my Windows 11 VM.</p>
+</blockquote>
+<p>After driver installation, you can reverse the <code>bcdedit</code> flags:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>bcdedit /set {current} nointegritychecks off
+</span></span><span style="display:flex;"><span>bcdedit /set {current} testsigning off
+</span></span></code></pre></div><p>And switch the firmware back to the Secure Boot version if you want.</p>
+<h3 id="common-windows-11-vm-errors">Common Windows 11 VM Errors</h3>
+<p><strong>&ldquo;This PC doesn&rsquo;t meet Windows 11 requirements&rdquo;:</strong>
+You are missing TPM 2.0 emulation or UEFI firmware. Make sure you added the emulated TPM hardware and selected the OVMF secboot firmware (see configuration section above).</p>
+<p><strong>Disk not detected during installation:</strong>
+You need to load the VirtIO SCSI driver. Click &ldquo;Load driver&rdquo; and browse to <code>viostor/w11/amd64</code> on the VirtIO ISO.</p>
+<p><strong>Network not working after install:</strong>
+Run the <code>virtio-win-gt-x64.msi</code> installer from the VirtIO CDROM. This installs the NetKVM (network) driver.</p>
+<p><strong>Black screen after OOBE:</strong>
+This often happens with QXL video. Switch video model to <code>virtio</code> in VM settings, or add a <code>VGA</code> device as a fallback.</p>
+<p><strong>Windows activation issues:</strong>
+These are unrelated to virtualization. Use your existing license key or run Windows in evaluation mode for testing.</p>
+<p><strong>Very slow performance:</strong>
+Make sure VirtIO disk and network drivers are installed. Check that &ldquo;Copy host CPU configuration&rdquo; is enabled. In Task Manager, if CPU is at 100% constantly, increase the vCPU count.</p>
+<p><strong>BSOD with DRIVER_IRQL_NOT_LESS_OR_EQUAL:</strong>
+Often caused by a driver conflict during VirtIO installation. Boot into Safe Mode (hold Shift during restart, then Troubleshoot, Advanced, Startup Settings, Safe Mode) and reinstall VirtIO drivers.</p>
+<hr>
+<h2 id="part-v--parrot-os-vm">Part V — Parrot OS VM</h2>
+<p>Parrot OS is similar to Kali in that it is Debian-based and Linux guests are straightforward. The main difference is the available editions. Use Security or Home depending on your use case.</p>
+<h3 id="download-parrot-os-iso">Download Parrot OS ISO</h3>
+<p><strong>Official site:</strong> <a href="https://www.parrotsec.org/download/">https://www.parrotsec.org/download/</a></p>
+<p><strong>Direct download links:</strong></p>
+<p>Security Edition (penetration testing tools included):</p>
+<pre tabindex="0"><code>https://deb.parrot.sh/parrot/iso/6.1/Parrot-security-6.1_amd64.iso
+</code></pre><p>Home Edition (lighter, no security tools pre-installed):</p>
+<pre tabindex="0"><code>https://deb.parrot.sh/parrot/iso/6.1/Parrot-home-6.1_amd64.iso
+</code></pre><blockquote>
+<p>Check <a href="https://www.parrotsec.org/download/">https://www.parrotsec.org/download/</a> for the latest version number and update the URL accordingly. Version 6.x is current as of early 2025.</p>
+</blockquote>
+<h3 id="creating-the-parrot-os-vm">Creating the Parrot OS VM</h3>
+<p>Follow the same steps as Kali Linux with these specifications:</p>
+<p><strong>VM Configuration:</strong></p>
+<ul>
+<li>Firmware: <code>BIOS</code> (Parrot supports UEFI but BIOS is simpler)</li>
+<li>Chipset: <code>Q35</code></li>
+<li>RAM: <strong>4096 MB</strong> minimum, 8192 recommended</li>
+<li>CPUs: 2 minimum, 4 recommended</li>
+<li>Disk: <strong>50 GB</strong>, VirtIO bus</li>
+<li>NIC: VirtIO</li>
+<li>Display: SPICE</li>
+<li>Video: VirtIO</li>
+</ul>
+<h3 id="installing-parrot-os">Installing Parrot OS</h3>
+<ol>
+<li>Boot from ISO and select <strong>&ldquo;Install&rdquo;</strong> or <strong>&ldquo;Graphical Install&rdquo;</strong></li>
+<li>Follow the Calamares installer (Parrot uses Calamares, not the Debian installer)</li>
+<li><strong>Partition:</strong> Select &ldquo;Erase disk&rdquo; — the VirtIO disk will appear as <code>/dev/vda</code> — proceed</li>
+<li>Create user account and set timezone</li>
+<li>Complete installation and reboot</li>
+</ol>
+<h3 id="post-install-guest-tools-1">Post-Install Guest Tools</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt update
+</span></span><span style="display:flex;"><span>sudo apt install -y qemu-guest-agent spice-vdagent
+</span></span><span style="display:flex;"><span>sudo systemctl enable --now qemu-guest-agent
+</span></span></code></pre></div><h3 id="common-parrot-os-vm-errors">Common Parrot OS VM Errors</h3>
+<p><strong>Calamares installer crashes:</strong>
+Increase RAM to at least 4 GB. The live environment plus installer combined can exceed 2 GB.</p>
+<p><strong>Boot loops after installation:</strong>
+In VM boot options, make sure the VirtIO disk is first in boot order (above the CDROM).</p>
+<p><strong>MATE/KDE desktop not rendering properly:</strong>
+Set video to <code>virtio</code> and install <code>spice-vdagent</code>. Log out and back in to allow dynamic resolution.</p>
+<p><strong>Keyboard/mouse not captured properly:</strong>
+Click inside the VM window once to capture input. Press <code>Ctrl+Alt</code> to release. For SPICE, installing <code>spice-vdagent</code> handles this automatically.</p>
+<hr>
+<h2 id="part-vi--vm-management--useful-tips">Part VI — VM Management &amp; Useful Tips</h2>
+<h3 id="snapshots">Snapshots</h3>
+<p>Snapshots save the VM state at a point in time. They are genuinely useful before risky operations like installing new drivers.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Create snapshot via virsh</span>
+</span></span><span style="display:flex;"><span>virsh snapshot-create-as windows-11 <span style="color:#e6db74">&#34;before-nvidia-drivers&#34;</span> <span style="color:#e6db74">&#34;Before NVIDIA driver install&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># List snapshots</span>
+</span></span><span style="display:flex;"><span>virsh snapshot-list windows-11
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Revert to snapshot</span>
+</span></span><span style="display:flex;"><span>virsh snapshot-revert windows-11 <span style="color:#e6db74">&#34;before-nvidia-drivers&#34;</span>
+</span></span></code></pre></div><p>Or use virt-manager: VM details, Snapshots tab (camera icon), click the + button.</p>
+<h3 id="cloning-vms">Cloning VMs</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>virt-clone --original kali-linux --name kali-linux-backup --auto-clone
+</span></span></code></pre></div><h3 id="shared-folders-host-to-guest">Shared Folders (Host to Guest)</h3>
+<p>For Linux guests, use VirtIO-FS or a simple SSH connection.</p>
+<p>For Windows guests, the easiest method is to enable the SPICE WebDAV channel:</p>
+<ol>
+<li>In VM settings, Add Hardware, Channel, <code>org.spice-space.webdav.0</code></li>
+<li>Inside Windows, install &ldquo;Spice WebDAV daemon&rdquo; from the VirtIO tools package</li>
+<li>A shared folder will appear mapped as a network drive</li>
+</ol>
+<h3 id="vm-autostart">VM Autostart</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>virsh autostart windows-11
+</span></span></code></pre></div><p>The VM will start automatically when the host boots.</p>
+<h3 id="resizing-a-vm-disk">Resizing a VM Disk</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Shut down the VM first, then:</span>
+</span></span><span style="display:flex;"><span>qemu-img resize /var/lib/libvirt/images/windows-11.qcow2 +40G
+</span></span></code></pre></div><p>Then expand the partition inside the guest (Disk Management on Windows, <code>gparted</code> or <code>parted</code> on Linux).</p>
+<h3 id="checking-vm-resource-usage">Checking VM Resource Usage</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># CPU and memory stats</span>
+</span></span><span style="display:flex;"><span>virsh domstats windows-11
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Block device stats</span>
+</span></span><span style="display:flex;"><span>virsh domblkstat windows-11 vda
+</span></span></code></pre></div><hr>
+<h2 id="quick-reference-iso--driver-download-links">Quick Reference: ISO &amp; Driver Download Links</h2>
+<p>All files listed here are publicly available from their official sources. I am collecting them in one place because finding the right files, especially recent VirtIO drivers, cost me a lot of time.</p>
+<table>
+  <thead>
+      <tr>
+          <th>File</th>
+          <th>Source</th>
+          <th>Direct Link</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Kali Linux 2024.4 Installer</td>
+          <td>kali.org</td>
+          <td><code>https://cdimage.kali.org/current/kali-linux-2024.4-installer-amd64.iso</code></td>
+      </tr>
+      <tr>
+          <td>Windows 11 ISO</td>
+          <td>microsoft.com</td>
+          <td>Generate at microsoft.com/software-download/windows11</td>
+      </tr>
+      <tr>
+          <td>VirtIO Drivers ISO (stable)</td>
+          <td>fedorapeople.org</td>
+          <td><code>https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso</code></td>
+      </tr>
+      <tr>
+          <td>Parrot Security 6.1</td>
+          <td>parrotsec.org</td>
+          <td><code>https://deb.parrot.sh/parrot/iso/6.1/Parrot-security-6.1_amd64.iso</code></td>
+      </tr>
+      <tr>
+          <td>Parrot Home 6.1</td>
+          <td>parrotsec.org</td>
+          <td><code>https://deb.parrot.sh/parrot/iso/6.1/Parrot-home-6.1_amd64.iso</code></td>
+      </tr>
+  </tbody>
+</table>
+<blockquote>
+<p><strong>Note from Muhammad Awais:</strong> I specifically decided to include these direct links in this guide because when I was setting up my own VMs, especially finding the latest VirtIO ISO, it was frustratingly hard to locate. The Fedora project hosts the VirtIO drivers but the path is buried. If these links go stale, the parent directories are <code>cdimage.kali.org/current/</code>, <code>fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/</code>, and <code>deb.parrot.sh/parrot/iso/</code>.</p>
+</blockquote>
+<hr>
+<h2 id="summary">Summary</h2>
+<table>
+  <thead>
+      <tr>
+          <th>OS</th>
+          <th>Firmware</th>
+          <th>TPM</th>
+          <th>Disk Bus</th>
+          <th>NIC</th>
+          <th>Complexity</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Kali Linux</td>
+          <td>BIOS</td>
+          <td>No</td>
+          <td>VirtIO</td>
+          <td>VirtIO</td>
+          <td>Low</td>
+      </tr>
+      <tr>
+          <td>Parrot OS</td>
+          <td>BIOS</td>
+          <td>No</td>
+          <td>VirtIO</td>
+          <td>VirtIO</td>
+          <td>Low</td>
+      </tr>
+      <tr>
+          <td>Windows 11</td>
+          <td>UEFI (OVMF secboot)</td>
+          <td>Yes (emulated 2.0)</td>
+          <td>VirtIO + driver load</td>
+          <td>VirtIO</td>
+          <td>High</td>
+      </tr>
+  </tbody>
+</table>
+<p>If you follow this guide and still run into a problem not covered here, the best resources are the <a href="https://listman.redhat.com/mailman/listinfo/libvirt-users">libvirt mailing list</a>, the <a href="https://www.qemu.org/docs/master/">QEMU documentation</a>, and the Kali/Parrot community forums. For Windows-specific VM issues, the <a href="https://www.reddit.com/r/VFIO/">r/VFIO subreddit</a> is excellent even if you are not doing full GPU passthrough.</p>
+<p>Good luck — and once you have KVM running, you will wonder how you ever worked without it.</p>
+<hr>
+<h2 id="related-reading">Related Reading</h2>
+<p>If this guide was useful, these two might be worth your time as well.</p>
+<p><strong><a href="/blog/tech-survival-guide-2026">You Don&rsquo;t Need to Be a Programmer to Be a Tech Person</a></strong>
+The broader context for what you just set up. This guide covers the twelve technical fundamentals that put you in the top 10% of any environment: CLI, networking, Docker, Git, scripting, APIs, cloud, security, and more. Understanding virtualization is one piece of it.</p>
+<p><strong><a href="/blog/portfolio-development-guide">How I Built My Portfolio Website with Hugo from Scratch</a></strong>
+How I went from a single HTML file to a full Hugo-powered site with a blog, dark/light theme, animated UI, and automated deployment via GitHub Actions. The technical problems along the way were more interesting than I expected.</p>
+
+    </div>
+
+    <div class="single-back">
+      <a href="/blog/" class="btn-ghost">← Back to Blog</a>
+    </div>
+
+  </article>
+
+  
+  <aside class="toc-sidebar" id="tocSidebar">
+    <div class="toc-inner">
+      <div class="toc-nav" id="tocNav">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#part-i--theory-understanding-virtualization--hypervisors">Part I — Theory: Understanding Virtualization &amp; Hypervisors</a>
+      <ul>
+        <li><a href="#what-is-a-hypervisor">What Is a Hypervisor?</a></li>
+        <li><a href="#type-1-vs-type-2-hypervisors">Type 1 vs Type 2 Hypervisors</a></li>
+        <li><a href="#where-does-kvm-fit">Where Does KVM Fit?</a></li>
+        <li><a href="#what-is-qemu">What Is QEMU?</a></li>
+        <li><a href="#what-is-libvirt">What Is libvirt?</a></li>
+        <li><a href="#what-is-virtio">What Is VirtIO?</a></li>
+        <li><a href="#what-is-secure-boot">What Is Secure Boot?</a></li>
+      </ul>
+    </li>
+    <li><a href="#part-ii--setting-up-the-host-ubuntu-2404-lts">Part II — Setting Up the Host (Ubuntu 24.04 LTS)</a>
+      <ul>
+        <li><a href="#step-1-verify-hardware-virtualization-support">Step 1: Verify Hardware Virtualization Support</a></li>
+        <li><a href="#step-2-install-kvm-qemu-libvirt-and-virt-manager">Step 2: Install KVM, QEMU, libvirt and virt-manager</a></li>
+        <li><a href="#step-3-verify-kvm-is-working">Step 3: Verify KVM is Working</a></li>
+        <li><a href="#step-4-add-your-user-to-required-groups">Step 4: Add Your User to Required Groups</a></li>
+        <li><a href="#step-5-enable-and-start-libvirt">Step 5: Enable and Start libvirt</a></li>
+        <li><a href="#step-6-set-up-the-default-network">Step 6: Set Up the Default Network</a></li>
+        <li><a href="#step-7-launch-virt-manager">Step 7: Launch virt-manager</a></li>
+      </ul>
+    </li>
+    <li><a href="#part-iii--kali-linux-vm-primary-walkthrough">Part III — Kali Linux VM (Primary Walkthrough)</a>
+      <ul>
+        <li><a href="#download-kali-linux-iso">Download Kali Linux ISO</a></li>
+        <li><a href="#creating-the-kali-linux-vm">Creating the Kali Linux VM</a></li>
+        <li><a href="#critical-configuration-before-starting">Critical Configuration Before Starting</a></li>
+        <li><a href="#installing-kali-linux">Installing Kali Linux</a></li>
+        <li><a href="#post-install-guest-tools">Post-Install: Guest Tools</a></li>
+        <li><a href="#common-kali-vm-errors">Common Kali VM Errors</a></li>
+      </ul>
+    </li>
+    <li><a href="#part-iv--windows-11-vm-advanced">Part IV — Windows 11 VM (Advanced)</a>
+      <ul>
+        <li><a href="#required-files">Required Files</a></li>
+        <li><a href="#creating-the-windows-11-vm">Creating the Windows 11 VM</a></li>
+        <li><a href="#windows-11-vm-configuration-critical">Windows 11 VM Configuration (Critical)</a></li>
+        <li><a href="#installing-windows-11">Installing Windows 11</a></li>
+        <li><a href="#installing-virtio-drivers-in-windows">Installing VirtIO Drivers in Windows</a></li>
+        <li><a href="#the-secure-boot--nvidia-driver-problem-real-experience">The Secure Boot + NVIDIA Driver Problem (Real Experience)</a></li>
+        <li><a href="#common-windows-11-vm-errors">Common Windows 11 VM Errors</a></li>
+      </ul>
+    </li>
+    <li><a href="#part-v--parrot-os-vm">Part V — Parrot OS VM</a>
+      <ul>
+        <li><a href="#download-parrot-os-iso">Download Parrot OS ISO</a></li>
+        <li><a href="#creating-the-parrot-os-vm">Creating the Parrot OS VM</a></li>
+        <li><a href="#installing-parrot-os">Installing Parrot OS</a></li>
+        <li><a href="#post-install-guest-tools-1">Post-Install Guest Tools</a></li>
+        <li><a href="#common-parrot-os-vm-errors">Common Parrot OS VM Errors</a></li>
+      </ul>
+    </li>
+    <li><a href="#part-vi--vm-management--useful-tips">Part VI — VM Management &amp; Useful Tips</a>
+      <ul>
+        <li><a href="#snapshots">Snapshots</a></li>
+        <li><a href="#cloning-vms">Cloning VMs</a></li>
+        <li><a href="#shared-folders-host-to-guest">Shared Folders (Host to Guest)</a></li>
+        <li><a href="#vm-autostart">VM Autostart</a></li>
+        <li><a href="#resizing-a-vm-disk">Resizing a VM Disk</a></li>
+        <li><a href="#checking-vm-resource-usage">Checking VM Resource Usage</a></li>
+      </ul>
+    </li>
+    <li><a href="#quick-reference-iso--driver-download-links">Quick Reference: ISO &amp; Driver Download Links</a></li>
+    <li><a href="#summary">Summary</a></li>
+    <li><a href="#related-reading">Related Reading</a></li>
+  </ul>
+</nav>
+      </div>
+    </div>
+  </aside>
+  
+
+</div>
+
+<script>
+(function() {
+  var tocNav  = document.getElementById('tocNav');
+  if (!tocNav) return;
+  var body     = document.querySelector('.single-body');
+  if (!body) return;
+  var headings = Array.from(body.querySelectorAll('h2, h3'));
+  if (!headings.length) return;
+  var links    = Array.from(tocNav.querySelectorAll('a'));
+  function setActive() {
+    var scrollY = window.scrollY + 130;
+    var active  = headings[0];
+    headings.forEach(function(h) { if (h.offsetTop <= scrollY) active = h; });
+    links.forEach(function(l) { l.classList.remove('active'); });
+    if (active && active.id) {
+      var al = tocNav.querySelector('a[href="#' + active.id + '"]');
+      if (al) al.classList.add('active');
+    }
+  }
+  window.addEventListener('scroll', setActive, { passive: true });
+  setActive();
+})();
+</script>
+
+  </main>
+
+  <footer>
+    <div class="footer-glow" aria-hidden="true"></div>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="/" class="footer-brand-logo">MA<span>.</span></a>
+        <p class="footer-brand-tagline">AI Engineer and Managing Director at AI GenMat, building production AI systems, agentic pipelines, and applied LLM infrastructure.</p>
+        <a href="mailto:m.awais@aigenmat.com" class="footer-brand-email">m.awais@aigenmat.com</a>
+      </div>
+      <div class="footer-nav-group">
+        <div class="footer-nav-col">
+          <span class="footer-nav-heading">Navigation</span>
+          <a href="/projects/">Projects</a>
+          <a href="/blog/">Blog</a>
+          <a href="/#contact">Contact</a>
+        </div>
+        <div class="footer-nav-col">
+          <span class="footer-nav-heading">Connect</span>
+          <a href="https://github.com/ik-awais" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://www.linkedin.com/in/muhammad-awais-ai-engineer/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://aigenmat.com" target="_blank" rel="noopener">AI GenMat</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-left">2026 Muhammad Awais, <a href="https://aigenmat.com" target="_blank" rel="noopener">AI GenMat</a></p>
+      <div class="footer-right">
+        <a href="https://github.com/ik-awais" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/muhammad-awais-ai-engineer/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:m.awais@aigenmat.com">m.awais@aigenmat.com</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

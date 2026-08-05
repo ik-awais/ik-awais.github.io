@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Python on MA-Portfolio</title>
+    <link>http://localhost:1313/tags/python/</link>
+    <description>Recent content in Python on MA-Portfolio</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 21 Jun 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LectureLens: AI-Powered Study Assistant with RAG &amp; Hybrid Search</title>
+      <link>http://localhost:1313/projects/lecturelens/</link>
+      <pubDate>Mon, 15 Jun 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/lecturelens/</guid>
+      <description>A production-grade Flask application that ingests PDF, DOCX, and PPTX lecture materials, indexes them with ChromaDB vector embeddings and SQLite FTS5 full-text search, then answers natural-language questions via a RAG pipeline powered by NVIDIA&amp;rsquo;s LLaMA 3.3 70B, complete with page-level source citations.</description>
+    </item>
+    <item>
+      <title>You Don&#39;t Need to Be a Programmer to Be a Tech Person</title>
+      <link>http://localhost:1313/blog/tech-survival-guide-2026/</link>
+      <pubDate>Sun, 12 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/tech-survival-guide-2026/</guid>
+      <description>The real tech skills that put you in the top 10% of your environment — no CS degree required.</description>
+    </item>
+    <item>
+      <title>Document Q&amp;A System</title>
+      <link>http://localhost:1313/projects/document-qa-system/</link>
+      <pubDate>Sat, 01 Feb 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/document-qa-system/</guid>
+      <description>Production-ready RAG system built with LangChain, FAISS, and Streamlit. Upload PDF, DOCX, or TXT files and ask natural language questions with source citations and conversational follow-up memory.</description>
+    </item>
+    <item>
+      <title>AI Research Assistant Agent</title>
+      <link>http://localhost:1313/projects/ai-research-agent/</link>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/ai-research-agent/</guid>
+      <description>Autonomous AI research agent built with Python, Groq LLM, and Tavily Search API, searches the web, extracts multi-source content, and generates structured, cited research reports with PDF/TXT export.</description>
+    </item>
+  </channel>
+</rss>
