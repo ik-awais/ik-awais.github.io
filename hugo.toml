@@ -1,6 +1,6 @@
 baseURL = "https://ik-awais.github.io/"
 languageCode = "en-us"
-title = "MA-Portfolio"
+title = "Muhammad Awais-Portfolio"
 enableRobotsTXT = true
 
 [pagination]
@@ -21,7 +21,7 @@ enableRobotsTXT = true
   github            = "https://github.com/ik-awais"
   linkedin          = "https://www.linkedin.com/in/muhammad-awais-ai-engineer/"
   formspreeID       = "xvzwzlre"
-  defaultDescription = "Muhammad Awais, AI Engineer and Managing Director at AI GenMat. Agentic AI, LLM, RAG Systems, NLP, Computer Vision."
+  defaultDescription = "Muhammad Awais, Managing Director, AI Developer & Program Manager at AI GenMat. Agentic AI, LLM, RAG Systems, NLP, Computer Vision."
 
 [taxonomies]
   tag = "tags"
