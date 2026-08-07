@@ -3,28 +3,73 @@
 <head>
 	<meta name="generator" content="Hugo 0.154.5"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://cdn.jsdelivr.net https://upload.wikimedia.org; connect-src 'self' https://formspree.io;">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MA-Portfolio</title>
+  
   <meta name="description" content="Muhammad Awais, AI Engineer and Managing Director at AI GenMat. Agentic AI, LLM, RAG Systems, NLP, Computer Vision.">
   <meta name="keywords" content="Muhammad Awais, AI Engineer, AI GenMat, Agentic AI, LLM, RAG, NLP, Computer Vision, AI consultant">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/main.css">
+  
+  <link rel="stylesheet" href="/css/main.min.97c33eb8b4b8e31cfe7df3b3158026eee5c783a5db27d632cf011b9d386cbac0.css" integrity="sha256-l8M&#43;uLS44xz&#43;ffOzFYAm7uXHg6XbJ9YyzwEbnThsusA=">
 </head>
 <body>
-  <div class="cursor" id="cursor"></div>
-  <div class="cursor-ring" id="cursorRing"></div>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <nav id="navbar">
     <div style="display:flex;align-items:center">
       <a href="/" class="nav-logo">MA<span class="dot">.</span></a>
       <a href="https://aigenmat.com" target="_blank" rel="noopener" class="nav-logo-badge">AI GenMat</a>
     </div>
-    <div class="nav-links">
+
+    <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+    </button>
+
+    <div class="nav-links" id="navLinks">
+
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="dd-education">Education</button>
+        <ul class="nav-dropdown-menu" id="dd-education" hidden>
+          <li><a href="/education/university/">University</a></li>
+          <li><a href="/education/college/">College</a></li>
+          <li><a href="/education/school/">School</a></li>
+          <li><span class="nav-disabled">Courses <span class="nav-soon">Soon</span></span></li>
+        </ul>
+      </div>
+
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="dd-experience">Experience</button>
+        <ul class="nav-dropdown-menu" id="dd-experience" hidden>
+          <li><a href="/experience/aigenmat/">AI GenMat</a></li>
+          <li><a href="/experience/future/">Future Companies</a></li>
+          <li><a href="/experience/other/">Other Experience</a></li>
+        </ul>
+      </div>
+
       <a href="/projects/">Projects</a>
-      <a href="/blog/">Blog</a>
-      <a href="/#contact">Contact</a>
+
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="dd-works">Works</button>
+        <ul class="nav-dropdown-menu" id="dd-works" hidden>
+          <li><a href="/blog/">Blogs</a></li>
+          <li><a href="/articles/">Articles</a></li>
+          <li><a href="/publications/">Publications</a></li>
+          <li><a href="/activities/">Activities</a></li>
+        </ul>
+      </div>
+
+      <a href="/achievements/">Achievements</a>
+
+      <a href="/contact/">Contact</a>
+
       <a href="https://github.com/ik-awais" target="_blank" rel="noopener">GitHub</a>
       <a href="https://www.linkedin.com/in/muhammad-awais-ai-engineer/" target="_blank" rel="noopener" class="cta-btn">LinkedIn</a>
       <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle colour theme">
@@ -35,7 +80,7 @@
     </div>
   </nav>
 
-  <main>
+  <main id="main-content" tabindex="-1">
     
 <section class="hero">
   <div class="hero-content">
@@ -55,7 +100,7 @@
     </div>
     <div class="hero-cta">
       <a href="/projects/" class="btn-primary">View Projects</a>
-      <a href="#contact" class="btn-ghost">Get in Touch</a>
+      <a href="/contact/" class="btn-ghost">Get in Touch</a>
     </div>
   </div>
   <div class="hero-canvas-wrap" aria-hidden="true">
@@ -64,198 +109,141 @@
   <div class="hero-orb" aria-hidden="true"></div>
 </section>
 
-<div class="stats-bar reveal" align="center">
-  <div class="identity-card"><span class="identity-label">AI Engineer</span></div>
+
+
+
+
+  
+
+
+
+  
+
+
+
+<section class="credibility-section" aria-label="Credibility figures">
+  <div class="credibility-grid">
+    
+    <div class="credibility-item reveal">
+      <span class="credibility-number">4</span>
+      <span class="credibility-label">Projects</span>
+    </div>
+    
+    <div class="credibility-item reveal">
+      <span class="credibility-number">4</span>
+      <span class="credibility-label">Blog Posts</span>
+    </div>
+    
+  </div>
+</section>
+
+
+
+
+
+
+<section class="stats-bar reveal" aria-label="Current status">
+  
   <div class="identity-card">
-  <span class="identity-label identity-label--stacked">
-    <span class="identity-sub">Managing Director</span>
-    <a href="https://aigenmat.com" target="_blank" rel="noopener" class="identity-company">AI GenMat</a>
-  </span>
-</div>
-  <div class="identity-card"><span class="identity-label">Agentic AI</span></div>
-  <div class="identity-card"><span class="identity-label">AI Research &amp; Systems</span></div>
-</div>
+    
+    <span class="identity-label">AI Engineer</span>
+    
+  </div>
+  
+  <div class="identity-card">
+    
+    <span class="identity-label identity-label--stacked">
+      <span class="identity-sub">Managing Director</span>
+      <a href="https://aigenmat.com" target="_blank" rel="noopener" class="identity-company">AI GenMat</a>
+    </span>
+    
+  </div>
+  
+  <div class="identity-card">
+    
+    <span class="identity-label">Agentic AI</span>
+    
+  </div>
+  
+  <div class="identity-card">
+    
+    <span class="identity-label">AI Research &amp; Systems</span>
+    
+  </div>
+  
+</section>
+
+
+
+<section class="list-section">
+  <div class="list-header reveal">
+    <h2 class="section-title">About <span class="accent">Me.</span></h2>
+    <p class="contact-desc">Designing and shipping production AI systems: agentic workflows, RAG pipelines, and applied LLM infrastructure.</p>
+    <a href="/about/" class="btn-ghost">Read More →</a>
+  </div>
+</section>
+
 
 <section class="tech-section">
   <div class="scroll-row">
     <div class="scroll-track">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" title="Python" alt="Python">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" title="TensorFlow" alt="TensorFlow">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" title="PyTorch" alt="PyTorch">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg" title="OpenCV" alt="OpenCV">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" title="Pandas" alt="Pandas">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" title="JavaScript" alt="JavaScript">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" title="C" alt="C">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" title="C++" alt="C++">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" alt="">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" alt="">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg" alt="">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" alt="">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" alt="">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="128" height="128" title="Python" alt="Python">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" width="128" height="128" title="TensorFlow" alt="TensorFlow">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" width="128" height="128" title="PyTorch" alt="PyTorch">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg" width="128" height="128" title="OpenCV" alt="OpenCV">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" width="128" height="128" title="Pandas" alt="Pandas">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="128" height="128" title="JavaScript" alt="JavaScript">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" width="128" height="128" title="C" alt="C">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" width="128" height="128" title="C++" alt="C++">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="128" height="128" alt="">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" width="128" height="128" alt="">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" width="128" height="128" alt="">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg" width="128" height="128" alt="">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" width="128" height="128" alt="">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="128" height="128" alt="">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" width="128" height="128" alt="">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" width="128" height="128" alt="">
     </div>
   </div>
   <div class="scroll-row reverse">
     <div class="scroll-track">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" title="Docker" alt="Docker">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" title="React" alt="React">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" title="Django" alt="Django">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg" title="Flask" alt="Flask">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" title="MongoDB" alt="MongoDB">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" title="MySQL" alt="MySQL">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" title="Git" alt="Git">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" title="Linux" alt="Linux">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" title="AWS" alt="AWS">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" title="Azure" alt="Azure">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" alt="">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg" alt="">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" alt="">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" width="128" height="128" title="Docker" alt="Docker">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="128" height="128" title="React" alt="React">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" width="128" height="128" title="Django" alt="Django">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg" width="128" height="128" title="Flask" alt="Flask">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" width="128" height="128" title="MongoDB" alt="MongoDB">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" width="128" height="128" title="MySQL" alt="MySQL">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" width="128" height="128" title="Git" alt="Git">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" width="128" height="128" title="Linux" alt="Linux">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" width="512" height="307" title="AWS" alt="AWS">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" width="128" height="128" title="Azure" alt="Azure">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" width="128" height="128" alt="">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="128" height="128" alt="">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" width="128" height="128" alt="">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg" width="128" height="128" alt="">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" width="128" height="128" alt="">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" width="128" height="128" alt="">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" width="128" height="128" alt="">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" width="128" height="128" alt="">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" width="512" height="307" alt="">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" width="128" height="128" alt="">
     </div>
   </div>
 </section>
 
-<section class="projects-section" id="projects">
-  <div class="section-header reveal">
-    <div>
-      <h2 class="section-title">AI <span class="accent">Projects.</span></h2>
-    </div>
-    <a href="/projects/" class="btn-ghost" style="white-space:nowrap">All Projects →</a>
-  </div>
-  <div class="project-grid">
-    
-    <div class="project-card reveal">
-      <div class="card-thumb card-thumb--gradient card-thumb--p4" aria-hidden="true">
-  <div class="card-thumb-noise"></div>
-  <div class="card-thumb-icon"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 24 L24 8 L40 24 L24 40 Z" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><path d="M16 24 L24 16 L32 24 L24 32 Z" stroke="currentColor" stroke-width="1.5" opacity="0.5" stroke-linejoin="round"/><circle cx="24" cy="24" r="3" fill="currentColor" opacity="0.6"/></svg></div>
-</div>
-      <div class="project-card-body">
-      <p class="project-num">Jun 2026</p>
-      <h3>LectureLens: AI-Powered Study Assistant with RAG &amp; Hybrid Search</h3>
-      <p>A production-grade Flask application that ingests PDF, DOCX, and PPTX lecture materials, indexes them with ChromaDB vector embeddings and SQLite FTS5 full-text search, then answers natural-language questions via a RAG pipeline powered by NVIDIA&#39;s LLaMA 3.3 70B, complete with page-level source citations.</p>
-      <div class="tags">
-        <span class="tag">RAG</span><span class="tag">LLM</span><span class="tag">Flask</span><span class="tag">Python</span><span class="tag">ChromaDB</span><span class="tag">Hybrid Search</span><span class="tag">NVIDIA API</span><span class="tag">Sentence Transformers</span><span class="tag">SQLite</span><span class="tag">NLP</span><span class="tag">Vector Database</span><span class="tag">AI Study Assistant</span>
-      </div>
-      <div class="project-links">
-        <a href="https://github.com/ik-awais/Python_Projects/tree/main/PAI/LectureLens" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-        
-        <a href="/projects/lecturelens/">Details →</a>
-      </div>
-      </div>
-    </div>
-    
-    <div class="project-card reveal">
-      <div class="card-thumb card-thumb--gradient card-thumb--p3" aria-hidden="true">
-  <div class="card-thumb-noise"></div>
-  <div class="card-thumb-icon"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="18" stroke="currentColor" stroke-width="2.5"/><polygon points="24,12 32,28 16,28" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" opacity="0.7"/><circle cx="24" cy="24" r="4" fill="currentColor" opacity="0.5"/></svg></div>
-</div>
-      <div class="project-card-body">
-      <p class="project-num">Mar 2026</p>
-      <h3>MediScan AI: Medical Image &amp; Report Assistant</h3>
-      <p>End-to-end medical imaging pipeline: OpenCV preprocessing → ViT classification → ResNet-18 &#43; IsolationForest anomaly scoring → LLaMA 3.1 70B report generation, served as a FastAPI REST endpoint.</p>
-      <div class="tags">
-        <span class="tag">AI</span><span class="tag">Computer Vision</span><span class="tag">LLaMA</span><span class="tag">FastAPI</span><span class="tag">PyTorch</span><span class="tag">Hugging Face</span><span class="tag">Medical AI</span><span class="tag">Vision Transformer</span><span class="tag">Anomaly Detection</span><span class="tag">NLP</span>
-      </div>
-      <div class="project-links">
-        <a href="https://github.com/ik-awais/mediscan-ai" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-        
-        <a href="/projects/mediscan-ai/">Details →</a>
-      </div>
-      </div>
-    </div>
-    
-    <div class="project-card reveal">
-      <div class="card-thumb card-thumb--gradient card-thumb--p1" aria-hidden="true">
-  <div class="card-thumb-noise"></div>
-  <div class="card-thumb-icon"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="24" y1="4" x2="24" y2="44" stroke="currentColor" stroke-width="2.5"/><line x1="4" y1="24" x2="44" y2="24" stroke="currentColor" stroke-width="2.5"/><line x1="10" y1="10" x2="38" y2="38" stroke="currentColor" stroke-width="1.8" opacity="0.5"/><line x1="38" y1="10" x2="10" y2="38" stroke="currentColor" stroke-width="1.8" opacity="0.5"/><circle cx="24" cy="24" r="5" stroke="currentColor" stroke-width="1.5" opacity="0.6"/></svg></div>
-</div>
-      <div class="project-card-body">
-      <p class="project-num">Feb 2025</p>
-      <h3>Document Q&amp;A System</h3>
-      <p>Production-ready RAG system built with LangChain, FAISS, and Streamlit. Upload PDF, DOCX, or TXT files and ask natural language questions with source citations and conversational follow-up memory.</p>
-      <div class="tags">
-        <span class="tag">LangChain</span><span class="tag">FAISS</span><span class="tag">Streamlit</span><span class="tag">LLM</span><span class="tag">NLP</span><span class="tag">RAG</span><span class="tag">Python</span><span class="tag">Groq</span><span class="tag">Vector Search</span><span class="tag">Conversational AI</span>
-      </div>
-      <div class="project-links">
-        <a href="https://github.com/ik-awais/doc-qa-system" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-        
-        <a href="/projects/document-qa-system/">Details →</a>
-      </div>
-      </div>
-    </div>
-    
-    <div class="project-card reveal">
-      <div class="card-thumb card-thumb--gradient card-thumb--p3" aria-hidden="true">
-  <div class="card-thumb-noise"></div>
-  <div class="card-thumb-icon"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="24" y1="4" x2="24" y2="44" stroke="currentColor" stroke-width="2.5"/><line x1="4" y1="24" x2="44" y2="24" stroke="currentColor" stroke-width="2.5"/><line x1="10" y1="10" x2="38" y2="38" stroke="currentColor" stroke-width="1.8" opacity="0.5"/><line x1="38" y1="10" x2="10" y2="38" stroke="currentColor" stroke-width="1.8" opacity="0.5"/><circle cx="24" cy="24" r="5" stroke="currentColor" stroke-width="1.5" opacity="0.6"/></svg></div>
-</div>
-      <div class="project-card-body">
-      <p class="project-num">Jan 2025</p>
-      <h3>AI Research Assistant Agent</h3>
-      <p>Autonomous AI research agent built with Python, Groq LLM, and Tavily Search API, searches the web, extracts multi-source content, and generates structured, cited research reports with PDF/TXT export.</p>
-      <div class="tags">
-        <span class="tag">AI Agents</span><span class="tag">LLM</span><span class="tag">Web Search</span><span class="tag">Automation</span><span class="tag">Streamlit</span><span class="tag">Groq</span><span class="tag">Tavily</span><span class="tag">Python</span><span class="tag">RAG</span><span class="tag">NLP</span>
-      </div>
-      <div class="project-links">
-        <a href="https://github.com/ik-awais/ai-research-agent" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-        
-        <a href="/projects/ai-research-agent/">Details →</a>
-      </div>
-      </div>
-    </div>
-    
-  </div>
-</section>
 
-<section class="contact-section" id="contact">
-  <div class="contact-grid">
-    <div class="contact-left reveal">
-      <h2 class="section-title">Get in <span class="accent">Touch.</span></h2>
-      <p class="contact-desc">Open to collaborations, AI consulting, freelance projects, or full-time roles. If you have an interesting problem, I'd love to hear about it.</p>
-      <div class="contact-links">
-        <a href="mailto:m.awais@aigenmat.com" class="contact-link">
-          <div class="contact-link-icon">✉</div>m.awais@aigenmat.com
-        </a>
-        <a href="mailto:mawaisqq@gmail.com" class="contact-link contact-link--secondary">
-          <div class="contact-link-icon">✉</div>mawaisqq@gmail.com
-        </a>
-        <a href="https://github.com/ik-awais" target="_blank" rel="noopener noreferrer" class="contact-link">
-          <div class="contact-link-icon">⌥</div>github.com/ik-awais
-        </a>
-        <a href="https://www.linkedin.com/in/muhammad-awais-ai-engineer/" target="_blank" rel="noopener noreferrer" class="contact-link">
-          <div class="contact-link-icon">in</div>LinkedIn Profile
-        </a>
-        <a href="https://aigenmat.com" target="_blank" rel="noopener noreferrer" class="contact-link">
-          <div class="contact-link-icon">↗</div>aigenmat.com
-        </a>
-      </div>
-    </div>
-    <div class="contact-form reveal" style="transition-delay:0.2s">
-      <div class="f-honeypot" aria-hidden="true">
-        <input type="text" id="f-honeypot" name="honeypot" tabindex="-1" autocomplete="off">
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="f-name">Name</label>
-        <input type="text" id="f-name" class="form-input" placeholder="Your name" required>
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="f-email">Email</label>
-        <input type="email" id="f-email" class="form-input" placeholder="your@email.com" required>
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="f-message">Message</label>
-        <textarea id="f-message" class="form-input" placeholder="Tell me about your project..." required></textarea>
-      </div>
-      <button type="button" class="form-submit" id="submitBtn" onclick="sendForm('xvzwzlre')">Send Message →</button>
-      <p class="form-status" id="formStatus"></p>
+
+
+
+
+
+<section class="list-section">
+  <div class="list-header reveal">
+    <h2 class="section-title">Let's Get in <span class="accent">Touch.</span></h2>
+    <p class="contact-desc">Open to collaborations, AI consulting, freelance projects, or full-time roles. If you have an interesting problem, I'd love to hear about it.</p>
+    <div style="display:flex;gap:16px;flex-wrap:wrap">
+      <a href="/contact/" class="btn-primary">Hire Me</a>
+      <a href="/contact/" class="btn-ghost">Book a Call</a>
     </div>
   </div>
 </section>
@@ -275,7 +263,7 @@
           <span class="footer-nav-heading">Navigation</span>
           <a href="/projects/">Projects</a>
           <a href="/blog/">Blog</a>
-          <a href="/#contact">Contact</a>
+          <a href="/contact/">Contact</a>
         </div>
         <div class="footer-nav-col">
           <span class="footer-nav-heading">Connect</span>

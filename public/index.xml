@@ -64,5 +64,26 @@
       <guid>http://localhost:1313/projects/ai-research-agent/</guid>
       <description>Autonomous AI research agent built with Python, Groq LLM, and Tavily Search API, searches the web, extracts multi-source content, and generates structured, cited research reports with PDF/TXT export.</description>
     </item>
+    <item>
+      <title>About</title>
+      <link>http://localhost:1313/about/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/about/about/</guid>
+      <description>Muhammad Awais&amp;rsquo;s engineering background, current focus areas, and core expertise in agentic AI, RAG systems, and applied LLM infrastructure.</description>
+    </item>
+    <item>
+      <title>AI GenMat</title>
+      <link>http://localhost:1313/aigenmat/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/aigenmat/</guid>
+      <description>AI GenMat, a family-owned AI services company where Muhammad Awais serves as Managing Director.</description>
+    </item>
+    <item>
+      <title>Contact</title>
+      <link>http://localhost:1313/contact/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/contact/</guid>
+      <description>Open to collaborations, AI consulting, freelance projects, or full-time roles. If you have an interesting problem, I&amp;rsquo;d love to hear about it.</description>
+    </item>
   </channel>
 </rss>

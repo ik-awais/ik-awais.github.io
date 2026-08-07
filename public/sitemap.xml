@@ -214,5 +214,29 @@
   </url><url>
     <loc>http://localhost:1313/tags/web-search/</loc>
     <lastmod>2026-06-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/about/about/</loc>
+  </url><url>
+    <loc>http://localhost:1313/about/</loc>
+  </url><url>
+    <loc>http://localhost:1313/achievements/</loc>
+  </url><url>
+    <loc>http://localhost:1313/aigenmat/</loc>
+  </url><url>
+    <loc>http://localhost:1313/experience/aigenmat/</loc>
+  </url><url>
+    <loc>http://localhost:1313/articles/</loc>
+  </url><url>
+    <loc>http://localhost:1313/education/college/</loc>
+  </url><url>
+    <loc>http://localhost:1313/contact/</loc>
+  </url><url>
+    <loc>http://localhost:1313/experience/future/</loc>
+  </url><url>
+    <loc>http://localhost:1313/experience/other/</loc>
+  </url><url>
+    <loc>http://localhost:1313/education/school/</loc>
+  </url><url>
+    <loc>http://localhost:1313/education/university/</loc>
   </url>
 </urlset>

@@ -58,7 +58,8 @@
 {{ end }}
 
 {{/* ── CURRENT STATUS ───────────────────────────────────────────────── */}}
-{{ $badges := site.Data.status.badges }}
+{{ $badges := slice }}
+{{ with site.Data.status }}{{ $badges = .badges }}{{ end }}
 {{ if gt (len $badges) 0 }}
 <section class="stats-bar reveal" aria-label="Current status">
   {{ range $badges }}

@@ -2,28 +2,73 @@
 <html lang="en">
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://cdn.jsdelivr.net https://upload.wikimedia.org; connect-src 'self' https://formspree.io;">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Conversational AI | MA-Portfolio</title>
+  
   <meta name="description" content="Muhammad Awais, AI Engineer and Managing Director at AI GenMat. Agentic AI, LLM, RAG Systems, NLP, Computer Vision.">
   <meta name="keywords" content="Muhammad Awais, AI Engineer, AI GenMat, Agentic AI, LLM, RAG, NLP, Computer Vision, AI consultant">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/main.css">
+  
+  <link rel="stylesheet" href="/css/main.min.97c33eb8b4b8e31cfe7df3b3158026eee5c783a5db27d632cf011b9d386cbac0.css" integrity="sha256-l8M&#43;uLS44xz&#43;ffOzFYAm7uXHg6XbJ9YyzwEbnThsusA=">
 </head>
 <body>
-  <div class="cursor" id="cursor"></div>
-  <div class="cursor-ring" id="cursorRing"></div>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <nav id="navbar">
     <div style="display:flex;align-items:center">
       <a href="/" class="nav-logo">MA<span class="dot">.</span></a>
       <a href="https://aigenmat.com" target="_blank" rel="noopener" class="nav-logo-badge">AI GenMat</a>
     </div>
-    <div class="nav-links">
+
+    <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+    </button>
+
+    <div class="nav-links" id="navLinks">
+
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="dd-education">Education</button>
+        <ul class="nav-dropdown-menu" id="dd-education" hidden>
+          <li><a href="/education/university/">University</a></li>
+          <li><a href="/education/college/">College</a></li>
+          <li><a href="/education/school/">School</a></li>
+          <li><span class="nav-disabled">Courses <span class="nav-soon">Soon</span></span></li>
+        </ul>
+      </div>
+
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="dd-experience">Experience</button>
+        <ul class="nav-dropdown-menu" id="dd-experience" hidden>
+          <li><a href="/experience/aigenmat/">AI GenMat</a></li>
+          <li><a href="/experience/future/">Future Companies</a></li>
+          <li><a href="/experience/other/">Other Experience</a></li>
+        </ul>
+      </div>
+
       <a href="/projects/">Projects</a>
-      <a href="/blog/">Blog</a>
-      <a href="/#contact">Contact</a>
+
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-trigger" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="dd-works">Works</button>
+        <ul class="nav-dropdown-menu" id="dd-works" hidden>
+          <li><a href="/blog/">Blogs</a></li>
+          <li><a href="/articles/">Articles</a></li>
+          <li><a href="/publications/">Publications</a></li>
+          <li><a href="/activities/">Activities</a></li>
+        </ul>
+      </div>
+
+      <a href="/achievements/">Achievements</a>
+
+      <a href="/contact/">Contact</a>
+
       <a href="https://github.com/ik-awais" target="_blank" rel="noopener">GitHub</a>
       <a href="https://www.linkedin.com/in/muhammad-awais-ai-engineer/" target="_blank" rel="noopener" class="cta-btn">LinkedIn</a>
       <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle colour theme">
@@ -34,12 +79,17 @@
     </div>
   </nav>
 
-  <main>
+  <main id="main-content" tabindex="-1">
     
+
+
 <section class="list-section">
   <div class="list-header reveal">
+    <p class="hero-label" style="animation:none;opacity:1">Works</p>
     <h1 class="section-title">Conversational AI <span class="accent">Archive.</span></h1>
   </div>
+
+  
   <div class="project-grid">
     
     <div class="project-card reveal">
@@ -55,15 +105,18 @@
         <div class="tags"><span class="tag">LangChain</span><span class="tag">FAISS</span><span class="tag">Streamlit</span><span class="tag">LLM</span><span class="tag">NLP</span><span class="tag">RAG</span><span class="tag">Python</span><span class="tag">Groq</span><span class="tag">Vector Search</span><span class="tag">Conversational AI</span></div>
         
         <div class="project-links">
-          <a href="https://github.com/ik-awais/doc-qa-system" target="_blank">GitHub ↗</a>
           
-          <a href="/projects/document-qa-system/">Read More →</a>
+          <a href="/projects/document-qa-system/">Read More &rarr;</a>
         </div>
       </div>
     </div>
     
   </div>
+
+  
+  
 </section>
+
 
   </main>
 
@@ -80,7 +133,7 @@
           <span class="footer-nav-heading">Navigation</span>
           <a href="/projects/">Projects</a>
           <a href="/blog/">Blog</a>
-          <a href="/#contact">Contact</a>
+          <a href="/contact/">Contact</a>
         </div>
         <div class="footer-nav-col">
           <span class="footer-nav-heading">Connect</span>

@@ -9,6 +9,115 @@ function toggleTheme() {
   localStorage.setItem('theme', next);
 }
 
+// ── NAVIGATION: DROPDOWNS & MOBILE MENU ─────────────────────────────────
+(function () {
+  const navToggle = document.getElementById('navToggle');
+  const navLinks   = document.getElementById('navLinks');
+  const dropdowns  = Array.from(document.querySelectorAll('.nav-dropdown'));
+
+  function closeDropdown(dd) {
+    const trigger = dd.querySelector('.nav-dropdown-trigger');
+    const menu    = dd.querySelector('.nav-dropdown-menu');
+    if (!trigger || !menu) return;
+    trigger.setAttribute('aria-expanded', 'false');
+    menu.hidden = true;
+  }
+
+  function openDropdown(dd) {
+    dropdowns.forEach(other => { if (other !== dd) closeDropdown(other); });
+    const trigger = dd.querySelector('.nav-dropdown-trigger');
+    const menu    = dd.querySelector('.nav-dropdown-menu');
+    if (!trigger || !menu) return;
+    trigger.setAttribute('aria-expanded', 'true');
+    menu.hidden = false;
+  }
+
+  function isOpen(dd) {
+    const trigger = dd.querySelector('.nav-dropdown-trigger');
+    return trigger && trigger.getAttribute('aria-expanded') === 'true';
+  }
+
+  dropdowns.forEach(dd => {
+    const trigger = dd.querySelector('.nav-dropdown-trigger');
+    if (!trigger) return;
+
+    // Click / keyboard activation (Enter, Space) toggles — works for touch too.
+    trigger.addEventListener('click', () => {
+      isOpen(dd) ? closeDropdown(dd) : openDropdown(dd);
+    });
+
+    // Desktop hover-intent, with a short grace period so moving the mouse
+    // from the trigger down into the menu doesn't cause a flicker-close.
+    let closeTimer = null;
+    dd.addEventListener('mouseenter', () => {
+      if (window.matchMedia('(hover: hover)').matches) {
+        clearTimeout(closeTimer);
+        openDropdown(dd);
+      }
+    });
+    dd.addEventListener('mouseleave', () => {
+      if (window.matchMedia('(hover: hover)').matches) {
+        closeTimer = setTimeout(() => closeDropdown(dd), 200);
+      }
+    });
+
+    // Tabbing focus away from this dropdown's own controls closes it.
+    dd.addEventListener('focusout', (e) => {
+      if (!dd.contains(e.relatedTarget)) closeDropdown(dd);
+    });
+  });
+
+  // Escape closes any open dropdown and returns focus to its trigger.
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    const openDd = dropdowns.find(isOpen);
+    if (openDd) {
+      closeDropdown(openDd);
+      openDd.querySelector('.nav-dropdown-trigger').focus();
+      return;
+    }
+    if (navToggle && navToggle.getAttribute('aria-expanded') === 'true') {
+      closeMobileMenu();
+      navToggle.focus();
+    }
+  });
+
+  // Click outside any dropdown closes whichever one is open.
+  document.addEventListener('click', (e) => {
+    dropdowns.forEach(dd => {
+      if (isOpen(dd) && !dd.contains(e.target)) closeDropdown(dd);
+    });
+  });
+
+  // Mobile hamburger menu
+  function openMobileMenu() {
+    navToggle.setAttribute('aria-expanded', 'true');
+    navToggle.setAttribute('aria-label', 'Close menu');
+    navLinks.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMobileMenu() {
+    navToggle.setAttribute('aria-expanded', 'false');
+    navToggle.setAttribute('aria-label', 'Open menu');
+    navLinks.classList.remove('open');
+    document.body.style.overflow = '';
+    dropdowns.forEach(closeDropdown);
+  }
+
+  if (navToggle && navLinks) {
+    navToggle.addEventListener('click', () => {
+      navToggle.getAttribute('aria-expanded') === 'true' ? closeMobileMenu() : openMobileMenu();
+    });
+
+    // Tapping a real link inside the mobile menu closes it (so navigation completes normally).
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (navToggle.getAttribute('aria-expanded') === 'true') closeMobileMenu();
+      });
+    });
+  }
+})();
+
 // ── NAVBAR SCROLL ───────────────────────────────────────────────────────
 window.addEventListener('scroll', () => {
   const nav = document.getElementById('navbar');
