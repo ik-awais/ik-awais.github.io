@@ -79,6 +79,14 @@
     "date": "2025-01-01",
     "permalink": "/projects/ai-research-agent/"
   },{
+    "title": "About",
+    "summary": "Muhammad Awais's engineering background, current focus areas, and core expertise in agentic AI, RAG systems, and applied LLM infrastructure.",
+    "type": "about",
+    "section": "",
+    "tags": [],
+    "date": "",
+    "permalink": "/about/"
+  },{
     "title": "AI GenMat",
     "summary": "AI GenMat, a family-owned AI services company where Muhammad Awais serves as Managing Director.",
     "type": "aigenmat",
