@@ -46,6 +46,17 @@
         <p class="works-citation-text">{{ . }}</p>
       </div>
       {{ end }}
+
+      {{ if or (eq .Section "blog") (eq .Section "articles") }}
+      <div class="pdf-download-wrap">
+        <button type="button" id="pdfDownloadBtn" class="btn-ghost pdf-download-btn" aria-label="Download this article as a PDF">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+          Download PDF
+        </button>
+        <p class="pdf-download-status" id="pdfDownloadStatus" role="status" aria-live="polite"></p>
+      </div>
+      <script type="application/json" id="pdfArticleData">{{ dict "title" .Title "date" (.Date.Format "January 2, 2006") "author" .Params.author "slug" .File.ContentBaseName "raw" .RawContent | jsonify | safeJS }}</script>
+      {{ end }}
     </div>
 
     <div class="single-body">
@@ -69,6 +80,10 @@
   {{ end }}
 
 </div>
+
+{{ if or (eq .Section "blog") (eq .Section "articles") }}
+<script src="/js/pdf-export.js"></script>
+{{ end }}
 
 <script>
 (function() {

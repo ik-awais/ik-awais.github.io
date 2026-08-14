@@ -1,6 +1,19 @@
 baseURL = "https://ik-awais.github.io/"
 languageCode = "en-us"
 title = "MA-Portfolio"
+enableRobotsTXT = true
+
+[pagination]
+  pagerSize = 9
+
+[outputFormats.SearchIndex]
+  mediaType = "application/json"
+  baseName = "search-index"
+  isPlainText = true
+  notAlternative = true
+
+[outputs]
+  home = ["HTML", "RSS", "SearchIndex"]
 
 [markup]
   [markup.tableOfContents]
@@ -11,12 +24,13 @@ title = "MA-Portfolio"
     unsafe = true
 
 [params]
-  author      = "Muhammad Awais"
-  email       = "mawaisqq@gmail.com"
-  workEmail   = "m.awais@aigenmat.com"
-  github      = "https://github.com/ik-awais"
-  linkedin    = "https://www.linkedin.com/in/muhammad-awais-ai-engineer/"
-  formspreeID = "xvzwzlre"
+  author            = "Muhammad Awais"
+  email             = "mawaisqq@gmail.com"
+  workEmail         = "m.awais@aigenmat.com"
+  github            = "https://github.com/ik-awais"
+  linkedin          = "https://www.linkedin.com/in/muhammad-awais-ai-engineer/"
+  formspreeID       = "xvzwzlre"
+  defaultDescription = "Muhammad Awais, AI Engineer and Managing Director at AI GenMat. Agentic AI, LLM, RAG Systems, NLP, Computer Vision."
 
 [taxonomies]
   tag = "tags"

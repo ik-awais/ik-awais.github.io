@@ -42,7 +42,8 @@
 ```yaml
 name:         Muhammad Awais
 role:         AI Engineer · Managing Director @ AI GenMat
-education:    BS Artificial Intelligence — FAST-NUCES Peshawar (2025–2029)
+education:    BS Software Engineering — FAST-NUCES Islamabad (2026-2029)
+education:    BS Artificial Intelligence — FAST-NUCES Peshawar (2025-2026)
 site:         https://ik-awais.github.io
 
 portfolio:

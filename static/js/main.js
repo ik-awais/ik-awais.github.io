@@ -9,6 +9,124 @@ function toggleTheme() {
   localStorage.setItem('theme', next);
 }
 
+// ── NAVIGATION: DROPDOWNS & MOBILE MENU ─────────────────────────────────
+(function () {
+  const navToggle = document.getElementById('navToggle');
+  const navLinks   = document.getElementById('navLinks');
+  const dropdowns  = Array.from(document.querySelectorAll('.nav-dropdown'));
+
+  function closeDropdown(dd) {
+    const trigger = dd.querySelector('.nav-dropdown-trigger');
+    const menu    = dd.querySelector('.nav-dropdown-menu');
+    if (!trigger || !menu) return;
+    trigger.setAttribute('aria-expanded', 'false');
+    menu.hidden = true;
+  }
+
+  function openDropdown(dd) {
+    dropdowns.forEach(other => { if (other !== dd) closeDropdown(other); });
+    const trigger = dd.querySelector('.nav-dropdown-trigger');
+    const menu    = dd.querySelector('.nav-dropdown-menu');
+    if (!trigger || !menu) return;
+    trigger.setAttribute('aria-expanded', 'true');
+    menu.hidden = false;
+  }
+
+  function isOpen(dd) {
+    const trigger = dd.querySelector('.nav-dropdown-trigger');
+    return trigger && trigger.getAttribute('aria-expanded') === 'true';
+  }
+
+  dropdowns.forEach(dd => {
+    const trigger = dd.querySelector('.nav-dropdown-trigger');
+    if (!trigger) return;
+    let openedByHover = false;
+
+    // Click / keyboard activation (Enter, Space) toggles — works for touch too.
+    // If this click immediately follows a hover-open (the mouse arriving at
+    // the trigger necessarily fires mouseenter before click), treat it as a
+    // no-op rather than closing the menu the user just saw open.
+    trigger.addEventListener('click', () => {
+      if (isOpen(dd) && openedByHover) {
+        openedByHover = false;
+        return;
+      }
+      isOpen(dd) ? closeDropdown(dd) : openDropdown(dd);
+    });
+
+    // Desktop hover-intent, with a short grace period so moving the mouse
+    // from the trigger down into the menu doesn't cause a flicker-close.
+    let closeTimer = null;
+    dd.addEventListener('mouseenter', () => {
+      if (window.matchMedia('(hover: hover)').matches) {
+        clearTimeout(closeTimer);
+        if (!isOpen(dd)) openedByHover = true;
+        openDropdown(dd);
+      }
+    });
+    dd.addEventListener('mouseleave', () => {
+      if (window.matchMedia('(hover: hover)').matches) {
+        closeTimer = setTimeout(() => { closeDropdown(dd); openedByHover = false; }, 200);
+      }
+    });
+
+    // Tabbing focus away from this dropdown's own controls closes it.
+    dd.addEventListener('focusout', (e) => {
+      if (!dd.contains(e.relatedTarget)) { closeDropdown(dd); openedByHover = false; }
+    });
+  });
+
+  // Escape closes any open dropdown and returns focus to its trigger.
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    const openDd = dropdowns.find(isOpen);
+    if (openDd) {
+      closeDropdown(openDd);
+      openDd.querySelector('.nav-dropdown-trigger').focus();
+      return;
+    }
+    if (navToggle && navToggle.getAttribute('aria-expanded') === 'true') {
+      closeMobileMenu();
+      navToggle.focus();
+    }
+  });
+
+  // Click outside any dropdown closes whichever one is open.
+  document.addEventListener('click', (e) => {
+    dropdowns.forEach(dd => {
+      if (isOpen(dd) && !dd.contains(e.target)) closeDropdown(dd);
+    });
+  });
+
+  // Mobile hamburger menu
+  function openMobileMenu() {
+    navToggle.setAttribute('aria-expanded', 'true');
+    navToggle.setAttribute('aria-label', 'Close menu');
+    navLinks.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMobileMenu() {
+    navToggle.setAttribute('aria-expanded', 'false');
+    navToggle.setAttribute('aria-label', 'Open menu');
+    navLinks.classList.remove('open');
+    document.body.style.overflow = '';
+    dropdowns.forEach(closeDropdown);
+  }
+
+  if (navToggle && navLinks) {
+    navToggle.addEventListener('click', () => {
+      navToggle.getAttribute('aria-expanded') === 'true' ? closeMobileMenu() : openMobileMenu();
+    });
+
+    // Tapping a real link (or the search trigger) inside the mobile menu closes it.
+    navLinks.querySelectorAll('a, #searchTrigger').forEach(link => {
+      link.addEventListener('click', () => {
+        if (navToggle.getAttribute('aria-expanded') === 'true') closeMobileMenu();
+      });
+    });
+  }
+})();
+
 // ── NAVBAR SCROLL ───────────────────────────────────────────────────────
 window.addEventListener('scroll', () => {
   const nav = document.getElementById('navbar');
@@ -95,142 +213,147 @@ function checkRateLimit() {
   return { allowed: true };
 }
 
-// ── CONTACT FORM ────────────────────────────────────────────────────────
-async function sendForm(FORMSPREE_ID) {
-  const nameEl     = document.getElementById('f-name');
-  const emailEl    = document.getElementById('f-email');
-  const messageEl  = document.getElementById('f-message');
-  const honeypotEl = document.getElementById('f-honeypot');
-  const status     = document.getElementById('formStatus');
-  const btn        = document.getElementById('submitBtn');
+// ── DEDICATED CONTACT PAGE FORM (/contact/) ─────────────────────────────
+// Self-contained handler for the classified-inquiry form. Reuses
+// validateEmail() and checkRateLimit() above. No-ops entirely on any
+// page without #contactForm.
+(function () {
+  const form = document.getElementById('contactForm');
+  if (!form) return;
 
-  status.className   = 'form-status';
-  status.textContent = '';
+  const status = document.getElementById('contactFormStatus');
+  const btn    = document.getElementById('contactSubmitBtn');
 
-  // Honeypot — silently discard bot submissions
-  if (honeypotEl && honeypotEl.value !== '') {
-    status.textContent = '✓ Message sent!';
-    status.className   = 'form-status success';
-    return;
-  }
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
 
-  const name    = nameEl.value.trim();
-  const email   = emailEl.value.trim();
-  const message = messageEl.value.trim();
+    status.className   = 'form-status';
+    status.textContent = '';
 
-  if (!name || !email || !message) {
-    status.textContent = '⚠ Please fill in all fields.';
-    status.className   = 'form-status error';
-    return;
-  }
-  if (name.length < 2) {
-    status.textContent = '⚠ Please enter your full name.';
-    status.className   = 'form-status error';
-    return;
-  }
-
-  const emailCheck = validateEmail(email);
-  if (!emailCheck.valid) {
-    status.textContent = `⚠ ${emailCheck.reason}`;
-    status.className   = 'form-status error';
-    emailEl.focus();
-    return;
-  }
-
-  if (message.length < 10) {
-    status.textContent = '⚠ Message is too short. Please tell me more.';
-    status.className   = 'form-status error';
-    return;
-  }
-  if (message.length > 2000) {
-    status.textContent = '⚠ Message is too long (max 2000 characters).';
-    status.className   = 'form-status error';
-    return;
-  }
-
-  const rateCheck = checkRateLimit();
-  if (!rateCheck.allowed) {
-    status.textContent = `⚠ ${rateCheck.reason}`;
-    status.className   = 'form-status error';
-    return;
-  }
-
-  if (!FORMSPREE_ID || FORMSPREE_ID === 'YOUR_FORM_ID' || FORMSPREE_ID === '') {
-    status.textContent = '✓ [Demo mode] Add Formspree ID to hugo.toml.';
-    status.className   = 'form-status success';
-    return;
-  }
-
-  btn.disabled       = true;
-  btn.textContent    = 'Sending...';
-  status.textContent = 'Sending your message...';
-  status.className   = 'form-status loading';
-
-  try {
-    // Use FormData (not JSON) so Formspree's reCAPTCHA validation works.
-    // Formspree's reCAPTCHA runs server-side when it receives multipart/form-data.
-    // JSON submissions bypass the reCAPTCHA pipeline entirely.
-    const formData = new FormData();
-    formData.append('name',    name);
-    formData.append('email',   email);
-    formData.append('message', message);
-
-    const res  = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
-      method:  'POST',
-      headers: { 'Accept': 'application/json' },
-      body:    formData
-    });
-
-    const data = await res.json().catch(() => ({}));
-
-    if (res.ok) {
-      lastSubmitTime = Date.now();
-      submitAttempts++;
-
-      status.textContent   = "✓ Message sent! I'll get back to you soon.";
-      status.className     = 'form-status success';
-      btn.textContent      = '✓ Sent';
-      btn.style.background = 'var(--accent3)';
-      btn.style.color      = '#fff';
-
-      nameEl.value    = '';
-      emailEl.value   = '';
-      messageEl.value = '';
-
-      setTimeout(() => {
-        btn.disabled         = false;
-        btn.textContent      = 'Send Message →';
-        btn.style.background = '';
-        btn.style.color      = '';
-        status.textContent   = '';
-        status.className     = 'form-status';
-      }, 5000);
-
-    } else {
-      const errMsg = data?.errors?.map(e => e.message).join(', ')
-                  || data?.error
-                  || `Error ${res.status}`;
-      throw new Error(errMsg);
+    const honeypotEl = document.getElementById('cf-honeypot');
+    if (honeypotEl && honeypotEl.value !== '') {
+      status.textContent = '✓ Message sent!';
+      status.className   = 'form-status success';
+      form.reset();
+      return;
     }
 
-  } catch (err) {
-    console.error('Form error:', err);
-    status.textContent = `✗ ${err.message || 'Failed to send. Please email me directly at m.awais@aigenmat.com'}`;
-    status.className   = 'form-status error';
-    btn.disabled       = false;
-    btn.textContent    = 'Send Message →';
-  }
-}
+    const purpose    = document.getElementById('cf-purpose').value.trim();
+    const name       = document.getElementById('cf-name').value.trim();
+    const occupation = document.getElementById('cf-occupation').value.trim();
+    const email      = document.getElementById('cf-email').value.trim();
+    const subject    = document.getElementById('cf-subject').value.trim();
+    const message    = document.getElementById('cf-message').value.trim();
+    const company    = document.getElementById('cf-company').value.trim();
+    const phone      = document.getElementById('cf-phone').value.trim();
 
-// Enter key on name/email fields
-document.querySelectorAll('#f-name, #f-email').forEach(input => {
-  input.addEventListener('keydown', e => {
-    if (e.key === 'Enter') {
-      const btn = document.getElementById('submitBtn');
-      if (btn) btn.click();
+    if (!purpose || !name || !occupation || !email || !subject || !message) {
+      status.textContent = '⚠ Please fill in all required fields.';
+      status.className   = 'form-status error';
+      return;
+    }
+    if (name.length < 2) {
+      status.textContent = '⚠ Please enter your full name.';
+      status.className   = 'form-status error';
+      return;
+    }
+
+    const emailCheck = validateEmail(email);
+    if (!emailCheck.valid) {
+      status.textContent = `⚠ ${emailCheck.reason}`;
+      status.className   = 'form-status error';
+      document.getElementById('cf-email').focus();
+      return;
+    }
+
+    if (message.length < 10) {
+      status.textContent = '⚠ Message is too short. Please tell me more.';
+      status.className   = 'form-status error';
+      return;
+    }
+    if (message.length > 2000) {
+      status.textContent = '⚠ Message is too long (max 2000 characters).';
+      status.className   = 'form-status error';
+      return;
+    }
+
+    const rateCheck = checkRateLimit();
+    if (!rateCheck.allowed) {
+      status.textContent = `⚠ ${rateCheck.reason}`;
+      status.className   = 'form-status error';
+      return;
+    }
+
+    const formspreeURL = form.action;
+    if (!formspreeURL || formspreeURL.includes('YOUR_FORM_ID') || formspreeURL.endsWith('/f/')) {
+      status.textContent = '✓ [Demo mode] Add Formspree ID to hugo.toml.';
+      status.className   = 'form-status success';
+      return;
+    }
+
+    btn.disabled       = true;
+    btn.textContent    = 'Sending...';
+    status.textContent = 'Sending your message...';
+    status.className   = 'form-status loading';
+
+    try {
+      // Use FormData (not JSON) so Formspree's reCAPTCHA validation works,
+      // matching the existing homepage form's approach.
+      const formData = new FormData();
+      formData.append('purpose',    purpose);
+      formData.append('name',       name);
+      formData.append('occupation', occupation);
+      formData.append('email',      email);
+      formData.append('subject',    subject);
+      formData.append('message',    message);
+      if (company) formData.append('company', company);
+      if (phone)   formData.append('phone', phone);
+
+      const res  = await fetch(formspreeURL, {
+        method:  'POST',
+        headers: { 'Accept': 'application/json' },
+        body:    formData
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (res.ok) {
+        lastSubmitTime = Date.now();
+        submitAttempts++;
+
+        status.textContent   = "✓ Message sent! I'll get back to you soon.";
+        status.className     = 'form-status success';
+        btn.textContent      = '✓ Sent';
+        btn.style.background = 'var(--accent3)';
+        btn.style.color      = '#fff';
+
+        form.reset();
+
+        setTimeout(() => {
+          btn.disabled         = false;
+          btn.textContent      = 'Send Message →';
+          btn.style.background = '';
+          btn.style.color      = '';
+          status.textContent   = '';
+          status.className     = 'form-status';
+        }, 5000);
+
+      } else {
+        const errMsg = data?.errors?.map(e => e.message).join(', ')
+                    || data?.error
+                    || `Error ${res.status}`;
+        throw new Error(errMsg);
+      }
+
+    } catch (err) {
+      console.error('Contact form error:', err);
+      status.textContent = `✗ ${err.message || 'Failed to send. Please email me directly at m.awais@aigenmat.com'}`;
+      status.className   = 'form-status error';
+      btn.disabled       = false;
+      btn.textContent    = 'Send Message →';
     }
   });
-});
+})();
 
 // ── PREMIUM INTERACTIONS ────────────────────────────────────────────────
 (function initInteractions() {
@@ -435,3 +558,194 @@ document.querySelectorAll('#f-name, #f-email').forEach(input => {
     el.addEventListener('mouseleave', () => { r = null; el.style.transform = ''; });
   });
 }());
+
+// ── SITE SEARCH ──────────────────────────────────────────────────────────
+// Lazy-loaded (fetched only when opened), vanilla JS, no dependencies.
+// Reuses the existing mobile-menu body-scroll-lock pattern; the mobile
+// close-on-interaction list (above) already includes #searchTrigger.
+(function () {
+  const trigger  = document.getElementById('searchTrigger');
+  const overlay  = document.getElementById('searchOverlay');
+  const backdrop = document.getElementById('searchBackdrop');
+  const panel    = overlay ? overlay.querySelector('.search-panel') : null;
+  const input    = document.getElementById('searchInput');
+  const closeBtn = document.getElementById('searchClose');
+  const results  = document.getElementById('searchResults');
+  if (!trigger || !overlay || !panel || !input || !closeBtn || !results) return;
+
+  let indexData    = null;
+  let indexLoaded   = false;
+  let indexLoading  = false;
+  let lastFocused   = null;
+  let activeIndex   = -1;
+  let currentItems  = [];
+  let debounceTimer = null;
+
+  const TYPE_LABELS = {
+    projects: 'Project', blog: 'Blog', articles: 'Article',
+    publications: 'Publication', activities: 'Activity',
+    achievements: 'Achievement', about: 'Page', contact: 'Page',
+    aigenmat: 'Page'
+  };
+  function typeLabel(type) { return TYPE_LABELS[type] || type || 'Page'; }
+
+  function escapeHtml(str) {
+    return String(str).replace(/[&<>"']/g, c => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[c]));
+  }
+
+  async function loadIndex() {
+    if (indexLoaded || indexLoading) return;
+    indexLoading = true;
+    try {
+      const res = await fetch('/search-index.json');
+      indexData = await res.json();
+      indexLoaded = true;
+    } catch (err) {
+      console.error('Search index failed to load:', err);
+      indexData = [];
+    }
+    indexLoading = false;
+  }
+
+  // Title first, then tags, then summary — matches the required priority order.
+  function scoreMatch(doc, q) {
+    const title   = (doc.title || '').toLowerCase();
+    const tags    = (doc.tags || []).join(' ').toLowerCase();
+    const summary = (doc.summary || '').toLowerCase();
+    if (title.includes(q))   return 3;
+    if (tags.includes(q))    return 2;
+    if (summary.includes(q)) return 1;
+    return 0;
+  }
+
+  function runSearch(query) {
+    const q = query.trim().toLowerCase();
+    input.setAttribute('aria-expanded', q ? 'true' : 'false');
+
+    if (!q) {
+      currentItems = [];
+      activeIndex  = -1;
+      results.innerHTML = '<p class="search-hint">Start typing to search the site.</p>';
+      input.removeAttribute('aria-activedescendant');
+      return;
+    }
+
+    const scored = (indexData || [])
+      .map(doc => ({ doc, score: scoreMatch(doc, q) }))
+      .filter(x => x.score > 0)
+      .sort((a, b) => b.score - a.score);
+
+    // De-dupe by permalink defensively.
+    const seen = new Set();
+    currentItems = [];
+    scored.forEach(x => {
+      if (!seen.has(x.doc.permalink)) {
+        seen.add(x.doc.permalink);
+        currentItems.push(x.doc);
+      }
+    });
+
+    activeIndex = currentItems.length ? 0 : -1;
+    renderResults();
+  }
+
+  function renderResults() {
+    if (!currentItems.length) {
+      results.innerHTML = '<p class="search-empty">No results found.</p>';
+      input.removeAttribute('aria-activedescendant');
+      return;
+    }
+    results.innerHTML = currentItems.map((doc, i) => {
+      const id      = 'search-result-' + i;
+      const dateStr = doc.date ? `<span class="search-result-date">${escapeHtml(doc.date)}</span>` : '';
+      const summary = doc.summary ? `<p class="search-result-summary">${escapeHtml(doc.summary)}</p>` : '';
+      return `<a href="${escapeHtml(doc.permalink)}" class="search-result${i === activeIndex ? ' active' : ''}" id="${id}" role="option" aria-selected="${i === activeIndex}">
+        <div class="search-result-top">
+          <span class="search-result-type">${escapeHtml(typeLabel(doc.type))}</span>
+          ${dateStr}
+        </div>
+        <p class="search-result-title">${escapeHtml(doc.title)}</p>
+        ${summary}
+      </a>`;
+    }).join('');
+    if (activeIndex >= 0) {
+      input.setAttribute('aria-activedescendant', 'search-result-' + activeIndex);
+    }
+  }
+
+  function moveActive(delta) {
+    if (!currentItems.length) return;
+    activeIndex = (activeIndex + delta + currentItems.length) % currentItems.length;
+    renderResults();
+    const el = document.getElementById('search-result-' + activeIndex);
+    if (el) el.scrollIntoView({ block: 'nearest' });
+  }
+
+  function getFocusable() {
+    return Array.from(panel.querySelectorAll('input, button, a[href]'));
+  }
+
+  function trapFocus(e) {
+    const focusable = getFocusable();
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last  = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault(); last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault(); first.focus();
+    }
+  }
+
+  async function openSearch() {
+    lastFocused = document.activeElement;
+    overlay.hidden = false;
+    trigger.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+    results.innerHTML = '<p class="search-hint">Start typing to search the site.</p>';
+    input.value = '';
+    activeIndex = -1;
+    input.focus();
+    await loadIndex();
+  }
+
+  function closeSearch() {
+    if (overlay.hidden) return;
+    overlay.hidden = true;
+    trigger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+    if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+  }
+
+  trigger.addEventListener('click', openSearch);
+  closeBtn.addEventListener('click', closeSearch);
+  backdrop.addEventListener('click', closeSearch);
+
+  input.addEventListener('input', () => {
+    clearTimeout(debounceTimer);
+    const value = input.value;
+    debounceTimer = setTimeout(() => runSearch(value), 150);
+  });
+
+  overlay.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      closeSearch();
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      moveActive(1);
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      moveActive(-1);
+    } else if (e.key === 'Enter') {
+      if (activeIndex >= 0 && currentItems[activeIndex]) {
+        e.preventDefault();
+        window.location.href = currentItems[activeIndex].permalink;
+      }
+    } else if (e.key === 'Tab') {
+      trapFocus(e);
+    }
+  });
+})();
