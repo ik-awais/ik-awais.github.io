@@ -1,0 +1,3830 @@
+%PDF-1.3
+%ºß¬à
+3 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 612. 792.]
+/Contents 4 0 R
+>>
+endobj
+4 0 obj
+<<
+/Length 5241
+>>
+stream
+0.200025 w
+0 G
+BT
+/F2 9 Tf
+10.3499999999999996 TL
+0.588 0.157 0.157 rg
+56. 752. Td
+(CONFIDENTIAL) Tj
+ET
+0.86 G
+56. 744. m
+556. 744. l
+S
+q
+/GS1 gs
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 632. Tm
+(Muhammad Awais) Tj
+ET
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 452. Tm
+(Muhammad Awais) Tj
+ET
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 272. Tm
+(Muhammad Awais) Tj
+ET
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 92. Tm
+(Muhammad Awais) Tj
+ET
+Q
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.549 g
+56. 28. Td
+(© Muhammad Awais — Confidential) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.549 g
+551.6000000000000227 28. Td
+(1) Tj
+ET
+BT
+/F2 20 Tf
+23. TL
+0.059 g
+56. 700. Td
+(Operating Systems Explained for Normal People) Tj
+ET
+BT
+/F1 9.5 Tf
+10.9249999999999989 TL
+0.471 g
+56. 672. Td
+(May 1, 2026) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 647. Td
+(Most people use their computers the way most people drive cars — they know where the ignition is, how to) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 632. Td
+(steer, and that's about it. They have no idea what's happening under the hood.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 609. Td
+(That's fine for casual use. But the moment something goes wrong, or you need to do something slightly) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 594. Td
+(beyond clicking an icon, you're lost.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 571. Td
+(This article fixes that. It won't turn you into a sysadmin. It will make you the kind of person who isn't helpless) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 556. Td
+(with their own machine — which, in most rooms, already puts you ahead of most people.) Tj
+ET
+0.86 G
+56. 533. m
+556. 533. l
+S
+BT
+/F2 14.5 Tf
+16.6749999999999972 TL
+0.059 g
+56. 503. Td
+(Part of the Tech Survival Series) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 484. Td
+(This article is part of an ongoing series that started with You Don't Need to Be a Programmer to Be a Tech) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 469. Td
+(Person \(/blog/tech-survival-guide-2026/\).) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 446. Td
+(That article laid out twelve foundational skills that separate genuinely tech-literate people from everyone) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 431. Td
+(else. Operating systems were the first item on that list — and for good reason. Everything else runs on top) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 416. Td
+(of your OS. Understanding it isn't optional.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 393. Td
+(This article goes deeper. Where the original gave you a map of the territory, this one walks you through it.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 378. Td
+(Future articles in this series will go deeper into each operating system individually:) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 355. Td
+(•  Windows 11 Power User Guide) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 337. Td
+(•  macOS Power User Guide) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 319. Td
+(•  Linux Fundamentals for Beginners) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 301. Td
+(•  Ubuntu in VirtualBox — Beginner Guide) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 283. Td
+(•  And more) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 265. Td
+(Think of this as the starting point for that path.) Tj
+ET
+0.86 G
+56. 242. m
+556. 242. l
+S
+BT
+/F2 14.5 Tf
+16.6749999999999972 TL
+0.059 g
+56. 212. Td
+(What an Operating System Actually Is) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 193. Td
+(Here's the simplest accurate explanation: an operating system is the software that makes your hardware) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 178. Td
+(usable.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 155. Td
+(Your computer is, at its core, a collection of physical components — a processor, memory, storage, a) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 140. Td
+(screen. Without software, none of it does anything. The operating system is the first layer of software that) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 125. Td
+(starts when you power on, talks to all that hardware, and creates the environment where everything else —) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 110. Td
+(your browser, your files, your apps — can run.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 87. Td
+(When you save a file, the OS figures out where to put it on disk. When you open an app, the OS loads it into) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.549 g
+56. 28. Td
+(© Muhammad Awais — Confidential) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.549 g
+551.6000000000000227 28. Td
+(1) Tj
+ET
+endstream
+endobj
+5 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 612. 792.]
+/Contents 6 0 R
+>>
+endobj
+6 0 obj
+<<
+/Length 5389
+>>
+stream
+0.200025 w
+0.86 G
+BT
+/F2 9 Tf
+10.3499999999999996 TL
+0.588 0.157 0.157 rg
+56. 752. Td
+(CONFIDENTIAL) Tj
+ET
+0.86 G
+56. 744. m
+556. 744. l
+S
+q
+/GS1 gs
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 632. Tm
+(Muhammad Awais) Tj
+ET
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 452. Tm
+(Muhammad Awais) Tj
+ET
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 272. Tm
+(Muhammad Awais) Tj
+ET
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 92. Tm
+(Muhammad Awais) Tj
+ET
+Q
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 700. Td
+(memory and gives it processor time. When you plug in a USB drive, the OS detects it, loads the right driver,) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 685. Td
+(and makes it appear in your file explorer. You never see any of this. It just works — until it doesn't.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 662. Td
+(The three operating systems that matter in 2026:) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 639. Td
+(•  Windows 11 — runs on roughly 72% of the world's personal computers. Default for most people.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 621. Td
+(•  macOS — runs exclusively on Apple hardware. Dominant in creative and developer circles.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 603. Td
+(•  Linux — runs on the vast majority of servers, cloud infrastructure, Android phones, and an increasing) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 588. Td
+(number of laptops. Not as scary as it sounds.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 570. Td
+(Understanding all three at a basic level isn't overkill. It's the price of entry to technical fluency.) Tj
+ET
+0.86 G
+56. 547. m
+556. 547. l
+S
+BT
+/F2 14.5 Tf
+16.6749999999999972 TL
+0.059 g
+56. 517. Td
+(Why Understanding Your OS Matters) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 498. Td
+(Here's a practical framing: the people who understand their operating system can do things in ten minutes) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 483. Td
+(that everyone else needs IT support for.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 460. Td
+(They know where files actually live. They know why an app is running slowly. They know how to install and) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 445. Td
+(remove software cleanly. They know what to check when something breaks. They can set up a new) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 430. Td
+(machine quickly instead of spending a week getting it to feel right.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 407. Td
+(None of this requires a computer science degree. It requires the same kind of familiarity you'd get from) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 392. Td
+(actually learning your car instead of just driving it.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 369. Td
+(The payoff compounds. Every tool in the Tech Survival Series \(/blog/tech-survival-guide-2026/\) — the) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 354. Td
+(command line, Docker, Git, cloud deployments — sits on top of your OS. If the foundation is shaky,) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 339. Td
+(everything above it is harder.) Tj
+ET
+0.86 G
+56. 316. m
+556. 316. l
+S
+BT
+/F2 14.5 Tf
+16.6749999999999972 TL
+0.059 g
+56. 286. Td
+(Core Habits That Make You Good With Computers) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 267. Td
+(Before going into any specific OS, these habits apply everywhere. They're the difference between someone) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 252. Td
+(who's comfortable with technology and someone who isn't.) Tj
+ET
+BT
+/F2 12.5 Tf
+14.3749999999999982 TL
+0.059 g
+56. 221. Td
+(Learn the Keyboard First) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 202. Td
+(People who use computers well use their keyboards more than their mice. Not because it's faster to type) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 187. Td
+(than click — it often is — but because keyboard shortcuts represent a deep knowledge of what your tools) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 172. Td
+(can actually do. Every shortcut you learn is a workflow you've internalized.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 149. Td
+(This isn't about memorizing a list. It's about paying attention when you see a shortcut mentioned and) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 134. Td
+(actually using it until it's automatic.) Tj
+ET
+BT
+/F2 12.5 Tf
+14.3749999999999982 TL
+0.059 g
+56. 103. Td
+(Understand the Filesystem) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 84. Td
+(Every operating system organizes files in a hierarchy — folders inside folders, starting from a single root) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.549 g
+56. 28. Td
+(© Muhammad Awais — Confidential) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.549 g
+551.6000000000000227 28. Td
+(2) Tj
+ET
+endstream
+endobj
+7 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 612. 792.]
+/Contents 8 0 R
+>>
+endobj
+8 0 obj
+<<
+/Length 5414
+>>
+stream
+0.200025 w
+0.86 G
+BT
+/F2 9 Tf
+10.3499999999999996 TL
+0.588 0.157 0.157 rg
+56. 752. Td
+(CONFIDENTIAL) Tj
+ET
+0.86 G
+56. 744. m
+556. 744. l
+S
+q
+/GS1 gs
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 632. Tm
+(Muhammad Awais) Tj
+ET
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 452. Tm
+(Muhammad Awais) Tj
+ET
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 272. Tm
+(Muhammad Awais) Tj
+ET
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 92. Tm
+(Muhammad Awais) Tj
+ET
+Q
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 700. Td
+(location. Most people only ever see their Downloads and Desktop folders. That's like knowing only two) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 685. Td
+(rooms in a large building.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 662. Td
+(Learn where things live. Learn what the system folders are for. Learn not to put everything on your Desktop) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 647. Td
+(because it feels convenient.) Tj
+ET
+BT
+/F2 12.5 Tf
+14.3749999999999982 TL
+0.059 g
+56. 616. Td
+(Read Error Messages) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 597. Td
+(When something breaks, most people panic. People who are good with computers read the error message) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 582. Td
+(first. Error messages are usually specific. They often tell you exactly what went wrong and sometimes) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 567. Td
+(where. The habit of actually reading what's on screen before doing anything else solves an enormous) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 552. Td
+(number of problems.) Tj
+ET
+BT
+/F2 12.5 Tf
+14.3749999999999982 TL
+0.059 g
+56. 521. Td
+(Use a Password Manager) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 502. Td
+(Bitwarden \(https://bitwarden.com\) is free, open source, and works on every platform. Using one password) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 487. Td
+(manager with unique, strong passwords for every account is the single most impactful security improvement) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 472. Td
+(most people can make. We'll cover this more in the Security section below.) Tj
+ET
+BT
+/F2 12.5 Tf
+14.3749999999999982 TL
+0.059 g
+56. 441. Td
+(Keep Things Updated) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 422. Td
+(Software updates exist primarily to patch security vulnerabilities. An unpatched system is a liability. Enable) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 407. Td
+(automatic updates for your OS and keep your apps current. This is basic hygiene, not optional.) Tj
+ET
+0.86 G
+56. 384. m
+556. 384. l
+S
+BT
+/F2 14.5 Tf
+16.6749999999999972 TL
+0.059 g
+56. 354. Td
+(Windows 11: How to Use It Like a Power User) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 335. Td
+(Windows 11 runs on more than 900 million devices worldwide. It's what most people use, and most people) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 320. Td
+(use it badly — meaning they use maybe 20% of what it can do and are helpless when anything unusual) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 305. Td
+(happens.) Tj
+ET
+BT
+/F2 12.5 Tf
+14.3749999999999982 TL
+0.059 g
+56. 274. Td
+(Where Things Live) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 255. Td
+(The Windows filesystem starts at C:\\. That's the root of everything on your primary drive.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 232. Td
+(Key locations to know:) Tj
+ET
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.235 g
+62. 205. Td
+(Location: C:\\Users\\YourName\\   –   What It's For: Your personal files — Documents, Downloads, Desktop, Pictures) Tj
+ET
+0.92 G
+56. 196. m
+556. 196. l
+S
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.235 g
+62. 188. Td
+(Location: C:\\Program Files\\   –   What It's For: Apps installed for all users on the machine) Tj
+ET
+0.92 G
+56. 179. m
+556. 179. l
+S
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.235 g
+62. 171. Td
+(Location: C:\\Program Files \(x86\)\\   –   What It's For: Older 32-bit apps) Tj
+ET
+0.92 G
+56. 162. m
+556. 162. l
+S
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.235 g
+62. 154. Td
+(Location: C:\\Windows\\System32\\   –   What It's For: Core OS files. Don't touch these.) Tj
+ET
+0.92 G
+56. 145. m
+556. 145. l
+S
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.235 g
+62. 137. Td
+(Location: C:\\ProgramData\\   –   What It's For: App data shared across users, usually hidden) Tj
+ET
+0.92 G
+56. 128. m
+556. 128. l
+S
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.235 g
+62. 120. Td
+(Location: %AppData%   –   What It's For: Per-user app settings \(type this directly into File Explorer address bar\)) Tj
+ET
+0.92 G
+56. 111. m
+556. 111. l
+S
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 95. Td
+(The %AppData% trick is worth memorizing. Many apps store their configs and data there, and knowing that) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.549 g
+56. 28. Td
+(© Muhammad Awais — Confidential) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.549 g
+551.6000000000000227 28. Td
+(3) Tj
+ET
+endstream
+endobj
+9 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 612. 792.]
+/Contents 10 0 R
+>>
+endobj
+10 0 obj
+<<
+/Length 6019
+>>
+stream
+0.200025 w
+0.92 G
+BT
+/F2 9 Tf
+10.3499999999999996 TL
+0.588 0.157 0.157 rg
+56. 752. Td
+(CONFIDENTIAL) Tj
+ET
+0.86 G
+56. 744. m
+556. 744. l
+S
+q
+/GS1 gs
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 632. Tm
+(Muhammad Awais) Tj
+ET
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 452. Tm
+(Muhammad Awais) Tj
+ET
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 272. Tm
+(Muhammad Awais) Tj
+ET
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 92. Tm
+(Muhammad Awais) Tj
+ET
+Q
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 700. Td
+(saves significant time when troubleshooting or migrating between machines.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 677. Td
+(File Explorer tips that most people miss:) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 654. Td
+(•  Press Alt + Up to go up one folder level) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 636. Td
+(•  Press Ctrl + L to jump directly to the address bar and type a path) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 618. Td
+(•  Press Ctrl + Shift + N to create a new folder) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 600. Td
+( •     C l i c k   " V i e w "  !’   " S h o w "  !’   " H i d d e n   I t e m s "   t o   r e v e a l   h i d d e n   f i l e s   a n d   f o l d e r s   —   t h i s   i s   o f f   b y   d e f a u l t   a n d   y o u ' l l) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 585. Td
+(need it eventually) Tj
+ET
+BT
+/F2 12.5 Tf
+14.3749999999999982 TL
+0.059 g
+56. 559. Td
+(Essential Keyboard Shortcuts) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 540. Td
+(These aren't nice-to-haves. They're the difference between working with your computer and fighting it.) Tj
+ET
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.235 g
+62. 513. Td
+(Shortcut: Win + D   –   What It Does: Show/hide desktop) Tj
+ET
+0.92 G
+56. 504. m
+556. 504. l
+S
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.235 g
+62. 496. Td
+(Shortcut: Win + E   –   What It Does: Open File Explorer) Tj
+ET
+0.92 G
+56. 487. m
+556. 487. l
+S
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.235 g
+62. 479. Td
+(Shortcut: Win + L   –   What It Does: Lock the screen immediately) Tj
+ET
+0.92 G
+56. 470. m
+556. 470. l
+S
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.235 g
+62. 462. Td
+(Shortcut: Win + V   –   What It Does: Open clipboard history \(stores last 25 copied items\)) Tj
+ET
+0.92 G
+56. 453. m
+556. 453. l
+S
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.235 g
+62. 445. Td
+(Shortcut: Win + Shift + S   –   What It Does: Screenshot a selected area) Tj
+ET
+0.92 G
+56. 436. m
+556. 436. l
+S
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.235 g
+62. 428. Td
+(Shortcut: Win + Tab   –   What It Does: Task view — see all open windows and virtual desktops) Tj
+ET
+0.92 G
+56. 419. m
+556. 419. l
+S
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.235 g
+62. 411. Td
+(Shortcut: Alt + Tab   –   What It Does: Switch between open apps) Tj
+ET
+0.92 G
+56. 402. m
+556. 402. l
+S
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.235 g
+62. 394. Td
+(Shortcut: Ctrl + Shift + Esc   –   What It Does: Open Task Manager directly) Tj
+ET
+0.92 G
+56. 385. m
+556. 385. l
+S
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.235 g
+62. 377. Td
+(Shortcut: Win + X   –   What It Does: Power user menu — quick access to Device Manager, Terminal, Disk Management) Tj
+ET
+0.92 G
+56. 368. m
+556. 368. l
+S
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.235 g
+62. 360. Td
+(Shortcut: Win + .   –   What It Does: Emoji picker) Tj
+ET
+0.92 G
+56. 351. m
+556. 351. l
+S
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.235 g
+62. 343. Td
+(Shortcut: F2   –   What It Does: Rename selected file) Tj
+ET
+0.92 G
+56. 334. m
+556. 334. l
+S
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.235 g
+62. 326. Td
+(Shortcut: Ctrl + Z   –   What It Does: Undo \(works in File Explorer too, not just text\)) Tj
+ET
+0.92 G
+56. 317. m
+556. 317. l
+S
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 301. Td
+(Win + V is the one most people don't know about and immediately start using constantly once they discover) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 286. Td
+(it.) Tj
+ET
+BT
+/F2 12.5 Tf
+14.3749999999999982 TL
+0.059 g
+56. 255. Td
+(Task Manager) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 236. Td
+(Task Manager \(Ctrl + Shift + Esc\) is your diagnostic dashboard. Most people only know it as "the thing you) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 221. Td
+(open when something crashes." It's much more useful than that.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 198. Td
+(Processes tab: Shows everything running, with CPU, memory, disk, and network usage per process. If your) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 183. Td
+(computer is running slow, this is the first place to look. Sort by CPU or Memory to find the culprit.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 160. Td
+(Performance tab: Real-time graphs of CPU, memory, disk, and network. Useful for understanding whether) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 145. Td
+(your machine is resource-constrained or whether a specific app is the problem.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 122. Td
+(Startup tab: Shows everything that launches automatically when Windows starts. This is where you disable) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 107. Td
+(the software that's been silently adding itself to your startup for years and making boot times miserable.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 92. Td
+(Right-click anything unnecessary and disable it.) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.549 g
+56. 28. Td
+(© Muhammad Awais — Confidential) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.549 g
+551.6000000000000227 28. Td
+(4) Tj
+ET
+endstream
+endobj
+11 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 612. 792.]
+/Contents 12 0 R
+>>
+endobj
+12 0 obj
+<<
+/Length 5365
+>>
+stream
+0.200025 w
+0.92 G
+BT
+/F2 9 Tf
+10.3499999999999996 TL
+0.588 0.157 0.157 rg
+56. 752. Td
+(CONFIDENTIAL) Tj
+ET
+0.86 G
+56. 744. m
+556. 744. l
+S
+q
+/GS1 gs
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 632. Tm
+(Muhammad Awais) Tj
+ET
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 452. Tm
+(Muhammad Awais) Tj
+ET
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 272. Tm
+(Muhammad Awais) Tj
+ET
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 92. Tm
+(Muhammad Awais) Tj
+ET
+Q
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 700. Td
+(App history tab: Cumulative resource usage per app — useful for identifying which apps have been) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 685. Td
+(consistently heavy users over time.) Tj
+ET
+BT
+/F2 12.5 Tf
+14.3749999999999982 TL
+0.059 g
+56. 654. Td
+(Installing Software Safely) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 635. Td
+(Windows has no centralized app store that people actually use for most software. This means you're often) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 620. Td
+(downloading installers from websites, which is a vector for malware.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 597. Td
+(Rules for safe software installation:) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 574. Td
+(•  Download from the official website only. Search for the app name and go to the developer's site — not a) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 559. Td
+(download aggregator like Softonic or CNET, which bundle garbage with installers.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 541. Td
+(•  Use winget when possible. Windows now ships with a package manager. Open Terminal and run winget) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 526. Td
+(install appname to install software from a verified source without touching a browser. Try winget install) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 511. Td
+(firefox or winget install vlc.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 493. Td
+(•  Read the installer screens. Many installers include opt-out checkboxes for bundled software. Don't just) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 478. Td
+(click Next repeatedly.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 460. Td
+(•  Check VirusTotal. If you're uncertain about a downloaded file, drag it to virustotal.com) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 445. Td
+(\(https://www.virustotal.com\) and it'll be scanned by 70+ antivirus engines.) Tj
+ET
+0.86 G
+56. 427. m
+556. 427. l
+S
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 411. Td
+( C o n t i n u e   L e a r n i n g  !’) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 388. Td
+(•  Windows 11 Power User Guide \(coming soon\)) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 370. Td
+(•  Windows Keyboard Shortcuts That Actually Matter \(coming soon\)) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 352. Td
+(•  Task Manager, Activity Monitor & System Monitor Explained \(coming soon\)) Tj
+ET
+0.86 G
+56. 334. m
+556. 334. l
+S
+BT
+/F2 14.5 Tf
+16.6749999999999972 TL
+0.059 g
+56. 304. Td
+(macOS: How to Actually Understand Your Mac) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 285. Td
+(macOS is built on a Unix foundation — which means it's more closely related to Linux than it is to Windows) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 270. Td
+(under the hood. This matters because concepts you learn in macOS transfer directly to Linux, and vice) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 255. Td
+(versa.) Tj
+ET
+BT
+/F2 12.5 Tf
+14.3749999999999982 TL
+0.059 g
+56. 224. Td
+(The Mental Model) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 205. Td
+(The Mac filesystem starts at / — the root. Your personal files live at /Users/yourname/. This is the same) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 190. Td
+(structure as Linux, which makes it far easier to understand once you know one of them.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 167. Td
+(macOS hides the filesystem from casual users more aggressively than Windows does. Finder doesn't show) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 152. Td
+(the full directory tree by default. To fix this:) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 129. Td
+( •     O p e n   F i n d e r  !’   P r e f e r e n c e s   \( o r   S e t t i n g s   i n   n e w e r   m a c O S \)  !’   S i d e b a r  !’   e n a b l e   y o u r   h o m e   f o l d e r) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 111. Td
+(•  Press Cmd + Shift + H in Finder to jump to your home folder) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 93. Td
+(•  Press Cmd + Shift + G to type any path directly) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.549 g
+56. 28. Td
+(© Muhammad Awais — Confidential) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.549 g
+551.6000000000000227 28. Td
+(5) Tj
+ET
+endstream
+endobj
+13 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 612. 792.]
+/Contents 14 0 R
+>>
+endobj
+14 0 obj
+<<
+/Length 6016
+>>
+stream
+0.200025 w
+0.86 G
+BT
+/F2 9 Tf
+10.3499999999999996 TL
+0.588 0.157 0.157 rg
+56. 752. Td
+(CONFIDENTIAL) Tj
+ET
+0.86 G
+56. 744. m
+556. 744. l
+S
+q
+/GS1 gs
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 632. Tm
+(Muhammad Awais) Tj
+ET
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 452. Tm
+(Muhammad Awais) Tj
+ET
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 272. Tm
+(Muhammad Awais) Tj
+ET
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 92. Tm
+(Muhammad Awais) Tj
+ET
+Q
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 700. Td
+(Key locations:) Tj
+ET
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.235 g
+62. 673. Td
+(Location: /Users/yourname/   –   What It's For: Your personal files) Tj
+ET
+0.92 G
+56. 664. m
+556. 664. l
+S
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.235 g
+62. 656. Td
+(Location: /Applications/   –   What It's For: Installed apps) Tj
+ET
+0.92 G
+56. 647. m
+556. 647. l
+S
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.235 g
+62. 639. Td
+(Location: /Library/   –   What It's For: System-wide app data and configurations) Tj
+ET
+0.92 G
+56. 630. m
+556. 630. l
+S
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.235 g
+62. 622. Td
+(Location: ~/Library/   –   What It's For: Your personal app data \(hidden by default\)) Tj
+ET
+0.92 G
+56. 613. m
+556. 613. l
+S
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.235 g
+62. 605. Td
+(Location: /System/   –   What It's For: Core OS files. Leave these alone.) Tj
+ET
+0.92 G
+56. 596. m
+556. 596. l
+S
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 580. Td
+(To reveal the hidden ~/Library folder: in Finder, hold Option and click the Go menu — it appears.) Tj
+ET
+BT
+/F2 12.5 Tf
+14.3749999999999982 TL
+0.059 g
+56. 549. Td
+(Essential Shortcuts) Tj
+ET
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.235 g
+62. 526. Td
+(Shortcut: Cmd + Space   –   What It Does: Spotlight Search — find anything, launch any app) Tj
+ET
+0.92 G
+56. 517. m
+556. 517. l
+S
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.235 g
+62. 509. Td
+(Shortcut: Cmd + Tab   –   What It Does: Switch between open apps) Tj
+ET
+0.92 G
+56. 500. m
+556. 500. l
+S
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.235 g
+62. 492. Td
+(Shortcut: Cmd + ~ \(backtick\)   –   What It Does: Switch between windows of the same app) Tj
+ET
+0.92 G
+56. 483. m
+556. 483. l
+S
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.235 g
+62. 475. Td
+(Shortcut: Cmd + Shift + 4   –   What It Does: Screenshot a selected area) Tj
+ET
+0.92 G
+56. 466. m
+556. 466. l
+S
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.235 g
+62. 458. Td
+(Shortcut: Cmd + Shift + 4 + Space   –   What It Does: Screenshot a specific window) Tj
+ET
+0.92 G
+56. 449. m
+556. 449. l
+S
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.235 g
+62. 441. Td
+(Shortcut: Cmd + Q   –   What It Does: Quit an app \(clicking the red X just hides it\)) Tj
+ET
+0.92 G
+56. 432. m
+556. 432. l
+S
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.235 g
+62. 424. Td
+(Shortcut: Cmd + Option + Esc   –   What It Does: Force quit a frozen app) Tj
+ET
+0.92 G
+56. 415. m
+556. 415. l
+S
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.235 g
+62. 407. Td
+(Shortcut: Cmd + ,   –   What It Does: Open preferences in almost any app) Tj
+ET
+0.92 G
+56. 398. m
+556. 398. l
+S
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.235 g
+62. 390. Td
+(Shortcut: Ctrl + Cmd + Q   –   What It Does: Lock screen) Tj
+ET
+0.92 G
+56. 381. m
+556. 381. l
+S
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.235 g
+62. 373. Td
+(Shortcut: Cmd + Shift + .   –   What It Does: Show hidden files in Finder) Tj
+ET
+0.92 G
+56. 364. m
+556. 364. l
+S
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 348. Td
+(The Cmd + Q vs red X distinction catches almost every new Mac user. On macOS, clicking the red dot) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 333. Td
+(closes the window but keeps the app running in the Dock. Cmd + Q actually quits it. This is why Macs can) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 318. Td
+(accumulate dozens of "open" apps invisibly.) Tj
+ET
+BT
+/F2 12.5 Tf
+14.3749999999999982 TL
+0.059 g
+56. 287. Td
+(Built-In Apps Worth Actually Using) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 268. Td
+(macOS ships with tools most people ignore:) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 245. Td
+( •     A c t i v i t y   M o n i t o r   —   t h e   m a c O S   e q u i v a l e n t   o f   W i n d o w s   T a s k   M a n a g e r .   L o c a t e d   i n   A p p l i c a t i o n s  !’   U t i l i t i e s .) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 230. Td
+(Check CPU, Memory, Disk, Network, and Energy tabs.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 212. Td
+(•  Disk Utility — manage storage, format drives, repair disk permissions, create disk images.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 194. Td
+(•  Console — view system logs. When something crashes and you want to know why, Console tells you.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 176. Td
+(•  Terminal — the command line. Everything in the CLI section of the Tech Survival article) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 161. Td
+(\(/blog/tech-survival-guide-2026/\) applies here.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 143. Td
+(•  Automator / Shortcuts — automate repetitive tasks without writing code. More powerful than most people) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 128. Td
+(realize.) Tj
+ET
+BT
+/F2 12.5 Tf
+14.3749999999999982 TL
+0.059 g
+56. 102. Td
+(Installing Software Safely) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 83. Td
+(macOS has the App Store for vetted software. For everything else:) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.549 g
+56. 28. Td
+(© Muhammad Awais — Confidential) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.549 g
+551.6000000000000227 28. Td
+(6) Tj
+ET
+endstream
+endobj
+15 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 612. 792.]
+/Contents 16 0 R
+>>
+endobj
+16 0 obj
+<<
+/Length 5617
+>>
+stream
+0.200025 w
+0.92 G
+BT
+/F2 9 Tf
+10.3499999999999996 TL
+0.588 0.157 0.157 rg
+56. 752. Td
+(CONFIDENTIAL) Tj
+ET
+0.86 G
+56. 744. m
+556. 744. l
+S
+q
+/GS1 gs
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 632. Tm
+(Muhammad Awais) Tj
+ET
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 452. Tm
+(Muhammad Awais) Tj
+ET
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 272. Tm
+(Muhammad Awais) Tj
+ET
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 92. Tm
+(Muhammad Awais) Tj
+ET
+Q
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 700. Td
+(•  Homebrew is the package manager for macOS. Install it from brew.sh \(https://brew.sh\). Then: brew) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 685. Td
+(install appname. This is the equivalent of winget on Windows but far more mature — it's been around since) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 670. Td
+(2009 and has a massive library of tools.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 652. Td
+(•  For GUI apps, use brew install --cask appname \(e.g., brew install --cask firefox\).) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 634. Td
+(•  For anything downloaded manually, macOS will warn you about apps from unidentified developers. This) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 619. Td
+( i s   G a t e k e e p e r   d o i n g   i t s   j o b .   I f   y o u   t r u s t   t h e   s o u r c e ,   g o   t o   S y s t e m   S e t t i n g s  !’   P r i v a c y   &   S e c u r i t y   a n d) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 604. Td
+(explicitly allow it.) Tj
+ET
+0.86 G
+56. 586. m
+556. 586. l
+S
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 570. Td
+( C o n t i n u e   L e a r n i n g  !’) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 547. Td
+(•  macOS Power User Guide \(coming soon\)) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 529. Td
+(•  macOS Shortcuts That Save Hours \(coming soon\)) Tj
+ET
+0.86 G
+56. 511. m
+556. 511. l
+S
+BT
+/F2 14.5 Tf
+16.6749999999999972 TL
+0.059 g
+56. 481. Td
+(Linux: Enough to Not Be Lost) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 462. Td
+(Linux powers roughly 96% of the world's top 1 million web servers. Every major cloud platform runs on it.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 447. Td
+(Android — the OS on about 72% of smartphones — is built on the Linux kernel. If you interact with the) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 432. Td
+(internet, you interact with Linux constantly, whether you know it or not.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 409. Td
+(You don't need to use Linux as your daily driver. You do need to understand it at a basic level, because you) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 394. Td
+(will encounter it — on servers, in Docker containers, in cloud VMs, in developer tools.) Tj
+ET
+BT
+/F2 12.5 Tf
+14.3749999999999982 TL
+0.059 g
+56. 363. Td
+(The Filesystem) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 344. Td
+(Linux uses a single unified filesystem tree starting at /. There are no drive letters like Windows. Everything) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 329. Td
+(— including external drives, network shares, and USB sticks — is mounted somewhere inside that tree.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 306. Td
+(Key directories:) Tj
+ET
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.235 g
+62. 279. Td
+(Path: /   –   What It's For: Root of the entire filesystem) Tj
+ET
+0.92 G
+56. 270. m
+556. 270. l
+S
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.235 g
+62. 262. Td
+(Path: /home/yourname/   –   What It's For: Your personal files) Tj
+ET
+0.92 G
+56. 253. m
+556. 253. l
+S
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.235 g
+62. 245. Td
+(Path: /etc/   –   What It's For: System configuration files) Tj
+ET
+0.92 G
+56. 236. m
+556. 236. l
+S
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.235 g
+62. 228. Td
+(Path: /var/log/   –   What It's For: System and application logs) Tj
+ET
+0.92 G
+56. 219. m
+556. 219. l
+S
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.235 g
+62. 211. Td
+(Path: /usr/bin/   –   What It's For: Installed programs available to all users) Tj
+ET
+0.92 G
+56. 202. m
+556. 202. l
+S
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.235 g
+62. 194. Td
+(Path: /tmp/   –   What It's For: Temporary files, cleared on reboot) Tj
+ET
+0.92 G
+56. 185. m
+556. 185. l
+S
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.235 g
+62. 177. Td
+(Path: /proc/   –   What It's For: Not real files — a live view of the kernel and running processes) Tj
+ET
+0.92 G
+56. 168. m
+556. 168. l
+S
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 152. Td
+(The most important one to know is /var/log/. When something breaks on a Linux system, the first thing you) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 137. Td
+(do is check the logs there.) Tj
+ET
+BT
+/F2 12.5 Tf
+14.3749999999999982 TL
+0.059 g
+56. 106. Td
+(Ubuntu Desktop) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 87. Td
+(Ubuntu \(https://ubuntu.com\) is the most beginner-friendly Linux distribution. It has a GUI \(GNOME desktop\)) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.549 g
+56. 28. Td
+(© Muhammad Awais — Confidential) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.549 g
+551.6000000000000227 28. Td
+(7) Tj
+ET
+endstream
+endobj
+17 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 612. 792.]
+/Contents 18 0 R
+>>
+endobj
+18 0 obj
+<<
+/Length 5780
+>>
+stream
+0.200025 w
+0.92 G
+BT
+/F2 9 Tf
+10.3499999999999996 TL
+0.588 0.157 0.157 rg
+56. 752. Td
+(CONFIDENTIAL) Tj
+ET
+0.86 G
+56. 744. m
+556. 744. l
+S
+q
+/GS1 gs
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 632. Tm
+(Muhammad Awais) Tj
+ET
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 452. Tm
+(Muhammad Awais) Tj
+ET
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 272. Tm
+(Muhammad Awais) Tj
+ET
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 92. Tm
+(Muhammad Awais) Tj
+ET
+Q
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 700. Td
+(that isn't dramatically different from Windows or macOS. Files, apps, settings — it's all there.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 677. Td
+(The most useful thing you can do before committing to Linux is install Ubuntu in a virtual machine on your) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 662. Td
+(existing computer. It costs nothing. VirtualBox is free. You can experiment, break things, and learn without) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 647. Td
+(any risk to your main system. A full walkthrough for this is coming in the Ubuntu in VirtualBox — Beginner) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 632. Td
+(Guide.) Tj
+ET
+BT
+/F2 12.5 Tf
+14.3749999999999982 TL
+0.059 g
+56. 601. Td
+(Terminal Basics) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 582. Td
+(The Linux terminal is where real work happens. The commands that matter most for a beginner:) Tj
+ET
+0.96 0.96 0.97 rg
+52. 568. 508. -122. re
+f
+BT
+/F5 8.5 Tf
+9.7749999999999986 TL
+0.157 g
+58. 559. Td
+(ls -la          # list all files including hidden ones, with details) Tj
+ET
+BT
+/F5 8.5 Tf
+9.7749999999999986 TL
+0.157 g
+58. 548. Td
+(cd /path/       # navigate to a directory) Tj
+ET
+BT
+/F5 8.5 Tf
+9.7749999999999986 TL
+0.157 g
+58. 537. Td
+(pwd             # show current location) Tj
+ET
+BT
+/F5 8.5 Tf
+9.7749999999999986 TL
+0.157 g
+58. 526. Td
+(cp source dest  # copy a file) Tj
+ET
+BT
+/F5 8.5 Tf
+9.7749999999999986 TL
+0.157 g
+58. 515. Td
+(mv source dest  # move or rename a file) Tj
+ET
+BT
+/F5 8.5 Tf
+9.7749999999999986 TL
+0.157 g
+58. 504. Td
+(rm filename     # delete a file \(permanent — no recycle bin\)) Tj
+ET
+BT
+/F5 8.5 Tf
+9.7749999999999986 TL
+0.157 g
+58. 493. Td
+(cat filename    # print file contents) Tj
+ET
+BT
+/F5 8.5 Tf
+9.7749999999999986 TL
+0.157 g
+58. 482. Td
+(less filename   # read a file page by page \(q to quit\)) Tj
+ET
+BT
+/F5 8.5 Tf
+9.7749999999999986 TL
+0.157 g
+58. 471. Td
+(man command     # read the manual for any command) Tj
+ET
+BT
+/F5 8.5 Tf
+9.7749999999999986 TL
+0.157 g
+58. 460. Td
+(clear           # clear the terminal screen) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 439. Td
+(One command worth memorizing specifically: man. Every Linux tool has a manual page. man ls tells you) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 424. Td
+(everything ls can do. man grep explains every option for searching text. When in doubt, read the manual.) Tj
+ET
+BT
+/F2 12.5 Tf
+14.3749999999999982 TL
+0.059 g
+56. 393. Td
+(Package Management) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 374. Td
+(Linux uses package managers to install software. No downloading installers from websites. No clicking) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 359. Td
+(through wizards. One command installs the software, its dependencies, and adds it to your system cleanly.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 336. Td
+(On Ubuntu \(and other Debian-based distros\):) Tj
+ET
+0.96 0.96 0.97 rg
+52. 322. 508. -56. re
+f
+BT
+/F5 8.5 Tf
+9.7749999999999986 TL
+0.157 g
+58. 313. Td
+(sudo apt update              # refresh the list of available packages) Tj
+ET
+BT
+/F5 8.5 Tf
+9.7749999999999986 TL
+0.157 g
+58. 302. Td
+(sudo apt install packagename # install a package) Tj
+ET
+BT
+/F5 8.5 Tf
+9.7749999999999986 TL
+0.157 g
+58. 291. Td
+(sudo apt remove packagename  # uninstall a package) Tj
+ET
+BT
+/F5 8.5 Tf
+9.7749999999999986 TL
+0.157 g
+58. 280. Td
+(sudo apt upgrade             # update all installed packages) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 259. Td
+(sudo means "run this as administrator." Linux never lets you make system-wide changes without explicitly) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 244. Td
+(escalating privileges — unlike Windows, where many things run as admin by default.) Tj
+ET
+BT
+/F2 12.5 Tf
+14.3749999999999982 TL
+0.059 g
+56. 213. Td
+(File Permissions) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 194. Td
+(Every file and folder in Linux has permissions attached to it: who can read it, who can write to it, and who) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 179. Td
+(can execute it. This is a fundamental concept, not an advanced one.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 156. Td
+(When you run ls -la, you see something like this:) Tj
+ET
+0.96 0.96 0.97 rg
+52. 142. 508. -23. re
+f
+BT
+/F5 8.5 Tf
+9.7749999999999986 TL
+0.157 g
+58. 133. Td
+(-rw-r--r--  1 awais  staff  4096  May 1 09:00  notes.txt) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 112. Td
+(That -rw-r--r-- is the permission string:) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 89. Td
+(•  First character: - means file, d means directory) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.549 g
+56. 28. Td
+(© Muhammad Awais — Confidential) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.549 g
+551.6000000000000227 28. Td
+(8) Tj
+ET
+endstream
+endobj
+19 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 612. 792.]
+/Contents 20 0 R
+>>
+endobj
+20 0 obj
+<<
+/Length 5156
+>>
+stream
+0.200025 w
+0.86 G
+BT
+/F2 9 Tf
+10.3499999999999996 TL
+0.588 0.157 0.157 rg
+56. 752. Td
+(CONFIDENTIAL) Tj
+ET
+0.86 G
+56. 744. m
+556. 744. l
+S
+q
+/GS1 gs
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 632. Tm
+(Muhammad Awais) Tj
+ET
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 452. Tm
+(Muhammad Awais) Tj
+ET
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 272. Tm
+(Muhammad Awais) Tj
+ET
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 92. Tm
+(Muhammad Awais) Tj
+ET
+Q
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 700. Td
+(•  Next three: what the owner can do \(rw- = read and write, no execute\)) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 682. Td
+(•  Next three: what the group can do \(r-- = read only\)) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 664. Td
+(•  Last three: what everyone else can do \(r-- = read only\)) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 646. Td
+(To change permissions:) Tj
+ET
+0.96 0.96 0.97 rg
+52. 632. 508. -34. re
+f
+BT
+/F5 8.5 Tf
+9.7749999999999986 TL
+0.157 g
+58. 623. Td
+(chmod 600 file.txt    # owner can read/write, nobody else can touch it) Tj
+ET
+BT
+/F5 8.5 Tf
+9.7749999999999986 TL
+0.157 g
+58. 612. Td
+(chmod 755 script.sh   # owner can do everything, others can read and run) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 591. Td
+(This matters practically: SSH keys must have permissions set to 600, or SSH will refuse to use them. Config) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 576. Td
+(files with passwords in them should never be world-readable.) Tj
+ET
+0.86 G
+56. 553. m
+556. 553. l
+S
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 537. Td
+( C o n t i n u e   L e a r n i n g  !’) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 514. Td
+(•  Linux Fundamentals for Beginners \(coming soon\)) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 496. Td
+(•  Linux Terminal Basics \(coming soon\)) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 478. Td
+(•  Ubuntu in VirtualBox — Beginner Guide \(coming soon\)) Tj
+ET
+0.86 G
+56. 460. m
+556. 460. l
+S
+BT
+/F2 14.5 Tf
+16.6749999999999972 TL
+0.059 g
+56. 430. Td
+(Cross-Platform Tools and Habits) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 411. Td
+(Some things matter regardless of which OS you use.) Tj
+ET
+BT
+/F2 12.5 Tf
+14.3749999999999982 TL
+0.059 g
+56. 380. Td
+(Browsers) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 361. Td
+(Your browser is the application you spend most of your time in. Learn it properly.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 338. Td
+(•  Developer Tools \(F12 or Cmd + Option + I\) exist in every major browser. The Console tab shows) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 323. Td
+(JavaScript errors. The Network tab shows every request a page makes. You don't need to understand all of) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 308. Td
+(it — but knowing it's there and glancing at the Console when something doesn't load is a habit worth) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 293. Td
+(building.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 275. Td
+(•  Extensions worth having: uBlock Origin \(ad and tracker blocking\), Bitwarden \(password manager\), and) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 260. Td
+(nothing else. Extension bloat slows browsers down and increases your attack surface.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 242. Td
+(•  Profiles: Chrome, Firefox, and Edge all support multiple browser profiles. Use one for personal, one for) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 227. Td
+(work. Keeps cookies, history, and extensions separate.) Tj
+ET
+BT
+/F2 12.5 Tf
+14.3749999999999982 TL
+0.059 g
+56. 201. Td
+(Password Managers) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 182. Td
+(This was mentioned in the habits section and deserves its own space because most people still aren't using) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 167. Td
+(one.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 144. Td
+(A password manager generates and stores a unique, random, strong password for every account you have.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 129. Td
+(You only ever need to remember one master password. The alternative — reusing passwords, or using) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 114. Td
+(weak memorable ones — means a single breach anywhere exposes every account you have that shares) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 99. Td
+(that password.) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.549 g
+56. 28. Td
+(© Muhammad Awais — Confidential) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.549 g
+551.6000000000000227 28. Td
+(9) Tj
+ET
+endstream
+endobj
+21 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 612. 792.]
+/Contents 22 0 R
+>>
+endobj
+22 0 obj
+<<
+/Length 5429
+>>
+stream
+0.200025 w
+0.86 G
+BT
+/F2 9 Tf
+10.3499999999999996 TL
+0.588 0.157 0.157 rg
+56. 752. Td
+(CONFIDENTIAL) Tj
+ET
+0.86 G
+56. 744. m
+556. 744. l
+S
+q
+/GS1 gs
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 632. Tm
+(Muhammad Awais) Tj
+ET
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 452. Tm
+(Muhammad Awais) Tj
+ET
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 272. Tm
+(Muhammad Awais) Tj
+ET
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 92. Tm
+(Muhammad Awais) Tj
+ET
+Q
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 700. Td
+(Bitwarden \(https://bitwarden.com\) is the recommendation here: free, open source, audited, cross-platform. It) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 685. Td
+(works on Windows, macOS, Linux, iOS, and Android. It has browser extensions that autofill passwords. The) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 670. Td
+(barrier to starting is under 10 minutes.) Tj
+ET
+BT
+/F2 12.5 Tf
+14.3749999999999982 TL
+0.059 g
+56. 639. Td
+(Security Basics) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 620. Td
+(A few things that apply on every platform:) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 597. Td
+(Two-factor authentication \(2FA\): Enable it on every important account — email, GitHub, banking, password) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 582. Td
+(manager. Even if someone gets your password, they can't log in without your second factor. Use an) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 567. Td
+(authenticator app \(Google Authenticator, Authy, or the one built into Bitwarden\) rather than SMS where) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 552. Td
+(possible. SMS 2FA is better than nothing but can be bypassed through SIM swapping.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 529. Td
+(Disk encryption: Windows has BitLocker \(available in Pro edition\). macOS has FileVault. Linux has LUKS.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 514. Td
+(Enable it. If your laptop is stolen, an encrypted disk means your data is unreadable. An unencrypted one) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 499. Td
+(means everything on it is accessible in minutes by anyone with basic knowledge.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 476. Td
+(Public WiFi: Don't access sensitive accounts on public WiFi without a VPN. Coffee shop networks are) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 461. Td
+(trivially easy to monitor. A commercial VPN \(Mullvad \(https://mullvad.net\) or ProtonVPN) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 446. Td
+(\(https://protonvpn.com\)\) costs a few dollars a month and removes that risk.) Tj
+ET
+BT
+/F2 12.5 Tf
+14.3749999999999982 TL
+0.059 g
+56. 415. Td
+(Backups) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 396. Td
+(The 3-2-1 rule: 3 copies of important data, on 2 different types of media, with 1 stored offsite.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 373. Td
+(In practice for most people: your main machine, an external drive, and a cloud backup \(Backblaze Personal) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 358. Td
+(Backup is $99/year for unlimited storage\). If your laptop is stolen or dies, you restore from backup and lose) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 343. Td
+(nothing.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 320. Td
+(Time Machine on macOS does this automatically to an external drive. Windows has File History. On Linux,) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 305. Td
+(rsync or tools like Déjà Dup handle it. The specific tool matters less than actually having a backup that) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 290. Td
+(you've tested restoring from.) Tj
+ET
+0.86 G
+56. 267. m
+556. 267. l
+S
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 251. Td
+( C o n t i n u e   L e a r n i n g  !’) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 228. Td
+(•  Password Managers & Digital Security Basics \(coming soon\)) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 210. Td
+(•  Safe Software Installation Guide \(coming soon\)) Tj
+ET
+0.86 G
+56. 192. m
+556. 192. l
+S
+BT
+/F2 14.5 Tf
+16.6749999999999972 TL
+0.059 g
+56. 162. Td
+(A Practical Challenge List) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 143. Td
+(Reading about this isn't enough. Here are ten concrete things to do that will build genuine familiarity with) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 128. Td
+(your operating system.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 105. Td
+(•  Open Task Manager \(Windows\) or Activity Monitor \(macOS\) and identify the top three processes using) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 90. Td
+(memory right now. Look up any you don't recognize.) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.549 g
+56. 28. Td
+(© Muhammad Awais — Confidential) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.549 g
+547.2000000000000455 28. Td
+(10) Tj
+ET
+endstream
+endobj
+23 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 612. 792.]
+/Contents 24 0 R
+>>
+endobj
+24 0 obj
+<<
+/Length 5621
+>>
+stream
+0.200025 w
+0.86 G
+BT
+/F2 9 Tf
+10.3499999999999996 TL
+0.588 0.157 0.157 rg
+56. 752. Td
+(CONFIDENTIAL) Tj
+ET
+0.86 G
+56. 744. m
+556. 744. l
+S
+q
+/GS1 gs
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 632. Tm
+(Muhammad Awais) Tj
+ET
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 452. Tm
+(Muhammad Awais) Tj
+ET
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 272. Tm
+(Muhammad Awais) Tj
+ET
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 92. Tm
+(Muhammad Awais) Tj
+ET
+Q
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 700. Td
+(•  Find where a specific application stores its configuration data on your machine.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 682. Td
+( •     D i s a b l e   a t   l e a s t   t w o   s t a r t u p   p r o g r a m s   y o u   d o n ' t   n e e d   \( T a s k   M a n a g e r  !’   S t a r t u p   t a b   o n   W i n d o w s ;   S y s t e m) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 667. Td
+( S e t t i n g s  !’   G e n e r a l  !’   L o g i n   I t e m s   o n   m a c O S \) .) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 649. Td
+(•  Install Bitwarden and migrate at least five passwords into it.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 631. Td
+(•  Enable disk encryption on your machine if it isn't already \(BitLocker / FileVault\).) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 613. Td
+(•  Install one piece of software using winget \(Windows\) or brew \(macOS\) instead of downloading an) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 598. Td
+(installer from the web.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 580. Td
+(•  Open your terminal and navigate to three different directories using only keyboard commands.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 562. Td
+(•  Enable two-factor authentication on your email account.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 544. Td
+(•  Find the system logs on your computer and identify the last time something crashed or threw an error.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 526. Td
+(•  Install Ubuntu in VirtualBox and spend one hour navigating it without using your mouse.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 508. Td
+(None of these take more than an hour each. All of them will teach you something concrete.) Tj
+ET
+0.86 G
+56. 485. m
+556. 485. l
+S
+BT
+/F2 14.5 Tf
+16.6749999999999972 TL
+0.059 g
+56. 455. Td
+(Where to Go Next) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 436. Td
+(This article covered the terrain. The next step is to pick one area and go deeper.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 413. Td
+(If you use Windows daily: start with the Windows 11 Power User Guide and Windows Keyboard Shortcuts) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 398. Td
+(That Actually Matter \(coming soon\).) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 375. Td
+(If you're on a Mac: work through the macOS Power User Guide and spend a week actually using the) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 360. Td
+(shortcuts listed here \(coming soon\).) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 337. Td
+(If you want to understand the infrastructure the whole tech world runs on: install Ubuntu in VirtualBox and) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 322. Td
+(read the Linux Fundamentals for Beginners guide \(coming soon\).) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 299. Td
+(And if you haven't read the original article that started this series — You Don't Need to Be a Programmer to) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 284. Td
+(Be a Tech Person \(/blog/tech-survival-guide-2026/\) — read that first. It gives you the full map. This article is) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 269. Td
+(one road on it.) Tj
+ET
+0.86 G
+56. 246. m
+556. 246. l
+S
+BT
+/F2 14.5 Tf
+16.6749999999999972 TL
+0.059 g
+56. 216. Td
+(Related Reading) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+56. 197. Td
+(If you found this useful, these are worth your time:) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 174. Td
+(•  You Don't Need to Be a Programmer to Be a Tech Person \(/blog/tech-survival-guide-2026/\) — The full) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 159. Td
+(12-skill framework for becoming genuinely tech-literate in 2026. Start here if you haven't.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 141. Td
+(•  Hypervisors, KVM & QEMU Complete Guide \(/blog/hypervisors-kvm-qemu-complete-guide/\) — A deep) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 126. Td
+(technical walkthrough of running virtual machines on Linux using KVM and QEMU. The natural next step) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 111. Td
+(after getting comfortable with Linux basics.) Tj
+ET
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 93. Td
+(•  How I Built This Portfolio \(/blog/portfolio-development-guide/\) — A behind-the-scenes look at building a) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.549 g
+56. 28. Td
+(© Muhammad Awais — Confidential) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.549 g
+547.2000000000000455 28. Td
+(11) Tj
+ET
+endstream
+endobj
+25 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 612. 792.]
+/Contents 26 0 R
+>>
+endobj
+26 0 obj
+<<
+/Length 1626
+>>
+stream
+0.200025 w
+0.86 G
+BT
+/F2 9 Tf
+10.3499999999999996 TL
+0.588 0.157 0.157 rg
+56. 752. Td
+(CONFIDENTIAL) Tj
+ET
+0.86 G
+56. 744. m
+556. 744. l
+S
+q
+/GS1 gs
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 632. Tm
+(Muhammad Awais) Tj
+ET
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 452. Tm
+(Muhammad Awais) Tj
+ET
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 272. Tm
+(Muhammad Awais) Tj
+ET
+BT
+/F2 34 Tf
+39.0999999999999943 TL
+0.078 g
+0.8191520442889918 0.573576436351046 -0.573576436351046 0.8191520442889918 158.0999999999999943 92. Tm
+(Muhammad Awais) Tj
+ET
+Q
+BT
+/F1 10.5 Tf
+12.0749999999999993 TL
+0.118 g
+60. 700. Td
+(Hugo-powered static site from scratch, with GitHub Actions deployment. Practical and honest.) Tj
+ET
+0.75 G
+56. 668. m
+556. 668. l
+S
+BT
+/F2 10.5 Tf
+12.0749999999999993 TL
+0.059 g
+56. 650. Td
+(Usage & Distribution) Tj
+ET
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.353 g
+56. 631. Td
+(This document is confidential and is the property of Muhammad Awais. It may not be reused, reproduced, redistributed,) Tj
+ET
+BT
+/F1 9 Tf
+10.3499999999999996 TL
+0.353 g
+56. 618.5 Td
+(republished, or otherwise used, in whole or in part, without prior consent from Muhammad Awais.) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.549 g
+56. 28. Td
+(© Muhammad Awais — Confidential) Tj
+ET
+BT
+/F1 8 Tf
+9.1999999999999993 TL
+0.549 g
+547.2000000000000455 28. Td
+(12) Tj
+ET
+endstream
+endobj
+1 0 obj
+<</Type /Pages
+/Kids [3 0 R 5 0 R 7 0 R 9 0 R 11 0 R 13 0 R 15 0 R 17 0 R 19 0 R 21 0 R 23 0 R 25 0 R ]
+/Count 12
+>>
+endobj
+27 0 obj
+<<
+/Type /Font
+/BaseFont /Helvetica
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+28 0 obj
+<<
+/Type /Font
+/BaseFont /Helvetica-Bold
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+29 0 obj
+<<
+/Type /Font
+/BaseFont /Helvetica-Oblique
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+30 0 obj
+<<
+/Type /Font
+/BaseFont /Helvetica-BoldOblique
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+31 0 obj
+<<
+/Type /Font
+/BaseFont /Courier
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+32 0 obj
+<<
+/Type /Font
+/BaseFont /Courier-Bold
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+33 0 obj
+<<
+/Type /Font
+/BaseFont /Courier-Oblique
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+34 0 obj
+<<
+/Type /Font
+/BaseFont /Courier-BoldOblique
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+35 0 obj
+<<
+/Type /Font
+/BaseFont /Times-Roman
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+36 0 obj
+<<
+/Type /Font
+/BaseFont /Times-Bold
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+37 0 obj
+<<
+/Type /Font
+/BaseFont /Times-Italic
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+38 0 obj
+<<
+/Type /Font
+/BaseFont /Times-BoldItalic
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+39 0 obj
+<<
+/Type /Font
+/BaseFont /ZapfDingbats
+/Subtype /Type1
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+40 0 obj
+<<
+/Type /Font
+/BaseFont /Symbol
+/Subtype /Type1
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+41 0 obj
+<<
+/ca 0.07
+>>
+endobj
+2 0 obj
+<<
+/ProcSet [/PDF /Text /ImageB /ImageC /ImageI]
+/Font <<
+/F1 27 0 R
+/F2 28 0 R
+/F3 29 0 R
+/F4 30 0 R
+/F5 31 0 R
+/F6 32 0 R
+/F7 33 0 R
+/F8 34 0 R
+/F9 35 0 R
+/F10 36 0 R
+/F11 37 0 R
+/F12 38 0 R
+/F13 39 0 R
+/F14 40 0 R
+>>
+/ExtGState <<
+/GS1 41 0 R
+>>
+/XObject <<
+>>
+>>
+endobj
+42 0 obj
+<<
+/Producer (jsPDF 4.2.1)
+/CreationDate (D:20260814025816-00'00')
+>>
+endobj
+43 0 obj
+<<
+/Type /Catalog
+/Pages 1 0 R
+/OpenAction [3 0 R /FitH null]
+/PageLayout /OneColumn
+>>
+endobj
+xref
+0 44
+0000000000 65535 f 
+0000064598 00000 n 
+0000066526 00000 n 
+0000000015 00000 n 
+0000000120 00000 n 
+0000005413 00000 n 
+0000005518 00000 n 
+0000010959 00000 n 
+0000011064 00000 n 
+0000016530 00000 n 
+0000016636 00000 n 
+0000022708 00000 n 
+0000022815 00000 n 
+0000028233 00000 n 
+0000028340 00000 n 
+0000034409 00000 n 
+0000034516 00000 n 
+0000040186 00000 n 
+0000040293 00000 n 
+0000046126 00000 n 
+0000046233 00000 n 
+0000051442 00000 n 
+0000051549 00000 n 
+0000057031 00000 n 
+0000057138 00000 n 
+0000062812 00000 n 
+0000062919 00000 n 
+0000064730 00000 n 
+0000064856 00000 n 
+0000064987 00000 n 
+0000065121 00000 n 
+0000065259 00000 n 
+0000065383 00000 n 
+0000065512 00000 n 
+0000065644 00000 n 
+0000065780 00000 n 
+0000065908 00000 n 
+0000066035 00000 n 
+0000066164 00000 n 
+0000066297 00000 n 
+0000066399 00000 n 
+0000066495 00000 n 
+0000066808 00000 n 
+0000066894 00000 n 
+trailer
+<<
+/Size 44
+/Root 43 0 R
+/Info 42 0 R
+/ID [ <026AC00528C893ED0714BAFEE4E8F2AC> <026AC00528C893ED0714BAFEE4E8F2AC> ]
+>>
+startxref
+66998
+%%EOF

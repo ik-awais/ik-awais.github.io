@@ -107,6 +107,30 @@
     <loc>http://localhost:1313/blog/tech-survival-guide-2026/</loc>
     <lastmod>2026-04-12T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>http://localhost:1313/articles/</loc>
+    <lastmod>2026-03-30T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/computational-humanities/</loc>
+    <lastmod>2026-03-30T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/articles/decolonizing-gendered-subjectivities/</loc>
+    <lastmod>2026-03-30T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/publications/decolonizing-gendered-subjectivities/</loc>
+    <lastmod>2026-03-30T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/literary-analysis/</loc>
+    <lastmod>2026-03-30T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/monte-carlo-simulation/</loc>
+    <lastmod>2026-03-30T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/postcolonial-feminism/</loc>
+    <lastmod>2026-03-30T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/publications/</loc>
+    <lastmod>2026-03-30T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/tags/ci/cd/</loc>
     <lastmod>2026-03-17T00:00:00+00:00</lastmod>
   </url><url>
@@ -215,17 +239,11 @@
     <loc>http://localhost:1313/tags/web-search/</loc>
     <lastmod>2026-06-21T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/about/about/</loc>
-  </url><url>
-    <loc>http://localhost:1313/about/</loc>
-  </url><url>
     <loc>http://localhost:1313/achievements/</loc>
   </url><url>
     <loc>http://localhost:1313/aigenmat/</loc>
   </url><url>
     <loc>http://localhost:1313/experience/aigenmat/</loc>
-  </url><url>
-    <loc>http://localhost:1313/articles/</loc>
   </url><url>
     <loc>http://localhost:1313/education/college/</loc>
   </url><url>

@@ -1,0 +1,97 @@
+[{
+    "title": "LectureLens: AI-Powered Study Assistant with RAG \u0026 Hybrid Search",
+    "summary": "A production-grade Flask application that ingests PDF, DOCX, and PPTX lecture materials, indexes them with ChromaDB vector embeddings and SQLite FTS5 full-text search, then answers natural-language questions via a RAG pipeline powered by NVIDIA's LLaMA 3.3 70B, complete with page-level source citations.",
+    "type": "projects",
+    "section": "projects",
+    "tags": ["RAG","LLM","Flask","Python","ChromaDB","Hybrid Search","NVIDIA API","Sentence Transformers","SQLite","NLP","Vector Database","AI Study Assistant"],
+    "date": "2026-06-15",
+    "permalink": "/projects/lecturelens/"
+  },{
+    "title": "Operating Systems Explained for Normal People",
+    "summary": "What an operating system actually is, why it matters, and how to use Windows, macOS, and Linux like someone who knows what they're doing — no programming required.",
+    "type": "blog",
+    "section": "blog",
+    "tags": ["Operating Systems","Windows 11","macOS","Linux","Computer Basics","Tech Skills","Beginner","Ubuntu","Security"],
+    "date": "2026-05-01",
+    "permalink": "/blog/operating-systems-explained/"
+  },{
+    "title": "You Don't Need to Be a Programmer to Be a Tech Person",
+    "summary": "The real tech skills that put you in the top 10% of your environment — no CS degree required.",
+    "type": "blog",
+    "section": "blog",
+    "tags": ["Linux","CLI","Networking","Docker","Git","Python","Security","Cloud","AI","Career"],
+    "date": "2026-04-12",
+    "permalink": "/blog/tech-survival-guide-2026/"
+  },{
+    "title": "Decolonizing Gendered Subjectivities in Mohammed Hanif's Rebel English Academy: A Postcolonial Feminist Analysis of Language, Power, and Identity",
+    "summary": "A postcolonial feminist and computational literary analysis of language, power, and gendered identity in Mohammed Hanif's Rebel English Academy, co-authored and published in Social Science Review Archives.",
+    "type": "articles",
+    "section": "articles",
+    "tags": ["Postcolonial Feminism","Literary Analysis","Computational Humanities","Monte Carlo Simulation"],
+    "date": "2026-03-30",
+    "permalink": "/articles/decolonizing-gendered-subjectivities/"
+  },{
+    "title": "Decolonizing Gendered Subjectivities in Mohammed Hanif's Rebel English Academy: A Postcolonial Feminist Analysis of Language, Power, and Identity",
+    "summary": "A postcolonial feminist and computational literary analysis of language, power, and gendered identity in Mohammed Hanif's Rebel English Academy, published in Social Science Review Archives.",
+    "type": "publications",
+    "section": "publications",
+    "tags": ["Postcolonial Feminism","Literary Analysis","Computational Humanities","Monte Carlo Simulation"],
+    "date": "2026-03-30",
+    "permalink": "/publications/decolonizing-gendered-subjectivities/"
+  },{
+    "title": "How I Built My Portfolio Website with Hugo from Scratch",
+    "summary": "A honest, detailed account of how I built my personal portfolio website from a single HTML file to a full Hugo-powered site with a blog, dark/light theme, animated UI, and automated deployment.",
+    "type": "blog",
+    "section": "blog",
+    "tags": ["Hugo","Web Development","CSS","GitHub Pages","CI/CD","Portfolio"],
+    "date": "2026-03-17",
+    "permalink": "/blog/portfolio-development-guide/"
+  },{
+    "title": "MediScan AI: Medical Image \u0026 Report Assistant",
+    "summary": "End-to-end medical imaging pipeline: OpenCV preprocessing → ViT classification → ResNet-18 + IsolationForest anomaly scoring → LLaMA 3.1 70B report generation, served as a FastAPI REST endpoint.",
+    "type": "projects",
+    "section": "projects",
+    "tags": ["AI","Computer Vision","LLaMA","FastAPI","PyTorch","Hugging Face","Medical AI","Vision Transformer","Anomaly Detection","NLP"],
+    "date": "2026-03-01",
+    "permalink": "/projects/mediscan-ai/"
+  },{
+    "title": "Hypervisors, KVM \u0026 QEMU: A Complete Guide to Virtual Machines on Ubuntu 24.04 LTS",
+    "summary": "A deep-dive guide from theory to practice — setting up virt-manager on Ubuntu 24.04 LTS, installing Windows 11, Kali Linux, and Parrot OS as virtual machines, passing GPU drivers, defeating Secure Boot, and fixing every error along the way.",
+    "type": "blog",
+    "section": "blog",
+    "tags": ["KVM","QEMU","Virtualization","Linux","Windows 11","Kali Linux","Parrot OS","virt-manager","Hypervisors"],
+    "date": "2025-10-10",
+    "permalink": "/blog/hypervisors-kvm-qemu-complete-guide/"
+  },{
+    "title": "Document Q\u0026A System",
+    "summary": "Production-ready RAG system built with LangChain, FAISS, and Streamlit. Upload PDF, DOCX, or TXT files and ask natural language questions with source citations and conversational follow-up memory.",
+    "type": "projects",
+    "section": "projects",
+    "tags": ["LangChain","FAISS","Streamlit","LLM","NLP","RAG","Python","Groq","Vector Search","Conversational AI"],
+    "date": "2025-02-01",
+    "permalink": "/projects/document-qa-system/"
+  },{
+    "title": "AI Research Assistant Agent",
+    "summary": "Autonomous AI research agent built with Python, Groq LLM, and Tavily Search API, searches the web, extracts multi-source content, and generates structured, cited research reports with PDF/TXT export.",
+    "type": "projects",
+    "section": "projects",
+    "tags": ["AI Agents","LLM","Web Search","Automation","Streamlit","Groq","Tavily","Python","RAG","NLP"],
+    "date": "2025-01-01",
+    "permalink": "/projects/ai-research-agent/"
+  },{
+    "title": "AI GenMat",
+    "summary": "AI GenMat, a family-owned AI services company where Muhammad Awais serves as Managing Director.",
+    "type": "aigenmat",
+    "section": "",
+    "tags": [],
+    "date": "",
+    "permalink": "/aigenmat/"
+  },{
+    "title": "Contact",
+    "summary": "Open to collaborations, AI consulting, freelance projects, or full-time roles. If you have an interesting problem, I'd love to hear about it.",
+    "type": "contact",
+    "section": "",
+    "tags": [],
+    "date": "",
+    "permalink": "/contact/"
+  }]

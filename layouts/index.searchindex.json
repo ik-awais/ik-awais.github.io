@@ -1,0 +1,23 @@
+{{- /*
+  Search index. Includes every RegularPage site-wide — Projects, Blog,
+  About, Contact, AI GenMat, and every Works/Education/Experience/
+  Achievements entry once real content exists there (currently empty
+  collections simply contribute nothing, which is correct).
+  Fields deliberately match only what's needed for search + result
+  display; no unrelated front matter is exposed.
+*/ -}}
+[
+{{- $pages := site.RegularPages -}}
+{{- range $i, $p := $pages -}}
+  {{- if $i }},{{ end -}}
+  {
+    "title": {{ $p.Title | jsonify }},
+    "summary": {{ ($p.Params.summary | default $p.Summary | default "") | plainify | jsonify }},
+    "type": {{ $p.Type | jsonify }},
+    "section": {{ $p.Section | jsonify }},
+    "tags": {{ ($p.Params.tags | default (slice)) | jsonify }},
+    "date": {{ if $p.Date.IsZero }}{{ "" | jsonify }}{{ else }}{{ $p.Date.Format "2006-01-02" | jsonify }}{{ end }},
+    "permalink": {{ $p.RelPermalink | jsonify }}
+  }
+{{- end -}}
+]

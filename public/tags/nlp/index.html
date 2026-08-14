@@ -5,17 +5,41 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://cdn.jsdelivr.net https://upload.wikimedia.org; connect-src 'self' https://formspree.io;">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
   <title>NLP | MA-Portfolio</title>
   
-  <meta name="description" content="Muhammad Awais, Managing Director, AI Developer & Program Manager at AI GenMat. Agentic AI, LLM, RAG Systems, NLP, Computer Vision.">
+  <meta name="description" content="Muhammad Awais, AI Engineer and Managing Director at AI GenMat. Agentic AI, LLM, RAG Systems, NLP, Computer Vision.">
   <meta name="keywords" content="Muhammad Awais, AI Engineer, AI GenMat, Agentic AI, LLM, RAG, NLP, Computer Vision, AI consultant">
+  
+
+
+
+
+<link rel="canonical" href="http://localhost:1313/tags/nlp/">
+
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="NLP | MA-Portfolio">
+<meta property="og:description" content="Muhammad Awais, AI Engineer and Managing Director at AI GenMat. Agentic AI, LLM, RAG Systems, NLP, Computer Vision.">
+<meta property="og:url" content="http://localhost:1313/tags/nlp/">
+<meta property="og:site_name" content="MA-Portfolio">
+
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NLP | MA-Portfolio">
+<meta name="twitter:description" content="Muhammad Awais, AI Engineer and Managing Director at AI GenMat. Agentic AI, LLM, RAG Systems, NLP, Computer Vision.">
+
+
+
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="/css/main.min.97c33eb8b4b8e31cfe7df3b3158026eee5c783a5db27d632cf011b9d386cbac0.css" integrity="sha256-l8M&#43;uLS44xz&#43;ffOzFYAm7uXHg6XbJ9YyzwEbnThsusA=">
+  <link rel="stylesheet" href="/css/main.min.2b76d4e83911974127f85cb144f4e95c58b1fb4b75bab6b0546ddf931bbe097c.css" integrity="sha256-K3bU6DkRl0En&#43;FyxRPTpXFix&#43;0t1urawVG3fkxu&#43;CXw=">
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -71,6 +95,9 @@
 
       <a href="https://github.com/ik-awais" target="_blank" rel="noopener">GitHub</a>
       <a href="https://www.linkedin.com/in/muhammad-awais-ai-engineer/" target="_blank" rel="noopener" class="cta-btn">LinkedIn</a>
+      <button class="search-trigger theme-toggle" id="searchTrigger" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="searchOverlay" aria-label="Search">
+        <svg viewBox="0 0 20 20" fill="none" aria-hidden="true" width="15" height="15"><circle cx="9" cy="9" r="6.3" stroke="currentColor" stroke-width="1.6"/><line x1="13.8" y1="13.8" x2="18" y2="18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
       <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle colour theme">
         <span class="icon-moon" aria-hidden="true">☽</span>
         <span class="icon-sun" aria-hidden="true">☀</span>
@@ -78,6 +105,18 @@
       <a href="https://www.upwork.com/freelancers/~018a2d0e2f88ac4838" target="_blank" rel="noopener" class="cta-btn cta-btn-primary">Hire Me</a>
     </div>
   </nav>
+
+  <div class="search-overlay" id="searchOverlay" hidden>
+    <div class="search-overlay-backdrop" id="searchBackdrop"></div>
+    <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search the site">
+      <div class="search-input-row">
+        <svg class="search-input-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="6.3" stroke="currentColor" stroke-width="1.6"/><line x1="13.8" y1="13.8" x2="18" y2="18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <input type="text" id="searchInput" class="search-input form-input" placeholder="Search projects, articles, pages&hellip;" autocomplete="off" spellcheck="false" aria-label="Search the site" role="combobox" aria-expanded="false" aria-controls="searchResults" aria-autocomplete="list">
+        <button type="button" class="search-close" id="searchClose" aria-label="Close search">&times;</button>
+      </div>
+      <div class="search-results" id="searchResults" role="listbox" aria-label="Search results"></div>
+    </div>
+  </div>
 
   <main id="main-content" tabindex="-1">
     

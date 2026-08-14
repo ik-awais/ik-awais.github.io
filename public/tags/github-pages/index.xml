@@ -1,19 +1,68 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>GitHub Pages on Muhammad Awais-Portfolio</title>
-    <link>http://localhost:1313/tags/github-pages/</link>
-    <description>Recent content in GitHub Pages on Muhammad Awais-Portfolio</description>
-    <generator>Hugo</generator>
-    <language>en-us</language>
-    <lastBuildDate>Tue, 17 Mar 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/github-pages/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>How I Built My Portfolio Website with Hugo from Scratch</title>
-      <link>http://localhost:1313/blog/portfolio-development-guide/</link>
-      <pubDate>Tue, 17 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/blog/portfolio-development-guide/</guid>
-      <description>A honest, detailed account of how I built my personal portfolio website from a single HTML file to a full Hugo-powered site with a blog, dark/light theme, animated UI, and automated deployment.</description>
-    </item>
-  </channel>
+<channel>
+  <title>MA-Portfolio</title>
+  <link>http://localhost:1313/tags/github-pages/</link>
+  <description>Recent content on MA-Portfolio</description>
+  <generator>Hugo</generator>
+  <language>en-us</language>
+  <lastBuildDate>Sun, 21 Jun 2026 00:00:00 +0000</lastBuildDate>
+  <atom:link href="http://localhost:1313/tags/github-pages/index.xml" rel="self" type="application/rss&#43;xml"/>
+  <item>
+    <title>LectureLens: AI-Powered Study Assistant with RAG &amp; Hybrid Search</title>
+    <link>http://localhost:1313/projects/lecturelens/</link>
+    <pubDate>Mon, 15 Jun 2026 00:00:00 +0000</pubDate>
+    <guid>http://localhost:1313/projects/lecturelens/</guid>
+    <description>A production-grade Flask application that ingests PDF, DOCX, and PPTX lecture materials, indexes them with ChromaDB vector embeddings and SQLite FTS5 full-text search, then answers natural-language questions via a RAG pipeline powered by NVIDIA's LLaMA 3.3 70B, complete with page-level source citations.</description>
+  </item>
+  <item>
+    <title>Operating Systems Explained for Normal People</title>
+    <link>http://localhost:1313/blog/operating-systems-explained/</link>
+    <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
+    <guid>http://localhost:1313/blog/operating-systems-explained/</guid>
+    <description>What an operating system actually is, why it matters, and how to use Windows, macOS, and Linux like someone who knows what they're doing — no programming required.</description>
+  </item>
+  <item>
+    <title>You Don&#39;t Need to Be a Programmer to Be a Tech Person</title>
+    <link>http://localhost:1313/blog/tech-survival-guide-2026/</link>
+    <pubDate>Sun, 12 Apr 2026 00:00:00 +0000</pubDate>
+    <guid>http://localhost:1313/blog/tech-survival-guide-2026/</guid>
+    <description>The real tech skills that put you in the top 10% of your environment — no CS degree required.</description>
+  </item>
+  <item>
+    <title>How I Built My Portfolio Website with Hugo from Scratch</title>
+    <link>http://localhost:1313/blog/portfolio-development-guide/</link>
+    <pubDate>Tue, 17 Mar 2026 00:00:00 +0000</pubDate>
+    <guid>http://localhost:1313/blog/portfolio-development-guide/</guid>
+    <description>A honest, detailed account of how I built my personal portfolio website from a single HTML file to a full Hugo-powered site with a blog, dark/light theme, animated UI, and automated deployment.</description>
+  </item>
+  <item>
+    <title>MediScan AI: Medical Image &amp; Report Assistant</title>
+    <link>http://localhost:1313/projects/mediscan-ai/</link>
+    <pubDate>Sun, 01 Mar 2026 00:00:00 +0000</pubDate>
+    <guid>http://localhost:1313/projects/mediscan-ai/</guid>
+    <description>End-to-end medical imaging pipeline: OpenCV preprocessing → ViT classification → ResNet-18 + IsolationForest anomaly scoring → LLaMA 3.1 70B report generation, served as a FastAPI REST endpoint.</description>
+  </item>
+  <item>
+    <title>Hypervisors, KVM &amp; QEMU: A Complete Guide to Virtual Machines on Ubuntu 24.04 LTS</title>
+    <link>http://localhost:1313/blog/hypervisors-kvm-qemu-complete-guide/</link>
+    <pubDate>Fri, 10 Oct 2025 00:00:00 +0000</pubDate>
+    <guid>http://localhost:1313/blog/hypervisors-kvm-qemu-complete-guide/</guid>
+    <description>A deep-dive guide from theory to practice — setting up virt-manager on Ubuntu 24.04 LTS, installing Windows 11, Kali Linux, and Parrot OS as virtual machines, passing GPU drivers, defeating Secure Boot, and fixing every error along the way.</description>
+  </item>
+  <item>
+    <title>Document Q&amp;A System</title>
+    <link>http://localhost:1313/projects/document-qa-system/</link>
+    <pubDate>Sat, 01 Feb 2025 00:00:00 +0000</pubDate>
+    <guid>http://localhost:1313/projects/document-qa-system/</guid>
+    <description>Production-ready RAG system built with LangChain, FAISS, and Streamlit. Upload PDF, DOCX, or TXT files and ask natural language questions with source citations and conversational follow-up memory.</description>
+  </item>
+  <item>
+    <title>AI Research Assistant Agent</title>
+    <link>http://localhost:1313/projects/ai-research-agent/</link>
+    <pubDate>Wed, 01 Jan 2025 00:00:00 +0000</pubDate>
+    <guid>http://localhost:1313/projects/ai-research-agent/</guid>
+    <description>Autonomous AI research agent built with Python, Groq LLM, and Tavily Search API, searches the web, extracts multi-source content, and generates structured, cited research reports with PDF/TXT export.</description>
+  </item>
+</channel>
 </rss>

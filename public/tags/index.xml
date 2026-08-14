@@ -1,425 +1,68 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Tags on Muhammad Awais-Portfolio</title>
-    <link>http://localhost:1313/tags/</link>
-    <description>Recent content in Tags on Muhammad Awais-Portfolio</description>
-    <generator>Hugo</generator>
-    <language>en-us</language>
-    <lastBuildDate>Sun, 21 Jun 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>AI Study Assistant</title>
-      <link>http://localhost:1313/tags/ai-study-assistant/</link>
-      <pubDate>Mon, 15 Jun 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/ai-study-assistant/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>ChromaDB</title>
-      <link>http://localhost:1313/tags/chromadb/</link>
-      <pubDate>Mon, 15 Jun 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/chromadb/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Flask</title>
-      <link>http://localhost:1313/tags/flask/</link>
-      <pubDate>Mon, 15 Jun 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/flask/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Hybrid Search</title>
-      <link>http://localhost:1313/tags/hybrid-search/</link>
-      <pubDate>Mon, 15 Jun 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/hybrid-search/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>LLM</title>
-      <link>http://localhost:1313/tags/llm/</link>
-      <pubDate>Mon, 15 Jun 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/llm/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>NLP</title>
-      <link>http://localhost:1313/tags/nlp/</link>
-      <pubDate>Mon, 15 Jun 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/nlp/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>NVIDIA API</title>
-      <link>http://localhost:1313/tags/nvidia-api/</link>
-      <pubDate>Mon, 15 Jun 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/nvidia-api/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Python</title>
-      <link>http://localhost:1313/tags/python/</link>
-      <pubDate>Mon, 15 Jun 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/python/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>RAG</title>
-      <link>http://localhost:1313/tags/rag/</link>
-      <pubDate>Mon, 15 Jun 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/rag/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Sentence Transformers</title>
-      <link>http://localhost:1313/tags/sentence-transformers/</link>
-      <pubDate>Mon, 15 Jun 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/sentence-transformers/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>SQLite</title>
-      <link>http://localhost:1313/tags/sqlite/</link>
-      <pubDate>Mon, 15 Jun 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/sqlite/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Vector Database</title>
-      <link>http://localhost:1313/tags/vector-database/</link>
-      <pubDate>Mon, 15 Jun 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/vector-database/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Beginner</title>
-      <link>http://localhost:1313/tags/beginner/</link>
-      <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/beginner/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Computer Basics</title>
-      <link>http://localhost:1313/tags/computer-basics/</link>
-      <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/computer-basics/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Linux</title>
-      <link>http://localhost:1313/tags/linux/</link>
-      <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/linux/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>MacOS</title>
-      <link>http://localhost:1313/tags/macos/</link>
-      <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/macos/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Operating Systems</title>
-      <link>http://localhost:1313/tags/operating-systems/</link>
-      <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/operating-systems/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Security</title>
-      <link>http://localhost:1313/tags/security/</link>
-      <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/security/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Tech Skills</title>
-      <link>http://localhost:1313/tags/tech-skills/</link>
-      <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/tech-skills/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Ubuntu</title>
-      <link>http://localhost:1313/tags/ubuntu/</link>
-      <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/ubuntu/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Windows 11</title>
-      <link>http://localhost:1313/tags/windows-11/</link>
-      <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/windows-11/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>AI</title>
-      <link>http://localhost:1313/tags/ai/</link>
-      <pubDate>Sun, 12 Apr 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/ai/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Career</title>
-      <link>http://localhost:1313/tags/career/</link>
-      <pubDate>Sun, 12 Apr 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/career/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>CLI</title>
-      <link>http://localhost:1313/tags/cli/</link>
-      <pubDate>Sun, 12 Apr 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/cli/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Cloud</title>
-      <link>http://localhost:1313/tags/cloud/</link>
-      <pubDate>Sun, 12 Apr 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/cloud/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Docker</title>
-      <link>http://localhost:1313/tags/docker/</link>
-      <pubDate>Sun, 12 Apr 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/docker/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Git</title>
-      <link>http://localhost:1313/tags/git/</link>
-      <pubDate>Sun, 12 Apr 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/git/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Networking</title>
-      <link>http://localhost:1313/tags/networking/</link>
-      <pubDate>Sun, 12 Apr 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/networking/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>CI/CD</title>
-      <link>http://localhost:1313/tags/ci/cd/</link>
-      <pubDate>Tue, 17 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/ci/cd/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>CSS</title>
-      <link>http://localhost:1313/tags/css/</link>
-      <pubDate>Tue, 17 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/css/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>GitHub Pages</title>
-      <link>http://localhost:1313/tags/github-pages/</link>
-      <pubDate>Tue, 17 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/github-pages/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Hugo</title>
-      <link>http://localhost:1313/tags/hugo/</link>
-      <pubDate>Tue, 17 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/hugo/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Portfolio</title>
-      <link>http://localhost:1313/tags/portfolio/</link>
-      <pubDate>Tue, 17 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/portfolio/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Web Development</title>
-      <link>http://localhost:1313/tags/web-development/</link>
-      <pubDate>Tue, 17 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/web-development/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Anomaly Detection</title>
-      <link>http://localhost:1313/tags/anomaly-detection/</link>
-      <pubDate>Sun, 01 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/anomaly-detection/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Computer Vision</title>
-      <link>http://localhost:1313/tags/computer-vision/</link>
-      <pubDate>Sun, 01 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/computer-vision/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>FastAPI</title>
-      <link>http://localhost:1313/tags/fastapi/</link>
-      <pubDate>Sun, 01 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/fastapi/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Hugging Face</title>
-      <link>http://localhost:1313/tags/hugging-face/</link>
-      <pubDate>Sun, 01 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/hugging-face/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>LLaMA</title>
-      <link>http://localhost:1313/tags/llama/</link>
-      <pubDate>Sun, 01 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/llama/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Medical AI</title>
-      <link>http://localhost:1313/tags/medical-ai/</link>
-      <pubDate>Sun, 01 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/medical-ai/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>PyTorch</title>
-      <link>http://localhost:1313/tags/pytorch/</link>
-      <pubDate>Sun, 01 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/pytorch/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Vision Transformer</title>
-      <link>http://localhost:1313/tags/vision-transformer/</link>
-      <pubDate>Sun, 01 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/vision-transformer/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Hypervisors</title>
-      <link>http://localhost:1313/tags/hypervisors/</link>
-      <pubDate>Fri, 10 Oct 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/hypervisors/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Kali Linux</title>
-      <link>http://localhost:1313/tags/kali-linux/</link>
-      <pubDate>Fri, 10 Oct 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/kali-linux/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>KVM</title>
-      <link>http://localhost:1313/tags/kvm/</link>
-      <pubDate>Fri, 10 Oct 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/kvm/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Parrot OS</title>
-      <link>http://localhost:1313/tags/parrot-os/</link>
-      <pubDate>Fri, 10 Oct 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/parrot-os/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>QEMU</title>
-      <link>http://localhost:1313/tags/qemu/</link>
-      <pubDate>Fri, 10 Oct 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/qemu/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Virt-Manager</title>
-      <link>http://localhost:1313/tags/virt-manager/</link>
-      <pubDate>Fri, 10 Oct 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/virt-manager/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Virtualization</title>
-      <link>http://localhost:1313/tags/virtualization/</link>
-      <pubDate>Fri, 10 Oct 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/virtualization/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Conversational AI</title>
-      <link>http://localhost:1313/tags/conversational-ai/</link>
-      <pubDate>Sat, 01 Feb 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/conversational-ai/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>FAISS</title>
-      <link>http://localhost:1313/tags/faiss/</link>
-      <pubDate>Sat, 01 Feb 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/faiss/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Groq</title>
-      <link>http://localhost:1313/tags/groq/</link>
-      <pubDate>Sat, 01 Feb 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/groq/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>LangChain</title>
-      <link>http://localhost:1313/tags/langchain/</link>
-      <pubDate>Sat, 01 Feb 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/langchain/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Streamlit</title>
-      <link>http://localhost:1313/tags/streamlit/</link>
-      <pubDate>Sat, 01 Feb 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/streamlit/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Vector Search</title>
-      <link>http://localhost:1313/tags/vector-search/</link>
-      <pubDate>Sat, 01 Feb 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/vector-search/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>AI Agents</title>
-      <link>http://localhost:1313/tags/ai-agents/</link>
-      <pubDate>Wed, 01 Jan 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/ai-agents/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Automation</title>
-      <link>http://localhost:1313/tags/automation/</link>
-      <pubDate>Wed, 01 Jan 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/automation/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Tavily</title>
-      <link>http://localhost:1313/tags/tavily/</link>
-      <pubDate>Wed, 01 Jan 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/tavily/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Web Search</title>
-      <link>http://localhost:1313/tags/web-search/</link>
-      <pubDate>Wed, 01 Jan 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/web-search/</guid>
-      <description></description>
-    </item>
-  </channel>
+<channel>
+  <title>MA-Portfolio</title>
+  <link>http://localhost:1313/tags/</link>
+  <description>Recent content on MA-Portfolio</description>
+  <generator>Hugo</generator>
+  <language>en-us</language>
+  <lastBuildDate>Sun, 21 Jun 2026 00:00:00 +0000</lastBuildDate>
+  <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss&#43;xml"/>
+  <item>
+    <title>LectureLens: AI-Powered Study Assistant with RAG &amp; Hybrid Search</title>
+    <link>http://localhost:1313/projects/lecturelens/</link>
+    <pubDate>Mon, 15 Jun 2026 00:00:00 +0000</pubDate>
+    <guid>http://localhost:1313/projects/lecturelens/</guid>
+    <description>A production-grade Flask application that ingests PDF, DOCX, and PPTX lecture materials, indexes them with ChromaDB vector embeddings and SQLite FTS5 full-text search, then answers natural-language questions via a RAG pipeline powered by NVIDIA's LLaMA 3.3 70B, complete with page-level source citations.</description>
+  </item>
+  <item>
+    <title>Operating Systems Explained for Normal People</title>
+    <link>http://localhost:1313/blog/operating-systems-explained/</link>
+    <pubDate>Fri, 01 May 2026 00:00:00 +0000</pubDate>
+    <guid>http://localhost:1313/blog/operating-systems-explained/</guid>
+    <description>What an operating system actually is, why it matters, and how to use Windows, macOS, and Linux like someone who knows what they're doing — no programming required.</description>
+  </item>
+  <item>
+    <title>You Don&#39;t Need to Be a Programmer to Be a Tech Person</title>
+    <link>http://localhost:1313/blog/tech-survival-guide-2026/</link>
+    <pubDate>Sun, 12 Apr 2026 00:00:00 +0000</pubDate>
+    <guid>http://localhost:1313/blog/tech-survival-guide-2026/</guid>
+    <description>The real tech skills that put you in the top 10% of your environment — no CS degree required.</description>
+  </item>
+  <item>
+    <title>How I Built My Portfolio Website with Hugo from Scratch</title>
+    <link>http://localhost:1313/blog/portfolio-development-guide/</link>
+    <pubDate>Tue, 17 Mar 2026 00:00:00 +0000</pubDate>
+    <guid>http://localhost:1313/blog/portfolio-development-guide/</guid>
+    <description>A honest, detailed account of how I built my personal portfolio website from a single HTML file to a full Hugo-powered site with a blog, dark/light theme, animated UI, and automated deployment.</description>
+  </item>
+  <item>
+    <title>MediScan AI: Medical Image &amp; Report Assistant</title>
+    <link>http://localhost:1313/projects/mediscan-ai/</link>
+    <pubDate>Sun, 01 Mar 2026 00:00:00 +0000</pubDate>
+    <guid>http://localhost:1313/projects/mediscan-ai/</guid>
+    <description>End-to-end medical imaging pipeline: OpenCV preprocessing → ViT classification → ResNet-18 + IsolationForest anomaly scoring → LLaMA 3.1 70B report generation, served as a FastAPI REST endpoint.</description>
+  </item>
+  <item>
+    <title>Hypervisors, KVM &amp; QEMU: A Complete Guide to Virtual Machines on Ubuntu 24.04 LTS</title>
+    <link>http://localhost:1313/blog/hypervisors-kvm-qemu-complete-guide/</link>
+    <pubDate>Fri, 10 Oct 2025 00:00:00 +0000</pubDate>
+    <guid>http://localhost:1313/blog/hypervisors-kvm-qemu-complete-guide/</guid>
+    <description>A deep-dive guide from theory to practice — setting up virt-manager on Ubuntu 24.04 LTS, installing Windows 11, Kali Linux, and Parrot OS as virtual machines, passing GPU drivers, defeating Secure Boot, and fixing every error along the way.</description>
+  </item>
+  <item>
+    <title>Document Q&amp;A System</title>
+    <link>http://localhost:1313/projects/document-qa-system/</link>
+    <pubDate>Sat, 01 Feb 2025 00:00:00 +0000</pubDate>
+    <guid>http://localhost:1313/projects/document-qa-system/</guid>
+    <description>Production-ready RAG system built with LangChain, FAISS, and Streamlit. Upload PDF, DOCX, or TXT files and ask natural language questions with source citations and conversational follow-up memory.</description>
+  </item>
+  <item>
+    <title>AI Research Assistant Agent</title>
+    <link>http://localhost:1313/projects/ai-research-agent/</link>
+    <pubDate>Wed, 01 Jan 2025 00:00:00 +0000</pubDate>
+    <guid>http://localhost:1313/projects/ai-research-agent/</guid>
+    <description>Autonomous AI research agent built with Python, Groq LLM, and Tavily Search API, searches the web, extracts multi-source content, and generates structured, cited research reports with PDF/TXT export.</description>
+  </item>
+</channel>
 </rss>

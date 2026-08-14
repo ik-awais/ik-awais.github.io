@@ -1,0 +1,54 @@
+{{- /*
+  Partial: seo-meta.html
+  Single source of truth for canonical URL, OpenGraph, Twitter Card, and
+  structured data — called once from baseof.html's <head>, reused by every
+  page type. Title/description are computed once by the caller and passed
+  in, so nothing here duplicates that logic.
+
+  No image properties are emitted anywhere: no real photo/screenshot asset
+  exists in this site for any page, and the deterministic SVG card-thumb
+  gradients are decorative UI, not shareable preview images. Per the
+  explicit instruction, omitting is correct here, not fabricating one.
+  No Twitter handle exists anywhere in the site's data, so twitter:site /
+  twitter:creator are correctly omitted too.
+*/ -}}
+{{ $p := .page }}
+{{ $title := .title }}
+{{ $description := .description }}
+{{ $canonical := $p.Permalink }}
+
+<link rel="canonical" href="{{ $canonical }}">
+
+{{ $ogType := "website" }}
+{{ if and (eq $p.Kind "page") (in (slice "blog" "projects" "articles" "publications") $p.Section) }}{{ $ogType = "article" }}{{ end }}
+
+<meta property="og:type" content="{{ $ogType }}">
+<meta property="og:title" content="{{ $title }}">
+<meta property="og:description" content="{{ $description }}">
+<meta property="og:url" content="{{ $canonical }}">
+<meta property="og:site_name" content="{{ site.Title }}">
+{{ if eq $ogType "article" }}
+{{ if not $p.Date.IsZero }}<meta property="article:published_time" content="{{ $p.Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ end }}
+{{ with $p.Params.tags }}{{ range . }}<meta property="article:tag" content="{{ . }}">
+{{ end }}{{ end }}
+{{ end }}
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="{{ $title }}">
+<meta name="twitter:description" content="{{ $description }}">
+
+{{ if $p.IsHome }}
+{{ $website := dict "@context" "https://schema.org" "@type" "WebSite" "name" site.Title "url" site.BaseURL }}
+<script type="application/ld+json">{{ $website | jsonify | safeJS }}</script>
+{{ $person := dict "@context" "https://schema.org" "@type" "Person" "name" site.Params.author "url" site.BaseURL "jobTitle" "AI Engineer" "sameAs" (slice site.Params.github site.Params.linkedin) }}
+<script type="application/ld+json">{{ $person | jsonify | safeJS }}</script>
+{{ else if and (eq $p.Kind "page") (eq $p.Section "blog") }}
+{{ $post := dict "@context" "https://schema.org" "@type" "BlogPosting" "headline" $p.Title "description" $description "url" $canonical "author" (dict "@type" "Person" "name" site.Params.author) }}
+{{ if not $p.Date.IsZero }}{{ $post = merge $post (dict "datePublished" ($p.Date.Format "2006-01-02")) }}{{ end }}
+<script type="application/ld+json">{{ $post | jsonify | safeJS }}</script>
+{{ else if and (eq $p.Kind "page") (eq $p.Section "projects") }}
+{{ $work := dict "@context" "https://schema.org" "@type" "CreativeWork" "name" $p.Title "description" $description "url" $canonical "creator" (dict "@type" "Person" "name" site.Params.author) }}
+{{ if not $p.Date.IsZero }}{{ $work = merge $work (dict "dateCreated" ($p.Date.Format "2006-01-02")) }}{{ end }}
+{{ with $p.Params.tags }}{{ $work = merge $work (dict "keywords" (delimit . ", ")) }}{{ end }}
+<script type="application/ld+json">{{ $work | jsonify | safeJS }}</script>
+{{ end }}
