@@ -1,0 +1,63 @@
+{{- /*
+  Partial: timeline-list.html
+  Shared list-page rendering for the Education and Experience collections
+  (University/College/School, AI GenMat/Future Companies/Other Experience).
+  Reuses the exact existing card-grid pattern already established by
+  Projects and Works (.project-grid / .project-card / card-thumb.html).
+  Family name (Education vs Experience) is derived from .Parent.Title,
+  not hardcoded, so this one partial serves both families correctly.
+*/ -}}
+{{ $family := .Parent.Title }}
+{{ $pages := .RegularPages }}
+{{ $paginator := .Paginate $pages }}
+<section class="list-section">
+  <div class="list-header reveal">
+    <p class="hero-label" style="animation:none;opacity:1">{{ $family }}</p>
+    <h1 class="section-title">{{ .Title }} <span class="accent">Archive.</span></h1>
+    {{ if eq .Path "/experience/aigenmat" }}
+    <a href="/aigenmat/" class="btn-ghost">About AI GenMat &rarr;</a>
+    {{ end }}
+  </div>
+
+  {{ if eq (len $pages) 0 }}
+  <div class="empty-state reveal">
+    <div class="empty-state-icon" aria-hidden="true">&#9671;</div>
+    {{ if eq $family "Education" }}
+    <p>Education records will appear here.</p>
+    {{ else }}
+    <p>Professional experience will appear here.</p>
+    {{ end }}
+  </div>
+  {{ else }}
+  <div class="project-grid">
+    {{ range $paginator.Pages }}
+    {{ $org := .Params.institution | default .Params.company }}
+    <div class="project-card reveal">
+      {{ partial "card-thumb.html" . }}
+      <div class="project-card-body">
+        <p class="project-num">
+          {{ with .Params.startDate }}{{ . }}{{ end }}{{ if .Params.endDate }} &ndash; {{ .Params.endDate }}{{ else if .Params.startDate }} &ndash; Present{{ end }}
+        </p>
+        <h3>{{ .Title }}</h3>
+        {{ with $org }}<p class="works-venue">{{ . }}</p>{{ end }}
+        <p>{{ .Params.summary | default .Summary }}</p>
+        {{ with .Params.tags }}
+        <div class="tags">{{ range . }}<span class="tag">{{ . }}</span>{{ end }}</div>
+        {{ end }}
+        <div class="project-links">
+          <a href="{{ .RelPermalink }}">Details &rarr;</a>
+        </div>
+      </div>
+    </div>
+    {{ end }}
+  </div>
+
+  {{ if gt $paginator.TotalPages 1 }}
+  <nav class="works-pager" aria-label="Pagination">
+    {{ if $paginator.HasPrev }}<a href="{{ $paginator.Prev.URL }}" class="btn-ghost">&larr; Newer</a>{{ end }}
+    <span class="works-pager-status">Page {{ $paginator.PageNumber }} of {{ $paginator.TotalPages }}</span>
+    {{ if $paginator.HasNext }}<a href="{{ $paginator.Next.URL }}" class="btn-ghost">Older &rarr;</a>{{ end }}
+  </nav>
+  {{ end }}
+  {{ end }}
+</section>

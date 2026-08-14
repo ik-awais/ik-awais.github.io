@@ -1,0 +1,77 @@
+{{- /*
+  Partial: timeline-single.html
+  Shared detail-page rendering for Education and Experience entries.
+  Reuses the exact existing .single-wrapper / .single-section / TOC pattern.
+  Supports either `institution` (Education) or `company` (Experience) as the
+  organization field — both map to the same rendering, so archetypes can use
+  whichever name reads naturally for that domain.
+*/ -}}
+{{ $family := .Parent.Parent.Title }}
+{{ $collection := .Parent.Title }}
+{{ $org := .Params.institution | default .Params.company }}
+<div class="single-wrapper">
+
+  <article class="single-section">
+
+    <div class="single-header reveal">
+      {{ partial "card-thumb.html" . }}
+      <p class="hero-label" style="animation:none;opacity:1">{{ $family }} / {{ $collection }}</p>
+      <h1>{{ .Title }}</h1>
+      {{ with $org }}<p class="works-venue">{{ . }}</p>{{ end }}
+      <p class="single-meta">
+        {{ with .Params.startDate }}{{ . }}{{ end }}{{ if .Params.endDate }} &ndash; {{ .Params.endDate }}{{ else if .Params.startDate }} &ndash; Present{{ end }}
+        {{ with .Params.location }} &middot; {{ . }}{{ end }}
+      </p>
+
+      {{ with .Params.tags }}
+      <div class="tags" style="margin-top:20px">
+        {{ range . }}<span class="tag">{{ . }}</span>{{ end }}
+      </div>
+      {{ end }}
+    </div>
+
+    <div class="single-body">
+      {{ .Content }}
+    </div>
+
+    <div class="single-back">
+      <a href="{{ .Parent.RelPermalink }}" class="btn-ghost">&larr; Back to {{ $collection }}</a>
+    </div>
+
+  </article>
+
+  {{ if .TableOfContents }}
+  <aside class="toc-sidebar" id="tocSidebar">
+    <div class="toc-inner">
+      <div class="toc-nav" id="tocNav">
+        {{ .TableOfContents }}
+      </div>
+    </div>
+  </aside>
+  {{ end }}
+
+</div>
+
+<script>
+(function() {
+  var tocNav  = document.getElementById('tocNav');
+  if (!tocNav) return;
+  var body     = document.querySelector('.single-body');
+  if (!body) return;
+  var headings = Array.from(body.querySelectorAll('h2, h3'));
+  if (!headings.length) return;
+  var links    = Array.from(tocNav.querySelectorAll('a'));
+  function setActive() {
+    var scrollY = window.scrollY + 130;
+    var active  = headings[0];
+    headings.forEach(function(h) { if (h.offsetTop <= scrollY) active = h; });
+    links.forEach(function(l) { l.classList.remove('active'); });
+    if (active && active.id) {
+      var al = tocNav.querySelector('a[href="#' + active.id + '"]');
+      if (al) al.classList.add('active');
+    }
+  }
+  window.addEventListener('scroll', setActive, { passive: true });
+  setActive();
+})();
+</script>

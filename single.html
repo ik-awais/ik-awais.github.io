@@ -1,0 +1,32 @@
+{{ define "main" }}
+<section class="list-section">
+  <div class="list-header reveal">
+    <h1 class="section-title">Get in <span class="accent">Touch.</span></h1>
+    <p class="contact-desc">{{ .Params.summary }}</p>
+  </div>
+
+  <div class="contact-grid">
+    <div class="contact-left reveal">
+      <div class="contact-links">
+        <a href="mailto:{{ site.Params.email }}" class="contact-link">
+          <div class="contact-link-icon">&#9993;</div>{{ site.Params.email }}
+        </a>
+        <a href="mailto:{{ site.Params.workEmail }}" class="contact-link contact-link--secondary">
+          <div class="contact-link-icon">&#9993;</div>{{ site.Params.workEmail }}
+        </a>
+        <a href="{{ site.Params.linkedin }}" target="_blank" rel="noopener noreferrer" class="contact-link">
+          <div class="contact-link-icon">in</div>LinkedIn Profile
+        </a>
+        <a href="{{ site.Params.github }}" target="_blank" rel="noopener noreferrer" class="contact-link">
+          <div class="contact-link-icon">&#8997;</div>github.com/ik-awais
+        </a>
+        <a href="https://www.upwork.com/freelancers/~018a2d0e2f88ac4838" target="_blank" rel="noopener noreferrer" class="contact-link">
+          <div class="contact-link-icon">&#8599;</div>Upwork Profile
+        </a>
+      </div>
+    </div>
+
+    {{ partial "contact-form.html" . }}
+  </div>
+</section>
+{{ end }}

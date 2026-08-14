@@ -1,0 +1,53 @@
+<form id="contactForm" class="contact-form reveal" action="https://formspree.io/f/{{ site.Params.formspreeID }}" method="POST">
+  <div class="f-honeypot" aria-hidden="true">
+    <input type="text" id="cf-honeypot" name="honeypot" tabindex="-1" autocomplete="off">
+  </div>
+
+  <div class="form-group">
+    <label class="form-label" for="cf-purpose">Purpose</label>
+    <select id="cf-purpose" name="purpose" class="form-input" required>
+      <option value="" disabled selected>Select a purpose&hellip;</option>
+      <option value="Hire Me">Hire Me</option>
+      <option value="Book a Call">Book a Call</option>
+      <option value="Other">Other</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label" for="cf-name">Name</label>
+    <input type="text" id="cf-name" name="name" class="form-input" placeholder="Your name" required>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label" for="cf-occupation">Occupation</label>
+    <input type="text" id="cf-occupation" name="occupation" class="form-input" placeholder="e.g. Product Manager, Founder, Recruiter" required>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label" for="cf-email">Email</label>
+    <input type="email" id="cf-email" name="email" class="form-input" placeholder="your@email.com" required>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label" for="cf-subject">Subject</label>
+    <input type="text" id="cf-subject" name="subject" class="form-input" placeholder="What's this about?" required>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label" for="cf-company">Company (optional)</label>
+    <input type="text" id="cf-company" name="company" class="form-input" placeholder="Your company">
+  </div>
+
+  <div class="form-group">
+    <label class="form-label" for="cf-phone">Phone Number (optional)</label>
+    <input type="tel" id="cf-phone" name="phone" class="form-input" placeholder="Your phone number">
+  </div>
+
+  <div class="form-group">
+    <label class="form-label" for="cf-message">Message</label>
+    <textarea id="cf-message" name="message" class="form-input" placeholder="Tell me about your project, role, or idea..." required></textarea>
+  </div>
+
+  <button type="submit" class="form-submit" id="contactSubmitBtn">Send Message &rarr;</button>
+  <p class="form-status" id="contactFormStatus" role="status" aria-live="polite"></p>
+</form>
