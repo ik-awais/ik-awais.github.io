@@ -26,7 +26,18 @@ a secondary source.
 | Official URL | https://policyjournalofms.com/index.php/6/article/view/2496 |
 | Official PDF | https://policyjournalofms.com/index.php/6/article/download/2496/2419 |
 | Publisher | DIVINE KNOWLEDGE INSTITUTE |
-| Keywords | **Not listed on the source page** — no fabricated keyword list was added anywhere. The `tags` field on both new entries is the *site's own* topical categorization (same convention every other Blog/Article/Project entry already uses), independently derived from the actual abstract content — not presented anywhere as sourced/official keywords. |
+| Keywords | Postcolonial feminism; Mohammed Hanif; Rebel English Academy; Monte Carlo simulation; gendered subjectivity; language ideology; identity; computational humanities; decolonization; literary studies. |
+
+> **Post-delivery correction:** the publisher's web page (fetched via `web_fetch` for the
+> original research) did not surface a keywords list, so the first version of this batch
+> used site-derived topical tags instead and said so explicitly. The user subsequently
+> provided the actual published PDF, which does contain an official "Keywords:" line. Both
+> entries' `tags` front matter, and the Articles entry's body, have been corrected to use
+> the real, sourced keywords verbatim rather than the earlier derived set. The abstract text
+> was also checked in full against the PDF and found accurate — one trailing sentence
+> ("The study proposes a replicable framework...") was confirmed present in the source and
+> added to complete it exactly. Updated files and a re-validated sample PDF are included
+> below; everything else in this report describes the corrected, final state.
 
 Full abstract reproduced below is included in both entries — this is standard, expected
 practice for an author presenting their own published work in a professional portfolio
@@ -78,8 +89,9 @@ against without Lighthouse evidence; the About narrative gap needs client-author
 ## Validation
 
 ### Build
-Clean, 0 errors, 0 warnings, 0 path warnings. 169 pages (up from 157 — 2 real content pages
-plus new tag-taxonomy pages for the 4 new tags, all expected).
+Clean, 0 errors, 0 warnings, 0 path warnings. 181 pages in the final corrected build (up from
+the 157-page baseline — 2 real content pages plus new tag-taxonomy pages for the 10 official
+keywords now used as tags, all expected).
 
 ### Content-type differentiation (verified directly in generated HTML)
 | Check | Publications entry | Articles entry |

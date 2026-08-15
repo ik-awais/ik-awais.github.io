@@ -17,9 +17,13 @@
       {{ partial "card-thumb.html" . }}
       <p class="hero-label" style="animation:none;opacity:1">{{ if ne .Section "achievements" }}Works / {{ end }}{{ .Section | title }}</p>
       <h1>{{ .Title }}</h1>
+      {{ $hasDate := not .Date.IsZero }}
+      {{ $showReadingTime := not .Params.authors }}
+      {{ if or $hasDate $showReadingTime }}
       <p class="single-meta">
-        {{ .Date.Format "January 2, 2006" }}{{ if not .Params.authors }} &middot; {{ .ReadingTime }} min read{{ end }}
+        {{ if $hasDate }}{{ .Date.Format "January 2, 2006" }}{{ end }}{{ if and $hasDate $showReadingTime }} &middot; {{ end }}{{ if $showReadingTime }}{{ .ReadingTime }} min read{{ end }}
       </p>
+      {{ end }}
 
       {{ with .Params.authors }}
       <p class="works-authors">{{ delimit . ", " }}</p>
@@ -55,7 +59,7 @@
         </button>
         <p class="pdf-download-status" id="pdfDownloadStatus" role="status" aria-live="polite"></p>
       </div>
-      <script type="application/json" id="pdfArticleData">{{ dict "title" .Title "date" (.Date.Format "January 2, 2006") "author" .Params.author "slug" .File.ContentBaseName "raw" .RawContent | jsonify | safeJS }}</script>
+      <script type="application/json" id="pdfArticleData">{{ dict "title" .Title "date" (cond (not .Date.IsZero) (.Date.Format "January 2, 2006") "") "author" .Params.author "slug" .File.ContentBaseName "raw" .RawContent | jsonify | safeJS }}</script>
       {{ end }}
     </div>
 
@@ -82,7 +86,8 @@
 </div>
 
 {{ if or (eq .Section "blog") (eq .Section "articles") }}
-<script src="/js/pdf-export.js"></script>
+{{ $pdfExportJS := resources.Get "js/pdf-export.js" | minify | fingerprint }}
+<script src="{{ $pdfExportJS.RelPermalink }}" integrity="{{ $pdfExportJS.Data.Integrity }}"></script>
 {{ end }}
 
 <script>

@@ -1,0 +1,10 @@
+These font files (Space Grotesk, Inter, JetBrains Mono) are self-hosted copies
+of the same open-source fonts previously loaded from Google Fonts, obtained
+via the Fontsource project (https://fontsource.org), which redistributes
+Google Fonts under their original licenses.
+
+- Space Grotesk: SIL Open Font License 1.1, Florian Karsten
+- Inter: SIL Open Font License 1.1, The Inter Project Authors
+- JetBrains Mono: SIL Open Font License 1.1, JetBrains s.r.o.
+
+Full license text: https://scripts.sil.org/OFL

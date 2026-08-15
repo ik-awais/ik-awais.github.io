@@ -2,7 +2,7 @@
 title: "Decolonizing Gendered Subjectivities in Mohammed Hanif's Rebel English Academy: A Postcolonial Feminist Analysis of Language, Power, and Identity"
 date: 2026-03-30
 summary: "A postcolonial feminist and computational literary analysis of language, power, and gendered identity in Mohammed Hanif's Rebel English Academy, co-authored and published in Social Science Review Archives."
-tags: ["Postcolonial Feminism", "Literary Analysis", "Computational Humanities", "Monte Carlo Simulation"]
+tags: ["Postcolonial Feminism", "Mohammed Hanif", "Rebel English Academy", "Monte Carlo Simulation", "Gendered Subjectivity", "Language Ideology", "Identity", "Computational Humanities", "Decolonization", "Literary Studies"]
 ---
 
 This is a peer-reviewed research article co-authored by Muhammad Awais, published in *Social Science Review Archives* (Vol. 4, No. 1, 2026, pp. 6246–6269). The full text is published and hosted by the journal — this page presents the abstract and citation, with a PDF export of this record available via the download button above.
@@ -17,7 +17,9 @@ The research develops a thematic coding framework comprising six analytical vari
 
 Simulation results indicate that linguistic resistance consistently exhibits the strongest positive relationship with female agency and identity reconstruction across repeated iterations, whereas colonial language ideology demonstrates persistent associations with institutional power and patriarchal authority. Sensitivity analysis identifies educational access as the most influential variable affecting the emergence of decolonized subjectivities.
 
-These findings support postcolonial feminist arguments that language simultaneously operates as an instrument of domination and a medium of resistance. Hanif's fictional educational space consequently becomes a symbolic arena in which colonial linguistic hierarchies are challenged through everyday acts of learning, translation, negotiation, and gendered self-definition. Methodologically, the article contributes to digital literary studies by demonstrating how Monte Carlo simulation can complement close textual reading without replacing interpretive criticism.
+These findings support postcolonial feminist arguments that language simultaneously operates as an instrument of domination and a medium of resistance. Hanif's fictional educational space consequently becomes a symbolic arena in which colonial linguistic hierarchies are challenged through everyday acts of learning, translation, negotiation, and gendered self-definition. Methodologically, the article contributes to digital literary studies by demonstrating how Monte Carlo simulation can complement close textual reading without replacing interpretive criticism. The study proposes a replicable framework for integrating computational uncertainty modelling into qualitative literary scholarship while maintaining theoretical fidelity to postcolonial feminist inquiry.
+
+**Keywords:** Postcolonial feminism, Mohammed Hanif, Rebel English Academy, Monte Carlo simulation, gendered subjectivity, language ideology, identity, computational humanities, decolonization, literary studies.
 
 ## Authors
 

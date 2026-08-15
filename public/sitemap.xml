@@ -44,9 +44,6 @@
     <loc>http://localhost:1313/tags/sqlite/</loc>
     <lastmod>2026-06-21T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/</loc>
-    <lastmod>2026-06-21T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>http://localhost:1313/tags/vector-database/</loc>
     <lastmod>2026-06-21T00:00:00+00:00</lastmod>
   </url><url>
@@ -113,13 +110,28 @@
     <loc>http://localhost:1313/tags/computational-humanities/</loc>
     <lastmod>2026-03-30T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>http://localhost:1313/tags/decolonization/</loc>
+    <lastmod>2026-03-30T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/articles/decolonizing-gendered-subjectivities/</loc>
     <lastmod>2026-03-30T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/publications/decolonizing-gendered-subjectivities/</loc>
     <lastmod>2026-03-30T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/literary-analysis/</loc>
+    <loc>http://localhost:1313/tags/gendered-subjectivity/</loc>
+    <lastmod>2026-03-30T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/identity/</loc>
+    <lastmod>2026-03-30T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/language-ideology/</loc>
+    <lastmod>2026-03-30T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/literary-studies/</loc>
+    <lastmod>2026-03-30T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/mohammed-hanif/</loc>
     <lastmod>2026-03-30T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/monte-carlo-simulation/</loc>
@@ -129,6 +141,9 @@
     <lastmod>2026-03-30T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/publications/</loc>
+    <lastmod>2026-03-30T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/rebel-english-academy/</loc>
     <lastmod>2026-03-30T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/ci/cd/</loc>
@@ -253,23 +268,11 @@
   </url><url>
     <loc>http://localhost:1313/contact/</loc>
   </url><url>
-    <loc>http://localhost:1313/tags/decolonization/</loc>
-  </url><url>
     <loc>http://localhost:1313/experience/future/</loc>
   </url><url>
-    <loc>http://localhost:1313/tags/gendered-subjectivity/</loc>
-  </url><url>
-    <loc>http://localhost:1313/tags/identity/</loc>
-  </url><url>
-    <loc>http://localhost:1313/tags/language-ideology/</loc>
-  </url><url>
-    <loc>http://localhost:1313/tags/literary-studies/</loc>
-  </url><url>
-    <loc>http://localhost:1313/tags/mohammed-hanif/</loc>
+    <loc>http://localhost:1313/tags/literary-analysis/</loc>
   </url><url>
     <loc>http://localhost:1313/experience/other/</loc>
-  </url><url>
-    <loc>http://localhost:1313/tags/rebel-english-academy/</loc>
   </url><url>
     <loc>http://localhost:1313/education/school/</loc>
   </url><url>

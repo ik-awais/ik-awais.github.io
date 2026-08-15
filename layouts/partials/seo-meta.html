@@ -17,6 +17,7 @@
 {{ $description := .description }}
 {{ $canonical := $p.Permalink }}
 
+{{ if ne $p.Kind "404" }}
 <link rel="canonical" href="{{ $canonical }}">
 
 {{ $ogType := "website" }}
@@ -36,6 +37,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="{{ $title }}">
 <meta name="twitter:description" content="{{ $description }}">
+{{ end }}
 
 {{ if $p.IsHome }}
 {{ $website := dict "@context" "https://schema.org" "@type" "WebSite" "name" site.Title "url" site.BaseURL }}
@@ -51,4 +53,17 @@
 {{ if not $p.Date.IsZero }}{{ $work = merge $work (dict "dateCreated" ($p.Date.Format "2006-01-02")) }}{{ end }}
 {{ with $p.Params.tags }}{{ $work = merge $work (dict "keywords" (delimit . ", ")) }}{{ end }}
 <script type="application/ld+json">{{ $work | jsonify | safeJS }}</script>
+{{ else if and (eq $p.Kind "page") (eq $p.Section "articles") }}
+{{ $article := dict "@context" "https://schema.org" "@type" "Article" "headline" $p.Title "description" $description "url" $canonical "author" (dict "@type" "Person" "name" site.Params.author) }}
+{{ if not $p.Date.IsZero }}{{ $article = merge $article (dict "datePublished" ($p.Date.Format "2006-01-02")) }}{{ end }}
+{{ with $p.Params.tags }}{{ $article = merge $article (dict "keywords" (delimit . ", ")) }}{{ end }}
+<script type="application/ld+json">{{ $article | jsonify | safeJS }}</script>
+{{ else if and (eq $p.Kind "page") (eq $p.Section "publications") }}
+{{ $pub := dict "@context" "https://schema.org" "@type" "ScholarlyArticle" "headline" $p.Title "description" $description "url" $canonical }}
+{{ with $p.Params.authors }}{{ $pub = merge $pub (dict "author" (apply . "dict" "@type" "Person" "name" ".")) }}{{ end }}
+{{ if not $p.Date.IsZero }}{{ $pub = merge $pub (dict "datePublished" ($p.Date.Format "2006-01-02")) }}{{ end }}
+{{ with $p.Params.link }}{{ $pub = merge $pub (dict "sameAs" .) }}{{ end }}
+{{ with $p.Params.citation }}{{ $pub = merge $pub (dict "citation" .) }}{{ end }}
+{{ with $p.Params.tags }}{{ $pub = merge $pub (dict "keywords" (delimit . ", ")) }}{{ end }}
+<script type="application/ld+json">{{ $pub | jsonify | safeJS }}</script>
 {{ end }}

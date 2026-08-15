@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://cdn.jsdelivr.net https://upload.wikimedia.org; connect-src 'self' https://formspree.io;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https://cdn.jsdelivr.net https://upload.wikimedia.org; connect-src 'self' https://formspree.io;">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   {{ $pageTitle := cond .IsHome site.Title (printf "%s | MA-Portfolio" .Title) }}
@@ -13,9 +13,29 @@
   {{ partial "seo-meta.html" (dict "page" . "title" $pageTitle "description" $metaDescription) }}
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  {{/* Self-hosted fonts (Batch 3.11) — replaces the Google Fonts CDN link.
+       Same families/weights/display=swap as before; files are the identical
+       open-source fonts (SIL OFL 1.1), redistributed via Fontsource rather
+       than loaded from fonts.gstatic.com at runtime. Fingerprinted for
+       cache-busting, same pattern as CSS/JS. */}}
+  {{ $sg500 := resources.Get "fonts/space-grotesk-500.woff2" | fingerprint }}
+  {{ $sg600 := resources.Get "fonts/space-grotesk-600.woff2" | fingerprint }}
+  {{ $sg700 := resources.Get "fonts/space-grotesk-700.woff2" | fingerprint }}
+  {{ $in400 := resources.Get "fonts/inter-400.woff2" | fingerprint }}
+  {{ $in500 := resources.Get "fonts/inter-500.woff2" | fingerprint }}
+  {{ $in600 := resources.Get "fonts/inter-600.woff2" | fingerprint }}
+  {{ $jb400 := resources.Get "fonts/jetbrains-mono-400.woff2" | fingerprint }}
+  {{ $jb500 := resources.Get "fonts/jetbrains-mono-500.woff2" | fingerprint }}
+  <style>
+    @font-face { font-family:'Space Grotesk'; font-style:normal; font-weight:500; font-display:swap; src:url({{ $sg500.RelPermalink }}) format('woff2'); }
+    @font-face { font-family:'Space Grotesk'; font-style:normal; font-weight:600; font-display:swap; src:url({{ $sg600.RelPermalink }}) format('woff2'); }
+    @font-face { font-family:'Space Grotesk'; font-style:normal; font-weight:700; font-display:swap; src:url({{ $sg700.RelPermalink }}) format('woff2'); }
+    @font-face { font-family:'Inter'; font-style:normal; font-weight:400; font-display:swap; src:url({{ $in400.RelPermalink }}) format('woff2'); }
+    @font-face { font-family:'Inter'; font-style:normal; font-weight:500; font-display:swap; src:url({{ $in500.RelPermalink }}) format('woff2'); }
+    @font-face { font-family:'Inter'; font-style:normal; font-weight:600; font-display:swap; src:url({{ $in600.RelPermalink }}) format('woff2'); }
+    @font-face { font-family:'JetBrains Mono'; font-style:normal; font-weight:400; font-display:swap; src:url({{ $jb400.RelPermalink }}) format('woff2'); }
+    @font-face { font-family:'JetBrains Mono'; font-style:normal; font-weight:500; font-display:swap; src:url({{ $jb500.RelPermalink }}) format('woff2'); }
+  </style>
   {{ $css := resources.Get "css/main.css" | minify | fingerprint }}
   <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
 </head>
@@ -133,6 +153,7 @@
     </div>
   </footer>
 
-  <script src="/js/main.js"></script>
+  {{ $mainJS := resources.Get "js/main.js" | minify | fingerprint }}
+  <script src="{{ $mainJS.RelPermalink }}" integrity="{{ $mainJS.Data.Integrity }}"></script>
 </body>
 </html>
