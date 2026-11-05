@@ -1,7 +1,7 @@
 ---
 title: "AI GenMat"
 type: "aigenmat"
-summary: "Muhammad Awais's professional experience across operations, client engagement, AI development, and organizational coordination at AI GenMat."
+summary: "Muhammad Awais's experience at AI GenMat across operations, client engagement, AI-related contributions, and internship program coordination."
 ---
 
 ## My Experience at AI GenMat
