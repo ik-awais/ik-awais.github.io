@@ -3,7 +3,7 @@
 ## Apply these changes
 1. Replace `hugo.toml` with the file here (one addition: `defaultDescription` under `[params]`).
 2. Replace `layouts/_default/baseof.html` with the file here (meta description line made dynamic; nothing else touched).
-
+ 
 ## What changed
 Single point of logic, in `baseof.html` only — every page type routes through this one base template, so no duplication anywhere:
 
