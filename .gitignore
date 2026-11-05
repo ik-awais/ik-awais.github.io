@@ -1,1 +1,14 @@
 .gitignore
+# Hugo generated output
+/public/
+/resources/_gen/
+/.hugo_build.lock
+
+# Local and operating-system files
+.DS_Store
+Thumbs.db
+*.log
+
+# Editor directories
+.vscode/
+.idea/
