@@ -21,6 +21,7 @@ function toggleTheme() {
     if (!trigger || !menu) return;
     trigger.setAttribute('aria-expanded', 'false');
     menu.hidden = true;
+    menu.setAttribute('aria-hidden', 'true');
   }
 
   function openDropdown(dd) {
@@ -30,6 +31,7 @@ function toggleTheme() {
     if (!trigger || !menu) return;
     trigger.setAttribute('aria-expanded', 'true');
     menu.hidden = false;
+    menu.setAttribute('aria-hidden', 'false');
   }
 
   function isOpen(dd) {
@@ -39,7 +41,15 @@ function toggleTheme() {
 
   dropdowns.forEach(dd => {
     const trigger = dd.querySelector('.nav-dropdown-trigger');
-    if (!trigger) return;
+    const menu = dd.querySelector('.nav-dropdown-menu');
+    if (!trigger || !menu) return;
+
+    // Always start with closed menus, even if a previous script or cached DOM
+    // state left an inconsistent aria-expanded/hidden combination.
+    trigger.setAttribute('aria-expanded', 'false');
+    menu.hidden = true;
+    menu.setAttribute('aria-hidden', 'true');
+
     let openedByHover = false;
 
     // Click / keyboard activation (Enter, Space) toggles — works for touch too.

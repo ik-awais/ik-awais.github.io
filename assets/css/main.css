@@ -266,7 +266,22 @@ a.nav-logo-badge:hover,
   opacity: 0;
   transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.16,1,0.3,1);
 }
-.nav-dropdown-menu:not([hidden]) { opacity: 1; transform: translateX(-50%) translateY(0); }
+/* A hidden attribute must win over every menu display rule. This prevents
+   submenu labels (University, College, Other Experience, etc.) from leaking
+   into the navbar when a dropdown is closed. */
+.nav-dropdown-menu[hidden] {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+.nav-dropdown-menu:not([hidden]) {
+  display: block;
+  visibility: visible;
+  pointer-events: auto;
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  z-index: 550;
+}
 .nav-dropdown-menu li { list-style: none; }
 .nav-dropdown-menu a,
 .nav-dropdown-menu .nav-disabled {
