@@ -6,7 +6,7 @@ endDate: "Jul 9, 2026"
 location: "Pakistan"
 summary: "Completed the PJ&RI Summer Legal Internship Program 2026 through structured training, practical assignments, and assessments."
 tags: ["Internship", "Legal Research", "Analytical Skills", "Professional Development"]
-weight: 4
+weight: 5
 draft: false
 ---
 

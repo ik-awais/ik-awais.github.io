@@ -1,11 +1,9 @@
-# "Current Status" badges shown on the Homepage. Same grounded content that
-# was already live (role, company affiliation, specialty areas) — restructured
-# to a data-driven list so future badges can be added without touching the template.
+# Current professional and academic status shown below the homepage hero.
 badges:
-  - text: "AI Engineer"
   - stacked: true
-    sub: "Managing Director"
+    sub: "Operations Associate"
     company: "AI GenMat"
     companyURL: "https://aigenmat.com"
-  - text: "Agentic AI"
-  - text: "AI Research & Systems"
+  - text: "Head of R&D · SES, FAST-NUCES"
+  - text: "BS Software Engineering · FAST-NUCES"
+  - text: "AI · Software Engineering · Automation"

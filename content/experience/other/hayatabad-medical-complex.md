@@ -6,7 +6,7 @@ endDate: "Mar 2026"
 location: "Peshawar, Pakistan"
 summary: "Led a four-member community service team working on institutional document digitization and record organization."
 tags: ["Team Leadership", "Community Service", "Document Digitization", "Process Improvement"]
-weight: 5
+weight: 8
 draft: false
 ---
 

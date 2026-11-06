@@ -5,6 +5,9 @@ startDate: ""
 endDate: ""
 location: ""
 summary: ""
+thumbnail: ""
+featured: false
+featuredOrder: 0
 tags: []
 draft: true
 ---

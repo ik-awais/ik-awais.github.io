@@ -40,7 +40,7 @@
 {{ if $p.IsHome }}
 {{ $website := dict "@context" "https://schema.org" "@type" "WebSite" "name" site.Title "url" site.BaseURL }}
 <script type="application/ld+json">{{ $website | jsonify | safeJS }}</script>
-{{ $person := dict "@context" "https://schema.org" "@type" "Person" "name" site.Params.author "url" site.BaseURL "jobTitle" "AI Engineer" "sameAs" (slice site.Params.github site.Params.linkedin) }}
+{{ $person := dict "@context" "https://schema.org" "@type" "Person" "name" site.Params.author "url" site.BaseURL "jobTitle" "AI Engineer and Operations Associate" "sameAs" (slice site.Params.github site.Params.linkedin) }}
 <script type="application/ld+json">{{ $person | jsonify | safeJS }}</script>
 {{ else if and (eq $p.Kind "page") (eq $p.Section "blog") }}
 {{ $post := dict "@context" "https://schema.org" "@type" "BlogPosting" "headline" $p.Title "description" $description "url" $canonical "author" (dict "@type" "Person" "name" site.Params.author) }}

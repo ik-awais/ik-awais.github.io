@@ -28,9 +28,9 @@ enableRobotsTXT = true
   email             = "mawaisqq@gmail.com"
   workEmail         = "m.awais@aigenmat.com"
   github            = "https://github.com/ik-awais"
-  linkedin          = "https://www.linkedin.com/in/muhammad-awais-ai-engineer/"
+  linkedin          = "https://www.linkedin.com/in/muhammad-awais-ai-management/"
   formspreeID       = "xvzwzlre"
-  defaultDescription = "Muhammad Awais, AI Engineer and Managing Director at AI GenMat. Agentic AI, LLM, RAG Systems, NLP, Computer Vision."
+  defaultDescription = "Muhammad Awais is an AI Engineer and Software Engineering student at FAST-NUCES Islamabad, working across intelligent systems, software development, automation, and technology operations."
 
 [taxonomies]
   tag = "tags"

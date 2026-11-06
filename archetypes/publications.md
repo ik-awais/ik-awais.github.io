@@ -6,6 +6,9 @@ venue: ""
 link: ""
 citation: ""
 summary: ""
+thumbnail: ""
+featured: false
+featuredOrder: 0
 tags: []
 draft: true
 ---

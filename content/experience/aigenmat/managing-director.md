@@ -6,7 +6,7 @@ endDate: "Aug 2026"
 location: "Pakistan"
 summary: "Led client engagement, technical proposal development, internship execution, and organizational coordination."
 tags: ["Leadership", "Client Acquisition", "AI Development", "Operations"]
-weight: 2
+weight: 7
 draft: false
 ---
 

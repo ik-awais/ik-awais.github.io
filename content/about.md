@@ -3,7 +3,7 @@ title: "About"
 type: "about"
 summary: "AI Engineer and Software Engineering student at FAST-NUCES Islamabad, working across intelligent systems, software development, and technology operations."
 ---
-s
+
 ## Who I Am
 
 I'm Muhammad Awais, an AI Engineer and Software Engineering student at FAST-NUCES Islamabad. My work sits at the intersection of artificial intelligence, software engineering, automation, and technology operations.

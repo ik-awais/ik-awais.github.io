@@ -1,0 +1,95 @@
+{{- $heading := .heading | default "Latest" -}}
+{{- $accent := .accent | default "" -}}
+{{- $pages := .pages -}}
+{{- $limit := .limit | default 3 -}}
+{{- $featuredRecords := slice -}}
+{{- range $pages -}}
+  {{- $page := . -}}
+  {{- if $page.Params.featured -}}
+    {{- $order := 9999 -}}
+    {{- with $page.Params.featuredOrder -}}
+      {{- $order = int . -}}
+    {{- else -}}
+      {{- if ne $page.Weight 0 -}}
+        {{- $order = add 5000 $page.Weight -}}
+      {{- end -}}
+    {{- end -}}
+    {{- $featuredRecords = $featuredRecords | append (dict "order" $order "page" $page) -}}
+  {{- end -}}
+{{- end -}}
+{{- $featuredRecords = sort $featuredRecords "order" "asc" -}}
+{{- $selected := slice -}}
+{{- range first $limit $featuredRecords -}}
+  {{- $selected = $selected | append .page -}}
+{{- end -}}
+{{- if lt (len $selected) $limit -}}
+  {{- $fallback := slice -}}
+  {{- range $pages -}}
+    {{- if not .Params.featured -}}
+      {{- $fallback = $fallback | append . -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if .sortByWeight -}}
+    {{- $fallback = sort $fallback "Weight" "asc" -}}
+  {{- else -}}
+    {{- $fallback = sort $fallback "Date" "desc" -}}
+  {{- end -}}
+  {{- $remaining := sub $limit (len $selected) -}}
+  {{- range first $remaining $fallback -}}
+    {{- $selected = $selected | append . -}}
+  {{- end -}}
+{{- end -}}
+
+<section class="home-preview-section" aria-label="{{ $heading }}">
+  <div class="home-preview-header">
+    <div class="home-preview-heading-group">
+      <p class="home-preview-eyebrow">Explore the portfolio</p>
+      <h2 class="section-title">{{ $heading }} <span class="accent">{{ $accent }}</span></h2>
+    </div>
+    {{- if .url -}}
+    <a class="home-preview-all-link" href="{{ .url }}">{{ .linkLabel | default "View all" }} <span aria-hidden="true">&#8594;</span></a>
+    {{- end -}}
+  </div>
+
+  {{- with .links -}}
+  <nav class="home-preview-subnav" aria-label="{{ $heading }} pages">
+    {{- range . -}}
+    <a href="{{ .url }}">{{ .label }} <span aria-hidden="true">&#8599;</span></a>
+    {{- end -}}
+  </nav>
+  {{- end -}}
+
+  {{- if gt (len $selected) 0 -}}
+  <div class="home-preview-track" role="list" aria-label="{{ $heading }} previews">
+    {{- range $selected -}}
+      {{- $item := . -}}
+      {{- $summary := .Params.summary | default .Summary | plainify -}}
+      {{- $organization := .Params.company | default .Params.institution | default .Params.venue -}}
+      <a class="home-preview-card" role="listitem" href="{{ $item.RelPermalink }}" aria-label="Read {{ $item.Title }}">
+        <div class="home-preview-media">
+          {{- partial "card-thumb.html" $item -}}
+        </div>
+        <div class="home-preview-copy">
+          {{- if $item.Params.startDate -}}
+          <p class="home-preview-meta">{{ $item.Params.startDate }}{{ with $item.Params.endDate }} &ndash; {{ . }}{{ else }} &ndash; Present{{ end }}</p>
+          {{- else if not $item.Date.IsZero -}}
+          <p class="home-preview-meta">{{ $item.Date.Format "Jan 2006" }}</p>
+          {{- end -}}
+          <h3>{{ $item.Title }}</h3>
+          {{- with $organization -}}
+          <p class="home-preview-organization">{{ . }}</p>
+          {{- end -}}
+          {{- with $summary -}}
+          <p class="home-preview-summary">{{ . | truncate 132 }}</p>
+          {{- end -}}
+          <span class="home-preview-card-arrow" aria-hidden="true">&#8599;</span>
+        </div>
+      </a>
+    {{- end -}}
+  </div>
+  {{- else -}}
+  <div class="home-preview-empty">
+    <p>New entries will appear here as this collection grows.</p>
+  </div>
+  {{- end -}}
+</section>

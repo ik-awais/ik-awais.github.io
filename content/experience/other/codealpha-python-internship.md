@@ -6,7 +6,7 @@ endDate: "Jun 30, 2026"
 location: "Remote"
 summary: "Completed a one-month virtual internship in Python Programming."
 tags: ["Python", "Internship", "Software Development"]
-weight: 6
+weight: 4
 draft: false
 ---
 

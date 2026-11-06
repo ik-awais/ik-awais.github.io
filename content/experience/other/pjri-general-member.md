@@ -5,7 +5,7 @@ startDate: "Apr 2026"
 location: "Punjab Chapter, Pakistan"
 summary: "Participating in organizational initiatives promoting justice, equality, legal awareness, and human rights."
 tags: ["Community Engagement", "Human Rights", "Legal Awareness"]
-weight: 3
+weight: 6
 draft: false
 ---
 

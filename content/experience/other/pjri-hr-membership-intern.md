@@ -5,7 +5,7 @@ startDate: "Jun 2026"
 location: "Pakistan"
 summary: "Supporting human resources, membership operations, and organizational coordination."
 tags: ["Human Resources", "Membership", "Community Engagement", "Operations"]
-weight: 2
+weight: 3
 draft: false
 ---
 

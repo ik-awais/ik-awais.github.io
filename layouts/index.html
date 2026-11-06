@@ -1,19 +1,19 @@
 {{ define "main" }}
 <section class="hero">
   <div class="hero-content">
-    <p class="hero-label">AI Engineer, Managing Director @ <a href="https://aigenmat.com" target="_blank" rel="noopener noreferrer">AI GenMat ↗</a></p>
+    <p class="hero-label">AI Engineer &amp; Software Engineering Student · <a href="https://aigenmat.com" target="_blank" rel="noopener noreferrer">AI GenMat &#8599;</a></p>
     <h1>Muhammad<br><span class="line-accent">Awais</span></h1>
     <p class="hero-sub">
-      Designing and shipping production AI systems: agentic workflows, RAG pipelines, and applied LLM infrastructure.
+      Building practical AI-powered software and automation systems, with experience across technical development, technology operations, and R&amp;D leadership.
     </p>
     <div class="hero-tags">
-      <span class="hero-tag">Gen AI</span>
+      <span class="hero-tag">Artificial Intelligence</span>
       <span class="hero-tag">Agentic AI</span>
+      <span class="hero-tag">LLM Applications</span>
       <span class="hero-tag">RAG</span>
-      <span class="hero-tag">LLM</span>
       <span class="hero-tag">NLP</span>
       <span class="hero-tag">Computer Vision</span>
-      <span class="hero-tag">Multi-Agent</span>
+      <span class="hero-tag">Automation</span>
     </div>
     <div class="hero-cta">
       <a href="/projects/" class="btn-primary">View Projects</a>
@@ -26,12 +26,7 @@
   <div class="hero-orb" aria-hidden="true"></div>
 </section>
 
-{{/* ── CREDIBILITY FIGURES ─────────────────────────────────────────────
-     Architecture only: two figures are computed live from real content
-     (zero fabrication); any further figures come only from data/credibility.yaml,
-     which is intentionally empty until real, verified numbers exist.
-     Each figure hides individually if unavailable; the whole section hides
-     if no figures resolve at all. No counter animation in this batch. */}}
+{{/* Credibility figures are derived from published content; no manual or invented totals. */}}
 {{ $figures := slice }}
 {{ $projectCount := len (where site.RegularPages "Section" "projects") }}
 {{ if gt $projectCount 0 }}
@@ -57,7 +52,7 @@
 </section>
 {{ end }}
 
-{{/* ── CURRENT STATUS ───────────────────────────────────────────────── */}}
+{{/* Current status is maintained in data/status.yaml. */}}
 {{ $badges := slice }}
 {{ with site.Data.status }}{{ $badges = .badges }}{{ end }}
 {{ if gt (len $badges) 0 }}
@@ -67,7 +62,7 @@
     {{ if .stacked }}
     <span class="identity-label identity-label--stacked">
       <span class="identity-sub">{{ .sub }}</span>
-      <a href="{{ .companyURL }}" target="_blank" rel="noopener" class="identity-company">{{ .company }}</a>
+      <a href="{{ .companyURL }}" target="_blank" rel="noopener noreferrer" class="identity-company">{{ .company }}</a>
     </span>
     {{ else }}
     <span class="identity-label">{{ .text }}</span>
@@ -77,17 +72,112 @@
 </section>
 {{ end }}
 
-{{/* ── ABOUT PREVIEW ────────────────────────────────────────────────── */}}
-<section class="list-section">
-  <div class="list-header reveal">
-    <h2 class="section-title">About <span class="accent">Me.</span></h2>
-    <p class="contact-desc">Designing and shipping production AI systems: agentic workflows, RAG pipelines, and applied LLM infrastructure.</p>
-    <a href="/about/" class="btn-ghost">Read More →</a>
-  </div>
+{{/* Expandable About preview. The disclosure expands inline; the final icon opens the full page. */}}
+<section class="home-about-section" aria-labelledby="home-about-heading">
+  <details class="home-about-card reveal">
+    <summary class="home-about-summary">
+      <span class="home-about-heading-wrap">
+        <span class="home-about-eyebrow">A little about me</span>
+        <span class="home-about-heading" id="home-about-heading">Engineering ideas into <span class="accent">practical systems.</span></span>
+        <span class="home-about-prompt">Expand to learn more</span>
+      </span>
+      <span class="home-about-chevron" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </span>
+    </summary>
+    <div class="home-about-content">
+      <p>I’m Muhammad Awais, an AI Engineer and Software Engineering student at FAST-NUCES Islamabad. I work across intelligent systems, software development, automation, and technology operations.</p>
+      <div class="home-about-facts">
+        <span><strong>Education</strong> BS Software Engineering · FAST-NUCES</span>
+        <span><strong>Professional role</strong> Operations Associate · AI GenMat</span>
+        <span><strong>Leadership</strong> Head of R&amp;D · SES, FAST-NUCES</span>
+      </div>
+      <p>My focus is on understanding real requirements, identifying workflow bottlenecks, and building software or AI systems that make useful work easier, faster, and more accessible.</p>
+      <a class="home-about-full-link" href="/about/" aria-label="Read the complete About page">
+        <span>Read the full profile</span>
+        <span class="home-about-full-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
+        </span>
+      </a>
+    </div>
+  </details>
 </section>
 
-{{/* ── TECHNOLOGY STACK (unchanged, relocated only) ────────────────────── */}}
-<section class="tech-section">
+{{/* Build section datasets from published Markdown pages. */}}
+{{ $projects := where site.RegularPages "Section" "projects" }}
+{{ $experience := where site.RegularPages "Section" "experience" }}
+{{ $educationAll := where site.RegularPages "Section" "education" }}
+{{ $education := slice }}
+{{ $certificates := slice }}
+{{ range $educationAll }}
+  {{ if in .RelPermalink "/education/certificates/" }}
+    {{ $certificates = $certificates | append . }}
+  {{ else }}
+    {{ $education = $education | append . }}
+  {{ end }}
+{{ end }}
+{{ $blogs := where site.RegularPages "Section" "blog" }}
+{{ $articles := where site.RegularPages "Section" "articles" }}
+{{ $publications := where site.RegularPages "Section" "publications" }}
+{{ $achievements := where site.RegularPages "Section" "achievements" }}
+{{ $activities := where site.RegularPages "Section" "activities" }}
+
+{{ partial "home-preview-section.html" (dict
+  "heading" "Projects" "accent" "Worth a Look."
+  "pages" $projects "limit" 4 "url" "/projects/" "linkLabel" "All Projects"
+) }}
+
+{{ partial "home-preview-section.html" (dict
+  "heading" "Experience" "accent" "Highlights."
+  "pages" $experience "limit" 4 "sortByWeight" true
+  "links" (slice
+    (dict "label" "AI GenMat" "url" "/experience/aigenmat/")
+    (dict "label" "Other Experience" "url" "/experience/other/")
+  )
+) }}
+
+{{ partial "home-preview-section.html" (dict
+  "heading" "Education" "accent" "Background."
+  "pages" $education "limit" 3
+  "links" (slice
+    (dict "label" "University" "url" "/education/university/")
+    (dict "label" "College" "url" "/education/college/")
+    (dict "label" "School" "url" "/education/school/")
+  )
+) }}
+
+{{ partial "home-preview-section.html" (dict
+  "heading" "Certificates" "accent" "& Courses."
+  "pages" $certificates "limit" 3 "url" "/education/certificates/" "linkLabel" "All Credentials"
+) }}
+
+{{ partial "home-preview-section.html" (dict
+  "heading" "Blog" "accent" "& Notes."
+  "pages" $blogs "limit" 3 "url" "/blog/" "linkLabel" "All Posts"
+) }}
+
+{{ partial "home-preview-section.html" (dict
+  "heading" "Articles" "accent" "& Essays."
+  "pages" $articles "limit" 3 "url" "/articles/" "linkLabel" "All Articles"
+) }}
+
+{{ partial "home-preview-section.html" (dict
+  "heading" "Publications" "accent" "& Research."
+  "pages" $publications "limit" 3 "url" "/publications/" "linkLabel" "All Publications"
+) }}
+
+{{ partial "home-preview-section.html" (dict
+  "heading" "Achievements" "accent" "& Recognition."
+  "pages" $achievements "limit" 3 "url" "/achievements/" "linkLabel" "All Achievements"
+) }}
+
+{{ partial "home-preview-section.html" (dict
+  "heading" "Activities" "accent" "& Community."
+  "pages" $activities "limit" 3 "url" "/activities/" "linkLabel" "All Activities"
+) }}
+
+{{/* Technology marquee retained from the existing homepage. */}}
+<section class="tech-section" aria-label="Technologies">
   <div class="scroll-row">
     <div class="scroll-track">
       <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="128" height="128" title="Python" alt="Python">
@@ -98,14 +188,14 @@
       <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="128" height="128" title="JavaScript" alt="JavaScript">
       <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" width="128" height="128" title="C" alt="C">
       <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" width="128" height="128" title="C++" alt="C++">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="128" height="128" alt="">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" width="128" height="128" alt="">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" width="128" height="128" alt="">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg" width="128" height="128" alt="">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" width="128" height="128" alt="">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="128" height="128" alt="">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" width="128" height="128" alt="">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" width="128" height="128" alt="">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="128" height="128" alt="" aria-hidden="true">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" width="128" height="128" alt="" aria-hidden="true">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" width="128" height="128" alt="" aria-hidden="true">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg" width="128" height="128" alt="" aria-hidden="true">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" width="128" height="128" alt="" aria-hidden="true">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="128" height="128" alt="" aria-hidden="true">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" width="128" height="128" alt="" aria-hidden="true">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" width="128" height="128" alt="" aria-hidden="true">
     </div>
   </div>
   <div class="scroll-row reverse">
@@ -120,64 +210,25 @@
       <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" width="128" height="128" title="Linux" alt="Linux">
       <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" width="512" height="307" title="AWS" alt="AWS">
       <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" width="128" height="128" title="Azure" alt="Azure">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" width="128" height="128" alt="">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="128" height="128" alt="">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" width="128" height="128" alt="">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg" width="128" height="128" alt="">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" width="128" height="128" alt="">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" width="128" height="128" alt="">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" width="128" height="128" alt="">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" width="128" height="128" alt="">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" width="512" height="307" alt="">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" width="128" height="128" alt="">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" width="128" height="128" alt="" aria-hidden="true">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="128" height="128" alt="" aria-hidden="true">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" width="128" height="128" alt="" aria-hidden="true">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg" width="128" height="128" alt="" aria-hidden="true">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" width="128" height="128" alt="" aria-hidden="true">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" width="128" height="128" alt="" aria-hidden="true">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" width="128" height="128" alt="" aria-hidden="true">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" width="128" height="128" alt="" aria-hidden="true">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" width="512" height="307" alt="" aria-hidden="true">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" width="128" height="128" alt="" aria-hidden="true">
     </div>
   </div>
 </section>
 
-{{/* ── PROJECTS WORTH A LOOK ────────────────────────────────────────────
-     Featured-only, Hugo-native filter + manual owner-controlled ordering
-     via Params.featured / Params.featuredOrder (not Hugo's built-in weight).
-     No project currently has Params.featured set — that selection is the
-     owner's decision — so this section correctly renders nothing until it is. */}}
-{{ $projects := where site.RegularPages "Section" "projects" }}
-{{ $featured := sort (where $projects "Params.featured" true) "Params.featuredOrder" "asc" }}
-{{ if gt (len $featured) 0 }}
-<section class="projects-section" id="projects">
-  <div class="section-header reveal">
-    <div>
-      <h2 class="section-title">Projects Worth a <span class="accent">Look</span></h2>
-    </div>
-    <a href="/projects/" class="btn-ghost" style="white-space:nowrap">All Projects →</a>
-  </div>
-  <div class="project-grid">
-    {{ range $featured }}
-    <div class="project-card reveal">
-      {{ partial "card-thumb.html" . }}
-      <div class="project-card-body">
-      <p class="project-num">{{ .Date.Format "Jan 2006" }}</p>
-      <h3>{{ .Title }}</h3>
-      <p>{{ .Params.summary }}</p>
-      <div class="tags">
-        {{ range .Params.tags }}<span class="tag">{{ . }}</span>{{ end }}
-      </div>
-      <div class="project-links">
-        {{ if .Params.github }}<a href="{{ .Params.github }}" target="_blank" rel="noopener noreferrer">GitHub ↗</a>{{ end }}
-        {{ if .Params.demo }}<a href="{{ .Params.demo }}" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>{{ end }}
-        <a href="{{ .RelPermalink }}">Details →</a>
-      </div>
-      </div>
-    </div>
-    {{ end }}
-  </div>
-</section>
-{{ end }}
-
-{{/* ── FINAL CTA ─────────────────────────────────────────────────────── */}}
-<section class="list-section">
+<section class="list-section home-final-cta">
   <div class="list-header reveal">
     <h2 class="section-title">Let's Get in <span class="accent">Touch.</span></h2>
-    <p class="contact-desc">Open to collaborations, AI consulting, freelance projects, or full-time roles. If you have an interesting problem, I'd love to hear about it.</p>
-    <div style="display:flex;gap:16px;flex-wrap:wrap">
+    <p class="contact-desc">Open to collaborations, AI projects, technical opportunities, and conversations about building useful systems.</p>
+    <div class="hero-cta home-final-actions">
       <a href="/contact/" class="btn-primary">Hire Me</a>
       <a href="/contact/" class="btn-ghost">Book a Call</a>
     </div>

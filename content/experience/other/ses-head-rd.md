@@ -5,7 +5,7 @@ startDate: "2026"
 location: "Islamabad, Pakistan"
 summary: "Leading the society's R&D function, coordinating engineering initiatives, and supporting practical software projects."
 tags: ["Research and Development", "Leadership", "Software Engineering", "Student Society"]
-weight: 1
+weight: 2
 draft: false
 ---
 

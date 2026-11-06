@@ -6,7 +6,7 @@ endDate: "Feb 2026"
 location: "Islamabad / Remote"
 summary: "Managed recruitment records, applicant communication, interview scheduling, and internal operational documentation."
 tags: ["Human Resources", "Recruitment", "Operations", "Documentation"]
-weight: 3
+weight: 11
 draft: false
 ---
 

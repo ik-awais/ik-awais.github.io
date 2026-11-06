@@ -5,7 +5,7 @@ startDate: "Oct 2025"
 location: "Pakistan"
 summary: "Serving in a technical leadership position within the FAST Book Club."
 tags: ["Technical Leadership", "Student Organization"]
-weight: 7
+weight: 9
 draft: false
 ---
 

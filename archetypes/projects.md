@@ -6,6 +6,9 @@ tags: []
 github: ""
 demo: ""
 summary: ""
+thumbnail: ""
+featured: false
+featuredOrder: 0
 status: "in-progress"
 keywords: []
 ---

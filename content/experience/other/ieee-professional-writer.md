@@ -5,7 +5,7 @@ startDate: "Oct 2025"
 location: "Peshawar, Pakistan"
 summary: "Selected as a team member contributing professional writing for IEEE projects and events."
 tags: ["Professional Writing", "Communication", "IEEE", "Technical Communication"]
-weight: 8
+weight: 10
 draft: false
 ---
 
