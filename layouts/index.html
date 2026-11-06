@@ -102,6 +102,54 @@
   </details>
 </section>
 
+{{/* Technology marquee retained from the existing homepage. */}}
+<section class="tech-section" aria-label="Technologies">
+  <div class="scroll-row">
+    <div class="scroll-track">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="128" height="128" title="Python" alt="Python">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" width="128" height="128" title="TensorFlow" alt="TensorFlow">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" width="128" height="128" title="PyTorch" alt="PyTorch">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg" width="128" height="128" title="OpenCV" alt="OpenCV">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" width="128" height="128" title="Pandas" alt="Pandas">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="128" height="128" title="JavaScript" alt="JavaScript">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" width="128" height="128" title="C" alt="C">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" width="128" height="128" title="C++" alt="C++">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="128" height="128" alt="" aria-hidden="true">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" width="128" height="128" alt="" aria-hidden="true">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" width="128" height="128" alt="" aria-hidden="true">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg" width="128" height="128" alt="" aria-hidden="true">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" width="128" height="128" alt="" aria-hidden="true">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="128" height="128" alt="" aria-hidden="true">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" width="128" height="128" alt="" aria-hidden="true">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" width="128" height="128" alt="" aria-hidden="true">
+    </div>
+  </div>
+  <div class="scroll-row reverse">
+    <div class="scroll-track">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" width="128" height="128" title="Docker" alt="Docker">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="128" height="128" title="React" alt="React">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" width="128" height="128" title="Django" alt="Django">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg" width="128" height="128" title="Flask" alt="Flask">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" width="128" height="128" title="MongoDB" alt="MongoDB">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" width="128" height="128" title="MySQL" alt="MySQL">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" width="128" height="128" title="Git" alt="Git">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" width="128" height="128" title="Linux" alt="Linux">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" width="512" height="307" title="AWS" alt="AWS">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" width="128" height="128" title="Azure" alt="Azure">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" width="128" height="128" alt="" aria-hidden="true">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="128" height="128" alt="" aria-hidden="true">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" width="128" height="128" alt="" aria-hidden="true">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg" width="128" height="128" alt="" aria-hidden="true">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" width="128" height="128" alt="" aria-hidden="true">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" width="128" height="128" alt="" aria-hidden="true">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" width="128" height="128" alt="" aria-hidden="true">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" width="128" height="128" alt="" aria-hidden="true">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" width="512" height="307" alt="" aria-hidden="true">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" width="128" height="128" alt="" aria-hidden="true">
+    </div>
+  </div>
+</section>
+
 {{/* Build section datasets from published Markdown pages. */}}
 {{ $projects := where site.RegularPages "Section" "projects" }}
 {{ $experience := where site.RegularPages "Section" "experience" }}
@@ -175,53 +223,6 @@
   "pages" $activities "limit" 3 "url" "/activities/" "linkLabel" "All Activities"
 ) }}
 
-{{/* Technology marquee retained from the existing homepage. */}}
-<section class="tech-section" aria-label="Technologies">
-  <div class="scroll-row">
-    <div class="scroll-track">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="128" height="128" title="Python" alt="Python">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" width="128" height="128" title="TensorFlow" alt="TensorFlow">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" width="128" height="128" title="PyTorch" alt="PyTorch">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg" width="128" height="128" title="OpenCV" alt="OpenCV">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" width="128" height="128" title="Pandas" alt="Pandas">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="128" height="128" title="JavaScript" alt="JavaScript">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" width="128" height="128" title="C" alt="C">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" width="128" height="128" title="C++" alt="C++">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="128" height="128" alt="" aria-hidden="true">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" width="128" height="128" alt="" aria-hidden="true">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" width="128" height="128" alt="" aria-hidden="true">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg" width="128" height="128" alt="" aria-hidden="true">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" width="128" height="128" alt="" aria-hidden="true">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="128" height="128" alt="" aria-hidden="true">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" width="128" height="128" alt="" aria-hidden="true">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" width="128" height="128" alt="" aria-hidden="true">
-    </div>
-  </div>
-  <div class="scroll-row reverse">
-    <div class="scroll-track">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" width="128" height="128" title="Docker" alt="Docker">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="128" height="128" title="React" alt="React">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" width="128" height="128" title="Django" alt="Django">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg" width="128" height="128" title="Flask" alt="Flask">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" width="128" height="128" title="MongoDB" alt="MongoDB">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" width="128" height="128" title="MySQL" alt="MySQL">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" width="128" height="128" title="Git" alt="Git">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" width="128" height="128" title="Linux" alt="Linux">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" width="512" height="307" title="AWS" alt="AWS">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" width="128" height="128" title="Azure" alt="Azure">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" width="128" height="128" alt="" aria-hidden="true">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="128" height="128" alt="" aria-hidden="true">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" width="128" height="128" alt="" aria-hidden="true">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg" width="128" height="128" alt="" aria-hidden="true">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" width="128" height="128" alt="" aria-hidden="true">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" width="128" height="128" alt="" aria-hidden="true">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" width="128" height="128" alt="" aria-hidden="true">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" width="128" height="128" alt="" aria-hidden="true">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" width="512" height="307" alt="" aria-hidden="true">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" width="128" height="128" alt="" aria-hidden="true">
-    </div>
-  </div>
-</section>
 
 <section class="list-section home-final-cta">
   <div class="list-header reveal">
