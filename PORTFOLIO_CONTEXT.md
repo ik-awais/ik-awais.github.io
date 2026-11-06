@@ -479,3 +479,4 @@ If sources disagree, flag the discrepancy rather than silently changing facts.
 The owner confirms that the certificates and letters supplied in the archive are genuine. Public verification links are useful where available but are not mandatory for inclusion.
 
 Never invent dates, metrics, grades, GPA, project benchmarks, client counts, deployment scale, responsibilities, or credential identifiers.
+ 
