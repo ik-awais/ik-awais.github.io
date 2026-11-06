@@ -20,6 +20,7 @@ function toggleTheme() {
     const menu    = dd.querySelector('.nav-dropdown-menu');
     if (!trigger || !menu) return;
     trigger.setAttribute('aria-expanded', 'false');
+    dd.classList.remove('is-open');
     menu.hidden = true;
     menu.setAttribute('aria-hidden', 'true');
   }
@@ -30,6 +31,7 @@ function toggleTheme() {
     const menu    = dd.querySelector('.nav-dropdown-menu');
     if (!trigger || !menu) return;
     trigger.setAttribute('aria-expanded', 'true');
+    dd.classList.add('is-open');
     menu.hidden = false;
     menu.setAttribute('aria-hidden', 'false');
   }
@@ -47,6 +49,7 @@ function toggleTheme() {
     // Always start with closed menus, even if a previous script or cached DOM
     // state left an inconsistent aria-expanded/hidden combination.
     trigger.setAttribute('aria-expanded', 'false');
+    dd.classList.remove('is-open');
     menu.hidden = true;
     menu.setAttribute('aria-hidden', 'true');
 
