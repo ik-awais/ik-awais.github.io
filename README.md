@@ -171,17 +171,24 @@ contact:
       <img src="https://streak-stats.demolab.com/?user=ik-awais&theme=tokyonight&hide_border=true&background=03001e&stroke=4a0e8f&ring=00c8ff&fire=00c8ff&currStreakLabel=00c8ff&sideLabels=e8e8f0&dates=9d6fff" width="100%"/>
     </td>
   </tr>
-  <tr>
-    <td colspan="2" align="center">
-      <img src="https://github-readme-activity-graph.vercel.app/graph?username=ik-awais&bg_color=03001e&color=00c8ff&line=4a0e8f&point=9d6fff&area=true&hide_border=true" width="100%"/>
-    </td>
-  </tr>
 </table>
 
 </div>
 
+<br>
+
+## <img src="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif" width="28"> &nbsp;Language Stats
+
 <div align="center">
-<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%"/>
+
+<img src="https://duolingo-stats-card.vercel.app/api?username=IK-AWAIS&theme=dark" />
+
+<br>
+
+[![Duolingo English Test](https://img.shields.io/badge/Duolingo%20English%20Test-130%20%2F%20130%20(Max%20Score)-006B3C?style=for-the-badge&logo=duolingo&logoColor=white)]()
+[![Language](https://img.shields.io/badge/Language-English-38BDF8?style=for-the-badge&logo=duolingo&logoColor=white)]()
+[![Status](https://img.shields.io/badge/Status-Live%20Synced-006B3C?style=for-the-badge&logo=duolingo&logoColor=white)]()
+
 </div>
 
 ## <img src="https://media.giphy.com/media/qgQUggAC3Pfv687qPC/giphy.gif" width="25"> Contribution Graph
