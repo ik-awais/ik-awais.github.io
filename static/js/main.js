@@ -417,10 +417,10 @@ function checkRateLimit() {
 (function initConstellation() {
   const canvas = document.getElementById('heroCanvas');
   if (!canvas) return;
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
   const ctx = canvas.getContext('2d');
-  let W, H;
+  if (!ctx) return;
+  const wrap = canvas.parentElement;
+  let W = 0, H = 0, pixelRatio = 1;
   let mouse = { x: -999, y: -999 };
 
   // Theme-aware colors — recomputed on every theme change
@@ -446,18 +446,26 @@ function checkRateLimit() {
   const MOUSE_R     = 140;
 
   function resize() {
-    const wrap = canvas.parentElement;
-    W = canvas.width  = wrap.offsetWidth;
-    H = canvas.height = wrap.offsetHeight;
+    const rect = wrap.getBoundingClientRect();
+    W = Math.max(1, rect.width);
+    H = Math.max(1, rect.height);
+    pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(W * pixelRatio);
+    canvas.height = Math.round(H * pixelRatio);
+    ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
   }
   resize();
-  new ResizeObserver(resize).observe(canvas.parentElement);
+  if ('ResizeObserver' in window) {
+    new ResizeObserver(resize).observe(wrap);
+  } else {
+    window.addEventListener('resize', resize, { passive: true });
+  }
 
   const nodes = Array.from({ length: NODE_COUNT }, () => ({
     x:  Math.random() * W,
     y:  Math.random() * H,
-    vx: (Math.random() - 0.5) * 0.38,
-    vy: (Math.random() - 0.5) * 0.38,
+    vx: (Math.random() - 0.5) * 0.55,
+    vy: (Math.random() - 0.5) * 0.55,
     r:  Math.random() * 1.8 + 1.0,
     pulse:      Math.random() * Math.PI * 2,
     pulseSpeed: 0.01 + Math.random() * 0.018,
@@ -486,8 +494,8 @@ function checkRateLimit() {
       n.vx *= 0.988; n.vy *= 0.988;
       // Keep nodes always moving — enforce minimum speed
       const spd = Math.sqrt(n.vx * n.vx + n.vy * n.vy);
-      if (spd < 0.18) {
-        const boost = (0.18 - spd) * 0.06;
+      if (spd < 0.32) {
+        const boost = (0.32 - spd) * 0.06;
         n.vx += (Math.random() - 0.5) * boost;
         n.vy += (Math.random() - 0.5) * boost;
       }
@@ -541,16 +549,39 @@ function checkRateLimit() {
     requestAnimationFrame(draw);
   }
 
-  if (prefersReduced) {
-    nodes.forEach(n => {
-      ctx.beginPath();
-      ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-      ctx.fillStyle = rgb(COLORS.node, COLORS.nodeAlpha * 0.6);
-      ctx.fill();
+  // The owner explicitly requests this subtle ambient network animation.
+  // Keep it moving continuously; the node velocity is intentionally restrained.
+  draw();
+}());
+
+// ── MATCHED-SPEED, SEAMLESS TECHNOLOGY MARQUEES ─────────────────────────
+(function initTechMarquees() {
+  const tracks = Array.from(document.querySelectorAll('.tech-stack-track'));
+  if (!tracks.length) return;
+
+  const updateTrack = track => {
+    const group = track.querySelector('.tech-stack-group:not([aria-hidden="true"])');
+    if (!group) return;
+    const width = group.getBoundingClientRect().width;
+    const speed = Math.max(24, Number(track.dataset.marqueeSpeed) || 38);
+    if (width > 0) track.style.setProperty('--marquee-duration', `${width / speed}s`);
+  };
+
+  const updateAll = () => tracks.forEach(updateTrack);
+  if ('ResizeObserver' in window) {
+    const observer = new ResizeObserver(entries => {
+      entries.forEach(entry => {
+        const track = entry.target.closest('.tech-stack-track');
+        if (track) updateTrack(track);
+      });
     });
-  } else {
-    draw();
+    tracks.forEach(track => {
+      const group = track.querySelector('.tech-stack-group:not([aria-hidden="true"])');
+      if (group) observer.observe(group);
+    });
   }
+  window.addEventListener('resize', updateAll, { passive: true });
+  requestAnimationFrame(updateAll);
 }());
 
 // ── MAGNETIC BUTTONS ────────────────────────────────────────────────────
