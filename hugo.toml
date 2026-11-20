@@ -3,8 +3,6 @@ languageCode = "en-us"
 title = "MA-Portfolio"
 enableRobotsTXT = true
 
-[pagination]
-  pagerSize = 9
 
 [outputFormats.SearchIndex]
   mediaType = "application/json"

@@ -1,27 +1,32 @@
 {{ define "main" }}
+{{ $pages := .RegularPages }}
 <section class="list-section">
   <div class="list-header reveal">
     <h1 class="section-title">{{ .Title }} <span class="accent">Archive.</span></h1>
   </div>
-  <div class="project-grid">
-    {{ range .Pages }}
-    <div class="project-card reveal">
-      {{ partial "card-thumb.html" . }}
-      <div class="project-card-body">
-        <p class="project-num">{{ .Date.Format "Jan 2006" }}</p>
-        <h3>{{ .Title }}</h3>
-        <p>{{ .Params.summary | default .Summary }}</p>
-        {{ with .Params.tags }}
-        <div class="tags">{{ range . }}<span class="tag">{{ . }}</span>{{ end }}</div>
-        {{ end }}
-        <div class="project-links">
-          {{ if .Params.github }}<a href="{{ .Params.github }}" target="_blank">GitHub ↗</a>{{ end }}
-          {{ if .Params.demo }}<a href="{{ .Params.demo }}" target="_blank">Live Demo ↗</a>{{ end }}
-          <a href="{{ .RelPermalink }}">Read More →</a>
+  {{ if gt (len $pages) 0 }}
+  <div class="archive-grid-wrap">
+    <div class="project-grid" data-archive-grid data-archive-section="projects" data-initial-count="9">
+      {{ range $pages }}
+      <article class="project-card reveal" data-archive-item data-content-file="{{ .File.Path }}">
+        {{ partial "card-thumb.html" . }}
+        <div class="project-card-body">
+          {{ if not .Date.IsZero }}<p class="project-num">{{ .Date.Format "Jan 2006" }}</p>{{ end }}
+          <h3>{{ .Title }}</h3>
+          <p>{{ .Params.summary | default .Summary }}</p>
+          {{ with .Params.tags }}<div class="tags">{{ range . }}<span class="tag">{{ . }}</span>{{ end }}</div>{{ end }}
+          <div class="project-links">
+            {{ if .Params.github }}<a href="{{ .Params.github }}" target="_blank" rel="noopener noreferrer">GitHub &#8599;</a>{{ end }}
+            {{ if .Params.demo }}<a href="{{ .Params.demo }}" target="_blank" rel="noopener noreferrer">Live Demo &#8599;</a>{{ end }}
+            <a href="{{ .RelPermalink }}">Read More &rarr;</a>
+          </div>
         </div>
-      </div>
+      </article>
+      {{ end }}
     </div>
-    {{ end }}
   </div>
+  {{ else }}
+  <div class="empty-state reveal"><p>Projects will appear here as they are published.</p></div>
+  {{ end }}
 </section>
 {{ end }}

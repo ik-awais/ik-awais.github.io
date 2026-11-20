@@ -224,6 +224,18 @@
         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" width="28" height="28" alt="" aria-hidden="true" loading="lazy" decoding="async">
         <span class="tech-item-label">Azure</span>
       </div>
+      <div class="tech-item" role="listitem">
+        <img src="https://cdn.simpleicons.org/asana/F06A6A" width="28" height="28" alt="" aria-hidden="true" loading="lazy" decoding="async">
+        <span class="tech-item-label">Asana</span>
+      </div>
+      <div class="tech-item" role="listitem">
+        <img src="https://cdn.simpleicons.org/clickup/7B68EE" width="28" height="28" alt="" aria-hidden="true" loading="lazy" decoding="async">
+        <span class="tech-item-label">ClickUp</span>
+      </div>
+      <div class="tech-item" role="listitem">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/slack/slack-original.svg" width="28" height="28" alt="" aria-hidden="true" loading="lazy" decoding="async">
+        <span class="tech-item-label">Slack</span>
+      </div>
     </div>
     <div class="tech-stack-group" aria-hidden="true">
       <div class="tech-item" role="listitem">
@@ -265,6 +277,18 @@
       <div class="tech-item" role="listitem">
         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" width="28" height="28" alt="" aria-hidden="true" loading="lazy" decoding="async">
         <span class="tech-item-label">Azure</span>
+      </div>
+      <div class="tech-item" role="listitem">
+        <img src="https://cdn.simpleicons.org/asana/F06A6A" width="28" height="28" alt="" aria-hidden="true" loading="lazy" decoding="async">
+        <span class="tech-item-label">Asana</span>
+      </div>
+      <div class="tech-item" role="listitem">
+        <img src="https://cdn.simpleicons.org/clickup/7B68EE" width="28" height="28" alt="" aria-hidden="true" loading="lazy" decoding="async">
+        <span class="tech-item-label">ClickUp</span>
+      </div>
+      <div class="tech-item" role="listitem">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/slack/slack-original.svg" width="28" height="28" alt="" aria-hidden="true" loading="lazy" decoding="async">
+        <span class="tech-item-label">Slack</span>
       </div>
     </div>
     </div>
@@ -345,13 +369,20 @@
 ) }}
 
 
-<section class="list-section home-final-cta">
-  <div class="list-header reveal">
-    <h2 class="section-title">Let's Get in <span class="accent">Touch.</span></h2>
-    <p class="contact-desc">Open to collaborations, AI projects, technical opportunities, and conversations about building useful systems.</p>
-    <div class="hero-cta home-final-actions">
-      <a href="/contact/" class="btn-primary">Hire Me</a>
-      <a href="/contact/" class="btn-ghost">Book a Call</a>
+<section id="contact" class="home-contact-section" aria-labelledby="home-contact-heading">
+  <div class="home-contact-layout">
+    <div class="home-contact-copy">
+      <p class="home-preview-eyebrow">Start a conversation</p>
+      <h2 id="home-contact-heading" class="section-title">Let's Get in <span class="accent">Touch.</span></h2>
+      <p class="contact-desc">Open to collaborations, AI projects, technical opportunities, and conversations about building useful systems.</p>
+      <div class="home-contact-links">
+        <a href="mailto:mawaisqq@gmail.com">mawaisqq@gmail.com</a>
+        <a href="mailto:m.awais@aigenmat.com">m.awais@aigenmat.com</a>
+        <a href="/contact/">Open the dedicated contact page &#8599;</a>
+      </div>
+    </div>
+    <div class="home-contact-form">
+      {{ partial "contact-form.html" . }}
     </div>
   </div>
 </section>

@@ -1,13 +1,5 @@
-{{- /*
-  Partial: works-list.html
-  Shared list-page rendering for the Works collections (Articles, Publications,
-  Activities). Reuses the exact existing card-grid pattern (.project-grid /
-  .project-card / card-thumb.html) already established by Projects and Blog.
-  Handles pagination (Hugo-native .Paginate) and a professionally-designed
-  empty state — no placeholder content is ever rendered.
-*/ -}}
+{{- /* Single-page collection archive with progressively revealed older cards. */ -}}
 {{ $pages := .RegularPages }}
-{{ $paginator := .Paginate $pages }}
 <section class="list-section">
   <div class="list-header reveal">
     {{ if ne .Section "achievements" }}<p class="hero-label" style="animation:none;opacity:1">Works</p>{{ end }}
@@ -24,36 +16,26 @@
     {{ end }}
   </div>
   {{ else }}
-  <div class="project-grid">
-    {{ range $paginator.Pages }}
-    <div class="project-card reveal">
-      {{ partial "card-thumb.html" . }}
-      <div class="project-card-body">
-        <p class="project-num">{{ .Date.Format "Jan 2006" }}</p>
-        <h3>{{ .Title }}</h3>
-        <p>{{ .Params.summary | default .Summary }}</p>
-        {{ with .Params.tags }}
-        <div class="tags">{{ range . }}<span class="tag">{{ . }}</span>{{ end }}</div>
-        {{ end }}
-        <div class="project-links">
-          {{ if .Params.link }}<a href="{{ .Params.link }}" target="_blank" rel="noopener noreferrer">View &#8599;</a>{{ end }}
-          <a href="{{ .RelPermalink }}">Read More &rarr;</a>
+  <div class="archive-grid-wrap">
+    <div class="project-grid" data-archive-grid data-archive-section="{{ .Section }}" data-initial-count="9">
+      {{ range $pages }}
+      <article class="project-card reveal" data-archive-item data-content-file="{{ .File.Path }}">
+        {{ partial "card-thumb.html" . }}
+        <div class="project-card-body">
+          {{ if not .Date.IsZero }}<p class="project-num">{{ .Date.Format "Jan 2006" }}</p>{{ end }}
+          <h3>{{ .Title }}</h3>
+          <p>{{ .Params.summary | default .Summary }}</p>
+          {{ with .Params.tags }}
+          <div class="tags">{{ range . }}<span class="tag">{{ . }}</span>{{ end }}</div>
+          {{ end }}
+          <div class="project-links">
+            {{ if .Params.link }}<a href="{{ .Params.link }}" target="_blank" rel="noopener noreferrer">View &#8599;</a>{{ end }}
+            <a href="{{ .RelPermalink }}">Read More &rarr;</a>
+          </div>
         </div>
-      </div>
+      </article>
+      {{ end }}
     </div>
-    {{ end }}
   </div>
-
-  {{ if gt $paginator.TotalPages 1 }}
-  <nav class="works-pager" aria-label="Pagination">
-    <div class="works-pager-side works-pager-prev">
-      {{ if $paginator.HasPrev }}<a href="{{ $paginator.Prev.URL }}" class="btn-ghost">&larr; Newer</a>{{ end }}
-    </div>
-    <span class="works-pager-status" aria-current="page">Page {{ $paginator.PageNumber }} of {{ $paginator.TotalPages }}</span>
-    <div class="works-pager-side works-pager-next">
-      {{ if $paginator.HasNext }}<a href="{{ $paginator.Next.URL }}" class="btn-ghost">Older &rarr;</a>{{ end }}
-    </div>
-  </nav>
-  {{ end }}
   {{ end }}
 </section>

@@ -226,8 +226,8 @@ function checkRateLimit() {
   return { allowed: true };
 }
 
-// ── DEDICATED CONTACT PAGE FORM (/contact/) ─────────────────────────────
-// Self-contained handler for the classified-inquiry form. Reuses
+// ── SITE-WIDE CONTACT FORM (homepage and /contact/) ─────────────────────
+// Shared handler for the classified-inquiry form. Reuses
 // validateEmail() and checkRateLimit() above. No-ops entirely on any
 // page without #contactForm.
 (function () {
@@ -374,18 +374,7 @@ function checkRateLimit() {
   const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
   if (prefersReduced || isTouch) return;
 
-  // Magnetic buttons — cached rect on mouseenter
-  document.querySelectorAll('.btn-primary, .btn-ghost, .cta-btn-primary').forEach(el => {
-    let r = null;
-    el.addEventListener('mouseenter', () => { r = el.getBoundingClientRect(); });
-    el.addEventListener('mousemove', e => {
-      if (!r) return;
-      const dx = (e.clientX - (r.left + r.width  / 2)) * 0.18;
-      const dy = (e.clientY - (r.top  + r.height / 2)) * 0.18;
-      el.style.transform = `translate(${dx}px,${dy}px)`;
-    });
-    el.addEventListener('mouseleave', () => { r = null; el.style.transform = ''; });
-  });
+  // Buttons intentionally remain position-stable; no magnetic pointer transforms.
 
   // Hero orb parallax — passive, CSS var driven, no layout thrash
   const orb = document.querySelector('.hero-orb');
@@ -427,13 +416,13 @@ function checkRateLimit() {
   function getColors() {
     const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
     return isDark ? {
-      node: [157, 111, 255],  nodeAlpha: 0.55,
-      line: [0, 200, 255],    lineAlpha: 0.22,
-      glow: [157, 111, 255],  glowAlpha: 0.08,
+      node: [167, 139, 250],  nodeAlpha: 0.78,
+      line: [56, 189, 248],   lineAlpha: 0.30,
+      glow: [244, 114, 182],  glowAlpha: 0.13,
     } : {
-      node: [90, 80, 140],    nodeAlpha: 0.18,
-      line: [80, 90, 160],    lineAlpha: 0.07,
-      glow: [100, 80, 180],   glowAlpha: 0.03,
+      node: [124, 58, 237],   nodeAlpha: 0.40,
+      line: [2, 132, 199],    lineAlpha: 0.17,
+      glow: [219, 39, 119],   glowAlpha: 0.075,
     };
   }
 
@@ -464,9 +453,10 @@ function checkRateLimit() {
   const nodes = Array.from({ length: NODE_COUNT }, () => ({
     x:  Math.random() * W,
     y:  Math.random() * H,
-    vx: (Math.random() - 0.5) * 0.55,
-    vy: (Math.random() - 0.5) * 0.55,
-    r:  Math.random() * 1.8 + 1.0,
+    vx: (Math.random() - 0.5) * 1.10,
+    vy: (Math.random() - 0.5) * 1.10,
+    // Adds roughly 2.25 mm (~8.5 CSS px) to the former particle radius.
+    r:  Math.random() * 1.8 + 9.5,
     pulse:      Math.random() * Math.PI * 2,
     pulseSpeed: 0.01 + Math.random() * 0.018,
   }));
@@ -487,15 +477,15 @@ function checkRateLimit() {
       const dx = mouse.x - n.x, dy = mouse.y - n.y;
       const d  = Math.sqrt(dx * dx + dy * dy);
       if (d < MOUSE_R && d > 0) {
-        const f = (1 - d / MOUSE_R) * 0.014;
+        const f = (1 - d / MOUSE_R) * 0.028;
         n.vx += dx / d * f;
         n.vy += dy / d * f;
       }
       n.vx *= 0.988; n.vy *= 0.988;
       // Keep nodes always moving — enforce minimum speed
       const spd = Math.sqrt(n.vx * n.vx + n.vy * n.vy);
-      if (spd < 0.32) {
-        const boost = (0.32 - spd) * 0.06;
+      if (spd < 0.64) {
+        const boost = (0.64 - spd) * 0.06;
         n.vx += (Math.random() - 0.5) * boost;
         n.vy += (Math.random() - 0.5) * boost;
       }
@@ -584,22 +574,231 @@ function checkRateLimit() {
   requestAnimationFrame(updateAll);
 }());
 
-// ── MAGNETIC BUTTONS ────────────────────────────────────────────────────
-(function initMagnetic() {
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
-  if (prefersReduced || isTouch) return;
+// Buttons remain position-stable on hover. No magnetic pointer transforms are used.
 
-  document.querySelectorAll('.btn-primary, .btn-ghost, .cta-btn-primary').forEach(el => {
-    let r = null;
-    el.addEventListener('mouseenter', () => { r = el.getBoundingClientRect(); });
-    el.addEventListener('mousemove', e => {
-      if (!r) return;
-      const dx = (e.clientX - (r.left + r.width  / 2)) * 0.18;
-      const dy = (e.clientY - (r.top  + r.height / 2)) * 0.18;
-      el.style.transform = `translate(${dx}px,${dy}px)`;
+// ── HOMEPAGE PREVIEW MARQUEES ───────────────────────────────────────────
+(function initHomePreviewMarquees() {
+  const tracks = Array.from(document.querySelectorAll('.home-preview-track'));
+  if (!tracks.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  tracks.forEach(track => {
+    const originals = Array.from(track.children).filter(node => !node.dataset.marqueeClone);
+    if (!originals.length) return;
+    let loopWidth = 0;
+    let lastTime = 0;
+    let paused = false;
+    let destroyed = false;
+
+    const prepare = () => {
+      track.querySelectorAll('[data-marquee-clone="true"]').forEach(node => node.remove());
+      loopWidth = 0;
+      const first = originals[0];
+      const originalStart = first.offsetLeft;
+      const appendCloneSet = () => originals.forEach(node => {
+        const clone = node.cloneNode(true);
+        clone.dataset.marqueeClone = 'true';
+        clone.setAttribute('aria-hidden', 'true');
+        clone.querySelectorAll('a, button, input, select, textarea').forEach(control => control.setAttribute('tabindex', '-1'));
+        track.appendChild(clone);
+      });
+      appendCloneSet();
+      const firstClone = track.querySelector('[data-marquee-clone="true"]');
+      loopWidth = firstClone ? firstClone.offsetLeft - originalStart : 0;
+      let sets = 1;
+      while (loopWidth > 0 && track.scrollWidth < track.clientWidth + loopWidth && sets < 8) {
+        appendCloneSet();
+        sets += 1;
+      }
+      track.scrollLeft = track.scrollLeft % Math.max(loopWidth, 1);
+    };
+
+    track.addEventListener('mouseenter', () => { paused = true; });
+    track.addEventListener('mouseleave', () => { paused = false; });
+    track.addEventListener('focusin', () => { paused = true; });
+    track.addEventListener('focusout', event => {
+      if (!track.contains(event.relatedTarget)) paused = false;
     });
-    el.addEventListener('mouseleave', () => { r = null; el.style.transform = ''; });
+
+    const animate = time => {
+      if (destroyed) return;
+      const delta = lastTime ? Math.min((time - lastTime) / 1000, 0.05) : 0;
+      lastTime = time;
+      if (!paused && loopWidth > 0) {
+        track.scrollLeft += 34 * delta;
+        if (track.scrollLeft >= loopWidth) track.scrollLeft -= loopWidth;
+      }
+      requestAnimationFrame(animate);
+    };
+
+    prepare();
+    if ('ResizeObserver' in window) {
+      const ro = new ResizeObserver(() => prepare());
+      ro.observe(track);
+      originals.forEach(node => ro.observe(node));
+    } else {
+      window.addEventListener('resize', prepare, { passive: true });
+    }
+    requestAnimationFrame(animate);
+    window.addEventListener('pagehide', () => { destroyed = true; }, { once: true });
+  });
+}());
+
+// ── ONE-PAGE ARCHIVES + MANUAL MARKDOWN ORDERING ─────────────────────────
+(function initArchiveControls() {
+  const grids = Array.from(document.querySelectorAll('[data-archive-grid]'));
+  if (!grids.length) return;
+
+  const copyText = async value => {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(value);
+      return true;
+    }
+    const field = document.createElement('textarea');
+    field.value = value;
+    field.setAttribute('readonly', '');
+    field.style.position = 'fixed';
+    field.style.opacity = '0';
+    document.body.appendChild(field);
+    field.select();
+    const ok = document.execCommand('copy');
+    field.remove();
+    return ok;
+  };
+
+  grids.forEach(grid => {
+    const cards = () => Array.from(grid.querySelectorAll(':scope > [data-archive-item]'));
+    const allCards = cards();
+    if (allCards.length < 2) return;
+
+    const initialCount = Math.max(1, Number(grid.dataset.initialCount) || 9);
+    const olderCards = allCards.slice(initialCount);
+    olderCards.forEach(card => { card.hidden = true; });
+
+    const editMode = new URLSearchParams(window.location.search).get('edit-order') === '1';
+    const toolbar = document.createElement('div');
+    toolbar.className = 'archive-toolbar';
+    toolbar.setAttribute('aria-label', editMode ? 'Archive display and ordering controls' : 'Archive display controls');
+
+    let expandButton = null;
+    if (olderCards.length) {
+      expandButton = document.createElement('button');
+      expandButton.type = 'button';
+      expandButton.className = 'archive-expand-toggle';
+      expandButton.setAttribute('aria-expanded', 'false');
+      expandButton.innerHTML = `Show older cards (${olderCards.length}) <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m4 7 6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+    }
+
+    const reorderButton = document.createElement('button');
+    reorderButton.type = 'button';
+    reorderButton.className = 'archive-reorder-toggle';
+    reorderButton.textContent = 'Reorder cards';
+
+    const copyButton = document.createElement('button');
+    copyButton.type = 'button';
+    copyButton.className = 'archive-copy-order';
+    copyButton.textContent = 'Copy Markdown weights';
+    copyButton.hidden = true;
+
+    const status = document.createElement('p');
+    status.className = 'archive-status';
+    status.setAttribute('role', 'status');
+    status.setAttribute('aria-live', 'polite');
+
+    if (expandButton) toolbar.appendChild(expandButton);
+    if (editMode) {
+      toolbar.appendChild(reorderButton);
+      toolbar.appendChild(copyButton);
+      toolbar.appendChild(status);
+    }
+    if (expandButton || editMode) grid.parentElement.insertBefore(toolbar, grid);
+
+    let isExpanded = false;
+    let reordering = false;
+    let dragged = null;
+
+    const revealAll = () => {
+      isExpanded = true;
+      olderCards.forEach(card => { card.hidden = false; card.classList.add('visible'); });
+      if (expandButton) {
+        expandButton.setAttribute('aria-expanded', 'true');
+        expandButton.innerHTML = `Show fewer cards <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m4 7 6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+      }
+    };
+
+    const collapseOlder = () => {
+      isExpanded = false;
+      cards().slice(initialCount).forEach(card => { card.hidden = true; });
+      if (expandButton) {
+        expandButton.setAttribute('aria-expanded', 'false');
+        expandButton.innerHTML = `Show older cards (${olderCards.length}) <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m4 7 6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+      }
+    };
+
+    if (expandButton) expandButton.addEventListener('click', () => isExpanded ? collapseOlder() : revealAll());
+
+    reorderButton.addEventListener('click', () => {
+      reordering = !reordering;
+      if (reordering) {
+        revealAll();
+        grid.classList.add('is-reordering');
+        cards().forEach(card => { card.draggable = true; });
+        reorderButton.textContent = 'Finish reordering';
+        copyButton.hidden = false;
+        status.textContent = 'Drag cards into the required order, then copy the Markdown weights to publish it.';
+      } else {
+        grid.classList.remove('is-reordering');
+        cards().forEach(card => { card.draggable = false; card.classList.remove('dragging'); });
+        reorderButton.textContent = 'Reorder cards';
+        status.textContent = 'Order preview updated locally. Copy the weights and commit them in the Markdown files to make it permanent.';
+      }
+    });
+
+    grid.addEventListener('dragstart', event => {
+      const card = event.target.closest('[data-archive-item]');
+      if (!reordering || !card) { event.preventDefault(); return; }
+      dragged = card;
+      card.classList.add('dragging');
+      if (event.dataTransfer) {
+        event.dataTransfer.effectAllowed = 'move';
+        event.dataTransfer.setData('text/plain', card.dataset.contentFile || 'portfolio-card');
+      }
+    });
+
+    grid.addEventListener('dragover', event => {
+      if (!reordering || !dragged) return;
+      const target = event.target.closest('[data-archive-item]');
+      if (!target || target === dragged) return;
+      event.preventDefault();
+      const rect = target.getBoundingClientRect();
+      const after = event.clientY > rect.top + rect.height / 2;
+      grid.insertBefore(dragged, after ? target.nextElementSibling : target);
+    });
+
+    grid.addEventListener('drop', event => {
+      if (!reordering || !dragged) return;
+      event.preventDefault();
+      status.textContent = 'Order changed in this browser preview. Copy the Markdown weights to publish it.';
+    });
+
+    grid.addEventListener('dragend', () => {
+      if (dragged) dragged.classList.remove('dragging');
+      dragged = null;
+    });
+
+    copyButton.addEventListener('click', async () => {
+      const manifest = cards().map((card, index) => {
+        const file = card.dataset.contentFile || 'UNKNOWN.md';
+        return `# content/${file}\nweight: ${(index + 1) * 10}`;
+      }).join('\n\n');
+      try {
+        const ok = await copyText(manifest);
+        status.textContent = ok
+          ? 'Markdown weight assignments copied. Paste each weight into its matching content file and commit.'
+          : 'Clipboard access was unavailable. Use HTTPS or copy the order manually.';
+      } catch (error) {
+        status.textContent = 'Clipboard access was unavailable. Use HTTPS or copy the order manually.';
+      }
+    });
   });
 }());
 

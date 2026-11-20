@@ -1,15 +1,6 @@
-{{- /*
-  Partial: timeline-list.html
-  Shared list-page rendering for the Education and Experience collections
-  (University/College/School, AI GenMat/Future Companies/Other Experience).
-  Reuses the exact existing card-grid pattern already established by
-  Projects and Works (.project-grid / .project-card / card-thumb.html).
-  Family name (Education vs Experience) is derived from .Parent.Title,
-  not hardcoded, so this one partial serves both families correctly.
-*/ -}}
+{{- /* Single-page Education and Experience archive with reorder controls. */ -}}
 {{ $family := .Parent.Title }}
 {{ $pages := .RegularPages }}
-{{ $paginator := .Paginate $pages }}
 <section class="list-section">
   <div class="list-header reveal">
     <p class="hero-label" style="animation:none;opacity:1">{{ $family }}</p>
@@ -29,39 +20,25 @@
     {{ end }}
   </div>
   {{ else }}
-  <div class="project-grid">
-    {{ range $paginator.Pages }}
-    {{ $org := .Params.institution | default .Params.company }}
-    <div class="project-card reveal">
-      {{ partial "card-thumb.html" . }}
-      <div class="project-card-body">
-        <p class="project-num">
-          {{ with .Params.startDate }}{{ . }}{{ end }}{{ if .Params.endDate }} &ndash; {{ .Params.endDate }}{{ else if .Params.startDate }} &ndash; Present{{ end }}
-        </p>
-        <h3>{{ .Title }}</h3>
-        {{ with $org }}<p class="works-venue">{{ . }}</p>{{ end }}
-        <p>{{ .Params.summary | default .Summary }}</p>
-        {{ with .Params.tags }}
-        <div class="tags">{{ range . }}<span class="tag">{{ . }}</span>{{ end }}</div>
-        {{ end }}
-        <div class="project-links">
-          <a href="{{ .RelPermalink }}">Details &rarr;</a>
+  <div class="archive-grid-wrap">
+    <div class="project-grid" data-archive-grid data-archive-section="{{ .Section }}" data-initial-count="9">
+      {{ range $pages }}
+      {{ $org := .Params.institution | default .Params.company }}
+      <article class="project-card reveal" data-archive-item data-content-file="{{ .File.Path }}">
+        {{ partial "card-thumb.html" . }}
+        <div class="project-card-body">
+          <p class="project-num">{{ with .Params.startDate }}{{ . }}{{ end }}{{ if .Params.endDate }} &ndash; {{ .Params.endDate }}{{ else if .Params.startDate }} &ndash; Present{{ end }}</p>
+          <h3>{{ .Title }}</h3>
+          {{ with $org }}<p class="works-venue">{{ . }}</p>{{ end }}
+          <p>{{ .Params.summary | default .Summary }}</p>
+          {{ with .Params.tags }}
+          <div class="tags">{{ range . }}<span class="tag">{{ . }}</span>{{ end }}</div>
+          {{ end }}
+          <div class="project-links"><a href="{{ .RelPermalink }}">Details &rarr;</a></div>
         </div>
-      </div>
+      </article>
+      {{ end }}
     </div>
-    {{ end }}
   </div>
-
-  {{ if gt $paginator.TotalPages 1 }}
-  <nav class="works-pager" aria-label="Pagination">
-    <div class="works-pager-side works-pager-prev">
-      {{ if $paginator.HasPrev }}<a href="{{ $paginator.Prev.URL }}" class="btn-ghost">&larr; Newer</a>{{ end }}
-    </div>
-    <span class="works-pager-status" aria-current="page">Page {{ $paginator.PageNumber }} of {{ $paginator.TotalPages }}</span>
-    <div class="works-pager-side works-pager-next">
-      {{ if $paginator.HasNext }}<a href="{{ $paginator.Next.URL }}" class="btn-ghost">Older &rarr;</a>{{ end }}
-    </div>
-  </nav>
-  {{ end }}
   {{ end }}
 </section>
