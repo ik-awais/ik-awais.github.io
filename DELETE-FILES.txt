@@ -11,3 +11,17 @@ The Awais monogram is now the active site favicon and brand mark:
 - static/images/branding/awais-mark.svg
 
 The portrait asset at static/images/branding/muhammad-awais.png is retained as a profile/brand image asset and is not used as the favicon.
+
+Theme-aware A/W monogram variants
+=================================
+
+Keep the dark/light icon pairs used by the theme-aware favicon switch:
+- static/favicon-dark.svg and static/favicon-light.svg
+- static/favicon-dark.ico and static/favicon-light.ico
+- static/favicon-dark-16x16.png / static/favicon-light-16x16.png
+- static/favicon-dark-32x32.png / static/favicon-light-32x32.png
+- static/favicon-dark-512.png / static/favicon-light-512.png
+- static/apple-touch-icon-dark.png / static/apple-touch-icon-light.png
+
+The canonical favicon.svg, favicon.ico, favicon-16x16.png, favicon-32x32.png,
+favicon-512.png, and apple-touch-icon.png are retained as dark-theme fallbacks.

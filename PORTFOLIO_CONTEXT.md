@@ -914,8 +914,9 @@ git push
 
 ## Latest implementation update — Awais monogram and cursor-following pebbles
 
-- The navbar and footer use a custom Awais monogram mark with the full “Muhammad Awais” wordmark. The mark is rendered from `static/images/branding/awais-mark.svg` through `layouts/partials/awais-mark.html`.
-- The same monogram is the active favicon in SVG, ICO, 16px/32px/512px PNG, and Apple touch icon formats. The portrait remains available at `static/images/branding/muhammad-awais.png` but is no longer used as the favicon.
+- The navbar and footer use a custom circular A/W monogram inspired by the supplied reference. The shared inline SVG is rendered through `layouts/partials/awais-mark.html`, with color tokens that adapt to the active dark/light theme.
+- Browser favicons now swap between matched dark and light SVG, ICO, PNG, and Apple touch icon assets whenever the persisted theme changes. The default `favicon.svg` and legacy icon filenames remain available as dark-theme fallbacks.
+- The portrait remains available at `static/images/branding/muhammad-awais.png` but is not used as the favicon.
 - The pebble constellation listens for pointer movement at document level. It follows the pointer through a smoothed inertial translation while preserving the pebbles' own normalized base velocity. No radial cursor halo, background highlight, or custom cursor is used. The operating-system cursor remains default.
 - Archive reorder operations save silently. Visitor-facing explanatory status copy about browser storage or repository commits has been removed. The optional `?edit-order=1` export control uses brief button feedback only.
 - `.github/workflows/deploy.yml` configures the Hugo cache in a step using `$RUNNER_TEMP` and verifies the active SVG monogram favicon and brand asset in the generated output.

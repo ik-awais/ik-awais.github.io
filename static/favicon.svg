@@ -1,19 +1,7 @@
-<svg class="awais-mark" viewBox="0 0 64 64" role="img" aria-label="Awais monogram" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="awais-mark-bg" x1="6" y1="4" x2="59" y2="60" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#8B5CF6"/>
-      <stop offset="0.52" stop-color="#2563EB"/>
-      <stop offset="1" stop-color="#06B6D4"/>
-    </linearGradient>
-    <linearGradient id="awais-mark-stroke" x1="17" y1="48" x2="46" y2="15" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#FFFFFF"/>
-      <stop offset="1" stop-color="#DDFBFF"/>
-    </linearGradient>
-  </defs>
-  <rect x="2" y="2" width="60" height="60" rx="17" fill="#11152D" stroke="url(#awais-mark-bg)" stroke-width="2"/>
-  <path d="M15.5 47.5 30.8 16.4c.5-1.1 2.1-1.1 2.6 0l15.1 31.1" fill="none" stroke="url(#awais-mark-stroke)" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M22.4 34.2h19.2" fill="none" stroke="#67E8F9" stroke-width="4.2" stroke-linecap="round"/>
-  <path d="M42.4 17.1c3.3-3.5 7.8-4.5 10.5-2.2" fill="none" stroke="#A5F3FC" stroke-width="2" stroke-linecap="round"/>
-  <circle cx="53.1" cy="14.7" r="3.2" fill="#67E8F9"/>
-  <circle cx="10.8" cy="49.5" r="1.7" fill="#A78BFA"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Awais monogram">
+  
+  <circle cx="50" cy="50" r="45.5" fill="#191B3A" stroke="#61D7E8" stroke-width="3.2" />
+  <path d="M29.5 57.5 50 22 70.5 57.5" fill="none" stroke="#B8A5FF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M38.2 44.2c8.7-2.2 17.2-6.7 24.7-15.1" fill="none" stroke="#7DD3FC" stroke-width="5.6" stroke-linecap="round" />
+  <path d="M15.5 46.8c7.1-4.2 12.9-3.4 17.3 5.1L41.5 70 50 50.5 58.5 70l8.7-18.1c4.4-8.5 10.2-9.3 17.3-5.1" fill="none" stroke="#5EEAD4" stroke-width="7.4" stroke-linecap="round" stroke-linejoin="round" />
 </svg>

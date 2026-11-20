@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Awais monogram">
+  <rect x="0" y="0" width="100" height="100" rx="22" fill="#101026" />
+  <circle cx="50" cy="50" r="45.5" fill="#191B3A" stroke="#61D7E8" stroke-width="3.2" />
+  <path d="M29.5 57.5 50 22 70.5 57.5" fill="none" stroke="#B8A5FF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M38.2 44.2c8.7-2.2 17.2-6.7 24.7-15.1" fill="none" stroke="#7DD3FC" stroke-width="5.6" stroke-linecap="round" />
+  <path d="M15.5 46.8c7.1-4.2 12.9-3.4 17.3 5.1L41.5 70 50 50.5 58.5 70l8.7-18.1c4.4-8.5 10.2-9.3 17.3-5.1" fill="none" stroke="#5EEAD4" stroke-width="7.4" stroke-linecap="round" stroke-linejoin="round" />
+</svg>

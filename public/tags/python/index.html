@@ -33,20 +33,61 @@
 
 
 
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" id="site-theme-color" content="#101026">
+  <link rel="icon" id="site-favicon-svg" type="image/svg+xml" href="/favicon-dark.svg" data-theme-dark="/favicon-dark.svg" data-theme-light="/favicon-light.svg">
+  <link rel="icon" id="site-favicon-ico" type="image/x-icon" href="/favicon.ico" sizes="any" data-theme-dark="/favicon.ico" data-theme-light="/favicon-light.ico">
+  <link rel="icon" id="site-favicon-512" type="image/png" sizes="512x512" href="/favicon-512.png" data-theme-dark="/favicon-512.png" data-theme-light="/favicon-light-512.png">
+  <link rel="icon" id="site-favicon-32" type="image/png" sizes="32x32" href="/favicon-32x32.png" data-theme-dark="/favicon-32x32.png" data-theme-light="/favicon-light-32x32.png">
+  <link rel="icon" id="site-favicon-16" type="image/png" sizes="16x16" href="/favicon-16x16.png" data-theme-dark="/favicon-16x16.png" data-theme-light="/favicon-light-16x16.png">
+  <link rel="apple-touch-icon" id="site-apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" data-theme-dark="/apple-touch-icon.png" data-theme-light="/apple-touch-icon-light.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="/css/main.min.2b76d4e83911974127f85cb144f4e95c58b1fb4b75bab6b0546ddf931bbe097c.css" integrity="sha256-K3bU6DkRl0En&#43;FyxRPTpXFix&#43;0t1urawVG3fkxu&#43;CXw=">
+<style id="theme-aware-awais-branding">
+:root {
+  --brand-mark-ring: #61D7E8;
+  --brand-mark-a: #B8A5FF;
+  --brand-mark-cross: #7DD3FC;
+  --brand-mark-w: #5EEAD4;
+}
+[data-theme="light"] {
+  --brand-mark-ring: #7C3AED;
+  --brand-mark-a: #5B21B6;
+  --brand-mark-cross: #0284C7;
+  --brand-mark-w: #0F9D79;
+}
+.awais-mark { display:block; width:32px; height:32px; flex:0 0 32px; overflow:visible; }
+.awais-mark__ring { stroke:var(--brand-mark-ring); }
+.awais-mark__a { stroke:var(--brand-mark-a); }
+.awais-mark__cross { stroke:var(--brand-mark-cross); }
+.awais-mark__w { stroke:var(--brand-mark-w); }
+.nav-logo { display:inline-flex; align-items:center; gap:9px; text-transform:none; letter-spacing:-.035em; }
+.nav-logo .nav-logo-name { color:var(--text); }
+.footer-brand-logo { display:inline-flex; align-items:center; gap:11px; width:fit-content; }
+.footer-brand-logo .awais-mark { width:36px; height:36px; flex-basis:36px; }
+.footer-brand-logo .footer-brand-name { color:var(--text); }
+@media (max-width:600px) {
+  .nav-logo { gap:7px; font-size:14px; }
+  .nav-logo .awais-mark { width:28px; height:28px; flex-basis:28px; }
+}
+</style>
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <nav id="navbar">
     <div style="display:flex;align-items:center">
-      <a href="/" class="nav-logo">MA<span class="dot">.</span></a>
+      <a href="/" class="nav-logo" aria-label="Muhammad Awais home">
+        <svg class="awais-mark" viewBox="0 0 100 100" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <circle class="awais-mark__ring" cx="50" cy="50" r="45.5" fill="none" stroke-width="3.2" />
+  <path class="awais-mark__a" d="M29.5 57.5 50 22 70.5 57.5" fill="none" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
+  <path class="awais-mark__cross" d="M38.2 44.2c8.7-2.2 17.2-6.7 24.7-15.1" fill="none" stroke-width="5.6" stroke-linecap="round" />
+  <path class="awais-mark__w" d="M15.5 46.8c7.1-4.2 12.9-3.4 17.3 5.1L41.5 70 50 50.5 58.5 70l8.7-18.1c4.4-8.5 10.2-9.3 17.3-5.1" fill="none" stroke-width="7.4" stroke-linecap="round" stroke-linejoin="round" />
+</svg>
+        <span class="nav-logo-name">Muhammad Awais</span>
+      </a>
       <a href="https://aigenmat.com" target="_blank" rel="noopener" class="nav-logo-badge">AI GenMat</a>
     </div>
 
@@ -220,7 +261,15 @@
     <div class="footer-glow" aria-hidden="true"></div>
     <div class="footer-inner">
       <div class="footer-brand">
-        <a href="/" class="footer-brand-logo">MA<span>.</span></a>
+        <a href="/" class="footer-brand-logo" aria-label="Muhammad Awais home">
+          <svg class="awais-mark" viewBox="0 0 100 100" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <circle class="awais-mark__ring" cx="50" cy="50" r="45.5" fill="none" stroke-width="3.2" />
+  <path class="awais-mark__a" d="M29.5 57.5 50 22 70.5 57.5" fill="none" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
+  <path class="awais-mark__cross" d="M38.2 44.2c8.7-2.2 17.2-6.7 24.7-15.1" fill="none" stroke-width="5.6" stroke-linecap="round" />
+  <path class="awais-mark__w" d="M15.5 46.8c7.1-4.2 12.9-3.4 17.3 5.1L41.5 70 50 50.5 58.5 70l8.7-18.1c4.4-8.5 10.2-9.3 17.3-5.1" fill="none" stroke-width="7.4" stroke-linecap="round" stroke-linejoin="round" />
+</svg>
+          <span class="footer-brand-name">Muhammad Awais</span>
+        </a>
         <p class="footer-brand-tagline">AI Engineer and Managing Director at AI GenMat, building production AI systems, agentic pipelines, and applied LLM infrastructure.</p>
         <a href="mailto:m.awais@aigenmat.com" class="footer-brand-email">m.awais@aigenmat.com</a>
       </div>

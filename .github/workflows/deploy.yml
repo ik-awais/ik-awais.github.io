@@ -69,11 +69,18 @@ jobs:
             public/sitemap.xml
             public/search-index.json
             public/favicon.svg
+            public/favicon-dark.svg
+            public/favicon-light.svg
             public/favicon.ico
+            public/favicon-light.ico
             public/favicon-16x16.png
+            public/favicon-light-16x16.png
             public/favicon-32x32.png
+            public/favicon-light-32x32.png
             public/favicon-512.png
+            public/favicon-light-512.png
             public/apple-touch-icon.png
+            public/apple-touch-icon-light.png
             public/images/branding/muhammad-awais.png
             public/images/branding/awais-mark.svg
             public/js/main.js

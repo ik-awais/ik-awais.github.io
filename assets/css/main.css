@@ -20,6 +20,10 @@
   --code-text:     #DDD6FE;
   --error:         #FB7185;
   --accent-gradient: linear-gradient(110deg, #A78BFA 0%, #38BDF8 56%, #2DD4BF 100%);
+  --brand-mark-ring: #61D7E8;
+  --brand-mark-a: #B8A5FF;
+  --brand-mark-cross: #7DD3FC;
+  --brand-mark-w: #5EEAD4;
 }
 
 [data-theme="light"] {
@@ -41,6 +45,10 @@
   --code-text:     #DDD6FE;
   --error:         #E11D48;
   --accent-gradient: linear-gradient(110deg, #7C3AED 0%, #0284C7 56%, #0F9D79 100%);
+  --brand-mark-ring: #7C3AED;
+  --brand-mark-a: #5B21B6;
+  --brand-mark-cross: #0284C7;
+  --brand-mark-w: #0F9D79;
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -2438,8 +2446,12 @@ body.is-card-dragging {
   width: 32px;
   height: 32px;
   flex: 0 0 32px;
-  object-fit: contain;
+  overflow: visible;
 }
+.awais-mark__ring { stroke: var(--brand-mark-ring); }
+.awais-mark__a { stroke: var(--brand-mark-a); }
+.awais-mark__cross { stroke: var(--brand-mark-cross); }
+.awais-mark__w { stroke: var(--brand-mark-w); }
 .nav-logo { gap: 9px; }
 .nav-logo .nav-logo-name { color: var(--text); }
 .footer-brand-logo {
@@ -2449,7 +2461,7 @@ body.is-card-dragging {
   width: fit-content;
 }
 .footer-brand-logo .awais-mark { width: 36px; height: 36px; flex-basis: 36px; }
-.footer-brand-logo span { color: #F5F7FF; }
+.footer-brand-logo span { color: var(--text); }
 @media (max-width: 600px) {
   .nav-logo { gap: 7px; font-size: 14px; }
   .nav-logo .awais-mark { width: 28px; height: 28px; flex-basis: 28px; }
