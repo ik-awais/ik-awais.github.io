@@ -1,0 +1,10 @@
+Delete this obsolete file from the existing repository if it is still present:
+
+static/favicon.svg
+
+The active portrait-based favicon is now provided by:
+- static/favicon.ico
+- static/favicon-16x16.png
+- static/favicon-32x32.png
+- static/favicon-512.png
+- static/apple-touch-icon.png

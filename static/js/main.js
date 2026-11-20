@@ -418,147 +418,189 @@ function checkRateLimit() {
   });
 })();
 
-// ── PREMIUM INTERACTIONS ────────────────────────────────────────────────
-(function initInteractions() {
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
-  if (prefersReduced || isTouch) return;
+// Pointer-following color halos are intentionally disabled.
+// The operating-system cursor remains the only cursor.
 
-  // Buttons intentionally remain position-stable; no magnetic pointer transforms.
-
-  // Hero orb parallax — passive, CSS var driven, no layout thrash
-  const orb = document.querySelector('.hero-orb');
-  if (orb) {
-    document.addEventListener('mousemove', e => {
-      const nx = (e.clientX / window.innerWidth  - 0.5) * 28;
-      const ny = (e.clientY / window.innerHeight - 0.5) * 16;
-      orb.style.transform = `translateY(calc(-50% + ${ny}px)) translateX(${nx}px)`;
-    }, { passive: true });
-  }
-
-  // Card ambient glow follow
-  document.querySelectorAll('.project-card').forEach(card => {
-    card.addEventListener('mousemove', e => {
-      const r = card.getBoundingClientRect();
-      const x = ((e.clientX - r.left) / r.width  * 100).toFixed(1);
-      const y = ((e.clientY - r.top)  / r.height * 100).toFixed(1);
-      card.style.setProperty('--mx', x + '%');
-      card.style.setProperty('--my', y + '%');
-    });
-    card.addEventListener('mouseleave', () => {
-      card.style.removeProperty('--mx');
-      card.style.removeProperty('--my');
-    });
-  });
-}());
-
-// ── HERO CONSTELLATION CANVAS ───────────────────────────────────────────
+// ── INERTIAL, CONSTANT-SPEED PEBBLE FIELD ────────────────────────────────
 (function initConstellation() {
   const canvas = document.getElementById('heroCanvas') || document.getElementById('siteAmbientCanvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
+
   const isSiteAmbient = canvas.id === 'siteAmbientCanvas';
   const wrap = isSiteAmbient ? document.body : canvas.parentElement;
-  let W = 0, H = 0, pixelRatio = 1;
-  let mouse = { x: -999, y: -999 };
+  let width = 0;
+  let height = 0;
+  let pixelRatio = 1;
+  let lastFrame = 0;
+  let pointerAnchored = false;
+  const pointer = { x: 0, y: 0, active: false };
+  const easedPointer = { x: 0, y: 0 };
 
-  // Theme-aware colors — recomputed on every theme change
   function getColors() {
     const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
     return isDark ? {
-      node: [167, 139, 250],  nodeAlpha: 0.78,
-      line: [56, 189, 248],   lineAlpha: 0.30,
-      glow: [244, 114, 182],  glowAlpha: 0.13,
+      node: [167, 139, 250], nodeAlpha: 0.78,
+      line: [56, 189, 248], lineAlpha: 0.30,
     } : {
-      node: [124, 58, 237],   nodeAlpha: 0.40,
-      line: [2, 132, 199],    lineAlpha: 0.17,
-      glow: [219, 39, 119],   glowAlpha: 0.075,
+      node: [124, 58, 237], nodeAlpha: 0.40,
+      line: [2, 132, 199], lineAlpha: 0.17,
     };
   }
 
-  let COLORS = getColors();
-  new MutationObserver(() => { COLORS = getColors(); })
+  let colors = getColors();
+  new MutationObserver(() => { colors = getColors(); })
     .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
-  const NODE_COUNT  = 55;
-  const MAX_DIST    = 150;
-  const MOUSE_R     = 140;
+  const NODE_COUNT = 55;
+  const MAX_DISTANCE = 150;
+  // 0.64 CSS px per 60 Hz frame: fixed physical pace, independent of frame rate.
+  const BASE_SPEED = 0.64;
+  const TURN_RESPONSE = 0.052;
+  const nodes = [];
 
   function resize() {
     const rect = isSiteAmbient ? null : wrap.getBoundingClientRect();
-    W = Math.max(1, isSiteAmbient ? window.innerWidth : rect.width);
-    H = Math.max(1, isSiteAmbient ? window.innerHeight : rect.height);
+    width = Math.max(1, isSiteAmbient ? window.innerWidth : rect.width);
+    height = Math.max(1, isSiteAmbient ? window.innerHeight : rect.height);
     pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
-    canvas.width = Math.round(W * pixelRatio);
-    canvas.height = Math.round(H * pixelRatio);
+    canvas.width = Math.round(width * pixelRatio);
+    canvas.height = Math.round(height * pixelRatio);
     ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
   }
   resize();
+
   if (!isSiteAmbient && 'ResizeObserver' in window) {
     new ResizeObserver(resize).observe(wrap);
   } else {
     window.addEventListener('resize', resize, { passive: true });
   }
 
-  const nodes = Array.from({ length: NODE_COUNT }, () => ({
-    x:  Math.random() * W,
-    y:  Math.random() * H,
-    vx: (Math.random() - 0.5) * 1.10,
-    vy: (Math.random() - 0.5) * 1.10,
-    // Node radius is now one-third of the previously enlarged size.
-    r:  Math.random() * 0.6 + 3.17,
-    pulse:      Math.random() * Math.PI * 2,
-    pulseSpeed: 0.01 + Math.random() * 0.018,
-  }));
+  for (let i = 0; i < NODE_COUNT; i += 1) {
+    const angle = Math.random() * Math.PI * 2;
+    nodes.push({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      vx: Math.cos(angle) * BASE_SPEED,
+      vy: Math.sin(angle) * BASE_SPEED,
+      r: Math.random() * 0.6 + 3.17,
+      pulse: Math.random() * Math.PI * 2,
+      pulseSpeed: 0.01 + Math.random() * 0.018,
+      phase: Math.random() * Math.PI * 2,
+      orbitRadius: 12 + Math.random() * 10,
+      orbitDirection: Math.random() < 0.5 ? -1 : 1,
+      anchorX: 0,
+      anchorY: 0,
+    });
+  }
 
   const pointerSurface = isSiteAmbient ? window : canvas.parentElement;
-  pointerSurface.addEventListener('mousemove', e => {
-    const rect = isSiteAmbient ? { left: 0, top: 0 } : canvas.getBoundingClientRect();
-    mouse.x = e.clientX - rect.left;
-    mouse.y = e.clientY - rect.top;
+  pointerSurface.addEventListener('pointermove', event => {
+    if (event.pointerType === 'touch') return;
+    const bounds = isSiteAmbient ? { left: 0, top: 0 } : canvas.getBoundingClientRect();
+    pointer.x = event.clientX - bounds.left;
+    pointer.y = event.clientY - bounds.top;
+
+    // Preserve the current constellation layout as offsets around the pointer.
+    // Subsequent cursor movement carries the network through a smoothed anchor.
+    if (!pointerAnchored) {
+      nodes.forEach(node => {
+        node.anchorX = node.x - pointer.x;
+        node.anchorY = node.y - pointer.y;
+      });
+      easedPointer.x = pointer.x;
+      easedPointer.y = pointer.y;
+      pointerAnchored = true;
+    }
+    pointer.active = true;
   }, { passive: true });
-  pointerSurface.addEventListener('mouseleave', () => { mouse.x = -999; mouse.y = -999; });
 
-  const rgb = (c, a) => `rgba(${c[0]},${c[1]},${c[2]},${a})`;
+  pointerSurface.addEventListener('pointerleave', () => {
+    pointer.active = false;
+  }, { passive: true });
 
-  function draw() {
-    ctx.clearRect(0, 0, W, H);
+  const rgba = (rgb, alpha) => `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${alpha})`;
 
-    nodes.forEach(n => {
-      const dx = mouse.x - n.x, dy = mouse.y - n.y;
-      const d  = Math.sqrt(dx * dx + dy * dy);
-      if (d < MOUSE_R && d > 0) {
-        const f = (1 - d / MOUSE_R) * 0.028;
-        n.vx += dx / d * f;
-        n.vy += dy / d * f;
+  function draw(timestamp = 0) {
+    const frameScale = lastFrame
+      ? Math.min(2.5, Math.max(0.25, (timestamp - lastFrame) / 16.6667))
+      : 1;
+    lastFrame = timestamp;
+    ctx.clearRect(0, 0, width, height);
+
+    if (pointer.active && pointerAnchored) {
+      // Pointer inertia: the network lags subtly instead of snapping to the cursor.
+      const follow = 1 - Math.exp(-0.115 * frameScale);
+      easedPointer.x += (pointer.x - easedPointer.x) * follow;
+      easedPointer.y += (pointer.y - easedPointer.y) * follow;
+    }
+
+    nodes.forEach(node => {
+      if (pointer.active && pointerAnchored) {
+        const targetX = easedPointer.x + node.anchorX;
+        const targetY = easedPointer.y + node.anchorY;
+        const dx = targetX - node.x;
+        const dy = targetY - node.y;
+        const distance = Math.hypot(dx, dy);
+        let directionX;
+        let directionY;
+
+        if (distance < 0.001) {
+          directionX = Math.cos(node.phase);
+          directionY = Math.sin(node.phase);
+        } else if (distance > node.orbitRadius + 1.5) {
+          directionX = dx / distance;
+          directionY = dy / distance;
+        } else if (distance < node.orbitRadius - 1.5) {
+          directionX = -dx / distance;
+          directionY = -dy / distance;
+        } else {
+          // Near the anchor, follow a small orbit instead of stopping or clustering.
+          directionX = (-dy / distance) * node.orbitDirection;
+          directionY = (dx / distance) * node.orbitDirection;
+        }
+
+        const targetVx = directionX * BASE_SPEED;
+        const targetVy = directionY * BASE_SPEED;
+        const steering = 1 - Math.exp(-TURN_RESPONSE * frameScale);
+        node.vx += (targetVx - node.vx) * steering;
+        node.vy += (targetVy - node.vy) * steering;
+      } else {
+        // A tiny smooth curve keeps the field alive when the pointer is away.
+        const curve = Math.sin(node.pulse * 0.35) * 0.0011 * frameScale;
+        const cos = Math.cos(curve);
+        const sin = Math.sin(curve);
+        const vx = node.vx * cos - node.vy * sin;
+        const vy = node.vx * sin + node.vy * cos;
+        node.vx = vx;
+        node.vy = vy;
       }
-      n.vx *= 0.988; n.vy *= 0.988;
-      // Keep nodes always moving — enforce minimum speed
-      const spd = Math.sqrt(n.vx * n.vx + n.vy * n.vy);
-      if (spd < 0.64) {
-        const boost = (0.64 - spd) * 0.06;
-        n.vx += (Math.random() - 0.5) * boost;
-        n.vy += (Math.random() - 0.5) * boost;
-      }
-      n.x += n.vx;   n.y += n.vy;
-      n.pulse += n.pulseSpeed;
-      if (n.x < -8) n.x = W + 8;
-      if (n.x > W + 8) n.x = -8;
-      if (n.y < -8) n.y = H + 8;
-      if (n.y > H + 8) n.y = -8;
+
+      // Normalize every frame: the pebbles never lose their established pace.
+      const speed = Math.hypot(node.vx, node.vy) || BASE_SPEED;
+      node.vx = (node.vx / speed) * BASE_SPEED;
+      node.vy = (node.vy / speed) * BASE_SPEED;
+      node.x += node.vx * frameScale;
+      node.y += node.vy * frameScale;
+      node.pulse += node.pulseSpeed * frameScale;
+
+      if (node.x < -8) node.x = width + 8;
+      if (node.x > width + 8) node.x = -8;
+      if (node.y < -8) node.y = height + 8;
+      if (node.y > height + 8) node.y = -8;
     });
 
-    // Draw lines first (below nodes)
-    ctx.lineWidth = 1.0;
-    for (let i = 0; i < nodes.length; i++) {
-      for (let j = i + 1; j < nodes.length; j++) {
+    // Draw connecting lines only: no cursor halo, radial glow, or spotlight trace.
+    ctx.lineWidth = 1;
+    for (let i = 0; i < nodes.length; i += 1) {
+      for (let j = i + 1; j < nodes.length; j += 1) {
         const dx = nodes[i].x - nodes[j].x;
         const dy = nodes[i].y - nodes[j].y;
-        const d  = Math.sqrt(dx * dx + dy * dy);
-        if (d < MAX_DIST) {
-          const a = (1 - d / MAX_DIST) * COLORS.lineAlpha;
-          ctx.strokeStyle = rgb(COLORS.line, a);
+        const distance = Math.hypot(dx, dy);
+        if (distance < MAX_DISTANCE) {
+          const alpha = (1 - distance / MAX_DISTANCE) * colors.lineAlpha;
+          ctx.strokeStyle = rgba(colors.line, alpha);
           ctx.beginPath();
           ctx.moveTo(nodes[i].x, nodes[i].y);
           ctx.lineTo(nodes[j].x, nodes[j].y);
@@ -567,33 +609,19 @@ function checkRateLimit() {
       }
     }
 
-    // Draw nodes — flat fill only, no per-node gradient
-    nodes.forEach(n => {
-      const glow = Math.sin(n.pulse) * 0.5 + 0.5;
-      const a    = COLORS.nodeAlpha * (0.7 + glow * 0.3);
+    nodes.forEach(node => {
+      const pulse = Math.sin(node.pulse) * 0.5 + 0.5;
+      const alpha = colors.nodeAlpha * (0.7 + pulse * 0.3);
       ctx.beginPath();
-      ctx.arc(n.x, n.y, n.r + glow * 0.43, 0, Math.PI * 2);
-      ctx.fillStyle = rgb(COLORS.node, a);
+      ctx.arc(node.x, node.y, node.r + pulse * 0.43, 0, Math.PI * 2);
+      ctx.fillStyle = rgba(colors.node, alpha);
       ctx.fill();
     });
-
-    // Single ambient glow at mouse — one gradient object
-    if (mouse.x > 0 && mouse.x < W) {
-      const g = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 80);
-      g.addColorStop(0, rgb(COLORS.glow, COLORS.glowAlpha * 2));
-      g.addColorStop(1, rgb(COLORS.glow, 0));
-      ctx.beginPath();
-      ctx.arc(mouse.x, mouse.y, 80, 0, Math.PI * 2);
-      ctx.fillStyle = g;
-      ctx.fill();
-    }
 
     requestAnimationFrame(draw);
   }
 
-  // The owner explicitly requests this subtle ambient network animation.
-  // Keep it moving continuously; the node velocity is intentionally restrained.
-  draw();
+  requestAnimationFrame(draw);
 }());
 
 // ── MATCHED-SPEED, SEAMLESS TECHNOLOGY MARQUEES ─────────────────────────
@@ -834,8 +862,8 @@ function checkRateLimit() {
   });
 }());
 
-// ── PUBLIC DRAG-TO-REORDER ARCHIVES ─────────────────────────────────────
-(function initArchiveControls() {
+// ── FLOATING-GHOST ARCHIVE DRAG & DROP ──────────────────────────────────
+(function initArchiveOrdering() {
   const grids = Array.from(document.querySelectorAll('[data-archive-grid]'));
   if (!grids.length) return;
 
@@ -859,7 +887,7 @@ function checkRateLimit() {
   grids.forEach(grid => {
     const family = grid.dataset.orderFamily || grid.dataset.archiveSection || '';
     const cards = () => Array.from(grid.querySelectorAll(':scope > [data-archive-item]'));
-    if (window.PortfolioCardOrder) window.PortfolioCardOrder.apply(grid, ':scope > [data-archive-item]', family);
+    window.PortfolioCardOrder?.apply(grid, ':scope > [data-archive-item]', family);
     const allCards = cards();
     if (!allCards.length) return;
 
@@ -877,7 +905,6 @@ function checkRateLimit() {
       expandButton.type = 'button';
       expandButton.className = 'archive-expand-toggle';
       expandButton.setAttribute('aria-expanded', 'false');
-      expandButton.innerHTML = `Show older cards (${olderCards.length}) <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m4 7 6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
     }
 
     const status = document.createElement('p');
@@ -888,6 +915,7 @@ function checkRateLimit() {
 
     if (expandButton) toolbar.appendChild(expandButton);
     toolbar.appendChild(status);
+
     const adminOrderMode = new URLSearchParams(window.location.search).get('edit-order') === '1';
     let exportButton = null;
     if (adminOrderMode) {
@@ -899,24 +927,18 @@ function checkRateLimit() {
     }
     if (expandButton || allCards.length > 1 || adminOrderMode) grid.parentElement.insertBefore(toolbar, grid);
 
-    const updateExpandLabel = expanded => {
+    const setExpandLabel = expanded => {
       if (!expandButton) return;
       expandButton.setAttribute('aria-expanded', String(expanded));
       expandButton.innerHTML = expanded
-        ? `Show fewer cards <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m4 7 6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+        ? 'Show fewer cards <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m4 7 6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
         : `Show older cards (${olderCards.length}) <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m4 7 6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
     };
-    const revealAll = () => {
-      olderCards.forEach(card => { card.hidden = false; card.classList.add('visible'); });
-      updateExpandLabel(true);
-    };
-    const collapseOlder = () => {
-      cards().slice(initialCount).forEach(card => { card.hidden = true; });
-      updateExpandLabel(false);
-    };
+    if (olderCards.length) setExpandLabel(false);
     expandButton?.addEventListener('click', () => {
       const expanded = expandButton.getAttribute('aria-expanded') === 'true';
-      expanded ? collapseOlder() : revealAll();
+      cards().slice(initialCount).forEach(card => { card.hidden = expanded; });
+      setExpandLabel(!expanded);
     });
 
     const persist = () => {
@@ -924,9 +946,11 @@ function checkRateLimit() {
       const saved = window.PortfolioCardOrder?.save(family, keys);
       status.hidden = false;
       status.textContent = saved
-        ? 'Your card order is saved in this browser and will also be used by the homepage on this device. Shared ordering for all visitors requires a server-side database.'
+        ? 'Order saved in this browser and shared with homepage previews on this device. A repository commit is required to publish a default order for everyone.'
         : 'This browser could not save the order. Enable site storage and try again.';
-      grid.dispatchEvent(new CustomEvent('portfolio:card-order-changed', { bubbles: true, detail: { family, keys } }));
+      grid.dispatchEvent(new CustomEvent('portfolio:card-order-changed', {
+        bubbles: true, detail: { family, keys }
+      }));
     };
 
     exportButton?.addEventListener('click', async () => {
@@ -938,7 +962,7 @@ function checkRateLimit() {
         const copied = await copyText(manifest);
         status.hidden = false;
         status.textContent = copied
-          ? 'Shared order manifest copied. Apply each weight to its Markdown file and deploy to publish this order for everyone.'
+          ? 'Shared Markdown weight manifest copied. Apply the weights to the listed files and deploy to publish this as the default order.'
           : 'Clipboard unavailable. Use HTTPS or copy the order manually.';
       } catch (_) {
         status.hidden = false;
@@ -947,73 +971,171 @@ function checkRateLimit() {
     });
 
     allCards.forEach(card => {
+      if (card.querySelector(':scope > .archive-drag-handle')) return;
       const handle = document.createElement('button');
       handle.type = 'button';
       handle.className = 'archive-drag-handle';
-      handle.setAttribute('aria-label', `Reorder ${card.querySelector('h3')?.textContent?.trim() || 'card'}. Use the up and down arrow keys to move it.`);
-      handle.title = 'Drag to reorder; use arrow keys when focused';
+      handle.setAttribute('aria-label', `Drag to reorder ${card.querySelector('h3')?.textContent?.trim() || 'card'}`);
+      handle.title = 'Drag this card to any position in the grid';
       handle.innerHTML = '<svg viewBox="0 0 20 20" aria-hidden="true" fill="currentColor"><circle cx="7" cy="5" r="1.35"/><circle cx="13" cy="5" r="1.35"/><circle cx="7" cy="10" r="1.35"/><circle cx="13" cy="10" r="1.35"/><circle cx="7" cy="15" r="1.35"/><circle cx="13" cy="15" r="1.35"/></svg>';
       card.appendChild(handle);
     });
 
-    // Pointer-based sorting works with mouse and touch. The drag grip is the
-    // only touch-action:none surface, so normal page scrolling remains intact.
     let active = null;
     let didDrag = false;
-    const clearDrag = () => {
+
+    const createGhost = (card, rect) => {
+      const ghost = card.cloneNode(true);
+      ghost.classList.remove('reveal', 'dragging');
+      ghost.classList.add('archive-drag-ghost');
+      ghost.removeAttribute('data-archive-item');
+      ghost.removeAttribute('data-content-file');
+      ghost.removeAttribute('data-order-key');
+      ghost.setAttribute('aria-hidden', 'true');
+      ghost.querySelectorAll('[id]').forEach(element => element.removeAttribute('id'));
+      ghost.querySelectorAll('a,button,input,select,textarea').forEach(element => {
+        element.setAttribute('tabindex', '-1');
+      });
+      Object.assign(ghost.style, {
+        position: 'fixed', left: `${rect.left}px`, top: `${rect.top}px`,
+        width: `${rect.width}px`, height: `${rect.height}px`, margin: '0',
+        zIndex: '5000', pointerEvents: 'none', opacity: '0.96', transform: 'none',
+      });
+      document.body.appendChild(ghost);
+      return ghost;
+    };
+
+    const beginDrag = event => {
+      const { card } = active;
+      const rect = card.getBoundingClientRect();
+      const placeholder = document.createElement('div');
+      placeholder.className = 'project-card-placeholder';
+      placeholder.setAttribute('aria-hidden', 'true');
+      placeholder.style.height = `${rect.height}px`;
+      placeholder.style.minHeight = `${rect.height}px`;
+      placeholder.style.width = '100%';
+      placeholder.style.gridColumn = 'span 1';
+      grid.insertBefore(placeholder, card);
+      const ghost = createGhost(card, rect);
+      card.remove();
+      active.placeholder = placeholder;
+      active.ghost = ghost;
+      active.started = true;
+      didDrag = true;
+      grid.classList.add('is-reordering');
+      document.body.classList.add('is-card-dragging');
+      updateDragPosition(event);
+    };
+
+    const positionPlaceholder = (x, y) => {
+      if (!active?.placeholder) return;
+      const candidates = Array.from(grid.querySelectorAll(':scope > [data-archive-item]:not([hidden])'));
+      if (!candidates.length) {
+        grid.appendChild(active.placeholder);
+        return;
+      }
+      const bounds = grid.getBoundingClientRect();
+      if (y <= bounds.top + 3) {
+        grid.insertBefore(active.placeholder, candidates[0]);
+        return;
+      }
+      if (y >= bounds.bottom - 3) {
+        grid.appendChild(active.placeholder);
+        return;
+      }
+
+      let nearest = null;
+      let nearestDistance = Infinity;
+      candidates.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        const dx = Math.max(rect.left - x, 0, x - rect.right);
+        const dy = Math.max(rect.top - y, 0, y - rect.bottom);
+        const distance = dx * dx + dy * dy;
+        if (distance < nearestDistance) {
+          nearestDistance = distance;
+          nearest = { card, rect };
+        }
+      });
+      if (!nearest) return;
+
+      const after = x > nearest.rect.left + nearest.rect.width / 2;
+      const reference = after ? nearest.card.nextSibling : nearest.card;
+      if (reference !== active.placeholder && reference !== active.placeholder.nextSibling) {
+        grid.insertBefore(active.placeholder, reference);
+      }
+    };
+
+    const updateDragPosition = event => {
+      if (!active?.started) return;
+      active.ghost.style.left = `${event.clientX - active.offsetX}px`;
+      active.ghost.style.top = `${event.clientY - active.offsetY}px`;
+      positionPlaceholder(event.clientX, event.clientY);
+
+      const edge = 72;
+      if (event.clientY < edge) {
+        window.scrollBy({ top: -Math.max(2, Math.ceil((edge - event.clientY) * 0.18)), behavior: 'auto' });
+      } else if (event.clientY > window.innerHeight - edge) {
+        window.scrollBy({ top: Math.max(2, Math.ceil((event.clientY - (window.innerHeight - edge)) * 0.18)), behavior: 'auto' });
+      }
+    };
+
+    const finishDrag = (cancelled = false) => {
       if (!active) return;
-      active.card.classList.remove('dragging');
-      grid.classList.remove('is-reordering');
-      document.body.classList.remove('is-card-dragging');
+      const state = active;
+      if (state.started) {
+        const reference = cancelled ? state.originalNextSibling : state.placeholder;
+        const safeReference = reference && reference.parentNode === grid ? reference : null;
+        grid.insertBefore(state.card, safeReference);
+        state.placeholder?.remove();
+        state.ghost?.remove();
+        grid.classList.remove('is-reordering');
+        document.body.classList.remove('is-card-dragging');
+        if (!cancelled) persist();
+      }
       active = null;
-      if (didDrag) persist();
+      if (state.handle?.isConnected) state.handle.focus({ preventScroll: true });
       window.setTimeout(() => { didDrag = false; }, 0);
     };
 
     grid.addEventListener('pointerdown', event => {
       const handle = event.target.closest('.archive-drag-handle');
-      if (!handle || !grid.contains(handle) || event.button !== 0) return;
-      const card = handle.closest('[data-archive-item]');
-      if (!card) return;
-      event.preventDefault();
-      handle.focus({ preventScroll: true });
-      active = { card, pointerId: event.pointerId, startX: event.clientX, startY: event.clientY, started: false };
-      try { handle.setPointerCapture(event.pointerId); } catch (_) {}
+      const card = handle?.closest('[data-archive-item]') || event.target.closest('[data-archive-item]');
+      if (!card || !grid.contains(card) || event.button !== 0 || event.isPrimary === false) return;
+      if (event.pointerType === 'touch' && !handle) return;
+      if (event.target.closest('.project-card-actions, .card-actions, input, textarea, select')) return;
+      const rect = card.getBoundingClientRect();
+      active = {
+        card, handle: handle || card.querySelector('.archive-drag-handle'),
+        pointerId: event.pointerId, startX: event.clientX, startY: event.clientY,
+        offsetX: event.clientX - rect.left, offsetY: event.clientY - rect.top,
+        originalNextSibling: card.nextSibling, started: false,
+      };
+      try { grid.setPointerCapture(event.pointerId); } catch (_) {}
     });
 
     grid.addEventListener('pointermove', event => {
       if (!active || event.pointerId !== active.pointerId) return;
-      const dx = event.clientX - active.startX;
-      const dy = event.clientY - active.startY;
-      if (!active.started && Math.hypot(dx, dy) < 5) return;
-      active.started = true;
-      didDrag = true;
-      active.card.classList.add('dragging');
-      grid.classList.add('is-reordering');
-      document.body.classList.add('is-card-dragging');
-      const hit = document.elementFromPoint(event.clientX, event.clientY);
-      const target = hit?.closest('[data-archive-item]');
-      if (target && target !== active.card && grid.contains(target)) {
-        const rect = target.getBoundingClientRect();
-        const sameRow = Math.abs(event.clientY - (rect.top + rect.height / 2)) < rect.height * 0.32;
-        const after = sameRow
-          ? event.clientX > rect.left + rect.width / 2
-          : event.clientY > rect.top + rect.height / 2;
-        const reference = after ? target.nextElementSibling : target;
-        if (reference !== active.card && reference !== active.card.nextElementSibling) grid.insertBefore(active.card, reference);
+      const distance = Math.hypot(event.clientX - active.startX, event.clientY - active.startY);
+      if (!active.started && distance < 6) return;
+      if (!active.started) {
+        event.preventDefault();
+        beginDrag(event);
+      } else {
+        event.preventDefault();
+        updateDragPosition(event);
       }
-      const edge = 76;
-      if (event.clientY < edge) window.scrollBy({ top: -Math.ceil((edge - event.clientY) * 0.16), behavior: 'auto' });
-      else if (event.clientY > window.innerHeight - edge) window.scrollBy({ top: Math.ceil((event.clientY - (window.innerHeight - edge)) * 0.16), behavior: 'auto' });
     });
 
     grid.addEventListener('pointerup', event => {
       if (!active || event.pointerId !== active.pointerId) return;
       if (active.started) event.preventDefault();
-      clearDrag();
+      finishDrag(false);
     });
-    grid.addEventListener('pointercancel', clearDrag);
-    grid.addEventListener('lostpointercapture', clearDrag);
+    grid.addEventListener('pointercancel', () => finishDrag(true));
+    grid.addEventListener('lostpointercapture', () => {
+      if (active?.started) finishDrag(true);
+      else active = null;
+    });
 
     grid.addEventListener('click', event => {
       if (!didDrag) return;

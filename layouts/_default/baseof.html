@@ -5,14 +5,17 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://cdn.jsdelivr.net https://upload.wikimedia.org https://cdn.simpleicons.org; connect-src 'self' https://formspree.io;">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  {{ $pageTitle := cond .IsHome site.Title (printf "%s | MA-Portfolio" .Title) }}
+  {{ $pageTitle := cond .IsHome site.Title (printf "%s | %s" .Title site.Title) }}
   <title>{{ $pageTitle }}</title>
   {{ $metaDescription := .Params.description | default .Params.summary | default site.Params.defaultDescription | plainify }}
   <meta name="description" content="{{ $metaDescription }}">
   <meta name="keywords" content="Muhammad Awais, AI Engineer, AI GenMat, Agentic AI, LLM, RAG, NLP, Computer Vision, AI consultant">
   {{ partial "seo-meta.html" (dict "page" . "title" $pageTitle "description" $metaDescription) }}
   <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -25,7 +28,7 @@
 
   <nav id="navbar">
     <div class="nav-brand">
-      <a href="/" class="nav-logo">MA<span class="dot">.</span></a>
+      <a href="/" class="nav-logo" aria-label="Muhammad Awais home">Muhammad Awais</a>
       <a href="https://aigenmat.com" target="_blank" rel="noopener" class="nav-logo-badge">AI GenMat</a>
     </div>
 
@@ -105,7 +108,7 @@
     <div class="footer-glow" aria-hidden="true"></div>
     <div class="footer-inner">
       <div class="footer-brand">
-        <a href="/" class="footer-brand-logo">MA<span>.</span></a>
+        <a href="/" class="footer-brand-logo">Muhammad Awais</a>
         <p class="footer-brand-tagline">AI Engineer and Software Engineering student working across intelligent systems, software development, automation, and technology operations.</p>
         <a href="mailto:m.awais@aigenmat.com" class="footer-brand-email">m.awais@aigenmat.com</a>
       </div>

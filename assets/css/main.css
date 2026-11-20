@@ -135,12 +135,13 @@ body::after {
 .nav-logo {
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 700;
-  font-size: 16px;
+  font-size: clamp(14px, 1.15vw, 17px);
   color: var(--text);
   text-decoration: none;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  letter-spacing: -0.025em;
+  text-transform: none;
   line-height: 1;
+  white-space: nowrap;
   display: flex;
   align-items: center;
 }
@@ -849,10 +850,9 @@ footer {
 .footer-brand-logo {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 18px; font-weight: 700;
-  letter-spacing: -0.01em; color: #F5F7FF;
+  letter-spacing: -0.025em; color: #F5F7FF;
   text-decoration: none;
 }
-.footer-brand-logo span { color: var(--accent2); }
 .footer-brand-tagline {
   font-family: 'Inter', sans-serif;
   font-size: 13px; color: #7E87A7; line-height: 1.6;
@@ -1276,7 +1276,7 @@ footer p,
 }
 
 
-@media (max-width: 1000px) {
+@media (max-width: 1180px) {
   #navbar { min-height: 68px; padding: 0 5vw; gap: 12px; }
   .nav-brand { gap: 10px; }
   .nav-logo-badge { display: none !important; }
@@ -1328,18 +1328,6 @@ footer p,
   #navLinks .cta-btn,
   #navLinks .cta-btn-primary,
   #navLinks .nav-icon-btn { margin-top: 14px; width: 100%; justify-content: center; }
-}
-
-@media (min-width: 1001px) and (max-width: 1180px) {
-  #navbar { padding-inline: 24px; gap: 16px; }
-  .nav-brand { gap: 9px; }
-  .nav-logo-badge { font-size: 9px !important; padding: 6px 8px; }
-  .nav-links { gap: 10px; }
-  .nav-links > a,
-  .nav-dropdown-trigger { font-size: 11px; letter-spacing: 0.045em; }
-  .nav-links .cta-btn,
-  .nav-links .cta-btn-primary { padding: 7px 11px; font-size: 10px; }
-  .nav-icon-btn { width: 32px; height: 32px; }
 }
 
 @media (max-width: 768px) {
@@ -2114,18 +2102,6 @@ button:focus-visible,
 }
 
 
-@media (min-width: 1001px) and (max-width: 1180px) {
-  #navbar { padding-inline: 24px; gap: 16px; }
-  .nav-brand { gap: 9px; }
-  .nav-logo-badge { font-size: 9px !important; padding: 6px 8px; }
-  .nav-links { gap: 10px; }
-  .nav-links > a,
-  .nav-dropdown-trigger { font-size: 11px; letter-spacing: 0.045em; }
-  .nav-links .cta-btn,
-  .nav-links .cta-btn-primary { padding: 7px 11px; font-size: 10px; }
-  .nav-icon-btn { width: 32px; height: 32px; }
-}
-
 @media (max-width: 768px) {
   .works-pager { width: 100%; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 8px; margin-top: 40px; }
   .works-pager-status { padding-inline: 9px; font-size: 10px; }
@@ -2419,4 +2395,49 @@ main, footer {
 @media (max-width: 760px) {
   .home-contact-compact { align-items: flex-start; flex-direction: column; }
   .home-contact-actions { flex-direction: row; align-items: center; flex-wrap: wrap; }
+}
+
+
+/* Supplied portrait favicon and full-name wordmark refinements. */
+.nav-logo {
+  text-transform: none;
+  letter-spacing: -0.035em;
+  font-size: clamp(14px, 1.12vw, 17px);
+}
+@media (max-width: 1180px) {
+  .nav-logo { font-size: 16px; }
+}
+
+
+/* Floating archive drag: preserve the grid's exact geometry while a card is picked up. */
+.project-card-placeholder {
+  box-sizing: border-box;
+  align-self: stretch;
+  border: 2px dashed color-mix(in srgb, var(--accent2) 78%, var(--accent));
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--accent2) 8%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent2) 12%, transparent);
+  pointer-events: none;
+}
+.archive-drag-ghost {
+  pointer-events: none !important;
+  user-select: none;
+  opacity: .97;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, .34), 0 0 0 1px color-mix(in srgb, var(--accent2) 42%, transparent);
+  border-color: var(--accent2) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+body.is-card-dragging {
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+.project-grid.is-reordering {
+  align-items: stretch;
+}
+.project-grid.is-reordering .project-card-placeholder {
+  transition: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .archive-drag-ghost, .project-card-placeholder { transition: none !important; }
 }
