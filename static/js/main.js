@@ -421,23 +421,21 @@ function checkRateLimit() {
 // Pointer-following color halos are intentionally disabled.
 // The operating-system cursor remains the only cursor.
 
-// ── INERTIAL, CONSTANT-SPEED PEBBLE FIELD ────────────────────────────────
+// ── FREE-ROAMING PEBBLES WITH LOCAL CURSOR ATTRACTION ────────────────────
 (function initConstellation() {
   const canvas = document.getElementById('heroCanvas') || document.getElementById('siteAmbientCanvas');
   if (!canvas) return;
+
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
 
   const isSiteAmbient = canvas.id === 'siteAmbientCanvas';
   const wrap = isSiteAmbient ? document.body : canvas.parentElement;
-  let width = 0;
-  let height = 0;
+  let width = 1;
+  let height = 1;
   let pixelRatio = 1;
   let lastFrame = 0;
-  let pointerAnchored = false;
   const pointer = { x: 0, y: 0, active: false };
-  const easedPointer = { x: 0, y: 0 };
-  const previousPointer = { x: 0, y: 0 };
 
   function getColors() {
     const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
@@ -456,11 +454,20 @@ function checkRateLimit() {
 
   const NODE_COUNT = 55;
   const MAX_DISTANCE = 150;
-  // Constant free-running pace; cursor motion is an additional inertial translation.
-  const BASE_SPEED = 0.64;
-  const TURN_RESPONSE = 0.052;
-  const POINTER_RESPONSE = 0.13;
-  const ANCHOR_TENSION = 0.018;
+
+  // Keep the established fast drift. Pointer attraction changes only each pebble's
+  // heading; it never translates the canvas, field, page, or theme.
+  const BASE_SPEED = 0.64; // CSS pixels per 60 Hz frame (approximately 38 px/s)
+  const SPEED_VARIATION = 0.13;
+  const WANDER_STRENGTH = 0.010;
+  const POINTER_RADIUS = 285;
+  const POINTER_ATTRACTION = 0.030;
+  const POINTER_ORBIT = 0.012;
+  const POINTER_SOFT_CORE = 43;
+  const POINTER_REPULSION = 0.046;
+  const NODE_SEPARATION_RADIUS = 19;
+  const NODE_SEPARATION_STRENGTH = 0.014;
+
   const nodes = [];
 
   function resize() {
@@ -472,6 +479,7 @@ function checkRateLimit() {
     canvas.height = Math.round(height * pixelRatio);
     ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
   }
+
   resize();
 
   if (!isSiteAmbient && 'ResizeObserver' in window) {
@@ -482,110 +490,114 @@ function checkRateLimit() {
 
   for (let i = 0; i < NODE_COUNT; i += 1) {
     const angle = Math.random() * Math.PI * 2;
+    const speed = BASE_SPEED * (1 + (Math.random() * 2 - 1) * SPEED_VARIATION);
     nodes.push({
       x: Math.random() * width,
       y: Math.random() * height,
-      vx: Math.cos(angle) * BASE_SPEED,
-      vy: Math.sin(angle) * BASE_SPEED,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed,
+      speed,
       r: Math.random() * 0.6 + 3.17,
       pulse: Math.random() * Math.PI * 2,
       pulseSpeed: 0.01 + Math.random() * 0.018,
-      phase: Math.random() * Math.PI * 2,
-      orbitRadius: 12 + Math.random() * 10,
       orbitDirection: Math.random() < 0.5 ? -1 : 1,
-      anchorX: 0,
-      anchorY: 0,
     });
   }
 
-  // Listen at document level so content, links, and cards never interrupt tracking.
+  // Track the pointer, but do not move the particle field as a single object.
   document.addEventListener('pointermove', event => {
     if (event.pointerType === 'touch') return;
-    const bounds = isSiteAmbient ? { left: 0, top: 0 } : canvas.getBoundingClientRect();
+    const bounds = isSiteAmbient
+      ? { left: 0, top: 0 }
+      : canvas.getBoundingClientRect();
     pointer.x = event.clientX - bounds.left;
     pointer.y = event.clientY - bounds.top;
-
-    if (!pointerAnchored) {
-      nodes.forEach(node => {
-        node.anchorX = node.x - pointer.x;
-        node.anchorY = node.y - pointer.y;
-      });
-      easedPointer.x = pointer.x;
-      easedPointer.y = pointer.y;
-      previousPointer.x = pointer.x;
-      previousPointer.y = pointer.y;
-      pointerAnchored = true;
-    }
     pointer.active = true;
   }, { passive: true });
 
-  // If the tab loses focus, let the field drift naturally; it reattaches on the next move.
   window.addEventListener('blur', () => { pointer.active = false; }, { passive: true });
+  document.addEventListener('mouseleave', () => { pointer.active = false; }, { passive: true });
 
   const rgba = (rgb, alpha) => `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${alpha})`;
 
   function draw(timestamp = 0) {
+    // Delta-time scaling preserves the same physical pace on high-refresh displays
+    // and after short frames, while preventing large jumps after a delayed frame.
     const frameScale = lastFrame
       ? Math.min(2.5, Math.max(0.25, (timestamp - lastFrame) / 16.6667))
       : 1;
     lastFrame = timestamp;
     ctx.clearRect(0, 0, width, height);
 
-    let pointerShiftX = 0;
-    let pointerShiftY = 0;
-    if (pointer.active && pointerAnchored) {
-      // Inertial cursor tracking: the whole constellation follows with a soft, consistent lag.
-      const follow = 1 - Math.exp(-POINTER_RESPONSE * frameScale);
-      easedPointer.x += (pointer.x - easedPointer.x) * follow;
-      easedPointer.y += (pointer.y - easedPointer.y) * follow;
-      pointerShiftX = easedPointer.x - previousPointer.x;
-      pointerShiftY = easedPointer.y - previousPointer.y;
-      previousPointer.x = easedPointer.x;
-      previousPointer.y = easedPointer.y;
-    }
+    nodes.forEach((node, index) => {
+      let ax = (Math.random() - 0.5) * WANDER_STRENGTH;
+      let ay = (Math.random() - 0.5) * WANDER_STRENGTH;
 
-    nodes.forEach(node => {
-      if (pointer.active && pointerAnchored) {
-        // Cursor translation is applied independently of particle velocity, so tracking
-        // never slows down or competes with the pebbles' own constant-speed movement.
-        node.x += pointerShiftX;
-        node.y += pointerShiftY;
+      // A soft local attraction makes nearby pebbles turn toward the cursor.
+      // A small orbit component and soft inner repulsion keep them gathering
+      // around the pointer instead of collapsing into one dot.
+      if (pointer.active) {
+        const dx = pointer.x - node.x;
+        const dy = pointer.y - node.y;
+        const distance = Math.hypot(dx, dy) || 0.001;
 
-        const targetX = easedPointer.x + node.anchorX;
-        const targetY = easedPointer.y + node.anchorY;
-        const dx = targetX - node.x;
-        const dy = targetY - node.y;
-        const distance = Math.hypot(dx, dy);
-        if (distance > 0.001) {
-          const spring = Math.min(1, distance * ANCHOR_TENSION * frameScale);
-          node.x += dx * spring;
-          node.y += dy * spring;
+        if (distance < POINTER_RADIUS) {
+          const proximity = 1 - distance / POINTER_RADIUS;
+          const attraction = POINTER_ATTRACTION * proximity * proximity;
+          const nx = dx / distance;
+          const ny = dy / distance;
+          ax += nx * attraction;
+          ay += ny * attraction;
+
+          const orbit = POINTER_ORBIT * proximity;
+          ax += -ny * orbit * node.orbitDirection;
+          ay += nx * orbit * node.orbitDirection;
         }
 
+        if (distance < POINTER_SOFT_CORE) {
+          const core = 1 - distance / POINTER_SOFT_CORE;
+          const repel = POINTER_REPULSION * core * core;
+          ax -= (dx / distance) * repel;
+          ay -= (dy / distance) * repel;
+        }
       }
 
-      const curve = Math.sin(node.pulse * 0.35) * 0.0011 * frameScale;
-      const cos = Math.cos(curve);
-      const sin = Math.sin(curve);
-      const vx = node.vx * cos - node.vy * sin;
-      const vy = node.vx * sin + node.vy * cos;
-      node.vx = vx;
-      node.vy = vy;
+      // Gentle particle-to-particle separation prevents dense overlaps in the
+      // cursor cluster without creating a rigid grid or fixed anchor positions.
+      for (let j = 0; j < nodes.length; j += 1) {
+        if (j === index) continue;
+        const other = nodes[j];
+        const dx = node.x - other.x;
+        const dy = node.y - other.y;
+        const distance = Math.hypot(dx, dy) || 0.001;
+        if (distance < NODE_SEPARATION_RADIUS) {
+          const pressure = 1 - distance / NODE_SEPARATION_RADIUS;
+          const force = NODE_SEPARATION_STRENGTH * pressure;
+          ax += (dx / distance) * force;
+          ay += (dy / distance) * force;
+        }
+      }
 
-      const speed = Math.hypot(node.vx, node.vy) || BASE_SPEED;
-      node.vx = (node.vx / speed) * BASE_SPEED;
-      node.vy = (node.vy / speed) * BASE_SPEED;
+      // Apply steering to the current velocity, then preserve each pebble's
+      // established cruising speed. Motion remains continuous and independent.
+      node.vx += ax * frameScale;
+      node.vy += ay * frameScale;
+      const currentSpeed = Math.hypot(node.vx, node.vy) || node.speed;
+      node.vx = (node.vx / currentSpeed) * node.speed;
+      node.vy = (node.vy / currentSpeed) * node.speed;
+
       node.x += node.vx * frameScale;
       node.y += node.vy * frameScale;
       node.pulse += node.pulseSpeed * frameScale;
 
+      // Wrap at viewport edges so the field continuously roams everywhere.
       if (node.x < -8) node.x = width + 8;
       if (node.x > width + 8) node.x = -8;
       if (node.y < -8) node.y = height + 8;
       if (node.y > height + 8) node.y = -8;
     });
 
-    // Pebbles and network lines only: no cursor halo, radial glow, or spotlight layer.
+    // The cursor has no visual layer of its own: only the pebble field responds.
     ctx.lineWidth = 1;
     for (let i = 0; i < nodes.length; i += 1) {
       for (let j = i + 1; j < nodes.length; j += 1) {
