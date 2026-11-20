@@ -11,7 +11,8 @@
   <meta name="description" content="{{ $metaDescription }}">
   <meta name="keywords" content="Muhammad Awais, AI Engineer, AI GenMat, Agentic AI, LLM, RAG, NLP, Computer Vision, AI consultant">
   {{ partial "seo-meta.html" (dict "page" . "title" $pageTitle "description" $metaDescription) }}
-  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -28,7 +29,10 @@
 
   <nav id="navbar">
     <div class="nav-brand">
-      <a href="/" class="nav-logo" aria-label="Muhammad Awais home">Muhammad Awais</a>
+      <a href="/" class="nav-logo" aria-label="Muhammad Awais home">
+        {{ partial "awais-mark.html" . }}
+        <span class="nav-logo-name">Muhammad Awais</span>
+      </a>
       <a href="https://aigenmat.com" target="_blank" rel="noopener" class="nav-logo-badge">AI GenMat</a>
     </div>
 
@@ -108,7 +112,10 @@
     <div class="footer-glow" aria-hidden="true"></div>
     <div class="footer-inner">
       <div class="footer-brand">
-        <a href="/" class="footer-brand-logo">Muhammad Awais</a>
+        <a href="/" class="footer-brand-logo" aria-label="Muhammad Awais home">
+          {{ partial "awais-mark.html" . }}
+          <span>Muhammad Awais</span>
+        </a>
         <p class="footer-brand-tagline">AI Engineer and Software Engineering student working across intelligent systems, software development, automation, and technology operations.</p>
         <a href="mailto:m.awais@aigenmat.com" class="footer-brand-email">m.awais@aigenmat.com</a>
       </div>

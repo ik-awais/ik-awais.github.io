@@ -910,3 +910,13 @@ git push
 | `.cta-btn` | Nav CTA button (LinkedIn + Hire Me) |
 | `.hero-label` | REMOVED — was showing "AI Engineer & Developer" |
 | `.scroll-track` | Infinite scrolling tech stack row |
+
+
+## Latest implementation update — Awais monogram and cursor-following pebbles
+
+- The navbar and footer use a custom Awais monogram mark with the full “Muhammad Awais” wordmark. The mark is rendered from `static/images/branding/awais-mark.svg` through `layouts/partials/awais-mark.html`.
+- The same monogram is the active favicon in SVG, ICO, 16px/32px/512px PNG, and Apple touch icon formats. The portrait remains available at `static/images/branding/muhammad-awais.png` but is no longer used as the favicon.
+- The pebble constellation listens for pointer movement at document level. It follows the pointer through a smoothed inertial translation while preserving the pebbles' own normalized base velocity. No radial cursor halo, background highlight, or custom cursor is used. The operating-system cursor remains default.
+- Archive reorder operations save silently. Visitor-facing explanatory status copy about browser storage or repository commits has been removed. The optional `?edit-order=1` export control uses brief button feedback only.
+- `.github/workflows/deploy.yml` configures the Hugo cache in a step using `$RUNNER_TEMP` and verifies the active SVG monogram favicon and brand asset in the generated output.
+- The light theme palette has not been redesigned in this update; it remains a separate visual refinement task.

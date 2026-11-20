@@ -1,10 +1,13 @@
-Delete this obsolete file from the existing repository if it is still present:
+Favicon branding update
+=======================
 
-static/favicon.svg
-
-The active portrait-based favicon is now provided by:
+The Awais monogram is now the active site favicon and brand mark:
+- static/favicon.svg
 - static/favicon.ico
 - static/favicon-16x16.png
 - static/favicon-32x32.png
 - static/favicon-512.png
 - static/apple-touch-icon.png
+- static/images/branding/awais-mark.svg
+
+The portrait asset at static/images/branding/muhammad-awais.png is retained as a profile/brand image asset and is not used as the favicon.

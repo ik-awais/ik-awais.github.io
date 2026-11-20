@@ -437,6 +437,7 @@ function checkRateLimit() {
   let pointerAnchored = false;
   const pointer = { x: 0, y: 0, active: false };
   const easedPointer = { x: 0, y: 0 };
+  const previousPointer = { x: 0, y: 0 };
 
   function getColors() {
     const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
@@ -455,9 +456,11 @@ function checkRateLimit() {
 
   const NODE_COUNT = 55;
   const MAX_DISTANCE = 150;
-  // 0.64 CSS px per 60 Hz frame: fixed physical pace, independent of frame rate.
+  // Constant free-running pace; cursor motion is an additional inertial translation.
   const BASE_SPEED = 0.64;
   const TURN_RESPONSE = 0.052;
+  const POINTER_RESPONSE = 0.13;
+  const ANCHOR_TENSION = 0.018;
   const nodes = [];
 
   function resize() {
@@ -495,15 +498,13 @@ function checkRateLimit() {
     });
   }
 
-  const pointerSurface = isSiteAmbient ? window : canvas.parentElement;
-  pointerSurface.addEventListener('pointermove', event => {
+  // Listen at document level so content, links, and cards never interrupt tracking.
+  document.addEventListener('pointermove', event => {
     if (event.pointerType === 'touch') return;
     const bounds = isSiteAmbient ? { left: 0, top: 0 } : canvas.getBoundingClientRect();
     pointer.x = event.clientX - bounds.left;
     pointer.y = event.clientY - bounds.top;
 
-    // Preserve the current constellation layout as offsets around the pointer.
-    // Subsequent cursor movement carries the network through a smoothed anchor.
     if (!pointerAnchored) {
       nodes.forEach(node => {
         node.anchorX = node.x - pointer.x;
@@ -511,14 +512,15 @@ function checkRateLimit() {
       });
       easedPointer.x = pointer.x;
       easedPointer.y = pointer.y;
+      previousPointer.x = pointer.x;
+      previousPointer.y = pointer.y;
       pointerAnchored = true;
     }
     pointer.active = true;
   }, { passive: true });
 
-  pointerSurface.addEventListener('pointerleave', () => {
-    pointer.active = false;
-  }, { passive: true });
+  // If the tab loses focus, let the field drift naturally; it reattaches on the next move.
+  window.addEventListener('blur', () => { pointer.active = false; }, { passive: true });
 
   const rgba = (rgb, alpha) => `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${alpha})`;
 
@@ -529,55 +531,47 @@ function checkRateLimit() {
     lastFrame = timestamp;
     ctx.clearRect(0, 0, width, height);
 
+    let pointerShiftX = 0;
+    let pointerShiftY = 0;
     if (pointer.active && pointerAnchored) {
-      // Pointer inertia: the network lags subtly instead of snapping to the cursor.
-      const follow = 1 - Math.exp(-0.115 * frameScale);
+      // Inertial cursor tracking: the whole constellation follows with a soft, consistent lag.
+      const follow = 1 - Math.exp(-POINTER_RESPONSE * frameScale);
       easedPointer.x += (pointer.x - easedPointer.x) * follow;
       easedPointer.y += (pointer.y - easedPointer.y) * follow;
+      pointerShiftX = easedPointer.x - previousPointer.x;
+      pointerShiftY = easedPointer.y - previousPointer.y;
+      previousPointer.x = easedPointer.x;
+      previousPointer.y = easedPointer.y;
     }
 
     nodes.forEach(node => {
       if (pointer.active && pointerAnchored) {
+        // Cursor translation is applied independently of particle velocity, so tracking
+        // never slows down or competes with the pebbles' own constant-speed movement.
+        node.x += pointerShiftX;
+        node.y += pointerShiftY;
+
         const targetX = easedPointer.x + node.anchorX;
         const targetY = easedPointer.y + node.anchorY;
         const dx = targetX - node.x;
         const dy = targetY - node.y;
         const distance = Math.hypot(dx, dy);
-        let directionX;
-        let directionY;
-
-        if (distance < 0.001) {
-          directionX = Math.cos(node.phase);
-          directionY = Math.sin(node.phase);
-        } else if (distance > node.orbitRadius + 1.5) {
-          directionX = dx / distance;
-          directionY = dy / distance;
-        } else if (distance < node.orbitRadius - 1.5) {
-          directionX = -dx / distance;
-          directionY = -dy / distance;
-        } else {
-          // Near the anchor, follow a small orbit instead of stopping or clustering.
-          directionX = (-dy / distance) * node.orbitDirection;
-          directionY = (dx / distance) * node.orbitDirection;
+        if (distance > 0.001) {
+          const spring = Math.min(1, distance * ANCHOR_TENSION * frameScale);
+          node.x += dx * spring;
+          node.y += dy * spring;
         }
 
-        const targetVx = directionX * BASE_SPEED;
-        const targetVy = directionY * BASE_SPEED;
-        const steering = 1 - Math.exp(-TURN_RESPONSE * frameScale);
-        node.vx += (targetVx - node.vx) * steering;
-        node.vy += (targetVy - node.vy) * steering;
-      } else {
-        // A tiny smooth curve keeps the field alive when the pointer is away.
-        const curve = Math.sin(node.pulse * 0.35) * 0.0011 * frameScale;
-        const cos = Math.cos(curve);
-        const sin = Math.sin(curve);
-        const vx = node.vx * cos - node.vy * sin;
-        const vy = node.vx * sin + node.vy * cos;
-        node.vx = vx;
-        node.vy = vy;
       }
 
-      // Normalize every frame: the pebbles never lose their established pace.
+      const curve = Math.sin(node.pulse * 0.35) * 0.0011 * frameScale;
+      const cos = Math.cos(curve);
+      const sin = Math.sin(curve);
+      const vx = node.vx * cos - node.vy * sin;
+      const vy = node.vx * sin + node.vy * cos;
+      node.vx = vx;
+      node.vy = vy;
+
       const speed = Math.hypot(node.vx, node.vy) || BASE_SPEED;
       node.vx = (node.vx / speed) * BASE_SPEED;
       node.vy = (node.vy / speed) * BASE_SPEED;
@@ -591,7 +585,7 @@ function checkRateLimit() {
       if (node.y > height + 8) node.y = -8;
     });
 
-    // Draw connecting lines only: no cursor halo, radial glow, or spotlight trace.
+    // Pebbles and network lines only: no cursor halo, radial glow, or spotlight layer.
     ctx.lineWidth = 1;
     for (let i = 0; i < nodes.length; i += 1) {
       for (let j = i + 1; j < nodes.length; j += 1) {
@@ -907,14 +901,7 @@ function checkRateLimit() {
       expandButton.setAttribute('aria-expanded', 'false');
     }
 
-    const status = document.createElement('p');
-    status.className = 'archive-status';
-    status.setAttribute('role', 'status');
-    status.setAttribute('aria-live', 'polite');
-    status.hidden = true;
-
     if (expandButton) toolbar.appendChild(expandButton);
-    toolbar.appendChild(status);
 
     const adminOrderMode = new URLSearchParams(window.location.search).get('edit-order') === '1';
     let exportButton = null;
@@ -922,7 +909,7 @@ function checkRateLimit() {
       exportButton = document.createElement('button');
       exportButton.type = 'button';
       exportButton.className = 'archive-copy-order';
-      exportButton.textContent = 'Copy shared Markdown order';
+      exportButton.textContent = 'Copy order';
       toolbar.appendChild(exportButton);
     }
     if (expandButton || allCards.length > 1 || adminOrderMode) grid.parentElement.insertBefore(toolbar, grid);
@@ -943,31 +930,24 @@ function checkRateLimit() {
 
     const persist = () => {
       const keys = cards().map(card => card.dataset.orderKey || card.dataset.contentFile || '').filter(Boolean);
-      const saved = window.PortfolioCardOrder?.save(family, keys);
-      status.hidden = false;
-      status.textContent = saved
-        ? 'Order saved in this browser and shared with homepage previews on this device. A repository commit is required to publish a default order for everyone.'
-        : 'This browser could not save the order. Enable site storage and try again.';
+      const saved = window.PortfolioCardOrder?.save(family, keys) === true;
       grid.dispatchEvent(new CustomEvent('portfolio:card-order-changed', {
-        bubbles: true, detail: { family, keys }
+        bubbles: true, detail: { family, keys, saved }
       }));
     };
 
     exportButton?.addEventListener('click', async () => {
+      const originalLabel = exportButton.textContent;
       const manifest = cards().map((card, index) => {
         const file = card.dataset.contentFile || card.dataset.orderKey || 'UNKNOWN.md';
         return `# content/${file}\nweight: ${(index + 1) * 10}`;
       }).join('\n\n');
-      try {
-        const copied = await copyText(manifest);
-        status.hidden = false;
-        status.textContent = copied
-          ? 'Shared Markdown weight manifest copied. Apply the weights to the listed files and deploy to publish this as the default order.'
-          : 'Clipboard unavailable. Use HTTPS or copy the order manually.';
-      } catch (_) {
-        status.hidden = false;
-        status.textContent = 'Clipboard unavailable. Use HTTPS or copy the order manually.';
-      }
+      let copied = false;
+      try { copied = await copyText(manifest); } catch (_) { copied = false; }
+      exportButton.textContent = copied ? 'Copied' : 'Retry copy';
+      window.setTimeout(() => {
+        if (exportButton.isConnected) exportButton.textContent = originalLabel;
+      }, 1400);
     });
 
     allCards.forEach(card => {

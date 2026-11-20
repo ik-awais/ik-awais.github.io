@@ -3,11 +3,11 @@
 ## Changes
 
 - Removed cursor-following radial color glow and card pointer-follow glow handlers. No custom cursor CSS or JavaScript was introduced; the operating-system cursor remains unchanged.
-- Reworked the ambient pebble field to maintain a normalized, frame-rate-independent movement pace. The constellation follows cursor movement through a smoothed pointer anchor and inertial steering, while nodes continue at the same base speed when the pointer is idle or outside the page.
+- Reworked the ambient pebble field to maintain a normalized, frame-rate-independent movement pace. The constellation follows pointer movement through a smoothed anchor and inertial steering. The follow implementation has since been strengthened to listen at document level and translate the field with the cursor while preserving constant-speed pebble motion.
 - Replaced the prior in-flow pointer sorting with a floating drag ghost and a live placeholder. The card follows the pointer; the other cards reflow around the placeholder; the actual order is committed only on pointer release. Pointer cancellation restores the original position.
 - Kept keyboard reordering via the drag grip and retained per-browser order persistence / homepage synchronization. `?edit-order=1` still exposes the shared Markdown weight export.
 - Changed the navbar and footer brand text from `MA.` to `Muhammad Awais`; updated the Hugo site title and browser title suffix to use the same name. The desktop navbar switches to its responsive menu at 1180px so the full wordmark does not collide with navigation links.
-- Generated favicon assets from the supplied transparent portrait: ICO, 16px/32px PNG, 512px PNG, and 180px Apple touch icon. The original portrait is preserved at `static/images/branding/muhammad-awais.png`.
+- The previous portrait-based favicon has since been replaced by the custom Awais monogram. The portrait remains at `static/images/branding/muhammad-awais.png` for optional profile/brand use.
 - Updated GitHub Pages actions to Node 24-compatible major versions: checkout v7.0.1, configure-pages v6.0.0, upload-pages-artifact v5.0.0, and deploy-pages v5.0.1. Added checks for the expected Hugo routes, profile/favicons, JavaScript/vendor assets, and fingerprinted CSS before upload. The checkout step does not persist a repository write credential because this workflow only builds and deploys. Hugo remains pinned to 0.154.5 Extended.
 
 ## Important behavior
@@ -38,5 +38,4 @@ A static GitHub Pages site cannot accept anonymous public writes to Git content.
 - `static/apple-touch-icon.png`
 - `static/images/branding/muhammad-awais.png`
 - `README-BATCH-PORTRAIT-CURSOR-DRAG-CICD.md`
-- `DELETE-FILES.txt` (removal instruction for an older `static/favicon.svg`)
-- Deleted obsolete `static/favicon.svg`
+- `DELETE-FILES.txt` (updated to document the active Awais monogram assets)

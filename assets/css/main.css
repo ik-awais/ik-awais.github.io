@@ -2141,7 +2141,6 @@ a:hover, button:hover, input[type="submit"]:hover, .btn-primary:hover, .btn-ghos
 }
 .archive-toolbar button:hover { border-color: var(--accent); color: var(--accent); background: var(--card-hover); }
 .archive-toolbar .archive-copy-order { border-color: color-mix(in srgb, var(--accent2) 50%, var(--border)); color: var(--accent2); }
-.archive-status { flex: 1 1 100%; color: var(--muted); font-size: 11px; text-align: right; min-height: 1em; }
 .archive-expand-toggle { display: inline-flex; align-items: center; gap: 10px; margin: 0 auto 0 0; padding: 12px 18px; border: 1px solid var(--border); border-radius: 8px;
   background: var(--card); color: var(--text-secondary); cursor: pointer;
   font: 600 11px 'JetBrains Mono', monospace; letter-spacing: .05em; text-transform: uppercase;
@@ -2163,7 +2162,7 @@ a:hover, button:hover, input[type="submit"]:hover, .btn-primary:hover, .btn-ghos
 .home-contact-links a:hover { color: var(--accent); }
 .home-contact-form .contact-form { padding: clamp(22px, 3vw, 36px); }
 @media (max-width: 900px) { .home-contact-layout { grid-template-columns: 1fr; } .home-contact-links { flex-direction: row; flex-wrap: wrap; gap: 10px 20px; } }
-@media (max-width: 600px) { .archive-toolbar { justify-content: flex-start; } .archive-status { text-align: left; } .home-contact-section { padding-inline: 5vw; } .home-contact-form .contact-form { padding: 22px 18px; } }
+@media (max-width: 600px) { .archive-toolbar { justify-content: flex-start; } .home-contact-section { padding-inline: 5vw; } .home-contact-form .contact-form { padding: 22px 18px; } }
 
 
 /* ── TIMED HOMEPAGE PREVIEW CAROUSELS ──────────────────────────────── */
@@ -2276,16 +2275,6 @@ a:hover, button:hover, input[type="submit"]:hover, .btn-primary:hover, .btn-ghos
   pointer-events: none;
 }
 body.is-card-dragging { user-select: none; }
-.archive-status {
-  flex: 1 1 100%;
-  margin: 2px 0 0;
-  color: var(--muted);
-  font-size: 11px;
-  line-height: 1.55;
-  text-align: left;
-}
-.archive-status[hidden] { display: none !important; }
-
 @media (max-width: 768px) {
   .home-carousel-footer { gap: 12px; }
   .home-preview-track { gap: 12px; padding-bottom: 10px; }
@@ -2440,4 +2429,28 @@ body.is-card-dragging {
 }
 @media (prefers-reduced-motion: reduce) {
   .archive-drag-ghost, .project-card-placeholder { transition: none !important; }
+}
+
+
+/* Awais monogram — shared by the navbar and footer wordmark. */
+.awais-mark {
+  display: block;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+  object-fit: contain;
+}
+.nav-logo { gap: 9px; }
+.nav-logo .nav-logo-name { color: var(--text); }
+.footer-brand-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  width: fit-content;
+}
+.footer-brand-logo .awais-mark { width: 36px; height: 36px; flex-basis: 36px; }
+.footer-brand-logo span { color: #F5F7FF; }
+@media (max-width: 600px) {
+  .nav-logo { gap: 7px; font-size: 14px; }
+  .nav-logo .awais-mark { width: 28px; height: 28px; flex-basis: 28px; }
 }
