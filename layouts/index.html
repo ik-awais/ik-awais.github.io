@@ -19,10 +19,6 @@
       <a href="/contact/" class="btn-ghost">Get in Touch</a>
     </div>
   </div>
-  <div class="hero-canvas-wrap" aria-hidden="true">
-    <canvas id="heroCanvas"></canvas>
-  </div>
-  <div class="hero-orb" aria-hidden="true"></div>
 </section>
 
 {{/* Credibility figures are derived from published content; no manual or invented totals. */}}
@@ -369,20 +365,16 @@
 ) }}
 
 
-<section id="contact" class="home-contact-section" aria-labelledby="home-contact-heading">
-  <div class="home-contact-layout">
+<section id="contact" class="home-contact-section home-contact-compact-section" aria-labelledby="home-contact-heading">
+  <div class="home-contact-compact">
     <div class="home-contact-copy">
       <p class="home-preview-eyebrow">Start a conversation</p>
-      <h2 id="home-contact-heading" class="section-title">Let's Get in <span class="accent">Touch.</span></h2>
-      <p class="contact-desc">Open to collaborations, AI projects, technical opportunities, and conversations about building useful systems.</p>
-      <div class="home-contact-links">
-        <a href="mailto:mawaisqq@gmail.com">mawaisqq@gmail.com</a>
-        <a href="mailto:m.awais@aigenmat.com">m.awais@aigenmat.com</a>
-        <a href="/contact/">Open the dedicated contact page &#8599;</a>
-      </div>
+      <h2 id="home-contact-heading" class="section-title">Have something <span class="accent">in mind?</span></h2>
+      <p class="contact-desc">For projects, collaborations, and professional opportunities, let's connect.</p>
     </div>
-    <div class="home-contact-form">
-      {{ partial "contact-form.html" . }}
+    <div class="home-contact-actions">
+      <a href="/contact/" class="btn-primary">Contact Me <span aria-hidden="true">&#8594;</span></a>
+      <a href="mailto:mawaisqq@gmail.com" class="home-contact-email">mawaisqq@gmail.com</a>
     </div>
   </div>
 </section>

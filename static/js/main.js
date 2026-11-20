@@ -454,11 +454,12 @@ function checkRateLimit() {
 
 // ── HERO CONSTELLATION CANVAS ───────────────────────────────────────────
 (function initConstellation() {
-  const canvas = document.getElementById('heroCanvas');
+  const canvas = document.getElementById('heroCanvas') || document.getElementById('siteAmbientCanvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
-  const wrap = canvas.parentElement;
+  const isSiteAmbient = canvas.id === 'siteAmbientCanvas';
+  const wrap = isSiteAmbient ? document.body : canvas.parentElement;
   let W = 0, H = 0, pixelRatio = 1;
   let mouse = { x: -999, y: -999 };
 
@@ -485,16 +486,16 @@ function checkRateLimit() {
   const MOUSE_R     = 140;
 
   function resize() {
-    const rect = wrap.getBoundingClientRect();
-    W = Math.max(1, rect.width);
-    H = Math.max(1, rect.height);
+    const rect = isSiteAmbient ? null : wrap.getBoundingClientRect();
+    W = Math.max(1, isSiteAmbient ? window.innerWidth : rect.width);
+    H = Math.max(1, isSiteAmbient ? window.innerHeight : rect.height);
     pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
     canvas.width = Math.round(W * pixelRatio);
     canvas.height = Math.round(H * pixelRatio);
     ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
   }
   resize();
-  if ('ResizeObserver' in window) {
+  if (!isSiteAmbient && 'ResizeObserver' in window) {
     new ResizeObserver(resize).observe(wrap);
   } else {
     window.addEventListener('resize', resize, { passive: true });
@@ -511,12 +512,13 @@ function checkRateLimit() {
     pulseSpeed: 0.01 + Math.random() * 0.018,
   }));
 
-  canvas.parentElement.addEventListener('mousemove', e => {
-    const rect = canvas.getBoundingClientRect();
+  const pointerSurface = isSiteAmbient ? window : canvas.parentElement;
+  pointerSurface.addEventListener('mousemove', e => {
+    const rect = isSiteAmbient ? { left: 0, top: 0 } : canvas.getBoundingClientRect();
     mouse.x = e.clientX - rect.left;
     mouse.y = e.clientY - rect.top;
   }, { passive: true });
-  canvas.parentElement.addEventListener('mouseleave', () => { mouse.x = -999; mouse.y = -999; });
+  pointerSurface.addEventListener('mouseleave', () => { mouse.x = -999; mouse.y = -999; });
 
   const rgb = (c, a) => `rgba(${c[0]},${c[1]},${c[2]},${a})`;
 
@@ -631,8 +633,9 @@ function checkRateLimit() {
   const carousels = Array.from(document.querySelectorAll('[data-home-carousel]'));
   if (!carousels.length) return;
 
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
   const intervalMs = 6200;
+  const transitionMs = 620;
 
   carousels.forEach(root => {
     const viewport = root.querySelector('.home-preview-viewport');
@@ -650,7 +653,8 @@ function checkRateLimit() {
     }
     const cards = Array.from(track.children).filter(node => !node.dataset.homeClone);
     if (cards.length < 2) {
-      if (root.querySelector('.home-carousel-footer')) root.querySelector('.home-carousel-footer').hidden = true;
+      const footer = root.querySelector('.home-carousel-footer');
+      if (footer) footer.hidden = true;
       return;
     }
 
@@ -660,15 +664,16 @@ function checkRateLimit() {
     let current = 0;
     let transitionLocked = false;
     let pendingReset = false;
-    let paused = prefersReducedMotion;
-    let hovered = false;
-    let focused = false;
+    let paused = motionPreference.matches;
+    let pointerOverCards = false;
+    let cardHasFocus = false;
     let inView = true;
     let hidden = document.hidden;
     let elapsed = 0;
     let lastTime = 0;
     let raf = 0;
     let resizeFrame = 0;
+    let transitionTimer = 0;
 
     const originalsCount = cards.length;
     const removeClones = () => track.querySelectorAll('[data-home-clone="true"]').forEach(node => node.remove());
@@ -683,14 +688,23 @@ function checkRateLimit() {
     };
 
     const setPosition = (position, animate = true) => {
-      track.style.transition = animate && !prefersReducedMotion
-        ? 'transform 620ms cubic-bezier(.22,.72,.2,1)'
+      track.style.transition = animate && !motionPreference.matches
+        ? `transform ${transitionMs}ms cubic-bezier(.22,.72,.2,1)`
         : 'none';
       track.style.transform = `translate3d(${-position * step}px, 0, 0)`;
     };
 
+    const updateProgress = () => {
+      if (!progress) return;
+      const value = Math.max(0, Math.min(100, (elapsed / intervalMs) * 100));
+      progress.style.transform = `scaleX(${value / 100})`;
+      const bar = progress.parentElement;
+      if (bar) bar.setAttribute('aria-valuenow', String(Math.round(value)));
+    };
+
     const prepare = () => {
       const savedCurrent = current;
+      window.clearTimeout(transitionTimer);
       transitionLocked = false;
       pendingReset = false;
       removeClones();
@@ -709,18 +723,13 @@ function checkRateLimit() {
       current = ((savedCurrent % originalsCount) + originalsCount) % originalsCount;
       setPosition(visibleCount + current, false);
       elapsed = 0;
+      lastTime = 0;
       updateProgress();
     };
 
-    const updateProgress = () => {
-      if (!progress) return;
-      const value = Math.max(0, Math.min(100, (elapsed / intervalMs) * 100));
-      progress.style.transform = `scaleX(${value / 100})`;
-      const bar = progress.parentElement;
-      if (bar) bar.setAttribute('aria-valuenow', String(Math.round(value)));
-    };
-
     const finishTransition = () => {
+      window.clearTimeout(transitionTimer);
+      transitionTimer = 0;
       if (pendingReset) {
         pendingReset = false;
         if (current >= originalsCount) current = 0;
@@ -728,41 +737,63 @@ function checkRateLimit() {
         setPosition(visibleCount + current, false);
       }
       transitionLocked = false;
+      lastTime = 0;
     };
+
     track.addEventListener('transitionend', event => {
       if (event.target === track && event.propertyName === 'transform') finishTransition();
     });
 
     const move = direction => {
-      if (transitionLocked) return;
+      // Finish an interrupted transition before accepting another manual action.
+      if (transitionLocked) finishTransition();
       elapsed = 0;
       transitionLocked = true;
       current += direction;
       pendingReset = current >= originalsCount || current < 0;
       setPosition(visibleCount + current, true);
       updateProgress();
-      if (prefersReducedMotion) finishTransition();
+
+      if (motionPreference.matches) {
+        finishTransition();
+      } else {
+        // transitionend is not guaranteed (e.g. hidden tabs, interrupted CSS); this
+        // watchdog always releases the lock so the progress cycle can resume.
+        window.clearTimeout(transitionTimer);
+        transitionTimer = window.setTimeout(finishTransition, transitionMs + 140);
+      }
     };
 
     const setPaused = value => {
-      paused = value || prefersReducedMotion;
+      paused = Boolean(value);
+      lastTime = 0;
       if (pauseButton) {
         pauseButton.setAttribute('aria-pressed', String(paused));
         pauseButton.setAttribute('aria-label', paused ? 'Resume automatic carousel' : 'Pause automatic carousel');
         pauseButton.textContent = paused ? 'Play' : 'Pause';
       }
+      updateProgress();
     };
 
     prevButton?.addEventListener('click', () => move(-1));
     nextButton?.addEventListener('click', () => move(1));
     pauseButton?.addEventListener('click', () => setPaused(!paused));
-    root.addEventListener('mouseenter', () => { hovered = true; });
-    root.addEventListener('mouseleave', () => { hovered = false; });
-    root.addEventListener('focusin', () => { focused = true; });
-    root.addEventListener('focusout', event => {
-      if (!root.contains(event.relatedTarget)) focused = false;
+
+    // Only pointer/focus interaction with the cards pauses rotation. The footer
+    // controls are outside this viewport, so using Pause/Play or arrows cannot
+    // leave the carousel stuck in a hover/focus-paused state.
+    viewport.addEventListener('pointerenter', event => {
+      if (event.pointerType !== 'touch') pointerOverCards = true;
     });
-    document.addEventListener('visibilitychange', () => { hidden = document.hidden; });
+    viewport.addEventListener('pointerleave', () => { pointerOverCards = false; });
+    viewport.addEventListener('focusin', () => { cardHasFocus = true; });
+    viewport.addEventListener('focusout', event => {
+      if (!viewport.contains(event.relatedTarget)) cardHasFocus = false;
+    });
+    document.addEventListener('visibilitychange', () => {
+      hidden = document.hidden;
+      lastTime = 0;
+    });
 
     if ('IntersectionObserver' in window) {
       const observer = new IntersectionObserver(entries => {
@@ -774,7 +805,7 @@ function checkRateLimit() {
     const animate = time => {
       const delta = lastTime ? Math.min(time - lastTime, 80) : 0;
       lastTime = time;
-      if (!paused && !hovered && !focused && inView && !hidden && !transitionLocked) {
+      if (!paused && !pointerOverCards && !cardHasFocus && inView && !hidden && !transitionLocked) {
         elapsed += delta;
         if (elapsed >= intervalMs) move(1);
         else updateProgress();
@@ -789,11 +820,15 @@ function checkRateLimit() {
     }) : null;
     if (resizeObserver) resizeObserver.observe(viewport);
     else window.addEventListener('resize', prepare, { passive: true });
-    setPaused(prefersReducedMotion);
-    if (prefersReducedMotion && pauseButton) pauseButton.hidden = true;
+
+    setPaused(motionPreference.matches);
+    // Reduced-motion preference starts paused, but the explicit Play control
+    // remains available as a user-initiated opt-in.
     raf = window.requestAnimationFrame(animate);
     window.addEventListener('pagehide', () => {
       cancelAnimationFrame(raf);
+      cancelAnimationFrame(resizeFrame);
+      window.clearTimeout(transitionTimer);
       resizeObserver?.disconnect();
     }, { once: true });
   });
