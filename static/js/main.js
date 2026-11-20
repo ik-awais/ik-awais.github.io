@@ -9,6 +9,56 @@ function toggleTheme() {
   localStorage.setItem('theme', next);
 }
 
+
+// Per-browser card order shared between archive pages and homepage previews.
+// A static GitHub Pages deployment cannot write anonymous visitor changes back
+// to the repository; this keeps each visitor's arrangement across reloads.
+window.PortfolioCardOrder = window.PortfolioCardOrder || (() => {
+  const prefix = 'portfolio:card-order:v1:';
+  const read = family => {
+    try {
+      const value = JSON.parse(localStorage.getItem(prefix + family) || '[]');
+      return Array.isArray(value) ? value.filter(item => typeof item === 'string') : [];
+    } catch (_) { return []; }
+  };
+  const save = (family, keys) => {
+    try {
+      // Preserve sibling collections that share a family (e.g. university,
+      // college, and certificates all use the education order namespace).
+      const previous = read(family);
+      const currentSet = new Set(keys);
+      const merged = [];
+      let nextIndex = 0;
+      previous.forEach(key => {
+        if (currentSet.has(key)) {
+          if (nextIndex < keys.length) merged.push(keys[nextIndex++]);
+        } else if (!merged.includes(key)) {
+          merged.push(key);
+        }
+      });
+      while (nextIndex < keys.length) merged.push(keys[nextIndex++]);
+      localStorage.setItem(prefix + family, JSON.stringify(merged));
+      return true;
+    } catch (_) { return false; }
+  };
+  const apply = (container, selector, family) => {
+    if (!container || !family) return;
+    const stored = read(family);
+    if (!stored.length) return;
+    const priority = new Map(stored.map((key, index) => [key, index]));
+    const nodes = Array.from(container.querySelectorAll(selector));
+    nodes.sort((a, b) => {
+      const ak = a.dataset.orderKey || a.dataset.contentFile || '';
+      const bk = b.dataset.orderKey || b.dataset.contentFile || '';
+      const ai = priority.has(ak) ? priority.get(ak) : Number.MAX_SAFE_INTEGER;
+      const bi = priority.has(bk) ? priority.get(bk) : Number.MAX_SAFE_INTEGER;
+      return ai - bi;
+    });
+    nodes.forEach(node => container.appendChild(node));
+  };
+  return { read, save, apply };
+})();
+
 // ── NAVIGATION: DROPDOWNS & MOBILE MENU ─────────────────────────────────
 (function () {
   const navToggle = document.getElementById('navToggle');
@@ -455,8 +505,8 @@ function checkRateLimit() {
     y:  Math.random() * H,
     vx: (Math.random() - 0.5) * 1.10,
     vy: (Math.random() - 0.5) * 1.10,
-    // Adds roughly 2.25 mm (~8.5 CSS px) to the former particle radius.
-    r:  Math.random() * 1.8 + 9.5,
+    // Node radius is now one-third of the previously enlarged size.
+    r:  Math.random() * 0.6 + 3.17,
     pulse:      Math.random() * Math.PI * 2,
     pulseSpeed: 0.01 + Math.random() * 0.018,
   }));
@@ -520,7 +570,7 @@ function checkRateLimit() {
       const glow = Math.sin(n.pulse) * 0.5 + 0.5;
       const a    = COLORS.nodeAlpha * (0.7 + glow * 0.3);
       ctx.beginPath();
-      ctx.arc(n.x, n.y, n.r + glow * 1.3, 0, Math.PI * 2);
+      ctx.arc(n.x, n.y, n.r + glow * 0.43, 0, Math.PI * 2);
       ctx.fillStyle = rgb(COLORS.node, a);
       ctx.fill();
     });
@@ -576,74 +626,180 @@ function checkRateLimit() {
 
 // Buttons remain position-stable on hover. No magnetic pointer transforms are used.
 
-// ── HOMEPAGE PREVIEW MARQUEES ───────────────────────────────────────────
-(function initHomePreviewMarquees() {
-  const tracks = Array.from(document.querySelectorAll('.home-preview-track'));
-  if (!tracks.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+// ── HOMEPAGE PREVIEW CAROUSELS ──────────────────────────────────────────
+(function initHomePreviewCarousels() {
+  const carousels = Array.from(document.querySelectorAll('[data-home-carousel]'));
+  if (!carousels.length) return;
 
-  tracks.forEach(track => {
-    const originals = Array.from(track.children).filter(node => !node.dataset.marqueeClone);
-    if (!originals.length) return;
-    let loopWidth = 0;
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const intervalMs = 6200;
+
+  carousels.forEach(root => {
+    const viewport = root.querySelector('.home-preview-viewport');
+    const track = root.querySelector('[data-home-carousel-track]');
+    const progress = root.querySelector('[data-home-progress]');
+    const prevButton = root.querySelector('[data-home-prev]');
+    const nextButton = root.querySelector('[data-home-next]');
+    const pauseButton = root.querySelector('[data-home-pause]');
+    if (!viewport || !track) return;
+
+    const family = root.dataset.orderFamily || '';
+    const originals = Array.from(track.children).filter(node => !node.dataset.homeClone);
+    if (originals.length > 1 && window.PortfolioCardOrder) {
+      window.PortfolioCardOrder.apply(track, '[data-home-item]', family);
+    }
+    const cards = Array.from(track.children).filter(node => !node.dataset.homeClone);
+    if (cards.length < 2) {
+      if (root.querySelector('.home-carousel-footer')) root.querySelector('.home-carousel-footer').hidden = true;
+      return;
+    }
+
+    const gap = () => parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap) || 16;
+    let visibleCount = 1;
+    let step = 0;
+    let current = 0;
+    let transitionLocked = false;
+    let pendingReset = false;
+    let paused = prefersReducedMotion;
+    let hovered = false;
+    let focused = false;
+    let inView = true;
+    let hidden = document.hidden;
+    let elapsed = 0;
     let lastTime = 0;
-    let paused = false;
-    let destroyed = false;
+    let raf = 0;
+    let resizeFrame = 0;
 
-    const prepare = () => {
-      track.querySelectorAll('[data-marquee-clone="true"]').forEach(node => node.remove());
-      loopWidth = 0;
-      const first = originals[0];
-      const originalStart = first.offsetLeft;
-      const appendCloneSet = () => originals.forEach(node => {
-        const clone = node.cloneNode(true);
-        clone.dataset.marqueeClone = 'true';
-        clone.setAttribute('aria-hidden', 'true');
-        clone.querySelectorAll('a, button, input, select, textarea').forEach(control => control.setAttribute('tabindex', '-1'));
-        track.appendChild(clone);
-      });
-      appendCloneSet();
-      const firstClone = track.querySelector('[data-marquee-clone="true"]');
-      loopWidth = firstClone ? firstClone.offsetLeft - originalStart : 0;
-      let sets = 1;
-      while (loopWidth > 0 && track.scrollWidth < track.clientWidth + loopWidth && sets < 8) {
-        appendCloneSet();
-        sets += 1;
-      }
-      track.scrollLeft = track.scrollLeft % Math.max(loopWidth, 1);
+    const originalsCount = cards.length;
+    const removeClones = () => track.querySelectorAll('[data-home-clone="true"]').forEach(node => node.remove());
+    const makeClone = node => {
+      const clone = node.cloneNode(true);
+      clone.dataset.homeClone = 'true';
+      clone.setAttribute('aria-hidden', 'true');
+      clone.tabIndex = -1;
+      clone.querySelectorAll('a, button, input, select, textarea, [tabindex]').forEach(control => control.setAttribute('tabindex', '-1'));
+      clone.querySelectorAll('[id]').forEach(element => element.removeAttribute('id'));
+      return clone;
     };
 
-    track.addEventListener('mouseenter', () => { paused = true; });
-    track.addEventListener('mouseleave', () => { paused = false; });
-    track.addEventListener('focusin', () => { paused = true; });
-    track.addEventListener('focusout', event => {
-      if (!track.contains(event.relatedTarget)) paused = false;
+    const setPosition = (position, animate = true) => {
+      track.style.transition = animate && !prefersReducedMotion
+        ? 'transform 620ms cubic-bezier(.22,.72,.2,1)'
+        : 'none';
+      track.style.transform = `translate3d(${-position * step}px, 0, 0)`;
+    };
+
+    const prepare = () => {
+      const savedCurrent = current;
+      transitionLocked = false;
+      pendingReset = false;
+      removeClones();
+      const width = viewport.clientWidth;
+      if (!width) return;
+      const desired = width < 620 ? 1 : width < 1020 ? 2 : 3;
+      visibleCount = Math.max(1, Math.min(desired, originalsCount));
+      track.style.setProperty('--home-visible-count', visibleCount);
+      const cardWidth = (width - gap() * (visibleCount - 1)) / visibleCount;
+      track.style.setProperty('--home-card-basis', `${cardWidth}px`);
+      step = cardWidth + gap();
+      const leadingClones = document.createDocumentFragment();
+      cards.slice(-visibleCount).forEach(card => leadingClones.appendChild(makeClone(card)));
+      track.insertBefore(leadingClones, track.firstChild);
+      cards.slice(0, visibleCount).forEach(card => track.appendChild(makeClone(card)));
+      current = ((savedCurrent % originalsCount) + originalsCount) % originalsCount;
+      setPosition(visibleCount + current, false);
+      elapsed = 0;
+      updateProgress();
+    };
+
+    const updateProgress = () => {
+      if (!progress) return;
+      const value = Math.max(0, Math.min(100, (elapsed / intervalMs) * 100));
+      progress.style.transform = `scaleX(${value / 100})`;
+      const bar = progress.parentElement;
+      if (bar) bar.setAttribute('aria-valuenow', String(Math.round(value)));
+    };
+
+    const finishTransition = () => {
+      if (pendingReset) {
+        pendingReset = false;
+        if (current >= originalsCount) current = 0;
+        if (current < 0) current = originalsCount - 1;
+        setPosition(visibleCount + current, false);
+      }
+      transitionLocked = false;
+    };
+    track.addEventListener('transitionend', event => {
+      if (event.target === track && event.propertyName === 'transform') finishTransition();
     });
 
-    const animate = time => {
-      if (destroyed) return;
-      const delta = lastTime ? Math.min((time - lastTime) / 1000, 0.05) : 0;
-      lastTime = time;
-      if (!paused && loopWidth > 0) {
-        track.scrollLeft += 34 * delta;
-        if (track.scrollLeft >= loopWidth) track.scrollLeft -= loopWidth;
+    const move = direction => {
+      if (transitionLocked) return;
+      elapsed = 0;
+      transitionLocked = true;
+      current += direction;
+      pendingReset = current >= originalsCount || current < 0;
+      setPosition(visibleCount + current, true);
+      updateProgress();
+      if (prefersReducedMotion) finishTransition();
+    };
+
+    const setPaused = value => {
+      paused = value || prefersReducedMotion;
+      if (pauseButton) {
+        pauseButton.setAttribute('aria-pressed', String(paused));
+        pauseButton.setAttribute('aria-label', paused ? 'Resume automatic carousel' : 'Pause automatic carousel');
+        pauseButton.textContent = paused ? 'Play' : 'Pause';
       }
-      requestAnimationFrame(animate);
+    };
+
+    prevButton?.addEventListener('click', () => move(-1));
+    nextButton?.addEventListener('click', () => move(1));
+    pauseButton?.addEventListener('click', () => setPaused(!paused));
+    root.addEventListener('mouseenter', () => { hovered = true; });
+    root.addEventListener('mouseleave', () => { hovered = false; });
+    root.addEventListener('focusin', () => { focused = true; });
+    root.addEventListener('focusout', event => {
+      if (!root.contains(event.relatedTarget)) focused = false;
+    });
+    document.addEventListener('visibilitychange', () => { hidden = document.hidden; });
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => { inView = entry.isIntersecting; });
+      }, { threshold: 0.15 });
+      observer.observe(root);
+    }
+
+    const animate = time => {
+      const delta = lastTime ? Math.min(time - lastTime, 80) : 0;
+      lastTime = time;
+      if (!paused && !hovered && !focused && inView && !hidden && !transitionLocked) {
+        elapsed += delta;
+        if (elapsed >= intervalMs) move(1);
+        else updateProgress();
+      }
+      raf = window.requestAnimationFrame(animate);
     };
 
     prepare();
-    if ('ResizeObserver' in window) {
-      const ro = new ResizeObserver(() => prepare());
-      ro.observe(track);
-      originals.forEach(node => ro.observe(node));
-    } else {
-      window.addEventListener('resize', prepare, { passive: true });
-    }
-    requestAnimationFrame(animate);
-    window.addEventListener('pagehide', () => { destroyed = true; }, { once: true });
+    const resizeObserver = 'ResizeObserver' in window ? new ResizeObserver(() => {
+      cancelAnimationFrame(resizeFrame);
+      resizeFrame = requestAnimationFrame(prepare);
+    }) : null;
+    if (resizeObserver) resizeObserver.observe(viewport);
+    else window.addEventListener('resize', prepare, { passive: true });
+    setPaused(prefersReducedMotion);
+    if (prefersReducedMotion && pauseButton) pauseButton.hidden = true;
+    raf = window.requestAnimationFrame(animate);
+    window.addEventListener('pagehide', () => {
+      cancelAnimationFrame(raf);
+      resizeObserver?.disconnect();
+    }, { once: true });
   });
 }());
 
-// ── ONE-PAGE ARCHIVES + MANUAL MARKDOWN ORDERING ─────────────────────────
+// ── PUBLIC DRAG-TO-REORDER ARCHIVES ─────────────────────────────────────
 (function initArchiveControls() {
   const grids = Array.from(document.querySelectorAll('[data-archive-grid]'));
   if (!grids.length) return;
@@ -666,18 +822,19 @@ function checkRateLimit() {
   };
 
   grids.forEach(grid => {
+    const family = grid.dataset.orderFamily || grid.dataset.archiveSection || '';
     const cards = () => Array.from(grid.querySelectorAll(':scope > [data-archive-item]'));
+    if (window.PortfolioCardOrder) window.PortfolioCardOrder.apply(grid, ':scope > [data-archive-item]', family);
     const allCards = cards();
-    if (allCards.length < 2) return;
+    if (!allCards.length) return;
 
     const initialCount = Math.max(1, Number(grid.dataset.initialCount) || 9);
     const olderCards = allCards.slice(initialCount);
     olderCards.forEach(card => { card.hidden = true; });
 
-    const editMode = new URLSearchParams(window.location.search).get('edit-order') === '1';
     const toolbar = document.createElement('div');
     toolbar.className = 'archive-toolbar';
-    toolbar.setAttribute('aria-label', editMode ? 'Archive display and ordering controls' : 'Archive display controls');
+    toolbar.setAttribute('aria-label', 'Archive display controls');
 
     let expandButton = null;
     if (olderCards.length) {
@@ -688,116 +845,165 @@ function checkRateLimit() {
       expandButton.innerHTML = `Show older cards (${olderCards.length}) <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m4 7 6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
     }
 
-    const reorderButton = document.createElement('button');
-    reorderButton.type = 'button';
-    reorderButton.className = 'archive-reorder-toggle';
-    reorderButton.textContent = 'Reorder cards';
-
-    const copyButton = document.createElement('button');
-    copyButton.type = 'button';
-    copyButton.className = 'archive-copy-order';
-    copyButton.textContent = 'Copy Markdown weights';
-    copyButton.hidden = true;
-
     const status = document.createElement('p');
     status.className = 'archive-status';
     status.setAttribute('role', 'status');
     status.setAttribute('aria-live', 'polite');
+    status.hidden = true;
 
     if (expandButton) toolbar.appendChild(expandButton);
-    if (editMode) {
-      toolbar.appendChild(reorderButton);
-      toolbar.appendChild(copyButton);
-      toolbar.appendChild(status);
+    toolbar.appendChild(status);
+    const adminOrderMode = new URLSearchParams(window.location.search).get('edit-order') === '1';
+    let exportButton = null;
+    if (adminOrderMode) {
+      exportButton = document.createElement('button');
+      exportButton.type = 'button';
+      exportButton.className = 'archive-copy-order';
+      exportButton.textContent = 'Copy shared Markdown order';
+      toolbar.appendChild(exportButton);
     }
-    if (expandButton || editMode) grid.parentElement.insertBefore(toolbar, grid);
+    if (expandButton || allCards.length > 1 || adminOrderMode) grid.parentElement.insertBefore(toolbar, grid);
 
-    let isExpanded = false;
-    let reordering = false;
-    let dragged = null;
-
+    const updateExpandLabel = expanded => {
+      if (!expandButton) return;
+      expandButton.setAttribute('aria-expanded', String(expanded));
+      expandButton.innerHTML = expanded
+        ? `Show fewer cards <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m4 7 6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+        : `Show older cards (${olderCards.length}) <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m4 7 6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+    };
     const revealAll = () => {
-      isExpanded = true;
       olderCards.forEach(card => { card.hidden = false; card.classList.add('visible'); });
-      if (expandButton) {
-        expandButton.setAttribute('aria-expanded', 'true');
-        expandButton.innerHTML = `Show fewer cards <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m4 7 6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-      }
+      updateExpandLabel(true);
     };
-
     const collapseOlder = () => {
-      isExpanded = false;
       cards().slice(initialCount).forEach(card => { card.hidden = true; });
-      if (expandButton) {
-        expandButton.setAttribute('aria-expanded', 'false');
-        expandButton.innerHTML = `Show older cards (${olderCards.length}) <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m4 7 6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-      }
+      updateExpandLabel(false);
+    };
+    expandButton?.addEventListener('click', () => {
+      const expanded = expandButton.getAttribute('aria-expanded') === 'true';
+      expanded ? collapseOlder() : revealAll();
+    });
+
+    const persist = () => {
+      const keys = cards().map(card => card.dataset.orderKey || card.dataset.contentFile || '').filter(Boolean);
+      const saved = window.PortfolioCardOrder?.save(family, keys);
+      status.hidden = false;
+      status.textContent = saved
+        ? 'Your card order is saved in this browser and will also be used by the homepage on this device. Shared ordering for all visitors requires a server-side database.'
+        : 'This browser could not save the order. Enable site storage and try again.';
+      grid.dispatchEvent(new CustomEvent('portfolio:card-order-changed', { bubbles: true, detail: { family, keys } }));
     };
 
-    if (expandButton) expandButton.addEventListener('click', () => isExpanded ? collapseOlder() : revealAll());
-
-    reorderButton.addEventListener('click', () => {
-      reordering = !reordering;
-      if (reordering) {
-        revealAll();
-        grid.classList.add('is-reordering');
-        cards().forEach(card => { card.draggable = true; });
-        reorderButton.textContent = 'Finish reordering';
-        copyButton.hidden = false;
-        status.textContent = 'Drag cards into the required order, then copy the Markdown weights to publish it.';
-      } else {
-        grid.classList.remove('is-reordering');
-        cards().forEach(card => { card.draggable = false; card.classList.remove('dragging'); });
-        reorderButton.textContent = 'Reorder cards';
-        status.textContent = 'Order preview updated locally. Copy the weights and commit them in the Markdown files to make it permanent.';
-      }
-    });
-
-    grid.addEventListener('dragstart', event => {
-      const card = event.target.closest('[data-archive-item]');
-      if (!reordering || !card) { event.preventDefault(); return; }
-      dragged = card;
-      card.classList.add('dragging');
-      if (event.dataTransfer) {
-        event.dataTransfer.effectAllowed = 'move';
-        event.dataTransfer.setData('text/plain', card.dataset.contentFile || 'portfolio-card');
-      }
-    });
-
-    grid.addEventListener('dragover', event => {
-      if (!reordering || !dragged) return;
-      const target = event.target.closest('[data-archive-item]');
-      if (!target || target === dragged) return;
-      event.preventDefault();
-      const rect = target.getBoundingClientRect();
-      const after = event.clientY > rect.top + rect.height / 2;
-      grid.insertBefore(dragged, after ? target.nextElementSibling : target);
-    });
-
-    grid.addEventListener('drop', event => {
-      if (!reordering || !dragged) return;
-      event.preventDefault();
-      status.textContent = 'Order changed in this browser preview. Copy the Markdown weights to publish it.';
-    });
-
-    grid.addEventListener('dragend', () => {
-      if (dragged) dragged.classList.remove('dragging');
-      dragged = null;
-    });
-
-    copyButton.addEventListener('click', async () => {
+    exportButton?.addEventListener('click', async () => {
       const manifest = cards().map((card, index) => {
-        const file = card.dataset.contentFile || 'UNKNOWN.md';
+        const file = card.dataset.contentFile || card.dataset.orderKey || 'UNKNOWN.md';
         return `# content/${file}\nweight: ${(index + 1) * 10}`;
       }).join('\n\n');
       try {
-        const ok = await copyText(manifest);
-        status.textContent = ok
-          ? 'Markdown weight assignments copied. Paste each weight into its matching content file and commit.'
-          : 'Clipboard access was unavailable. Use HTTPS or copy the order manually.';
-      } catch (error) {
-        status.textContent = 'Clipboard access was unavailable. Use HTTPS or copy the order manually.';
+        const copied = await copyText(manifest);
+        status.hidden = false;
+        status.textContent = copied
+          ? 'Shared order manifest copied. Apply each weight to its Markdown file and deploy to publish this order for everyone.'
+          : 'Clipboard unavailable. Use HTTPS or copy the order manually.';
+      } catch (_) {
+        status.hidden = false;
+        status.textContent = 'Clipboard unavailable. Use HTTPS or copy the order manually.';
       }
+    });
+
+    allCards.forEach(card => {
+      const handle = document.createElement('button');
+      handle.type = 'button';
+      handle.className = 'archive-drag-handle';
+      handle.setAttribute('aria-label', `Reorder ${card.querySelector('h3')?.textContent?.trim() || 'card'}. Use the up and down arrow keys to move it.`);
+      handle.title = 'Drag to reorder; use arrow keys when focused';
+      handle.innerHTML = '<svg viewBox="0 0 20 20" aria-hidden="true" fill="currentColor"><circle cx="7" cy="5" r="1.35"/><circle cx="13" cy="5" r="1.35"/><circle cx="7" cy="10" r="1.35"/><circle cx="13" cy="10" r="1.35"/><circle cx="7" cy="15" r="1.35"/><circle cx="13" cy="15" r="1.35"/></svg>';
+      card.appendChild(handle);
+    });
+
+    // Pointer-based sorting works with mouse and touch. The drag grip is the
+    // only touch-action:none surface, so normal page scrolling remains intact.
+    let active = null;
+    let didDrag = false;
+    const clearDrag = () => {
+      if (!active) return;
+      active.card.classList.remove('dragging');
+      grid.classList.remove('is-reordering');
+      document.body.classList.remove('is-card-dragging');
+      active = null;
+      if (didDrag) persist();
+      window.setTimeout(() => { didDrag = false; }, 0);
+    };
+
+    grid.addEventListener('pointerdown', event => {
+      const handle = event.target.closest('.archive-drag-handle');
+      if (!handle || !grid.contains(handle) || event.button !== 0) return;
+      const card = handle.closest('[data-archive-item]');
+      if (!card) return;
+      event.preventDefault();
+      handle.focus({ preventScroll: true });
+      active = { card, pointerId: event.pointerId, startX: event.clientX, startY: event.clientY, started: false };
+      try { handle.setPointerCapture(event.pointerId); } catch (_) {}
+    });
+
+    grid.addEventListener('pointermove', event => {
+      if (!active || event.pointerId !== active.pointerId) return;
+      const dx = event.clientX - active.startX;
+      const dy = event.clientY - active.startY;
+      if (!active.started && Math.hypot(dx, dy) < 5) return;
+      active.started = true;
+      didDrag = true;
+      active.card.classList.add('dragging');
+      grid.classList.add('is-reordering');
+      document.body.classList.add('is-card-dragging');
+      const hit = document.elementFromPoint(event.clientX, event.clientY);
+      const target = hit?.closest('[data-archive-item]');
+      if (target && target !== active.card && grid.contains(target)) {
+        const rect = target.getBoundingClientRect();
+        const sameRow = Math.abs(event.clientY - (rect.top + rect.height / 2)) < rect.height * 0.32;
+        const after = sameRow
+          ? event.clientX > rect.left + rect.width / 2
+          : event.clientY > rect.top + rect.height / 2;
+        const reference = after ? target.nextElementSibling : target;
+        if (reference !== active.card && reference !== active.card.nextElementSibling) grid.insertBefore(active.card, reference);
+      }
+      const edge = 76;
+      if (event.clientY < edge) window.scrollBy({ top: -Math.ceil((edge - event.clientY) * 0.16), behavior: 'auto' });
+      else if (event.clientY > window.innerHeight - edge) window.scrollBy({ top: Math.ceil((event.clientY - (window.innerHeight - edge)) * 0.16), behavior: 'auto' });
+    });
+
+    grid.addEventListener('pointerup', event => {
+      if (!active || event.pointerId !== active.pointerId) return;
+      if (active.started) event.preventDefault();
+      clearDrag();
+    });
+    grid.addEventListener('pointercancel', clearDrag);
+    grid.addEventListener('lostpointercapture', clearDrag);
+
+    grid.addEventListener('click', event => {
+      if (!didDrag) return;
+      event.preventDefault();
+      event.stopPropagation();
+    }, true);
+
+    grid.addEventListener('keydown', event => {
+      const handle = event.target.closest('.archive-drag-handle');
+      if (!handle || !['ArrowUp', 'ArrowDown', 'Home', 'End'].includes(event.key)) return;
+      const card = handle.closest('[data-archive-item]');
+      if (!card) return;
+      const list = cards();
+      const index = list.indexOf(card);
+      let next = index;
+      if (event.key === 'ArrowUp') next = Math.max(0, index - 1);
+      if (event.key === 'ArrowDown') next = Math.min(list.length - 1, index + 1);
+      if (event.key === 'Home') next = 0;
+      if (event.key === 'End') next = list.length - 1;
+      if (next === index) return;
+      event.preventDefault();
+      const reference = list[next];
+      grid.insertBefore(card, next > index ? reference.nextElementSibling : reference);
+      persist();
+      handle.focus({ preventScroll: true });
     });
   });
 }());

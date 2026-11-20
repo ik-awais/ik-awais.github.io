@@ -2,6 +2,7 @@
 {{- $accent := .accent | default "" -}}
 {{- $pages := .pages -}}
 {{- $limit := .limit | default 3 -}}
+{{- $family := .orderFamily | default "portfolio" -}}
 {{- $featuredRecords := slice -}}
 {{- range $pages -}}
   {{- $page := . -}}
@@ -29,7 +30,11 @@
       {{- $fallback = $fallback | append . -}}
     {{- end -}}
   {{- end -}}
-  {{- if .sortByWeight -}}
+  {{- $hasFallbackWeights := false -}}
+  {{- range $fallback -}}
+    {{- if ne .Weight 0 -}}{{- $hasFallbackWeights = true -}}{{- end -}}
+  {{- end -}}
+  {{- if or $.sortByWeight $hasFallbackWeights -}}
     {{- $fallback = sort $fallback "Weight" "asc" -}}
   {{- else -}}
     {{- $fallback = sort $fallback "Date" "desc" -}}
@@ -39,12 +44,19 @@
     {{- $selected = $selected | append . -}}
   {{- end -}}
 {{- end -}}
+{{- $hasSelectedWeights := false -}}
+{{- range $selected -}}
+  {{- if ne .Weight 0 -}}{{- $hasSelectedWeights = true -}}{{- end -}}
+{{- end -}}
+{{- if $hasSelectedWeights -}}
+  {{- $selected = sort $selected "Weight" "asc" -}}
+{{- end -}}
 
 <section class="home-preview-section" aria-label="{{ $heading }}">
   <div class="home-preview-header">
     <div class="home-preview-heading-group">
       <p class="home-preview-eyebrow">Explore the portfolio</p>
-      <h2 class="section-title">{{ $heading }} <span class="accent">{{ $accent }}</span></h2>
+      <h2 class="section-title">{{ $heading }} <span class="accent">{{ $accent | safeHTML }}</span></h2>
     </div>
     {{- if .url -}}
     <a class="home-preview-all-link" href="{{ .url }}">{{ .linkLabel | default "View all" }} <span aria-hidden="true">&#8594;</span></a>
@@ -60,31 +72,51 @@
   {{- end -}}
 
   {{- if gt (len $selected) 0 -}}
-  <div class="home-preview-track" role="list" aria-label="{{ $heading }} previews">
-    {{- range $selected -}}
-      {{- $item := . -}}
-      {{- $summary := .Params.summary | default .Summary | plainify -}}
-      {{- $organization := .Params.company | default .Params.institution | default .Params.venue -}}
-      <a class="home-preview-card" role="listitem" href="{{ $item.RelPermalink }}" aria-label="Read {{ $item.Title }}">
-        <div class="home-preview-media">
-          {{- partial "card-thumb.html" $item -}}
-        </div>
-        <div class="home-preview-copy">
-          {{- if $item.Params.startDate -}}
-          <p class="home-preview-meta">{{ $item.Params.startDate }}{{ with $item.Params.endDate }} &ndash; {{ . }}{{ else }} &ndash; Present{{ end }}</p>
-          {{- else if not $item.Date.IsZero -}}
-          <p class="home-preview-meta">{{ $item.Date.Format "Jan 2006" }}</p>
-          {{- end -}}
-          <h3>{{ $item.Title }}</h3>
-          {{- with $organization -}}
-          <p class="home-preview-organization">{{ . }}</p>
-          {{- end -}}
-          {{- with $summary -}}
-          <p class="home-preview-summary">{{ . | truncate 132 }}</p>
-          {{- end -}}
-          <span class="home-preview-card-arrow" aria-hidden="true">&#8599;</span>
-        </div>
-      </a>
+  <div class="home-carousel" data-home-carousel data-order-family="{{ $family }}" role="region" aria-roledescription="carousel" aria-label="{{ $heading }}">
+    <div class="home-preview-viewport">
+      <div class="home-preview-track" data-home-carousel-track role="list" aria-label="{{ $heading }} previews">
+        {{- range $selected -}}
+          {{- $item := . -}}
+          {{- $summary := .Params.summary | default .Summary | plainify -}}
+          {{- $organization := .Params.company | default .Params.institution | default .Params.venue -}}
+          <a class="home-preview-card" data-home-item data-order-key="{{ $item.File.Path }}" role="listitem" href="{{ $item.RelPermalink }}" aria-label="Read {{ $item.Title }}">
+            <div class="home-preview-media">
+              {{- partial "card-thumb.html" $item -}}
+            </div>
+            <div class="home-preview-copy">
+              {{- if $item.Params.startDate -}}
+              <p class="home-preview-meta">{{ $item.Params.startDate }}{{ with $item.Params.endDate }} &ndash; {{ . }}{{ else }} &ndash; Present{{ end }}</p>
+              {{- else if not $item.Date.IsZero -}}
+              <p class="home-preview-meta">{{ $item.Date.Format "Jan 2006" }}</p>
+              {{- end -}}
+              <h3>{{ $item.Title }}</h3>
+              {{- with $organization -}}
+              <p class="home-preview-organization">{{ . }}</p>
+              {{- end -}}
+              {{- with $summary -}}
+              <p class="home-preview-summary">{{ . | truncate 132 }}</p>
+              {{- end -}}
+              <span class="home-preview-card-arrow" aria-hidden="true">&#8599;</span>
+            </div>
+          </a>
+        {{- end -}}
+      </div>
+    </div>
+    {{- if gt (len $selected) 1 -}}
+    <div class="home-carousel-footer">
+      <div class="home-carousel-progress-track" role="progressbar" aria-label="{{ $heading }} carousel progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <span class="home-carousel-progress" data-home-progress></span>
+      </div>
+      <div class="home-carousel-controls">
+        <button type="button" class="home-carousel-control" data-home-prev aria-label="Previous {{ $heading }} card" title="Previous">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        </button>
+        <button type="button" class="home-carousel-control home-carousel-pause" data-home-pause aria-pressed="false" aria-label="Pause automatic carousel">Pause</button>
+        <button type="button" class="home-carousel-control" data-home-next aria-label="Next {{ $heading }} card" title="Next">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        </button>
+      </div>
+    </div>
     {{- end -}}
   </div>
   {{- else -}}

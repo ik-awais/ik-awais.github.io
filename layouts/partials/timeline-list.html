@@ -21,10 +21,10 @@
   </div>
   {{ else }}
   <div class="archive-grid-wrap">
-    <div class="project-grid" data-archive-grid data-archive-section="{{ .Section }}" data-initial-count="9">
+    <div class="project-grid" data-archive-grid data-archive-section="{{ .Section }}" data-order-family="{{ .Section }}" data-initial-count="9">
       {{ range $pages }}
       {{ $org := .Params.institution | default .Params.company }}
-      <article class="project-card reveal" data-archive-item data-content-file="{{ .File.Path }}">
+      <article class="project-card reveal" data-archive-item data-content-file="{{ .File.Path }}" data-order-key="{{ .File.Path }}">
         {{ partial "card-thumb.html" . }}
         <div class="project-card-body">
           <p class="project-num">{{ with .Params.startDate }}{{ . }}{{ end }}{{ if .Params.endDate }} &ndash; {{ .Params.endDate }}{{ else if .Params.startDate }} &ndash; Present{{ end }}</p>

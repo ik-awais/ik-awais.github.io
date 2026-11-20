@@ -316,12 +316,12 @@
 
 {{ partial "home-preview-section.html" (dict
   "heading" "Projects" "accent" "Worth a Look."
-  "pages" $projects "limit" 4 "url" "/projects/" "linkLabel" "All Projects"
+  "pages" $projects "limit" 4 "orderFamily" "projects" "url" "/projects/" "linkLabel" "All Projects"
 ) }}
 
 {{ partial "home-preview-section.html" (dict
   "heading" "Experience" "accent" "Highlights."
-  "pages" $experience "limit" 4 "sortByWeight" true
+  "pages" $experience "limit" 4 "orderFamily" "experience" "sortByWeight" true
   "links" (slice
     (dict "label" "AI GenMat" "url" "/experience/aigenmat/")
     (dict "label" "Other Experience" "url" "/experience/other/")
@@ -330,7 +330,7 @@
 
 {{ partial "home-preview-section.html" (dict
   "heading" "Education" "accent" "Background."
-  "pages" $education "limit" 3
+  "pages" $education "limit" 3 "orderFamily" "education"
   "links" (slice
     (dict "label" "University" "url" "/education/university/")
     (dict "label" "College" "url" "/education/college/")
@@ -340,32 +340,32 @@
 
 {{ partial "home-preview-section.html" (dict
   "heading" "Certificates" "accent" "& Courses."
-  "pages" $certificates "limit" 3 "url" "/education/certificates/" "linkLabel" "All Credentials"
+  "pages" $certificates "limit" 3 "orderFamily" "education" "url" "/education/certificates/" "linkLabel" "All Credentials"
 ) }}
 
 {{ partial "home-preview-section.html" (dict
   "heading" "Blog" "accent" "& Notes."
-  "pages" $blogs "limit" 3 "url" "/blog/" "linkLabel" "All Posts"
+  "pages" $blogs "limit" 3 "orderFamily" "blog" "url" "/blog/" "linkLabel" "All Posts"
 ) }}
 
 {{ partial "home-preview-section.html" (dict
   "heading" "Articles" "accent" "& Essays."
-  "pages" $articles "limit" 3 "url" "/articles/" "linkLabel" "All Articles"
+  "pages" $articles "limit" 3 "orderFamily" "articles" "url" "/articles/" "linkLabel" "All Articles"
 ) }}
 
 {{ partial "home-preview-section.html" (dict
   "heading" "Publications" "accent" "& Research."
-  "pages" $publications "limit" 3 "url" "/publications/" "linkLabel" "All Publications"
+  "pages" $publications "limit" 3 "orderFamily" "publications" "url" "/publications/" "linkLabel" "All Publications"
 ) }}
 
 {{ partial "home-preview-section.html" (dict
   "heading" "Achievements" "accent" "& Recognition."
-  "pages" $achievements "limit" 3 "url" "/achievements/" "linkLabel" "All Achievements"
+  "pages" $achievements "limit" 3 "orderFamily" "achievements" "url" "/achievements/" "linkLabel" "All Achievements"
 ) }}
 
 {{ partial "home-preview-section.html" (dict
   "heading" "Activities" "accent" "& Community."
-  "pages" $activities "limit" 3 "url" "/activities/" "linkLabel" "All Activities"
+  "pages" $activities "limit" 3 "orderFamily" "activities" "url" "/activities/" "linkLabel" "All Activities"
 ) }}
 
 
