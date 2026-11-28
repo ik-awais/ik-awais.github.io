@@ -11,4 +11,4 @@ Received a certificate of participation associated with the AWS Student Communit
 
 **Recognition:** Certificate of Participation  
 **Organization:** AWS Student Community Group  
-**Institution:** Quaid-i-Azam University, Islamabad
+**Institution:** Quaid-e-Azam University, Islamabad

@@ -8,7 +8,7 @@ summary: "Muhammad Awais's experience at AI GenMat across operations, client eng
 
 My experience at AI GenMat has involved progressive responsibilities across human resources, organizational leadership, technical contributions, and company operations.
 
-I joined the organization in February 2025 as a Human Resources Assistant, later served as Managing Director from February to August 2026, and currently hold the position of Operations Associate.
+I joined the organization in February 2025 as a Human Resources Assistant, later served as Managing Director from February to September 2026, and currently hold the position of Operations Associate.
 
 ## Role Progression
 
